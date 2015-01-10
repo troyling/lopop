@@ -10,4 +10,8 @@
 
 @interface LPSignUpViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+- (IBAction)connectWithFacebook:(id)sender;
+
 @end

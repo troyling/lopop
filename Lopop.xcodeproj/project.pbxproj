@@ -31,6 +31,8 @@
 		D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9001A619A86007B9992 /* LPSignUpViewController.m */; };
 		D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9031A619A9C007B9992 /* LPSignUpDetailViewController.m */; };
 		D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */; };
+		D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9101A619E97007B9992 /* signup_view_1.jpg */; };
+		D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9111A619E97007B9992 /* signup_view.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		D66CC9031A619A9C007B9992 /* LPSignUpDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpDetailViewController.m; path = Controllers/User/Login/LPSignUpDetailViewController.m; sourceTree = "<group>"; };
 		D66CC9051A619AB3007B9992 /* LPUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserProfileViewController.h; path = Controllers/User/Profile/LPUserProfileViewController.h; sourceTree = "<group>"; };
 		D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserProfileViewController.m; path = Controllers/User/Profile/LPUserProfileViewController.m; sourceTree = "<group>"; };
+		D66CC9101A619E97007B9992 /* signup_view_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view_1.jpg; path = Resources/Images/signup_view_1.jpg; sourceTree = "<group>"; };
+		D66CC9111A619E97007B9992 /* signup_view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view.jpg; path = Resources/Images/signup_view.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,8 +261,18 @@
 		D66CC9081A619AEB007B9992 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D66CC90D1A619E17007B9992 /* Images */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		D66CC90D1A619E17007B9992 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D66CC9101A619E97007B9992 /* signup_view_1.jpg */,
+				D66CC9111A619E97007B9992 /* signup_view.jpg */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +355,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */,
+				D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */,
 				D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */,
 				D66CC8C11A60DD8C007B9992 /* LaunchScreen.xib in Resources */,
 				D66CC8BE1A60DD8C007B9992 /* Images.xcassets in Resources */,
