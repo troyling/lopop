@@ -142,9 +142,9 @@
                                     <constraint firstAttribute="height" constant="125" id="erz-S4-Iy3"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eo-Yw-vX3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Full Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eo-Yw-vX3">
                                 <rect key="frame" x="40" y="153" width="240" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -165,6 +165,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P9J-cw-Gr8"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="7eo-Yw-vX3" id="F7Q-9Y-7sh"/>
+                        <outlet property="profileImageView" destination="Li2-Np-Vw7" id="GIR-Nx-wSf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uFZ-OU-EjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
