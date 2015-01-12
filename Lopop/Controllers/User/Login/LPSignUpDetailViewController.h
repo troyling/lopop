@@ -10,4 +10,8 @@
 
 @interface LPSignUpDetailViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *registrationFormView;
+
+- (IBAction)cancelSignUp:(id)sender;
+
 @end

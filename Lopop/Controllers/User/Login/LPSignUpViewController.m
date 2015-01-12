@@ -16,7 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [PFFacebookUtils initializeFacebook];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -66,6 +65,7 @@
             }
             [self _presentUserProfileViewControllerAnimated:NO];
         }
+        self.activityIndicator.hidden = YES;
     }];
     
     self.activityIndicator.hidden = NO;

@@ -10,4 +10,16 @@
 
 @implementation LPSignUpDetailViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (IBAction)cancelSignUp:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
