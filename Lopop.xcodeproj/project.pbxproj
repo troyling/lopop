@@ -34,6 +34,7 @@
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
+		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
 		D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpTableViewController.m; path = Controllers/User/Login/LPSignUpTableViewController.m; sourceTree = "<group>"; };
+		D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "Helpers/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageEffects.m"; path = "Helpers/UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,7 @@
 		D66CC8AF1A60DD8C007B9992 /* Lopop */ = {
 			isa = PBXGroup;
 			children = (
+				D6E6EB0E1A6470A6008085F7 /* Helpers */,
 				D66CC8FE1A6199E8007B9992 /* Application */,
 				D66CC8F71A60E9A0007B9992 /* Controllers */,
 				D66CC8F61A60E98E007B9992 /* Views */,
@@ -280,6 +284,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		D6E6EB0E1A6470A6008085F7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */,
+				D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -384,6 +397,7 @@
 			files = (
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
+				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,

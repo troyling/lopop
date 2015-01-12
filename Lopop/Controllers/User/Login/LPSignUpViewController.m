@@ -7,7 +7,9 @@
 //
 
 #import "LPSignUpViewController.h"
+#import "LPSignUpDetailViewController.h"
 #import "LPUserProfileViewController.h"
+#import "UIImage+ImageEffects.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @implementation LPSignUpViewController
@@ -72,12 +74,34 @@
     [_activityIndicator startAnimating];
 }
 
+- (UIImage *)convertCurrentViewToImage {
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
 #pragma mark - Navigation
 
 
 - (void)_presentUserProfileViewControllerAnimated:(BOOL)animated {
     LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
     [self presentViewController:vc animated:animated completion:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"signUpDetailViewControllerSegue"] &&
+        [[segue destinationViewController] isKindOfClass:[LPSignUpDetailViewController class]]) {
+        LPSignUpDetailViewController *vc = [segue destinationViewController];
+        UIImage *img = [self convertCurrentViewToImage];
+        img = [img applyBlurWithRadius:20
+                             tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                 saturationDeltaFactor:1.3
+                             maskImage:nil];
+        vc.bgImg = img;
+    }
 }
 
 @end

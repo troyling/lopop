@@ -10,6 +10,8 @@
 
 @interface LPSignUpDetailViewController : UIViewController
 
+@property UIImage *bgImg;
+
 - (IBAction)cancelSignUp:(id)sender;
 
 @end
