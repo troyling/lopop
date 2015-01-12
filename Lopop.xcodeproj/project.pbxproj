@@ -33,6 +33,7 @@
 		D6AF512D1A635CD600A02C90 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512A1A635CD600A02C90 /* Bolts.framework */; };
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
+		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,8 @@
 		D6AF512A1A635CD600A02C90 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
 		D6AF512B1A635CD600A02C90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
+		D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpTableViewController.m; path = Controllers/User/Login/LPSignUpTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,8 @@
 				D66CC9001A619A86007B9992 /* LPSignUpViewController.m */,
 				D66CC9021A619A9C007B9992 /* LPSignUpDetailViewController.h */,
 				D66CC9031A619A9C007B9992 /* LPSignUpDetailViewController.m */,
+				D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */,
+				D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -378,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
+				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,

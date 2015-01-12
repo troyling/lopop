@@ -65,7 +65,7 @@
             }
             [self _presentUserProfileViewControllerAnimated:NO];
         }
-        self.activityIndicator.hidden = YES;
+        
     }];
     
     self.activityIndicator.hidden = NO;

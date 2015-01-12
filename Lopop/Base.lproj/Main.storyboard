@@ -196,10 +196,10 @@
             </objects>
             <point key="canvasLocation" x="249" y="402"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Sign Up Table View Controller-->
         <scene sceneID="fBy-Gh-zmR">
             <objects>
-                <tableViewController id="5AL-wl-KrU" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LPSignUpDetailViewController" id="5AL-wl-KrU" customClass="LPSignUpTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" dataMode="static" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aVP-Cu-8wj">
                         <rect key="frame" x="0.0" y="0.0" width="258" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -331,13 +331,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ohd-sj-I8b"/>
-                    <connections>
-                        <outlet property="registrationFormView" destination="W7z-Km-HaD" id="zD2-Cm-aGX"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bmn-L5-mtL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="249" y="1103"/>
+            <point key="canvasLocation" x="249" y="1098"/>
         </scene>
     </scenes>
     <resources>
