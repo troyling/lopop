@@ -111,4 +111,23 @@
     }
 }
 
+- (IBAction)logout:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Yes"]) {
+        NSLog(@"Logging user out");
+        [PFUser logOut];
+        NSLog(@"%@", [PFUser currentUser]);
+        
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
+        [self presentViewController:vc animated:NO completion:nil];
+    }
+}
+
+
 @end

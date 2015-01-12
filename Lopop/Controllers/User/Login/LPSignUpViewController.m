@@ -14,6 +14,11 @@
 
 #pragma mark UIViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [PFFacebookUtils initializeFacebook];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -22,6 +27,8 @@
          [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [self _presentUserProfileViewControllerAnimated:NO];
     }
+    
+    self.activityIndicator.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +41,8 @@
 }
 
 - (IBAction)connectWithFacebook:(id)sender {
+    NSLog(@"hi");
+    NSLog(@"%@", [PFUser currentUser]);
     NSArray *permissions = @[@"public_profile",
                              @"user_birthday",
                              @"user_friends",
@@ -41,7 +50,6 @@
                              @"user_interests",
                              @"user_location"];
     
-    [PFFacebookUtils initializeFacebook];
     [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
         [_activityIndicator stopAnimating];
         if (!user) {
@@ -59,6 +67,8 @@
             [self _presentUserProfileViewControllerAnimated:NO];
         }
     }];
+    
+    self.activityIndicator.hidden = NO;
     [_activityIndicator startAnimating];
 }
 

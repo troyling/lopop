@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LPUserProfileViewController : UIViewController
+@interface LPUserProfileViewController : UIViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+- (IBAction)logout:(id)sender;
 
 @end
