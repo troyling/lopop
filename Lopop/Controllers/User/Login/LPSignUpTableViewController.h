@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LPSignUpDetailViewController.h"
 
 @interface LPSignUpTableViewController : UITableViewController
+
+@property LPSignUpDetailViewController *detailViewController;
+
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @end

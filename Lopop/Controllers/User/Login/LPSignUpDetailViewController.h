@@ -11,7 +11,10 @@
 @interface LPSignUpDetailViewController : UIViewController
 
 @property UIImage *bgImg;
+@property (weak, nonatomic) IBOutlet UIButton *signupBtn;
 
 - (IBAction)cancelSignUp:(id)sender;
+- (IBAction)signup:(id)sender;
+- (void)enableSignUpBtn:(BOOL)enabled;
 
 @end

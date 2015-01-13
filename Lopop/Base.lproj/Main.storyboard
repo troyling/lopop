@@ -216,7 +216,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-MC-lA1">
                                                     <rect key="frame" x="8" y="12" width="242" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -229,7 +229,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P0n-sQ-j1Q">
                                                     <rect key="frame" x="8" y="10" width="242" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -242,7 +242,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zhn-Wl-ibm">
                                                     <rect key="frame" x="8" y="10" width="242" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -255,6 +255,11 @@
                             <outlet property="delegate" destination="5AL-wl-KrU" id="gvf-Db-fpF"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="emailField" destination="P0n-sQ-j1Q" id="6W1-pq-Oke"/>
+                        <outlet property="nameField" destination="Vqy-MC-lA1" id="zUY-42-cGb"/>
+                        <outlet property="passwordField" destination="Zhn-Wl-ibm" id="H4g-H6-IgK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dgw-8i-xQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -312,6 +317,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signup:" destination="gxO-aq-khb" eventType="touchUpInside" id="lqT-f9-RE7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -332,6 +340,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ohd-sj-I8b"/>
+                    <connections>
+                        <outlet property="signupBtn" destination="8XO-d8-D1r" id="mmo-oV-qef"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bmn-L5-mtL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
