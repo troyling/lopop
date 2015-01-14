@@ -78,6 +78,7 @@
 - (void)_presentProfileData {
     NSLog(@"presenting profile data");
     NSDictionary *profile = [PFUser currentUser][@"profile"];
+    NSLog(@"%@", profile);
     
     if (profile) {
         NSString *name = profile[@"name"];

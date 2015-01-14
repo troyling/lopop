@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "LPSignUpViewController.h"
+#import "LPMainViewTabBarController.h"
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -31,6 +33,15 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // detect if the user is cached
+    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+    UIViewController *vc = [PFUser currentUser] ? [storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"] : [storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
+    self.window.rootViewController = vc;
+    
+    // apply global tint
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1]];
+    
     return YES;
 }
 

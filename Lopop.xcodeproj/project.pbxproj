@@ -36,6 +36,7 @@
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 		D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */; };
+		D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageEffects.m"; path = "Helpers/UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		D6E6EB121A64D6B2008085F7 /* LPFormValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFormValidator.h; path = Helpers/LPFormValidator.h; sourceTree = "<group>"; };
 		D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFormValidator.m; path = Helpers/LPFormValidator.m; sourceTree = "<group>"; };
+		D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMainViewTabBarController.h; path = Controllers/MainView/LPMainViewTabBarController.h; sourceTree = "<group>"; };
+		D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMainViewTabBarController.m; path = Controllers/MainView/LPMainViewTabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6008A101A65A1340057771A /* TabBarIcons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = TabBarIcons;
+			sourceTree = "<group>";
+		};
 		D66CC8A41A60DD8C007B9992 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +235,7 @@
 		D66CC8F71A60E9A0007B9992 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D6E6EB151A659108008085F7 /* MainView */,
 				D66CC8F81A60E9AC007B9992 /* User */,
 			);
 			name = Controllers;
@@ -281,6 +292,7 @@
 		D66CC90D1A619E17007B9992 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D6008A101A65A1340057771A /* TabBarIcons */,
 				D66CC9101A619E97007B9992 /* signup_view_1.jpg */,
 				D66CC9111A619E97007B9992 /* signup_view.jpg */,
 			);
@@ -296,6 +308,15 @@
 				D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		D6E6EB151A659108008085F7 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */,
+				D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */,
+			);
+			name = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
+				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
