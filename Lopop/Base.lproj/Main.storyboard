@@ -139,8 +139,8 @@
                         <color key="selectedImageTintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="uLS-fH-aSh" kind="relationship" relationship="viewControllers" id="onq-SF-YHa"/>
-                        <segue destination="QSb-HS-eEf" kind="relationship" relationship="viewControllers" id="yzD-7J-1Su"/>
+                        <segue destination="Pnp-Hn-7lV" kind="relationship" relationship="viewControllers" id="onq-SF-YHa"/>
+                        <segue destination="NRh-57-j6F" kind="relationship" relationship="viewControllers" id="yzD-7J-1Su"/>
                         <segue destination="PhZ-EF-xaN" kind="relationship" relationship="viewControllers" id="2V7-C7-FPR"/>
                         <segue destination="5mR-pn-fNI" kind="relationship" relationship="viewControllers" id="85g-u6-Bfx"/>
                         <segue destination="wZ1-sA-RZh" kind="relationship" relationship="viewControllers" id="CX6-xW-PE7"/>
@@ -162,8 +162,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0we-Sd-x69">
-                                <rect key="frame" x="121" y="273" width="78" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages. Notifications sending from people interested in." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0we-Sd-x69">
+                                <rect key="frame" x="66" y="212" width="188" height="121"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -177,7 +177,7 @@
             </objects>
             <point key="canvasLocation" x="904" y="0.0"/>
         </scene>
-        <!--Market-->
+        <!--View Controller-->
         <scene sceneID="Kfv-cO-f4B">
             <objects>
                 <viewController id="QSb-HS-eEf" sceneMemberID="viewController">
@@ -189,8 +189,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Market" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY3-El-bpk">
-                                <rect key="frame" x="133" y="273" width="54" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Market. Table list view" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY3-El-bpk">
+                                <rect key="frame" x="75" y="273" width="170" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -198,16 +198,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Market" image="TabBarMarket" id="beE-hX-old"/>
+                    <navigationItem key="navigationItem" id="GHq-KO-P6u"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tNe-pE-06Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="904" y="-638"/>
+            <point key="canvasLocation" x="1436" y="-638"/>
         </scene>
-        <!--Feed-->
+        <!--Pops-->
         <scene sceneID="Vsp-jp-Ro3">
             <objects>
-                <viewController id="uLS-fH-aSh" sceneMemberID="viewController">
+                <viewController id="uLS-fH-aSh" customClass="LPFeedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xQB-ph-RIg"/>
                         <viewControllerLayoutGuide type="bottom" id="ftN-kO-hP8"/>
@@ -216,8 +216,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MC-33-2JN">
-                                <rect key="frame" x="141" y="273" width="39" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feed in table list view or map view" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MC-33-2JN">
+                                <rect key="frame" x="28" y="245" width="264" height="77"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -225,11 +225,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feed" image="TabBarFeed" id="8qe-N2-nmF"/>
+                    <navigationItem key="navigationItem" title="Pops" id="nFH-YO-LmY">
+                        <barButtonItem key="leftBarButtonItem" title="List" id="ROm-ji-JTq"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="LfC-Qy-PVP"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITv-8J-wBE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="904" y="-1294"/>
+            <point key="canvasLocation" x="1436" y="-1294"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2hV-KF-D8C">
@@ -249,17 +252,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lms-HL-mcR">
-                                <rect key="frame" x="143" y="116" width="35" height="30"/>
-                                <state key="normal" title="Push">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LwG-65-Fa8">
+                                <rect key="frame" x="31" y="72" width="258" height="40"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ioM-EN-o4a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="View Profile">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Cg3-tZ-sYk" kind="push" id="PkE-EA-Uq5"/>
+                                    <action selector="signup:" destination="gxO-aq-khb" eventType="touchUpInside" id="jYb-OZ-QeB"/>
+                                    <segue destination="Cg3-tZ-sYk" kind="push" id="diL-iH-sje"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LwG-65-Fa8" firstAttribute="leading" secondItem="NHu-H6-8qv" secondAttribute="leadingMargin" constant="15" id="RPf-xq-qbk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LwG-65-Fa8" secondAttribute="trailing" constant="15" id="jbd-GH-4Lo"/>
+                            <constraint firstItem="LwG-65-Fa8" firstAttribute="top" secondItem="qVc-PT-Lqa" secondAttribute="bottom" constant="8" id="t2t-5R-46N"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sqf-Re-Jcg"/>
                 </viewController>
@@ -279,8 +294,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQk-JB-93O">
-                                <rect key="frame" x="125" y="273" width="70" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business. IMHO, this should be the button to create a pop" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQk-JB-93O">
+                                <rect key="frame" x="45" y="196" width="230" height="176"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -533,6 +548,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YV4-gX-h0Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="904" y="1312"/>
+        </scene>
+        <!--Pops-->
+        <scene sceneID="l43-Dl-xhj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pnp-Hn-7lV" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pops" image="TabBarFeed" id="8qe-N2-nmF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UoT-fz-mae">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uLS-fH-aSh" kind="relationship" relationship="rootViewController" id="ru5-Jk-7bU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JK5-33-kjq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="904" y="-1294"/>
+        </scene>
+        <!--Market-->
+        <scene sceneID="r61-F4-b8y">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NRh-57-j6F" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Market" image="TabBarMarket" id="beE-hX-old"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Rs-lo-iA2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QSb-HS-eEf" kind="relationship" relationship="rootViewController" id="G6p-cs-J9e"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yfi-5y-4kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="904" y="-638"/>
         </scene>
     </scenes>
     <resources>

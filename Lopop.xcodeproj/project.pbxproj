@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedViewController.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D6008A1E1A6716D00057771A /* LPFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedViewController.h; path = Controllers/MainView/Feed/LPFeedViewController.h; sourceTree = "<group>"; };
+		D6008A1F1A6716D00057771A /* LPFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedViewController.m; path = Controllers/MainView/Feed/LPFeedViewController.m; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -132,6 +135,15 @@
 			children = (
 			);
 			name = TabBarIcons;
+			sourceTree = "<group>";
+		};
+		D6008A1A1A6711830057771A /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D6008A1E1A6716D00057771A /* LPFeedViewController.h */,
+				D6008A1F1A6716D00057771A /* LPFeedViewController.m */,
+			);
+			name = Feed;
 			sourceTree = "<group>";
 		};
 		D66CC8A41A60DD8C007B9992 = {
@@ -313,6 +325,7 @@
 		D6E6EB151A659108008085F7 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				D6008A1A1A6711830057771A /* Feed */,
 				D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */,
 				D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */,
 			);
@@ -425,6 +438,7 @@
 				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */,
+				D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,

@@ -58,7 +58,7 @@
                 profile[@"birthday"] = birthday;
             }
             
-            profile[@"pictureURL"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID];
+            profile[@"pictureURL"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1&height=150&width=150", facebookID];
             
             // save data to parse
             [[PFUser currentUser] setObject:profile forKey:@"profile"];
