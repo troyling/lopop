@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LPNewPopViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate>
+@interface LPNewPopViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 

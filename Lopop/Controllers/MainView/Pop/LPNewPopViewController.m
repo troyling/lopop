@@ -31,17 +31,45 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
+    // TODO detection needs to be changed
     if ([LPDevicePermissionValidator canAddPhoto]) {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-        [self presentViewController:imagePicker animated:YES completion:NULL];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        [actionSheet addButtonWithTitle:@"Take photo"];
+        [actionSheet addButtonWithTitle:@"Choose from library"];
+        [actionSheet showInView:self.view];
     } else {
         NSLog(@"Error");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Cannot take a picture. Please make sure you allow the Lopop to use the camera." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Take photo"]) {
+        [self _takePicture];
+    } else if ([title isEqualToString:@"Choose from library"]) {
+        [self _chooseImages];
+    }
+}
+
+- (void)_takePicture {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)_chooseImages {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:NULL];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -53,6 +81,7 @@
     self.imageView.image = self.image;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
 
 
 @end
