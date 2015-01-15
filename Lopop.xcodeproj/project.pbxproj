@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedViewController.m */; };
+		D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopViewController.m */; };
+		D6008A271A675E8D0057771A /* LPDevicePermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -53,6 +55,10 @@
 /* Begin PBXFileReference section */
 		D6008A1E1A6716D00057771A /* LPFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedViewController.h; path = Controllers/MainView/Feed/LPFeedViewController.h; sourceTree = "<group>"; };
 		D6008A1F1A6716D00057771A /* LPFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedViewController.m; path = Controllers/MainView/Feed/LPFeedViewController.m; sourceTree = "<group>"; };
+		D6008A221A67269F0057771A /* LPNewPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopViewController.h; path = Controllers/MainView/Pop/LPNewPopViewController.h; sourceTree = "<group>"; };
+		D6008A231A67269F0057771A /* LPNewPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewPopViewController.m; path = Controllers/MainView/Pop/LPNewPopViewController.m; sourceTree = "<group>"; };
+		D6008A251A675E8D0057771A /* LPDevicePermissionValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPDevicePermissionValidator.h; path = Helpers/LPDevicePermissionValidator.h; sourceTree = "<group>"; };
+		D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPDevicePermissionValidator.m; path = Helpers/LPDevicePermissionValidator.m; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -144,6 +150,15 @@
 				D6008A1F1A6716D00057771A /* LPFeedViewController.m */,
 			);
 			name = Feed;
+			sourceTree = "<group>";
+		};
+		D6008A211A67266F0057771A /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				D6008A221A67269F0057771A /* LPNewPopViewController.h */,
+				D6008A231A67269F0057771A /* LPNewPopViewController.m */,
+			);
+			name = Pop;
 			sourceTree = "<group>";
 		};
 		D66CC8A41A60DD8C007B9992 = {
@@ -318,6 +333,8 @@
 				D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */,
 				D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */,
 				D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */,
+				D6008A251A675E8D0057771A /* LPDevicePermissionValidator.h */,
+				D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -325,6 +342,7 @@
 		D6E6EB151A659108008085F7 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				D6008A211A67266F0057771A /* Pop */,
 				D6008A1A1A6711830057771A /* Feed */,
 				D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */,
 				D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */,
@@ -443,7 +461,9 @@
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
+				D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
+				D6008A271A675E8D0057771A /* LPDevicePermissionValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
