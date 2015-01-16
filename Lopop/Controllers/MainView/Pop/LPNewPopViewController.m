@@ -7,17 +7,25 @@
 //
 
 #import "LPNewPopViewController.h"
-#import "LPDevicePermissionValidator.h"
+#import "LPPermissionValidator.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LPPop.h"
 
 @interface LPNewPopViewController ()
+
 @property NSMutableArray *images;
 @property LPPop *pop;
+
 @end
 
 @implementation LPNewPopViewController
+
 float const LEAST_COMPRESSION = 1.0f;
+NSString *const TAKE_PHOTO = @"Take photo";
+NSString *const CHOOSE_FROM_PHOTO_LIBRARY = @"Choose from library";
+NSString *const BTN_TITLE_CONFIRMATION = @"Yes";
+NSString *const BTN_TITLE_DISMISS = @"Dismiss";
+NSString *const BTN_TITLE_CANCEL = @"Cancel";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,61 +34,66 @@ float const LEAST_COMPRESSION = 1.0f;
     self.images = [[NSMutableArray alloc] init];
 }
 
-- (void)_takePicture {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    imagePicker.allowsEditing = YES;
-    [self presentViewController:imagePicker animated:YES completion:NULL];
-}
-
-- (void)_chooseImages {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    imagePicker.allowsEditing = YES;
-    [self presentViewController:imagePicker animated:YES completion:NULL];
-}
-
 - (IBAction)cancelNewPop:(id)sender {
     // TODO we might want to save the data as the user start filling in data, especially uploading pictures will be time-consuming.
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Discard the pop?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Discard the pop?" delegate:self cancelButtonTitle:BTN_TITLE_CANCEL otherButtonTitles:BTN_TITLE_CONFIRMATION, nil];
     [alert show];
 }
 
 - (IBAction)createPop:(id)sender {
     self.pop.type = [self.typeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.pop.description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    // image needs to be saved when the user start populating the image
     self.pop.images = self.images;
-//    self.pop[@"image"] = self.images.firstObject;
     self.pop.user = [PFUser currentUser];
-    [self.pop saveInBackground];
+    [self.pop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // Successfully posted
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }   
+    }];
 }
 
 - (IBAction)addPhoto:(id)sender {
-    // TODO detection needs to be changed to account for access to the photo library
-    if ([LPDevicePermissionValidator canAddPhoto]) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-        [actionSheet addButtonWithTitle:@"Take photo"];
-        [actionSheet addButtonWithTitle:@"Choose from library"];
-        [actionSheet showInView:self.view];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:BTN_TITLE_CANCEL destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    [actionSheet addButtonWithTitle:TAKE_PHOTO];
+    [actionSheet addButtonWithTitle:CHOOSE_FROM_PHOTO_LIBRARY];
+    [actionSheet showInView:self.view];
+}
+
+- (void)takePicture {
+    if ([LPPermissionValidator isCameraAccessible]) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        imagePicker.allowsEditing = YES;
+        [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
-        NSLog(@"Error");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Cannot take a picture. Please make sure you allow the Lopop to use the camera." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-        [alert show];
+        // TODO changed it to add a button to access the system settings
+        [self fatalError:@"Unable to take picture. Please allow camera permission in settings"];
+    }
+}
+
+- (void)chooseImages {
+    if ([LPPermissionValidator isPhotoLibraryAccessible]) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        imagePicker.allowsEditing = YES;
+        [self presentViewController:imagePicker animated:YES completion:NULL];
+    } else {
+        [self fatalError:@"Unable to choose picture. Please allow photo library access permission in settings"];
     }
 }
 
 #pragma mark actionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:@"Take photo"]) {
-        [self _takePicture];
-    } else if ([title isEqualToString:@"Choose from library"]) {
-        [self _chooseImages];
+    if ([title isEqualToString:TAKE_PHOTO]) {
+        [self takePicture];
+    } else if ([title isEqualToString:CHOOSE_FROM_PHOTO_LIBRARY]) {
+        [self chooseImages];
     }
 }
 
@@ -90,36 +103,31 @@ float const LEAST_COMPRESSION = 1.0f;
     if (!image) {
         image = info[UIImagePickerControllerOriginalImage];
     }
-    // save the image to server in background
     NSData *imageData = UIImageJPEGRepresentation(image, LEAST_COMPRESSION);
-    
-    // PFFile has 10MB of size limit
-    PFFile *parseImage = [PFFile fileWithData:imageData];
+    PFFile *parseImage = [PFFile fileWithData:imageData]; // PFFile has 10MB of size limit
     [parseImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!succeeded) {
-            [self _fatalError:[error localizedDescription]];
-        } else {
-            // stop the progress indicator and show the image in the view
+        if (succeeded) {
+            // TODO stop the progress indicator and show the image in the view
             [self.images addObject:parseImage];
             self.imageView.image = image;
+        } else {
+            [self fatalError:[error localizedDescription]];
         }
     }];
-    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark alertView
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:BTN_TITLE_CONFIRMATION]) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
-// make this global
-- (void)_fatalError:(NSString *)errorMsg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorMsg delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+// TODO make this global
+- (void)fatalError:(NSString *)errorMsg {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorMsg delegate:nil cancelButtonTitle:BTN_TITLE_DISMISS otherButtonTitles:nil, nil];
     [alert show];
 }
 
 @end
- 

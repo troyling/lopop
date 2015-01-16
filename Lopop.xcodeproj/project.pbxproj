@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopViewController.m */; };
-		D6008A271A675E8D0057771A /* LPDevicePermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */; };
+		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
 		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
@@ -58,8 +58,8 @@
 		D6008A1F1A6716D00057771A /* LPFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedViewController.m; path = Controllers/MainView/Feed/LPFeedViewController.m; sourceTree = "<group>"; };
 		D6008A221A67269F0057771A /* LPNewPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopViewController.h; path = Controllers/MainView/Pop/LPNewPopViewController.h; sourceTree = "<group>"; };
 		D6008A231A67269F0057771A /* LPNewPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewPopViewController.m; path = Controllers/MainView/Pop/LPNewPopViewController.m; sourceTree = "<group>"; };
-		D6008A251A675E8D0057771A /* LPDevicePermissionValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPDevicePermissionValidator.h; path = Helpers/LPDevicePermissionValidator.h; sourceTree = "<group>"; };
-		D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPDevicePermissionValidator.m; path = Helpers/LPDevicePermissionValidator.m; sourceTree = "<group>"; };
+		D6008A251A675E8D0057771A /* LPPermissionValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPermissionValidator.h; path = Helpers/LPPermissionValidator.h; sourceTree = "<group>"; };
+		D6008A261A675E8D0057771A /* LPPermissionValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPermissionValidator.m; path = Helpers/LPPermissionValidator.m; sourceTree = "<group>"; };
 		D6008A281A67FD990057771A /* LPPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPop.h; path = Models/LPPop.h; sourceTree = "<group>"; };
 		D6008A291A67FD990057771A /* LPPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPop.m; path = Models/LPPop.m; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,8 +338,8 @@
 				D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */,
 				D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */,
 				D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */,
-				D6008A251A675E8D0057771A /* LPDevicePermissionValidator.h */,
-				D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */,
+				D6008A251A675E8D0057771A /* LPPermissionValidator.h */,
+				D6008A261A675E8D0057771A /* LPPermissionValidator.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -470,7 +470,7 @@
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
 				D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
-				D6008A271A675E8D0057771A /* LPDevicePermissionValidator.m in Sources */,
+				D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

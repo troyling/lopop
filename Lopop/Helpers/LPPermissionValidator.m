@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
 
 @implementation LPPermissionValidator
@@ -28,8 +29,12 @@
     return NO;
 }
 
-+ (BOOL)canAddPhoto {
++ (BOOL)isCameraAccessible {
     return [self isCameraAuthroized] && [self isCameraAvailable];
+}
+
++ (BOOL)isPhotoLibraryAccessible {
+    return [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized;
 }
 
 + (BOOL)isLocationServiceAvailable {

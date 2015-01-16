@@ -12,7 +12,8 @@
 
 + (BOOL)isCameraAuthroized;
 + (BOOL)isCameraAvailable;
-+ (BOOL)canAddPhoto;
++ (BOOL)isCameraAccessible;
 + (BOOL)isLocationServiceAvailable;
++ (BOOL)isPhotoLibraryAccessible;
 
 @end
