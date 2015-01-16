@@ -10,6 +10,7 @@
 		D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopViewController.m */; };
 		D6008A271A675E8D0057771A /* LPDevicePermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */; };
+		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -59,6 +60,8 @@
 		D6008A231A67269F0057771A /* LPNewPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewPopViewController.m; path = Controllers/MainView/Pop/LPNewPopViewController.m; sourceTree = "<group>"; };
 		D6008A251A675E8D0057771A /* LPDevicePermissionValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPDevicePermissionValidator.h; path = Helpers/LPDevicePermissionValidator.h; sourceTree = "<group>"; };
 		D6008A261A675E8D0057771A /* LPDevicePermissionValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPDevicePermissionValidator.m; path = Helpers/LPDevicePermissionValidator.m; sourceTree = "<group>"; };
+		D6008A281A67FD990057771A /* LPPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPop.h; path = Models/LPPop.h; sourceTree = "<group>"; };
+		D6008A291A67FD990057771A /* LPPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPop.m; path = Models/LPPop.m; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -248,6 +251,8 @@
 		D66CC8F51A60E983007B9992 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D6008A281A67FD990057771A /* LPPop.h */,
+				D6008A291A67FD990057771A /* LPPop.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -399,6 +404,7 @@
 				TargetAttributes = {
 					D66CC8AC1A60DD8C007B9992 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = YXU7589MR8;
 					};
 					D66CC8C51A60DD8C007B9992 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -453,6 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
+				D6008A2A1A67FD990057771A /* LPPop.m in Sources */,
 				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */,
@@ -585,6 +592,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/troyling/Documents/FacebookSDK,
@@ -595,6 +604,7 @@
 				INFOPLIST_FILE = Lopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -602,6 +612,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/troyling/Documents/FacebookSDK,
@@ -612,6 +624,7 @@
 				INFOPLIST_FILE = Lopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

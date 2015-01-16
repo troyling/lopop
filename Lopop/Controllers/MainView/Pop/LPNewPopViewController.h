@@ -10,9 +10,13 @@
 
 @interface LPNewPopViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *createPopBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UITextField *typeTextField;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 
 - (IBAction)cancelNewPop:(id)sender;
 - (IBAction)addPhoto:(id)sender;
+- (IBAction)createPop:(id)sender;
 
 @end
