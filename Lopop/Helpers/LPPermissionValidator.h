@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LPDevicePermissionValidator : NSObject
+@interface LPPermissionValidator : NSObject
 
++ (BOOL)isCameraAuthroized;
++ (BOOL)isCameraAvailable;
 + (BOOL)canAddPhoto;
++ (BOOL)isLocationServiceAvailable;
 
 @end
