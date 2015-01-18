@@ -15,11 +15,12 @@
 
 @implementation LPPermissionValidator
 
-+ (BOOL)isCameraAuthroized {
-    return [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized;
++ (BOOL)isCameraAuthorized {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    return status != AVAuthorizationStatusDenied && status != AVAuthorizationStatusRestricted;
 }
 
-+ (BOOL)isCameraAvailable {
++ (BOOL)canCameraTakeImage {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         NSArray *availableTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
         if ([availableTypes containsObject:(NSString *)kUTTypeImage]) {
@@ -30,15 +31,17 @@
 }
 
 + (BOOL)isCameraAccessible {
-    return [self isCameraAuthroized] && [self isCameraAvailable];
+    return [self isCameraAuthorized] && [self canCameraTakeImage];
 }
 
 + (BOOL)isPhotoLibraryAccessible {
-    return [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized;
+    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+    return status != ALAuthorizationStatusDenied && status != ALAuthorizationStatusRestricted;
 }
 
 + (BOOL)isLocationServiceAvailable {
-    return ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) || ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse);
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    return status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusRestricted;
 }
 
 @end

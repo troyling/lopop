@@ -10,8 +10,8 @@
 
 @interface LPPermissionValidator : NSObject
 
-+ (BOOL)isCameraAuthroized;
-+ (BOOL)isCameraAvailable;
++ (BOOL)isCameraAuthorized;
++ (BOOL)canCameraTakeImage;
 + (BOOL)isCameraAccessible;
 + (BOOL)isLocationServiceAvailable;
 + (BOOL)isPhotoLibraryAccessible;

@@ -12,10 +12,8 @@
 #import "LPPop.h"
 
 @interface LPNewPopViewController ()
-
 @property NSMutableArray *images;
 @property LPPop *pop;
-
 @end
 
 @implementation LPNewPopViewController
