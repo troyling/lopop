@@ -17,7 +17,6 @@
 		D66CC8BE1A60DD8C007B9992 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BD1A60DD8C007B9992 /* Images.xcassets */; };
 		D66CC8C11A60DD8C007B9992 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BF1A60DD8C007B9992 /* LaunchScreen.xib */; };
 		D66CC8CD1A60DD8C007B9992 /* LopopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8CC1A60DD8C007B9992 /* LopopTests.m */; };
-		D66CC8D81A60E189007B9992 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8D71A60E189007B9992 /* FacebookSDK.framework */; };
 		D66CC8E01A60E6A6007B9992 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8DF1A60E6A6007B9992 /* AudioToolbox.framework */; };
 		D66CC8E21A60E6AC007B9992 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8E11A60E6AC007B9992 /* CFNetwork.framework */; };
 		D66CC8E41A60E6B3007B9992 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8E31A60E6B3007B9992 /* CoreGraphics.framework */; };
@@ -34,13 +33,13 @@
 		D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */; };
 		D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9101A619E97007B9992 /* signup_view_1.jpg */; };
 		D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9111A619E97007B9992 /* signup_view.jpg */; };
-		D6AF512D1A635CD600A02C90 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512A1A635CD600A02C90 /* Bolts.framework */; };
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 		D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */; };
 		D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */; };
+		D6F63A4B1A6C390A008D08F5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +72,6 @@
 		D66CC8C61A60DD8C007B9992 /* LopopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LopopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8CB1A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8CC1A60DD8C007B9992 /* LopopTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LopopTests.m; sourceTree = "<group>"; };
-		D66CC8D71A60E189007B9992 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		D66CC8DF1A60E6A6007B9992 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D66CC8E11A60E6AC007B9992 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D66CC8E31A60E6B3007B9992 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -93,7 +91,6 @@
 		D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserProfileViewController.m; path = Controllers/User/Profile/LPUserProfileViewController.m; sourceTree = "<group>"; };
 		D66CC9101A619E97007B9992 /* signup_view_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view_1.jpg; path = Resources/Images/signup_view_1.jpg; sourceTree = "<group>"; };
 		D66CC9111A619E97007B9992 /* signup_view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view.jpg; path = Resources/Images/signup_view.jpg; sourceTree = "<group>"; };
-		D6AF512A1A635CD600A02C90 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
 		D6AF512B1A635CD600A02C90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
@@ -104,6 +101,8 @@
 		D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFormValidator.m; path = Helpers/LPFormValidator.m; sourceTree = "<group>"; };
 		D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMainViewTabBarController.h; path = Controllers/MainView/LPMainViewTabBarController.h; sourceTree = "<group>"; };
 		D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMainViewTabBarController.m; path = Controllers/MainView/LPMainViewTabBarController.m; sourceTree = "<group>"; };
+		D6F63A481A6C390A008D08F5 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
+		D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +123,7 @@
 				D66CC8E41A60E6B3007B9992 /* CoreGraphics.framework in Frameworks */,
 				D66CC8E21A60E6AC007B9992 /* CFNetwork.framework in Frameworks */,
 				D66CC8E01A60E6A6007B9992 /* AudioToolbox.framework in Frameworks */,
-				D66CC8D81A60E189007B9992 /* FacebookSDK.framework in Frameworks */,
-				D6AF512D1A635CD600A02C90 /* Bolts.framework in Frameworks */,
+				D6F63A4B1A6C390A008D08F5 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,7 +227,8 @@
 		D66CC8D61A60E152007B9992 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D6AF512A1A635CD600A02C90 /* Bolts.framework */,
+				D6F63A481A6C390A008D08F5 /* Bolts.framework */,
+				D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */,
 				D6AF512B1A635CD600A02C90 /* Parse.framework */,
 				D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */,
 				D66CC8F31A60E6F3007B9992 /* libsqlite3.dylib */,
@@ -243,7 +242,6 @@
 				D66CC8E31A60E6B3007B9992 /* CoreGraphics.framework */,
 				D66CC8E11A60E6AC007B9992 /* CFNetwork.framework */,
 				D66CC8DF1A60E6A6007B9992 /* AudioToolbox.framework */,
-				D66CC8D71A60E189007B9992 /* FacebookSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -600,6 +598,7 @@
 					"/Users/troyling/Downloads/parse-library-1.6.1",
 					"(1)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Lopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -620,6 +619,7 @@
 					"/Users/troyling/Downloads/parse-library-1.6.1",
 					"(1)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Lopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

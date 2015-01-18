@@ -42,8 +42,6 @@
 }
 
 - (IBAction)connectWithFacebook:(id)sender {
-    NSLog(@"hi");
-    NSLog(@"%@", [PFUser currentUser]);
     NSArray *permissions = @[@"public_profile",
                              @"user_birthday",
                              @"user_friends",
@@ -61,13 +59,12 @@
         } else {
             if (user.isNew) {
                 NSLog(@"New user signed up and logged in via Facebook");
-                // show tutorial maybe?
+                // TODO show tutorial maybe?
             } else {
                 NSLog(@"User logged in through FB");
             }
             [self _presentUserProfileViewControllerAnimated:NO];
         }
-        
     }];
     
     self.activityIndicator.hidden = NO;

@@ -121,14 +121,10 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if ([title isEqualToString:@"Yes"]) {
-        NSLog(@"Logging user out");
         [PFUser logOut];
-        NSLog(@"%@", [PFUser currentUser]);
-        
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
         [self presentViewController:vc animated:NO completion:nil];
     }
 }
-
 
 @end
