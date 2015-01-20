@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LPNewPopViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface LPNewPopViewController : UITableViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *createPopBtn;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UITextField *typeTextField;
+
+@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UITextField *categoryTextField;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+
+@property (weak, nonatomic) IBOutlet UIButton *imageBtn1;
+@property (weak, nonatomic) IBOutlet UIButton *imageBtn2;
+@property (weak, nonatomic) IBOutlet UIButton *imageBtn3;
+@property (weak, nonatomic) IBOutlet UIButton *imageBtn4;
 
 - (IBAction)cancelNewPop:(id)sender;
 - (IBAction)addPhoto:(id)sender;

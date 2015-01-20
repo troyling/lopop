@@ -12,8 +12,13 @@
 #import "LPPop.h"
 
 @interface LPNewPopViewController ()
+
 @property NSMutableArray *images;
 @property LPPop *pop;
+@property NSArray *imageBtns;
+@property NSMutableArray *imageTracker;
+@property UIImage *defaultBtnBkgImage;
+
 @end
 
 @implementation LPNewPopViewController
@@ -30,6 +35,10 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
     // instatiate the new pop object
     self.pop = [LPPop object];
     self.images = [[NSMutableArray alloc] init];
+    self.imageBtns = @[self.imageBtn1, self.imageBtn2, self.imageBtn3, self.imageBtn4];
+    self.imageTracker = [[NSMutableArray alloc] initWithArray:@[@NO, @NO, @NO, @NO]];
+    self.defaultBtnBkgImage = self.imageBtn1.imageView.image;
+    [self setupImageButtons];
 }
 
 - (IBAction)cancelNewPop:(id)sender {
@@ -39,7 +48,7 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
 }
 
 - (IBAction)createPop:(id)sender {
-    self.pop.type = [self.typeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    self.pop.type = [self.typeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.pop.description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.pop.images = self.images;
     self.pop.user = [PFUser currentUser];
@@ -85,6 +94,26 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
     }
 }
 
+
+- (void)loadButtonWithImage:(UIImage *)image {
+    for (NSInteger i = 0; i < self.imageBtns.count; i++) {
+        BOOL isImagePresented = [[self.imageTracker objectAtIndex:i] boolValue];
+        if (isImagePresented) continue;
+        [[self.imageBtns objectAtIndex:i] setImage:nil forState:UIControlStateNormal];
+        [[self.imageBtns objectAtIndex:i] setBackgroundImage:image forState:UIControlStateNormal];
+        [self.imageTracker replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:YES]];
+        break;
+    }
+}
+
+- (void)setupImageButtons {
+    CGColorRef lopopColor = [[UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1] CGColor];
+    for (UIButton *btn in self.imageBtns) {
+        btn.layer.borderColor = lopopColor;
+        btn.layer.borderWidth = 1.0f;
+    }
+}
+
 #pragma mark actionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
@@ -107,7 +136,8 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
         if (succeeded) {
             // TODO stop the progress indicator and show the image in the view
             [self.images addObject:parseImage];
-            self.imageView.image = image;
+            [self loadButtonWithImage:image];
+//            self.imageView.image = image;
         } else {
             [self fatalError:[error localizedDescription]];
         }
