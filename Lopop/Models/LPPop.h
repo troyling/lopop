@@ -13,7 +13,8 @@
 
 + (NSString *)parseClassName;
 
-@property NSString *type;
+@property NSString *title;
+@property NSString *category;
 @property NSString *description;
 @property NSDate *postedDate;
 @property NSMutableArray *images;

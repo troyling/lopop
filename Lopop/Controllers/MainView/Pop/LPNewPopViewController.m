@@ -15,7 +15,6 @@
 @interface LPNewPopViewController ()
 
 @property NSMutableArray *imageFiles;
-@property LPPop *pop;
 @property NSArray *imageBtns;
 @property UIImage *defaultBtnImage;
 @property UIButton *clearImageBtn;
@@ -36,7 +35,6 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // instatiate the new pop object
-    self.pop = [LPPop object];
     self.imageFiles = [[NSMutableArray alloc] init];
     self.imageBtns = @[self.imageBtn1, self.imageBtn2, self.imageBtn3, self.imageBtn4];
     self.defaultBtnImage = [self.imageBtn1 imageForState:UIControlStateNormal];
@@ -54,11 +52,15 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 }
 
 - (IBAction)createPop:(id)sender {
-//    self.pop.type = [self.typeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    self.pop.description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    self.pop.user = [PFUser currentUser];
-    self.pop.images = self.imageFiles;
-    [self.pop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    // TODO data validation
+    LPPop *newPop = [LPPop object];
+    newPop.title = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    newPop.category = self.categoryLabel.text;
+    newPop.description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    newPop.user = [PFUser currentUser];
+    newPop.images = self.imageFiles;
+    // TODO show indicator
+    [newPop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // Successfully posted
             [self dismissViewControllerAnimated:YES completion:NULL];

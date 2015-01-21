@@ -11,7 +11,8 @@
 
 @implementation LPPop
 
-@dynamic type;
+@dynamic title;
+@dynamic category;
 @dynamic description;
 @dynamic postedDate;
 @dynamic images;
