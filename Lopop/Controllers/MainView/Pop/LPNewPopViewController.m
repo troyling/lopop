@@ -8,6 +8,7 @@
 
 #import "LPNewPopViewController.h"
 #import "LPPermissionValidator.h"
+#import "LPPopCategoryTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LPPop.h"
 
@@ -30,6 +31,7 @@ NSString *const BTN_TITLE_CONFIRMATION = @"Yes";
 NSString *const BTN_TITLE_DISMISS = @"Dismiss";
 NSString *const BTN_TITLE_CANCEL = @"Cancel";
 NSString *const BTN_TITLE_DELETE = @"Delete Image";
+NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +40,12 @@ NSString *const BTN_TITLE_DELETE = @"Delete Image";
     self.imageFiles = [[NSMutableArray alloc] init];
     self.imageBtns = @[self.imageBtn1, self.imageBtn2, self.imageBtn3, self.imageBtn4];
     self.defaultBtnImage = [self.imageBtn1 imageForState:UIControlStateNormal];
+    
+    // setup views
     [self setupImageButtons];
+    self.descriptionTextView.delegate = self;
+    self.descriptionTextView.text = UITEXTVIEW_DESCRIPTION_PLACEHOLDER;
+    self.descriptionTextView.textColor = [UIColor lightGrayColor];
 }
 
 - (IBAction)cancelNewPop:(id)sender {
@@ -168,6 +175,33 @@ NSString *const BTN_TITLE_DELETE = @"Delete Image";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:BTN_TITLE_CONFIRMATION]) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    }
+}
+
+#pragma mark UITextview
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:UITEXTVIEW_DESCRIPTION_PLACEHOLDER]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
+        textView.text = UITEXTVIEW_DESCRIPTION_PLACEHOLDER;
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    [textView resignFirstResponder];
+}
+
+#pragma mark segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"LPPopCategorySegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[LPPopCategoryTableViewController class]]) {
+            LPPopCategoryTableViewController *tvc = segue.destinationViewController;
+            tvc.vc = self;
+        }
     }
 }
 

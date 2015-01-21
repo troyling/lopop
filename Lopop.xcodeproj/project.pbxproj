@@ -33,6 +33,7 @@
 		D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */; };
 		D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9101A619E97007B9992 /* signup_view_1.jpg */; };
 		D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9111A619E97007B9992 /* signup_view.jpg */; };
+		D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */; };
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
 		D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C503201A6EB3DC00C18241 /* photo-25.png */; };
@@ -92,6 +93,8 @@
 		D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserProfileViewController.m; path = Controllers/User/Profile/LPUserProfileViewController.m; sourceTree = "<group>"; };
 		D66CC9101A619E97007B9992 /* signup_view_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view_1.jpg; path = Resources/Images/signup_view_1.jpg; sourceTree = "<group>"; };
 		D66CC9111A619E97007B9992 /* signup_view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view.jpg; path = Resources/Images/signup_view.jpg; sourceTree = "<group>"; };
+		D683F2A31A6F459100117D36 /* LPPopCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopCategoryTableViewController.h; path = Controllers/MainView/Pop/LPPopCategoryTableViewController.h; sourceTree = "<group>"; };
+		D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopCategoryTableViewController.m; path = Controllers/MainView/Pop/LPPopCategoryTableViewController.m; sourceTree = "<group>"; };
 		D6AF512B1A635CD600A02C90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D6C503201A6EB3DC00C18241 /* photo-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-25.png"; path = "Resources/Images/TabBarIcons/photo-25.png"; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 			children = (
 				D6008A221A67269F0057771A /* LPNewPopViewController.h */,
 				D6008A231A67269F0057771A /* LPNewPopViewController.m */,
+				D683F2A31A6F459100117D36 /* LPPopCategoryTableViewController.h */,
+				D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */,
 			);
 			name = Pop;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */,
+				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
 				D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
