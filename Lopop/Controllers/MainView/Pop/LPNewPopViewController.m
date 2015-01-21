@@ -13,11 +13,11 @@
 
 @interface LPNewPopViewController ()
 
-@property NSMutableArray *images;
+@property NSMutableArray *imageFiles;
 @property LPPop *pop;
 @property NSArray *imageBtns;
-@property NSMutableArray *imageTracker;
-@property UIImage *defaultBtnBkgImage;
+@property UIImage *defaultBtnImage;
+@property UIButton *clearImageBtn;
 
 @end
 
@@ -29,20 +29,19 @@ NSString *const CHOOSE_FROM_PHOTO_LIBRARY = @"Choose from library";
 NSString *const BTN_TITLE_CONFIRMATION = @"Yes";
 NSString *const BTN_TITLE_DISMISS = @"Dismiss";
 NSString *const BTN_TITLE_CANCEL = @"Cancel";
+NSString *const BTN_TITLE_DELETE = @"Delete Image";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // instatiate the new pop object
     self.pop = [LPPop object];
-    self.images = [[NSMutableArray alloc] init];
+    self.imageFiles = [[NSMutableArray alloc] init];
     self.imageBtns = @[self.imageBtn1, self.imageBtn2, self.imageBtn3, self.imageBtn4];
-    self.imageTracker = [[NSMutableArray alloc] initWithArray:@[@NO, @NO, @NO, @NO]];
-    self.defaultBtnBkgImage = self.imageBtn1.imageView.image;
+    self.defaultBtnImage = [self.imageBtn1 imageForState:UIControlStateNormal];
     [self setupImageButtons];
 }
 
 - (IBAction)cancelNewPop:(id)sender {
-    // TODO we might want to save the data as the user start filling in data, especially uploading pictures will be time-consuming.
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Discard the pop?" delegate:self cancelButtonTitle:BTN_TITLE_CANCEL otherButtonTitles:BTN_TITLE_CONFIRMATION, nil];
     [alert show];
 }
@@ -50,8 +49,8 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
 - (IBAction)createPop:(id)sender {
 //    self.pop.type = [self.typeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     self.pop.description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    self.pop.images = self.images;
     self.pop.user = [PFUser currentUser];
+    self.pop.images = self.imageFiles;
     [self.pop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // Successfully posted
@@ -61,9 +60,15 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
 }
 
 - (IBAction)addPhoto:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:BTN_TITLE_CANCEL destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    [actionSheet addButtonWithTitle:TAKE_PHOTO];
-    [actionSheet addButtonWithTitle:CHOOSE_FROM_PHOTO_LIBRARY];
+    UIActionSheet *actionSheet;
+    self.clearImageBtn = (UIButton *)sender;
+    if ([self.clearImageBtn backgroundImageForState:UIControlStateNormal]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:BTN_TITLE_CANCEL destructiveButtonTitle:BTN_TITLE_DELETE otherButtonTitles:nil, nil];
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:BTN_TITLE_CANCEL destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+        [actionSheet addButtonWithTitle:TAKE_PHOTO];
+        [actionSheet addButtonWithTitle:CHOOSE_FROM_PHOTO_LIBRARY];
+    }
     [actionSheet showInView:self.view];
 }
 
@@ -81,6 +86,11 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
     }
 }
 
+- (void)removeImageAtBtn:(NSUInteger)index {
+    [self.imageFiles removeObjectAtIndex:index];
+    [self reloadButtonImages];
+}
+
 - (void)chooseImages {
     if ([LPPermissionValidator isPhotoLibraryAccessible]) {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -95,32 +105,42 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
 }
 
 
-- (void)loadButtonWithImage:(UIImage *)image {
+- (void)reloadButtonImages {
     for (NSInteger i = 0; i < self.imageBtns.count; i++) {
-        BOOL isImagePresented = [[self.imageTracker objectAtIndex:i] boolValue];
-        if (isImagePresented) continue;
-        [[self.imageBtns objectAtIndex:i] setImage:nil forState:UIControlStateNormal];
-        [[self.imageBtns objectAtIndex:i] setBackgroundImage:image forState:UIControlStateNormal];
-        [self.imageTracker replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:YES]];
-        break;
+        if (i < self.imageFiles.count) {
+            UIImage *bkgImg = [UIImage imageWithData:[[self.imageFiles objectAtIndex:i] getData]];
+            [[self.imageBtns objectAtIndex:i] setImage:nil forState:UIControlStateNormal];
+            [[self.imageBtns objectAtIndex:i] setBackgroundImage:bkgImg forState:UIControlStateNormal];
+        } else {
+            [[self.imageBtns objectAtIndex:i] setImage:self.defaultBtnImage forState:UIControlStateNormal];
+            [[self.imageBtns objectAtIndex:i] setBackgroundImage:nil forState:UIControlStateNormal];
+        }
     }
 }
 
 - (void)setupImageButtons {
     CGColorRef lopopColor = [[UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1] CGColor];
+    NSUInteger tag = 0;
     for (UIButton *btn in self.imageBtns) {
         btn.layer.borderColor = lopopColor;
         btn.layer.borderWidth = 1.0f;
+        btn.tag = tag++;
     }
 }
 
 #pragma mark actionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:TAKE_PHOTO]) {
-        [self takePicture];
-    } else if ([title isEqualToString:CHOOSE_FROM_PHOTO_LIBRARY]) {
-        [self chooseImages];
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        [self.clearImageBtn setBackgroundImage:nil forState:UIControlStateNormal];
+        [self.clearImageBtn setImage:self.defaultBtnImage forState:UIControlStateNormal];
+        [self removeImageAtBtn:self.clearImageBtn.tag];
+    } else {
+        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+        if ([title isEqualToString:TAKE_PHOTO]) {
+            [self takePicture];
+        } else if ([title isEqualToString:CHOOSE_FROM_PHOTO_LIBRARY]) {
+            [self chooseImages];
+        }
     }
 }
 
@@ -130,14 +150,13 @@ NSString *const BTN_TITLE_CANCEL = @"Cancel";
     if (!image) {
         image = info[UIImagePickerControllerOriginalImage];
     }
-    NSData *imageData = UIImageJPEGRepresentation(image, LEAST_COMPRESSION);
-    PFFile *parseImage = [PFFile fileWithData:imageData]; // PFFile has 10MB of size limit
-    [parseImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    NSData *imageData = UIImagePNGRepresentation(image);
+    PFFile *parseImageFile = [PFFile fileWithData:imageData]; // PFFile has 10MB of size limit
+    [parseImageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // TODO stop the progress indicator and show the image in the view
-            [self.images addObject:parseImage];
-            [self loadButtonWithImage:image];
-//            self.imageView.image = image;
+            [self.imageFiles addObject:parseImageFile];
+            [self reloadButtonImages];
         } else {
             [self fatalError:[error localizedDescription]];
         }

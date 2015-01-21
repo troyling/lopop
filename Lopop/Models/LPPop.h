@@ -16,7 +16,7 @@
 @property NSString *type;
 @property NSString *description;
 @property NSDate *postedDate;
-@property NSArray *images;
+@property NSMutableArray *images;
 @property BOOL isSold;
 @property float price;
 @property PFUser *user;
