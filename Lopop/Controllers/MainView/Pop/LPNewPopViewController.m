@@ -14,16 +14,18 @@
 
 @interface LPNewPopViewController ()
 
+@property CLLocationManager *locationManager;
 @property NSMutableArray *imageFiles;
 @property NSArray *imageBtns;
 @property UIImage *defaultBtnImage;
 @property UIButton *clearImageBtn;
-
+@property PFGeoPoint *popLocation;
 @end
 
 @implementation LPNewPopViewController
 
 float const LEAST_COMPRESSION = 1.0f;
+double const MAP_ZOO_IN_DEGREE = 0.005f;
 NSString *const TAKE_PHOTO = @"Take photo";
 NSString *const CHOOSE_FROM_PHOTO_LIBRARY = @"Choose from library";
 NSString *const BTN_TITLE_CONFIRMATION = @"Yes";
@@ -39,11 +41,21 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     self.imageBtns = @[self.imageBtn1, self.imageBtn2, self.imageBtn3, self.imageBtn4];
     self.defaultBtnImage = [self.imageBtn1 imageForState:UIControlStateNormal];
     
-    // setup views
+    // textarea markup
     [self setupImageButtons];
     self.descriptionTextView.delegate = self;
     self.descriptionTextView.text = UITEXTVIEW_DESCRIPTION_PLACEHOLDER;
     self.descriptionTextView.textColor = [UIColor lightGrayColor];
+    
+    // user location
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setupLocationForPop];
 }
 
 - (IBAction)cancelNewPop:(id)sender {
@@ -53,13 +65,56 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 
 - (IBAction)createPop:(id)sender {
     // TODO data validation
+    NSString *title = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *category = self.categoryLabel.text;
+    NSString *description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *priceStr = [self.priceTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    CLLocation *popLocation = self.locationManager.location;
+
+    if (title.length == 0) {
+        [self fatalError:@"Please enter the title of your Pop"];
+        return;
+    }
+    
+    if (category.length == 0) {
+        [self fatalError:@"Please enter select a cagetory for you Pop"];
+        return;
+    }
+    
+    if ([description isEqualToString:UITEXTVIEW_DESCRIPTION_PLACEHOLDER] || description.length == 0) {
+        [self fatalError:@"Please write a short description introducing your Pop"];
+        return;
+    }
+    
+    if (priceStr.length == 0) {
+        [self fatalError:@"Remeber to set a price for your Pop. You don't want to get nothing"];
+        return;
+    }
+    
+    if (self.imageFiles.count == 0) {
+        [self fatalError:@"A picture is worth a thousand words. Please upload at least one picture related to your Pop."];
+        return;
+    }
+    
+    if (![PFUser currentUser]) {
+        [self fatalError:@"Please login to create a Pop"];
+        return;
+    }
+    
+    if (!popLocation) {
+        [self fatalError:@"Don't be a ninja. Let people know where you are poping."];
+        return;
+    }
+    
     LPPop *newPop = [LPPop object];
-    newPop.title = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    newPop.category = self.categoryLabel.text;
-    newPop.description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    newPop.user = [PFUser currentUser];
+    newPop.title = title;
+    newPop.category = category;
+    newPop.description = description;
+    newPop.seller = [PFUser currentUser];
     newPop.images = self.imageFiles;
-    // TODO show indicator
+    newPop.location = [PFGeoPoint geoPointWithLocation:popLocation];
+    newPop.price = [NSNumber numberWithDouble:[priceStr doubleValue]];
+    newPop.isSold = NO;
     [newPop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // Successfully posted
@@ -79,6 +134,43 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
         [actionSheet addButtonWithTitle:CHOOSE_FROM_PHOTO_LIBRARY];
     }
     [actionSheet showInView:self.view];
+}
+
+- (void)setupLocationForPop {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        if (status == kCLAuthorizationStatusNotDetermined) {
+            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                [self.locationManager requestAlwaysAuthorization];
+            }
+        }
+        
+        if (status == kCLAuthorizationStatusDenied) {
+            [self fatalError:@"Please allow location permission in app Settings to create a Pop"];
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+        [self.locationManager startUpdatingLocation];
+    } else {
+        [self fatalError:@"Location service is required to create a Pop"];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+    
+    if (self.locationManager.location) {
+        self.mapview.showsUserLocation = YES;
+        [self.locationManager stopUpdatingLocation];
+        [self zoomInToMyLocation];
+    }
+}
+
+-(void)zoomInToMyLocation {
+    MKCoordinateRegion region;
+    region.center.latitude = self.locationManager.location.coordinate.latitude;
+    region.center.longitude = self.locationManager.location.coordinate.longitude;
+    region.span.longitudeDelta = MAP_ZOO_IN_DEGREE;
+    region.span.latitudeDelta = MAP_ZOO_IN_DEGREE;
+    [self.mapview setRegion:region animated:NO];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)takePicture {

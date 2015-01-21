@@ -320,7 +320,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="description" id="ytS-A6-WMb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="price" id="ytS-A6-WMb">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ytS-A6-WMb" id="u1Z-cl-ExD">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -363,20 +363,6 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="wKO-NA-fKP" secondAttribute="trailing" constant="1" id="phC-Id-SdE"/>
                                                 <constraint firstItem="wKO-NA-fKP" firstAttribute="top" secondItem="u1Z-cl-ExD" secondAttribute="topMargin" constant="-1" id="sPe-8o-tVz"/>
                                             </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="description" id="GxT-O2-rC2">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GxT-O2-rC2" id="sRt-2a-JLI">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qya-yf-bgd">
-                                                    <rect key="frame" x="16" y="5" width="67" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -453,6 +439,27 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Location" id="eHH-VY-uTZ">
+                                <cells>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="Epq-nd-iRB">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Epq-nd-iRB" id="RCO-Mv-3ao">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yPf-CO-jIz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                                </mapView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="yPf-CO-jIz" secondAttribute="trailing" id="FYM-3t-S02"/>
+                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="RCO-Mv-3ao" secondAttribute="top" id="Ph3-g6-e51"/>
+                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="leading" secondItem="RCO-Mv-3ao" secondAttribute="leading" id="jiZ-iV-1Hs"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yPf-CO-jIz" secondAttribute="bottom" constant="-8.5" id="wlU-Mn-ZOQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="FCB-Zz-3YY" id="PXE-4J-vPs"/>
@@ -478,6 +485,8 @@
                         <outlet property="imageBtn2" destination="Bvq-16-dn1" id="54c-jw-6YD"/>
                         <outlet property="imageBtn3" destination="1gf-KS-Vxl" id="0qT-2L-y6n"/>
                         <outlet property="imageBtn4" destination="IIa-MX-YmX" id="hmt-dk-e0b"/>
+                        <outlet property="mapview" destination="yPf-CO-jIz" id="sBZ-Uv-Xd7"/>
+                        <outlet property="priceTextField" destination="wKO-NA-fKP" id="VT4-lx-R36"/>
                         <outlet property="titleTextField" destination="0C0-ze-QRY" id="Zg2-8x-mtJ"/>
                     </connections>
                 </tableViewController>

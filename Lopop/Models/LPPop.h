@@ -16,11 +16,11 @@
 @property NSString *title;
 @property NSString *category;
 @property NSString *description;
-@property NSDate *postedDate;
+@property PFUser *seller;
 @property NSMutableArray *images;
+@property PFGeoPoint *location;
 @property BOOL isSold;
-@property float price;
-@property PFUser *user;
+@property NSNumber *price;
 // TODO add location 
 
 @end

@@ -14,11 +14,12 @@
 @dynamic title;
 @dynamic category;
 @dynamic description;
-@dynamic postedDate;
+@dynamic seller;
 @dynamic images;
+@dynamic location;
 @dynamic isSold;
 @dynamic price;
-@dynamic user;
+
 
 + (void)load {
     [self registerSubclass];

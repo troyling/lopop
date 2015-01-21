@@ -34,6 +34,7 @@
 		D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9101A619E97007B9992 /* signup_view_1.jpg */; };
 		D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9111A619E97007B9992 /* signup_view.jpg */; };
 		D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */; };
+		D683F2A71A6FFD3B00117D36 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D683F2A61A6FFD3B00117D36 /* MapKit.framework */; };
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
 		D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C503201A6EB3DC00C18241 /* photo-25.png */; };
@@ -95,6 +96,7 @@
 		D66CC9111A619E97007B9992 /* signup_view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view.jpg; path = Resources/Images/signup_view.jpg; sourceTree = "<group>"; };
 		D683F2A31A6F459100117D36 /* LPPopCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopCategoryTableViewController.h; path = Controllers/MainView/Pop/LPPopCategoryTableViewController.h; sourceTree = "<group>"; };
 		D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopCategoryTableViewController.m; path = Controllers/MainView/Pop/LPPopCategoryTableViewController.m; sourceTree = "<group>"; };
+		D683F2A61A6FFD3B00117D36 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D6AF512B1A635CD600A02C90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D6C503201A6EB3DC00C18241 /* photo-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-25.png"; path = "Resources/Images/TabBarIcons/photo-25.png"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D683F2A71A6FFD3B00117D36 /* MapKit.framework in Frameworks */,
 				D66CC8F41A60E6F3007B9992 /* libsqlite3.dylib in Frameworks */,
 				D66CC8F21A60E6ED007B9992 /* libz.dylib in Frameworks */,
 				D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */,
@@ -235,6 +238,7 @@
 		D66CC8D61A60E152007B9992 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D683F2A61A6FFD3B00117D36 /* MapKit.framework */,
 				D6F63A481A6C390A008D08F5 /* Bolts.framework */,
 				D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */,
 				D6AF512B1A635CD600A02C90 /* Parse.framework */,
