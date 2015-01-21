@@ -142,8 +142,8 @@
                     <connections>
                         <segue destination="Pnp-Hn-7lV" kind="relationship" relationship="viewControllers" id="onq-SF-YHa"/>
                         <segue destination="NRh-57-j6F" kind="relationship" relationship="viewControllers" id="yzD-7J-1Su"/>
-                        <segue destination="PhZ-EF-xaN" kind="relationship" relationship="viewControllers" id="2V7-C7-FPR"/>
                         <segue destination="5mR-pn-fNI" kind="relationship" relationship="viewControllers" id="85g-u6-Bfx"/>
+                        <segue destination="PhZ-EF-xaN" kind="relationship" relationship="viewControllers" id="2V7-C7-FPR"/>
                         <segue destination="wZ1-sA-RZh" kind="relationship" relationship="viewControllers" id="CX6-xW-PE7"/>
                     </connections>
                 </tabBarController>
@@ -151,7 +151,7 @@
             </objects>
             <point key="canvasLocation" x="99" y="0.0"/>
         </scene>
-        <!--Message-->
+        <!--View Controller-->
         <scene sceneID="1GF-SL-JyT">
             <objects>
                 <viewController id="PhZ-EF-xaN" sceneMemberID="viewController">
@@ -172,11 +172,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Message" image="TabBarMessage" id="RIb-aF-d9W"/>
+                    <tabBarItem key="tabBarItem" title="" image="TabBarMessage" id="RIb-aF-d9W"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1VF-nu-ikx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="904" y="0.0"/>
+            <point key="canvasLocation" x="904" y="628"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Kfv-cO-f4B">
@@ -492,7 +492,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VKU-07-YP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="-1577"/>
+            <point key="canvasLocation" x="1802" y="0.0"/>
         </scene>
         <!--Select Category-->
         <scene sceneID="b8m-8i-4S5">
@@ -520,7 +520,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zce-2Z-WOo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2578" y="-1577"/>
+            <point key="canvasLocation" x="2168" y="0.0"/>
         </scene>
         <!--Pops-->
         <scene sceneID="Vsp-jp-Ro3">
@@ -545,11 +545,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Pops" id="nFH-YO-LmY">
                         <barButtonItem key="leftBarButtonItem" title="List" id="ROm-ji-JTq"/>
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="LfC-Qy-PVP">
-                            <connections>
-                                <segue destination="e1C-4N-Rmt" kind="modal" identifier="LPNewPopViewControllerSegue" id="la4-Ik-T7n"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITv-8J-wBE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -602,9 +597,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y5q-cg-g5S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1436" y="1312"/>
+            <point key="canvasLocation" x="1436" y="1272"/>
         </scene>
-        <!--Donation-->
+        <!--View Controller-->
         <scene sceneID="6Fh-bK-dRC">
             <objects>
                 <viewController id="5mR-pn-fNI" sceneMemberID="viewController">
@@ -615,21 +610,13 @@
                     <view key="view" contentMode="scaleToFill" id="JWC-7k-5kL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business. IMHO, this should be the button to create a pop" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQk-JB-93O">
-                                <rect key="frame" x="45" y="196" width="230" height="176"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Donation" image="TabBarBusiness" id="w1D-lR-PGA"/>
+                    <tabBarItem key="tabBarItem" title="" id="w1D-lR-PGA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f7E-NQ-Lbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="904" y="652"/>
+            <point key="canvasLocation" x="904" y="0.0"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="taB-Kl-SPv">
@@ -692,7 +679,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uFZ-OU-EjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="1312"/>
+            <point key="canvasLocation" x="1929" y="1272"/>
         </scene>
         <!--Sign Up Table View Controller-->
         <scene sceneID="fBy-Gh-zmR">
@@ -846,11 +833,13 @@
             </objects>
             <point key="canvasLocation" x="602" y="2302"/>
         </scene>
-        <!--Settings-->
+        <!--Navigation Controller-->
         <scene sceneID="rue-1V-Dnr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZ1-sA-RZh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="TabBarSettings" id="c25-jG-4qS"/>
+                    <tabBarItem key="tabBarItem" title="" image="TabBarSettings" id="c25-jG-4qS">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="1" vertical="-5"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gm5-6H-0PR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -863,13 +852,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YV4-gX-h0Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="904" y="1312"/>
+            <point key="canvasLocation" x="904" y="1272"/>
         </scene>
-        <!--Pops-->
+        <!--Navigation Controller-->
         <scene sceneID="l43-Dl-xhj">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pnp-Hn-7lV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pops" image="TabBarFeed" id="8qe-N2-nmF"/>
+                    <tabBarItem key="tabBarItem" title="" image="TabBarFeed" id="8qe-N2-nmF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UoT-fz-mae">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -884,11 +873,11 @@
             </objects>
             <point key="canvasLocation" x="904" y="-1294"/>
         </scene>
-        <!--Market-->
+        <!--Navigation Controller-->
         <scene sceneID="r61-F4-b8y">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NRh-57-j6F" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Market" image="TabBarMarket" id="beE-hX-old"/>
+                    <tabBarItem key="tabBarItem" title="" image="TabBarMarket" id="beE-hX-old"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Rs-lo-iA2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -906,7 +895,7 @@
         <!--Navigation Controller-->
         <scene sceneID="hGv-dN-J2S">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e1C-4N-Rmt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LPNewPopViewController" automaticallyAdjustsScrollViewInsets="NO" id="e1C-4N-Rmt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BiH-Du-HrM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -919,12 +908,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThY-VP-Pf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1828" y="-1577"/>
+            <point key="canvasLocation" x="1436" y="0.0"/>
         </scene>
     </scenes>
     <resources>
         <image name="ButtonImage" width="24" height="24"/>
-        <image name="TabBarBusiness" width="32" height="32"/>
         <image name="TabBarFeed" width="32" height="32"/>
         <image name="TabBarMarket" width="32" height="32"/>
         <image name="TabBarMessage" width="32" height="32"/>
