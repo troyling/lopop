@@ -7,7 +7,7 @@
 //
 
 #import "LPFeedViewController.h"
-#import "LPNewPopViewController.h"
+#import "LPNewPopTableViewController.h"
 
 @implementation LPFeedViewController
 

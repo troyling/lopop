@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedViewController.m */; };
-		D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopViewController.m */; };
+		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
 		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
@@ -59,8 +59,8 @@
 /* Begin PBXFileReference section */
 		D6008A1E1A6716D00057771A /* LPFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedViewController.h; path = Controllers/MainView/Feed/LPFeedViewController.h; sourceTree = "<group>"; };
 		D6008A1F1A6716D00057771A /* LPFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedViewController.m; path = Controllers/MainView/Feed/LPFeedViewController.m; sourceTree = "<group>"; };
-		D6008A221A67269F0057771A /* LPNewPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopViewController.h; path = Controllers/MainView/Pop/LPNewPopViewController.h; sourceTree = "<group>"; };
-		D6008A231A67269F0057771A /* LPNewPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewPopViewController.m; path = Controllers/MainView/Pop/LPNewPopViewController.m; sourceTree = "<group>"; };
+		D6008A221A67269F0057771A /* LPNewPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopTableViewController.h; path = Controllers/MainView/Pop/LPNewPopTableViewController.h; sourceTree = "<group>"; };
+		D6008A231A67269F0057771A /* LPNewPopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewPopTableViewController.m; path = Controllers/MainView/Pop/LPNewPopTableViewController.m; sourceTree = "<group>"; };
 		D6008A251A675E8D0057771A /* LPPermissionValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPermissionValidator.h; path = Helpers/LPPermissionValidator.h; sourceTree = "<group>"; };
 		D6008A261A675E8D0057771A /* LPPermissionValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPermissionValidator.m; path = Helpers/LPPermissionValidator.m; sourceTree = "<group>"; };
 		D6008A281A67FD990057771A /* LPPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPop.h; path = Models/LPPop.h; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 		D6008A211A67266F0057771A /* Pop */ = {
 			isa = PBXGroup;
 			children = (
-				D6008A221A67269F0057771A /* LPNewPopViewController.h */,
-				D6008A231A67269F0057771A /* LPNewPopViewController.m */,
+				D6008A221A67269F0057771A /* LPNewPopTableViewController.h */,
+				D6008A231A67269F0057771A /* LPNewPopTableViewController.m */,
 				D683F2A31A6F459100117D36 /* LPPopCategoryTableViewController.h */,
 				D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */,
 			);
@@ -484,7 +484,7 @@
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
-				D6008A241A67269F0057771A /* LPNewPopViewController.m in Sources */,
+				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
 				D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */,
 			);

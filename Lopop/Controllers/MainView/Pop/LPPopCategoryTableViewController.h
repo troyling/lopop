@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LPNewPopViewController.h"
+#import "LPNewPopTableViewController.h"
 
 @interface LPPopCategoryTableViewController : UITableViewController
-@property (weak, nonatomic) LPNewPopViewController *vc;
+@property (weak, nonatomic) LPNewPopTableViewController *vc;
 @end

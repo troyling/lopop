@@ -7,7 +7,7 @@
 //
 
 #import "LPMainViewTabBarController.h"
-#import "LPNewPopViewController.h"
+#import "LPNewPopTableViewController.h"
 
 @implementation LPMainViewTabBarController
 
@@ -69,7 +69,7 @@
 
 - (void)presentNewPop {
     UIStoryboard *sb = [self storyboard];
-    LPNewPopViewController *vc = [sb instantiateViewControllerWithIdentifier:@"LPNewPopViewController"];
+    LPNewPopTableViewController *vc = [sb instantiateViewControllerWithIdentifier:@"LPNewPopViewController"];
     [self presentViewController:vc animated:YES completion:NULL];
 }
 

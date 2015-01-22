@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "LPNewPopViewController.h"
+#import "LPNewPopTableViewController.h"
 #import "LPPermissionValidator.h"
 #import "LPPopCategoryTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LPPop.h"
 
-@interface LPNewPopViewController ()
+@interface LPNewPopTableViewController ()
 
 @property CLLocationManager *locationManager;
 @property NSMutableArray *imageFiles;
@@ -22,7 +22,7 @@
 @property PFGeoPoint *popLocation;
 @end
 
-@implementation LPNewPopViewController
+@implementation LPNewPopTableViewController
 
 float const LEAST_COMPRESSION = 1.0f;
 double const MAP_ZOO_IN_DEGREE = 0.005f;
