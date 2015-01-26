@@ -522,7 +522,7 @@
             </objects>
             <point key="canvasLocation" x="2168" y="0.0"/>
         </scene>
-        <!--Feed Table View Controller-->
+        <!--Pops-->
         <scene sceneID="gmr-IX-xfp">
             <objects>
                 <tableViewController id="0GO-8V-pCv" customClass="LPFeedTableViewController" sceneMemberID="viewController">
@@ -590,6 +590,7 @@
                                     <outlet property="imgView" destination="sWU-k3-nnA" id="R4U-2t-Xlm"/>
                                     <outlet property="priceLabel" destination="EWg-wm-rS0" id="vYQ-vV-ojj"/>
                                     <outlet property="titleLabel" destination="Eoz-G8-kjk" id="pW8-xn-oKN"/>
+                                    <segue destination="1XU-5b-TyA" kind="push" id="ojS-gW-mJK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -598,7 +599,7 @@
                             <outlet property="delegate" destination="0GO-8V-pCv" id="Sxe-KM-Zbd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Vcc-8B-1mk"/>
+                    <navigationItem key="navigationItem" title="Pops" id="Vcc-8B-1mk"/>
                     <connections>
                         <outlet property="feedTableView" destination="XaW-mL-wWn" id="xaJ-cx-7oR"/>
                     </connections>
@@ -606,6 +607,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hft-qI-F7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1436" y="-1334"/>
+        </scene>
+        <!--Pop Detail View Controller-->
+        <scene sceneID="Rjh-9Z-o9c">
+            <objects>
+                <viewController id="1XU-5b-TyA" customClass="LPPopDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3DH-qT-di7"/>
+                        <viewControllerLayoutGuide type="bottom" id="YyF-iU-clB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uyo-ek-pHF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dMo-MW-FAR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CeZ-aG-QVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1867" y="-1334"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2hV-KF-D8C">

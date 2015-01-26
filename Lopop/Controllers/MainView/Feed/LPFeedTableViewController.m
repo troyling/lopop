@@ -9,6 +9,7 @@
 #import "LPFeedTableViewController.h"
 #import "LPNewPopTableViewController.h"
 #import "LPPopFeedTableViewCell.h"
+#import "LPPopDetailViewController.h"
 #import "LPPop.h"
 #import <Parse/Parse.h>
 
@@ -66,7 +67,10 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
     
     // FIXME showing most recent pop for now. Change this to whatever logic we want later
     [popQuery orderByDescending:@"createdAt"];
-    [popQuery whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:self.userLocation] withinKilometers:10.0f];
+    
+    if (self.userLocation) {
+        [popQuery whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:self.userLocation] withinKilometers:10.0f];
+    }
     
     popQuery.cachePolicy = self.pops.count == 0 ? kPFCachePolicyCacheThenNetwork : kPFCachePolicyNetworkOnly;
     
@@ -127,7 +131,7 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
         
         cell.titleLabel.text = pop.title;
         
-        NSString *priceStr = [pop.price isEqualToNumber:[NSNumber numberWithInt:0]] ? @"Free!" : [NSString stringWithFormat:@"$%@", pop.price];
+        NSString *priceStr = [pop.price isEqualToNumber:[NSNumber numberWithInt:0]] ? @"  Free!  " : [NSString stringWithFormat:@"  $%@  ", pop.price];
         cell.priceLabel.text = priceStr;
         
         // format distance
@@ -161,5 +165,16 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
         }
     }
 }
+
+#pragma mark segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue destinationViewController] isKindOfClass:[LPPopDetailViewController class]]) {
+        LPPopDetailViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        vc.pop = [self.pops objectAtIndex:indexPath.row];
+        vc.navigationItem.title = [[self.pops objectAtIndex:indexPath.row] title];
+    }
+}
+
 
 @end
