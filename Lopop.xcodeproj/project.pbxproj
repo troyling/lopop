@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedViewController.m */; };
+		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
 		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
@@ -39,6 +39,7 @@
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
 		D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C503201A6EB3DC00C18241 /* photo-25.png */; };
+		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 		D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */; };
@@ -57,8 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D6008A1E1A6716D00057771A /* LPFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedViewController.h; path = Controllers/MainView/Feed/LPFeedViewController.h; sourceTree = "<group>"; };
-		D6008A1F1A6716D00057771A /* LPFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedViewController.m; path = Controllers/MainView/Feed/LPFeedViewController.m; sourceTree = "<group>"; };
+		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
+		D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedTableViewController.m; path = Controllers/MainView/Feed/LPFeedTableViewController.m; sourceTree = "<group>"; };
 		D6008A221A67269F0057771A /* LPNewPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopTableViewController.h; path = Controllers/MainView/Pop/LPNewPopTableViewController.h; sourceTree = "<group>"; };
 		D6008A231A67269F0057771A /* LPNewPopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewPopTableViewController.m; path = Controllers/MainView/Pop/LPNewPopTableViewController.m; sourceTree = "<group>"; };
 		D6008A251A675E8D0057771A /* LPPermissionValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPermissionValidator.h; path = Helpers/LPPermissionValidator.h; sourceTree = "<group>"; };
@@ -102,6 +103,8 @@
 		D6AF512B1A635CD600A02C90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D6C503201A6EB3DC00C18241 /* photo-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-25.png"; path = "Resources/Images/TabBarIcons/photo-25.png"; sourceTree = "<group>"; };
+		D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopFeedTableViewCell.h; path = Views/MainView/Feed/LPPopFeedTableViewCell.h; sourceTree = "<group>"; };
+		D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopFeedTableViewCell.m; path = Views/MainView/Feed/LPPopFeedTableViewCell.m; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
 		D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpTableViewController.m; path = Controllers/User/Login/LPSignUpTableViewController.m; sourceTree = "<group>"; };
 		D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "Helpers/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -159,8 +162,8 @@
 		D6008A1A1A6711830057771A /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				D6008A1E1A6716D00057771A /* LPFeedViewController.h */,
-				D6008A1F1A6716D00057771A /* LPFeedViewController.m */,
+				D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */,
+				D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 		D66CC8F61A60E98E007B9992 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D6DBD6F41A7418FF009F6FFE /* MainView */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -342,6 +346,23 @@
 				D66CC9111A619E97007B9992 /* signup_view.jpg */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D6DBD6F41A7418FF009F6FFE /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				D6DBD6F51A74190C009F6FFE /* Feed */,
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		D6DBD6F51A74190C009F6FFE /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */,
+				D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */,
+			);
+			name = Feed;
 			sourceTree = "<group>";
 		};
 		D6E6EB0E1A6470A6008085F7 /* Helpers */ = {
@@ -479,10 +500,11 @@
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */,
 				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
-				D6008A201A6716D00057771A /* LPFeedViewController.m in Sources */,
+				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
+				D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
 				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,

@@ -13,7 +13,7 @@
 
 @dynamic title;
 @dynamic category;
-@dynamic description;
+@dynamic popDescription;
 @dynamic seller;
 @dynamic images;
 @dynamic location;
