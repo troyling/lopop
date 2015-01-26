@@ -68,11 +68,12 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
     [popQuery orderByDescending:@"createdAt"];
     [popQuery whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:self.userLocation] withinKilometers:10.0f];
     
-    popQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    popQuery.cachePolicy = self.pops.count == 0 ? kPFCachePolicyCacheThenNetwork : kPFCachePolicyNetworkOnly;
     
     [popQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.pops = [[NSArray alloc] initWithArray:objects];
+            NSLog(@"Reloaded");
             [self.feedTableView reloadData];
             // TODO stop the loading indicator
         }
