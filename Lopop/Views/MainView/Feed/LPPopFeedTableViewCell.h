@@ -10,10 +10,9 @@
 
 @interface LPPopFeedTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @end

@@ -15,28 +15,58 @@
 @interface LPFeedTableViewController ()
 
 @property (strong, nonatomic) NSArray *pops;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *userLocation;
+@property CGFloat imgWidth;
 
 @end
 
 @implementation LPFeedTableViewController
+CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // delegate
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
+    
+    // init
+    CGRect bound = [[UIScreen mainScreen] bounds];
+    self.imgWidth = bound.size.width;
     
     // query data
     [self queryForPops];
     
-    // add pull to refresh
+    // configure pull to refresh
     [self initRefreshControl];
+
+    // get user lcoation
+    [self getUserCurrentLocation];
+}
+
+- (void)getUserCurrentLocation {
+    [self.locationManager startUpdatingLocation];
+    if (self.locationManager.location) {
+        self.userLocation = self.locationManager.location;
+    }
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)queryForPops {
     // start query
     PFQuery *popQuery = [LPPop query];
+    
+    // FIXME prompt lcoation service request when the app first started
+    if (!self.userLocation) {
+        [self getUserCurrentLocation];
+    }
+    
+    // FIXME showing most recent pop for now. Change this to whatever logic we want later
+    [popQuery orderByDescending:@"createdAt"];
+    [popQuery whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:self.userLocation] withinKilometers:10.0f];
     
     popQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
     
@@ -60,18 +90,18 @@
     
     // add last update
     if (self.refreshControl) {
-        
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
         NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
-                                                                    forKey:NSForegroundColorAttributeName];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor] forKey:NSForegroundColorAttributeName];
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
         self.refreshControl.attributedTitle = attributedTitle;
 
         [self.refreshControl endRefreshing];
     }
 }
+
+#pragma mark tableViewDelegateMethod
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSUInteger rows = 0;
@@ -92,22 +122,34 @@
 
     if (self.pops) {
         LPPop *pop = [self.pops objectAtIndex:indexPath.row];
-        cell.titleLabel.text = pop.title;
-        cell.descriptionLabel.text = pop.popDescription;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%@", pop.price];
+        CLLocationDistance distance = [pop.location distanceInMilesTo:[PFGeoPoint geoPointWithLocation:self.userLocation]];
         
-        // TODO load image
-        //        PFFile *popImageFile = pop.images.firstObject;
-//        [popImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-//            if (!error) {
-//                UIImage *origin = [UIImage imageWithData:data];
-//                UIImage *resized = [self resizeImage:origin scale:0.8f];
-//                cell.imageView.image = resized;
-//            }
-//        }];
+        cell.titleLabel.text = pop.title;
+        
+        NSString *priceStr = [pop.price isEqualToNumber:[NSNumber numberWithInt:0]] ? @"Free!" : [NSString stringWithFormat:@"$%@", pop.price];
+        cell.priceLabel.text = priceStr;
+        
+        // format distance
+        NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
+        [formater setPositiveFormat:@"0.##"];
+        NSString *distanceStr = [formater stringFromNumber:[NSNumber numberWithDouble:distance]];
+        cell.distanceLabel.text = [[NSString alloc] initWithFormat:@"%@ mi", distanceStr];
+        
+        // load image
+        PFFile *popImageFile = pop.images.firstObject;
+        [popImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *img = [UIImage imageWithData:data scale:0.05f];
+                cell.imgView.image = img;
+            }
+        }];
     }
-
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = self.imgWidth + ROW_HEIGHT_OFFSET;
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

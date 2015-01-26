@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface LPFeedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LPFeedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 
