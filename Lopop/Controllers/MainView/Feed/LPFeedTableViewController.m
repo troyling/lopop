@@ -18,12 +18,13 @@
 @property (strong, nonatomic) NSArray *pops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
-@property CGFloat imgWidth;
+@property CGFloat imgHeight;
 
 @end
 
 @implementation LPFeedTableViewController
-CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
+CGFloat const ROW_HEIGHT_OFFSET = 70.0f;
+CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +37,7 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
     
     // init
     CGRect bound = [[UIScreen mainScreen] bounds];
-    self.imgWidth = bound.size.width;
+    self.imgHeight = bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO;
     
     // query data
     [self queryForPops];
@@ -68,9 +69,9 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
     // FIXME showing most recent pop for now. Change this to whatever logic we want later
     [popQuery orderByDescending:@"createdAt"];
     
-    if (self.userLocation) {
-        [popQuery whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:self.userLocation] withinKilometers:10.0f];
-    }
+//    if (self.userLocation) {
+//        [popQuery whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:self.userLocation] withinKilometers:10.0f];
+//    }
     
     popQuery.cachePolicy = self.pops.count == 0 ? kPFCachePolicyCacheThenNetwork : kPFCachePolicyNetworkOnly;
     
@@ -153,7 +154,7 @@ CGFloat const ROW_HEIGHT_OFFSET = 65.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = self.imgWidth + ROW_HEIGHT_OFFSET;
+    CGFloat height = self.imgHeight + ROW_HEIGHT_OFFSET;
     return height;
 }
 
