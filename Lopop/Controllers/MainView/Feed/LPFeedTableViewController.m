@@ -23,7 +23,7 @@
 @end
 
 @implementation LPFeedTableViewController
-CGFloat const ROW_HEIGHT_OFFSET = 70.0f;
+CGFloat const ROW_HEIGHT_OFFSET = 75.0f;
 CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 - (void)viewDidLoad {
@@ -47,6 +47,10 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
     // get user lcoation
     [self getUserCurrentLocation];
+    
+    // set table background
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 - (void)getUserCurrentLocation {
@@ -150,6 +154,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             }
         }];
     }
+    
     return cell;
 }
 

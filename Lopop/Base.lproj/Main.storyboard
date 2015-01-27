@@ -530,6 +530,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LPPopFeedTableViewCell" rowHeight="265" id="JS5-Do-pru" customClass="LPPopFeedTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -543,16 +544,16 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eoz-G8-kjk">
-                                            <rect key="frame" x="8" y="200" width="304" height="20"/>
+                                            <rect key="frame" x="16" y="200" width="288" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="DSJ-AF-eYe"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-wm-rS0">
-                                            <rect key="frame" x="278" y="228" width="34" height="20"/>
+                                            <rect key="frame" x="270" y="228" width="34" height="20"/>
                                             <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="8Is-ay-9ux"/>
@@ -562,7 +563,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0C-fa-J6t">
-                                            <rect key="frame" x="8" y="228" width="52.5" height="20"/>
+                                            <rect key="frame" x="16" y="228" width="52.5" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="vyR-M9-UiF"/>
                                             </constraints>
@@ -572,18 +573,19 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="p0C-fa-J6t" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" id="16x-IR-G8x"/>
-                                        <constraint firstItem="Eoz-G8-kjk" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" id="2mA-7T-KJl"/>
-                                        <constraint firstItem="EWg-wm-rS0" firstAttribute="trailing" secondItem="Tjg-Hs-eQb" secondAttribute="trailingMargin" id="6Oz-8i-fxV"/>
+                                        <constraint firstItem="p0C-fa-J6t" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" constant="8" id="16x-IR-G8x"/>
+                                        <constraint firstItem="Eoz-G8-kjk" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" constant="8" id="2mA-7T-KJl"/>
+                                        <constraint firstItem="EWg-wm-rS0" firstAttribute="trailing" secondItem="Tjg-Hs-eQb" secondAttribute="trailingMargin" constant="-8" id="6Oz-8i-fxV"/>
                                         <constraint firstItem="p0C-fa-J6t" firstAttribute="top" secondItem="Eoz-G8-kjk" secondAttribute="bottom" constant="8" id="GOZ-LF-Kyv"/>
                                         <constraint firstItem="Eoz-G8-kjk" firstAttribute="top" secondItem="sWU-k3-nnA" secondAttribute="bottom" constant="8" id="Hqt-bf-9CF"/>
                                         <constraint firstItem="sWU-k3-nnA" firstAttribute="top" secondItem="Tjg-Hs-eQb" secondAttribute="topMargin" constant="-8" id="KPx-Il-hwV"/>
-                                        <constraint firstItem="Eoz-G8-kjk" firstAttribute="trailing" secondItem="Tjg-Hs-eQb" secondAttribute="trailingMargin" id="TeT-u9-nub"/>
+                                        <constraint firstItem="Eoz-G8-kjk" firstAttribute="trailing" secondItem="Tjg-Hs-eQb" secondAttribute="trailingMargin" constant="-8" id="TeT-u9-nub"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="sWU-k3-nnA" secondAttribute="trailing" constant="-8" id="UqD-kC-Ja3"/>
                                         <constraint firstItem="EWg-wm-rS0" firstAttribute="top" secondItem="Eoz-G8-kjk" secondAttribute="bottom" constant="8" id="YTh-sm-bhq"/>
                                         <constraint firstItem="sWU-k3-nnA" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" constant="-8" id="hy8-hP-beD"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="distanceLabel" destination="p0C-fa-J6t" id="5UI-PX-GUV"/>

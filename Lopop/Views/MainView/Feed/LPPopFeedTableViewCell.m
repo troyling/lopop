@@ -9,7 +9,7 @@
 #import "LPPopFeedTableViewCell.h"
 
 @implementation LPPopFeedTableViewCell
-CGFloat const MARGIN_OFFSET = 4.0f;
+CGFloat const MARGIN_OFFSET = 10.0f;
 
 - (void)awakeFromNib {
     // Initialization code
@@ -19,11 +19,6 @@ CGFloat const MARGIN_OFFSET = 4.0f;
 - (void)setFrame:(CGRect)frame {
     frame.size.height -= MARGIN_OFFSET;
     [super setFrame:frame];
-    
-    // set border
-    [self.contentView.layer setBorderColor:[UIColor grayColor].CGColor];
-    [self.contentView.layer setBorderWidth:1.0f];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
