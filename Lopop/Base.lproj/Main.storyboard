@@ -622,33 +622,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="suS-2v-niR">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
-                                <gestureRecognizers/>
-                            </imageView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="OwD-zy-a1N">
-                                <rect key="frame" x="141" y="347" width="39" height="37"/>
-                            </pageControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Py-v5-XAb">
+                                <rect key="frame" x="0.0" y="64" width="320" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0Py-v5-XAb" secondAttribute="height" multiplier="1:0.8" id="WUx-gX-of9"/>
+                                </constraints>
+                            </scrollView>
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xCv-sg-jjL">
+                                <rect key="frame" x="15" y="280" width="96" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Photo x/y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xC-hS-iQL">
+                                        <rect key="frame" x="35" y="3" width="74" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="picture-25.png" translatesAutoresizingMaskIntoConstraints="NO" id="uLc-RT-2LX">
+                                        <rect key="frame" x="8" y="3" width="20" height="20"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="fSO-QI-bMV"/>
+                                    <constraint firstAttribute="height" constant="25" id="nkt-Yc-eCC"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTG-SE-lUY">
+                                <rect key="frame" x="270" y="328" width="34" height="20"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="gB8-4H-2Xe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jG4-JB-vUJ">
+                                <rect key="frame" x="16" y="328" width="52.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="J1X-vM-jPe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="suS-2v-niR" secondAttribute="trailing" id="Ibb-de-u84"/>
-                            <constraint firstItem="suS-2v-niR" firstAttribute="top" secondItem="3DH-qT-di7" secondAttribute="bottom" id="J4A-Ql-Cf6"/>
-                            <constraint firstItem="suS-2v-niR" firstAttribute="bottom" secondItem="OwD-zy-a1N" secondAttribute="bottom" id="JpJ-MI-fM3"/>
-                            <constraint firstItem="suS-2v-niR" firstAttribute="centerX" secondItem="OwD-zy-a1N" secondAttribute="centerX" id="L15-qp-H7U"/>
-                            <constraint firstItem="YyF-iU-clB" firstAttribute="top" secondItem="suS-2v-niR" secondAttribute="bottom" constant="135" id="bEA-Xu-XQO"/>
-                            <constraint firstItem="suS-2v-niR" firstAttribute="leading" secondItem="uyo-ek-pHF" secondAttribute="leading" id="vhS-Od-Pii"/>
+                            <constraint firstItem="xCv-sg-jjL" firstAttribute="bottom" secondItem="0Py-v5-XAb" secondAttribute="bottom" constant="-15" id="7Um-nv-eeO"/>
+                            <constraint firstItem="xCv-sg-jjL" firstAttribute="leading" secondItem="0Py-v5-XAb" secondAttribute="leading" constant="15" id="ca5-hf-txP"/>
+                            <constraint firstItem="0Py-v5-XAb" firstAttribute="top" secondItem="3DH-qT-di7" secondAttribute="bottom" id="mhn-js-2oY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0Py-v5-XAb" secondAttribute="trailing" constant="-16" id="qas-Iq-kHZ"/>
+                            <constraint firstItem="0Py-v5-XAb" firstAttribute="leading" secondItem="uyo-ek-pHF" secondAttribute="leadingMargin" constant="-16" id="tXI-mX-fAa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dMo-MW-FAR"/>
                     <connections>
-                        <outlet property="imageView" destination="suS-2v-niR" id="JNt-Kk-eOr"/>
-                        <outlet property="imageViewPageControl" destination="OwD-zy-a1N" id="rRd-2v-L5X"/>
+                        <outlet property="imageScrollView" destination="0Py-v5-XAb" id="eGa-BH-ufz"/>
+                        <outlet property="numPhotoLabel" destination="1xC-hS-iQL" id="R3i-Im-oAy"/>
+                        <outlet property="numPhotoView" destination="xCv-sg-jjL" id="KMb-7y-5yx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeZ-aG-QVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1867" y="-1334"/>
+            <point key="canvasLocation" x="1829" y="-1334"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2hV-KF-D8C">
@@ -1016,6 +1053,7 @@
         <image name="TabBarMarket" width="32" height="32"/>
         <image name="TabBarMessage" width="32" height="32"/>
         <image name="TabBarSettings" width="32" height="32"/>
+        <image name="picture-25.png" width="24" height="24"/>
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

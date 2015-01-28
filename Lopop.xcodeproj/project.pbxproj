@@ -12,6 +12,7 @@
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
 		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
 		D601CA781A76C10000344F0C /* LPPopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D601CA771A76C10000344F0C /* LPPopDetailViewController.m */; };
+		D601CA801A798ABE00344F0C /* picture-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D601CA7F1A798ABE00344F0C /* picture-25.png */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -69,6 +70,7 @@
 		D6008A291A67FD990057771A /* LPPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPop.m; path = Models/LPPop.m; sourceTree = "<group>"; };
 		D601CA761A76C10000344F0C /* LPPopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopDetailViewController.h; path = Controllers/MainView/Feed/LPPopDetailViewController.h; sourceTree = "<group>"; };
 		D601CA771A76C10000344F0C /* LPPopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopDetailViewController.m; path = Controllers/MainView/Feed/LPPopDetailViewController.m; sourceTree = "<group>"; };
+		D601CA7F1A798ABE00344F0C /* picture-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "picture-25.png"; path = "Resources/Images/TabBarIcons/picture-25.png"; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -182,6 +184,14 @@
 				D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */,
 			);
 			name = Pop;
+			sourceTree = "<group>";
+		};
+		D601CA7E1A798AA600344F0C /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				D601CA7F1A798ABE00344F0C /* picture-25.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 		D66CC8A41A60DD8C007B9992 = {
@@ -346,6 +356,7 @@
 		D66CC90D1A619E17007B9992 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D601CA7E1A798AA600344F0C /* Icons */,
 				D6008A101A65A1340057771A /* TabBarIcons */,
 				D66CC9101A619E97007B9992 /* signup_view_1.jpg */,
 				D66CC9111A619E97007B9992 /* signup_view.jpg */,
@@ -476,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */,
+				D601CA801A798ABE00344F0C /* picture-25.png in Resources */,
 				D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */,
 				D683F2B31A70438C00117D36 /* plus-32.png in Resources */,
 				D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */,

@@ -7,11 +7,13 @@
 //
 
 #import "LPPopDetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
 
 @property (retain, nonatomic) NSMutableArray *images;
-@property NSInteger currentImageIndex;
+@property (retain, nonatomic) NSMutableArray *imageViews;
+@property NSUInteger numImages;
 
 @end
 
@@ -20,24 +22,45 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // delegate
+    self.imageScrollView.delegate = self;
+    
     // load image from cache or server
     [self retreveImages];
     
-    self.currentImageIndex = 0;
     self.images = [[NSMutableArray alloc] init];
-    self.imageViewPageControl.numberOfPages = self.pop.images.count;
-    self.imageViewPageControl.currentPage = 0;
+    self.numImages = self.pop.images.count;
     
-    // gesture
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftToPreviousImage)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    // photo number label
+    self.numPhotoView.layer.cornerRadius = 5.0f;
+    self.numPhotoView.layer.zPosition = MAXFLOAT; // always on top
+    self.numPhotoView.hidden = YES;
+}
+
+- (void)loadImageViews {
+    // update photo display
+    self.numPhotoView.hidden = NO;
+    self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %d/%ld", 1, self.numImages];
     
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightToNextImage)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    // init scroll view for displaying images
+    self.imageScrollView.pagingEnabled = YES;
     
-    [self.imageView setUserInteractionEnabled:YES];
-    [self.imageView addGestureRecognizer:swipeLeft];
-    [self.imageView addGestureRecognizer:swipeRight];
+    CGSize scrollViewSize = self.imageScrollView.frame.size;
+    CGFloat imageViewWidth = scrollViewSize.width;
+    CGFloat imageViewHeight = scrollViewSize.height;
+    self.imageScrollView.contentSize = CGSizeMake(imageViewWidth * self.numImages, imageViewHeight);
+  
+    // add image to views
+    self.imageViews = [[NSMutableArray alloc] init];
+    
+    for (NSInteger i = 0; i < self.numImages; i++) {
+        CGFloat horizontalOffset = imageViewWidth * i;
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(horizontalOffset, 0, imageViewWidth, imageViewHeight)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
+        [imageView setImage:[self.images objectAtIndex:i]];
+        [view addSubview:imageView];
+        [self.imageScrollView addSubview:view];
+    }
 }
 
 - (void)retreveImages {
@@ -48,7 +71,7 @@
                 [self.images addObject:[UIImage imageWithData:data]];
                 
                 if (self.images.count == self.pop.images.count) {
-                    [self showImageView];
+                    [self loadImageViews];
                 }
             } else {
                 // FIXME with a fatal error prompt
@@ -58,49 +81,14 @@
     }
 }
 
-- (void)showImageView {
-    self.imageView.image = [self.images objectAtIndex:self.currentImageIndex];
+#pragma mark scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // remove top offset
+    [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0f)];
+    CGFloat width = scrollView.frame.size.width;
+    NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width + 1;
+    self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %ld/%ld", (long)page, self.numImages];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)swipeLeftToPreviousImage {
-    NSLog(@"left");
-    if (self.pop.images.count == 1) return;
-    
-    if (self.currentImageIndex == self.pop.images.count - 1) {
-        self.currentImageIndex = 0;
-    } else {
-        self.currentImageIndex++;
-    }
-    self.imageViewPageControl.currentPage = self.currentImageIndex;
-    [self.imageView setImage:[self.images objectAtIndex:self.currentImageIndex]];
-}
-
-- (void)swipeRightToNextImage {
-    NSLog(@"right");
-    if (self.pop.images.count == 1) return;
-    
-    if (self.currentImageIndex == 0) {
-        self.currentImageIndex = self.pop.images.count - 1;
-    } else {
-        self.currentImageIndex--;
-    }
-    self.imageViewPageControl.currentPage = self.currentImageIndex;
-    [self.imageView setImage:[self.images objectAtIndex:self.currentImageIndex]];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+

@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "LPPop.h"
 
-@interface LPPopDetailViewController : UIViewController
+@interface LPPopDetailViewController : UIViewController <UIScrollViewDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIPageControl *imageViewPageControl;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
+@property (weak, nonatomic) IBOutlet UIView *numPhotoView;
+@property (weak, nonatomic) IBOutlet UILabel *numPhotoLabel;
 
 @end
