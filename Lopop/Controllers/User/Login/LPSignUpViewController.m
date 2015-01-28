@@ -81,8 +81,6 @@
 }
 
 #pragma mark - Navigation
-
-
 - (void)_presentUserProfileViewControllerAnimated:(BOOL)animated {
     LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
     [self presentViewController:vc animated:animated completion:nil];

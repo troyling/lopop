@@ -14,5 +14,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 - (IBAction)logout:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+
+- (IBAction)profileEdited:(id)sender;
+- (IBAction)profileFinishedEdit:(id)sender;
 
 @end

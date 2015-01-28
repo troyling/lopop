@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _textFields = @[self.nameField, self.emailField, self.passwordField];
+
     [self _setupForm];
 }
 
@@ -52,7 +53,7 @@
     if ([LPFormValidator isTextfieldsFilled:_textFields]) {
         [self.detailViewController enableSignUpBtn:YES];
     } else {
-        [self.detailViewController enableSignUpBtn:YES];
+        [self.detailViewController enableSignUpBtn:NO];
     }
 }
 

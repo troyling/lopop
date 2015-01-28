@@ -15,9 +15,9 @@
 
 @property NSString *title;
 @property NSString *category;
-@property NSString *description;
+@property NSString *popDescription;
 @property PFUser *seller;
-@property NSMutableArray *images;
+@property NSMutableArray *images; //
 @property PFGeoPoint *location;
 @property BOOL isSold;
 @property NSNumber *price;
