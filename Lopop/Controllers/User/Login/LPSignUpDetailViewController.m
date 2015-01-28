@@ -37,8 +37,21 @@
     if (_signUpTableViewController) {
         PFUser *newUser = [PFUser user];
         newUser.username = [_signUpTableViewController.nameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
         newUser.email = [_signUpTableViewController.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         newUser.password = [_signUpTableViewController.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        NSCharacterSet * set = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ0123456789"] invertedSet];
+        NSString *pwd = newUser.username;
+        if ([pwd rangeOfCharacterFromSet:set].location != NSNotFound) {
+            NSLog(@"This string contains illegal characters");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"user name invalid" message:@"user name contains special characters" delegate:nil cancelButtonTitle:@"(ノ;´Д`)ノ︵┻━┻ " otherButtonTitles:nil, nil];
+            [alert show];
+            return;
+        }
+        
+       
+
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 NSLog(@"Thank you for signing up");

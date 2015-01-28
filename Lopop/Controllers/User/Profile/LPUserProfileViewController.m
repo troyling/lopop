@@ -35,9 +35,9 @@
             NSString *location = userData[@"location"][@"name"];
             NSString *gender = userData[@"gender"];
             NSString *birthday = userData[@"birthday"];
-            
+            BOOL isFBUser = YES;
             NSMutableDictionary *profile = [[NSMutableDictionary alloc] init];
-            
+    
             if (facebookID) {
                 profile[@"facebookID"] = facebookID;
             }
@@ -86,7 +86,7 @@
         NSString *email = profile[@"email"];
         NSString *gender = profile[@"gender"];
         NSString *birthday = profile[@"birthday"];
-        
+
         NSLog(@"email: %@", email);
         NSLog(@"gender: %@", gender);
         NSLog(@"birthday: %@", birthday);
@@ -109,6 +109,17 @@
                 }
             }];
         }
+    } else {
+        NSString *name = [PFUser currentUser][@"username"];
+        if (name) {
+            _nameLabel.text = name;
+        }
+    }
+    
+    // populate user description
+    NSString *description = [PFUser currentUser][@"description"];
+    if (description) {
+        _descriptionTextField.text = description;
     }
 }
 
@@ -127,4 +138,15 @@
     }
 }
 
+
+- (IBAction)profileEdited:(id)sender {
+  
+}
+
+- (IBAction)profileFinishedEdit:(id)sender {
+    [_descriptionTextField resignFirstResponder];
+    PFUser *user = [PFUser currentUser];
+    user[@"description"] =_descriptionTextField.text;
+    [user saveInBackground];
+}
 @end
