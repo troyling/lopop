@@ -16,5 +16,11 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 @property (weak, nonatomic) IBOutlet UIView *numPhotoView;
 @property (weak, nonatomic) IBOutlet UILabel *numPhotoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
+@property (retain, nonatomic) NSString *priceText;
+@property (retain ,nonatomic) NSString *distanceText;
 
 @end

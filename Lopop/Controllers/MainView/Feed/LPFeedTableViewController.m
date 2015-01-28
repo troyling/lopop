@@ -175,10 +175,17 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue destinationViewController] isKindOfClass:[LPPopDetailViewController class]]) {
+        LPPopFeedTableViewCell *cell = (LPPopFeedTableViewCell *)sender;
         LPPopDetailViewController *vc = segue.destinationViewController;
+        
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        
         vc.pop = [self.pops objectAtIndex:indexPath.row];
+        
+        // setup destination
         vc.navigationItem.title = [[self.pops objectAtIndex:indexPath.row] title];
+        vc.priceText = cell.priceLabel.text;
+        vc.distanceText = cell.distanceLabel.text;
     }
 }
 

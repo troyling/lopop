@@ -35,6 +35,11 @@
     self.numPhotoView.layer.cornerRadius = 5.0f;
     self.numPhotoView.layer.zPosition = MAXFLOAT; // always on top
     self.numPhotoView.hidden = YES;
+    
+    // labels
+    self.distanceLabel.text = self.distanceText;
+    self.priceLabel.text = self.priceText;
+    self.descriptionLabel.text = self.pop.popDescription;
 }
 
 - (void)loadImageViews {
