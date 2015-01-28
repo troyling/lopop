@@ -621,9 +621,30 @@
                     <view key="view" contentMode="scaleToFill" id="uyo-ek-pHF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="suS-2v-niR">
+                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                                <gestureRecognizers/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="OwD-zy-a1N">
+                                <rect key="frame" x="141" y="347" width="39" height="37"/>
+                            </pageControl>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="suS-2v-niR" secondAttribute="trailing" id="Ibb-de-u84"/>
+                            <constraint firstItem="suS-2v-niR" firstAttribute="top" secondItem="3DH-qT-di7" secondAttribute="bottom" id="J4A-Ql-Cf6"/>
+                            <constraint firstItem="suS-2v-niR" firstAttribute="bottom" secondItem="OwD-zy-a1N" secondAttribute="bottom" id="JpJ-MI-fM3"/>
+                            <constraint firstItem="suS-2v-niR" firstAttribute="centerX" secondItem="OwD-zy-a1N" secondAttribute="centerX" id="L15-qp-H7U"/>
+                            <constraint firstItem="YyF-iU-clB" firstAttribute="top" secondItem="suS-2v-niR" secondAttribute="bottom" constant="135" id="bEA-Xu-XQO"/>
+                            <constraint firstItem="suS-2v-niR" firstAttribute="leading" secondItem="uyo-ek-pHF" secondAttribute="leading" id="vhS-Od-Pii"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dMo-MW-FAR"/>
+                    <connections>
+                        <outlet property="imageView" destination="suS-2v-niR" id="JNt-Kk-eOr"/>
+                        <outlet property="imageViewPageControl" destination="OwD-zy-a1N" id="rRd-2v-L5X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeZ-aG-QVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

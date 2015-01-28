@@ -12,5 +12,7 @@
 @interface LPPopDetailViewController : UIViewController
 
 @property (strong, nonatomic) LPPop *pop;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIPageControl *imageViewPageControl;
 
 @end
