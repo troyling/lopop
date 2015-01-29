@@ -13,6 +13,11 @@
 		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
 		D601CA781A76C10000344F0C /* LPPopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D601CA771A76C10000344F0C /* LPPopDetailViewController.m */; };
 		D601CA801A798ABE00344F0C /* picture-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D601CA7F1A798ABE00344F0C /* picture-25.png */; };
+		D601CA821A79B1C300344F0C /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA811A79B1C300344F0C /* Firebase.framework */; };
+		D601CA841A79B1FA00344F0C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA831A79B1FA00344F0C /* libicucore.dylib */; };
+		D601CA861A79B20300344F0C /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA851A79B20300344F0C /* libc++.dylib */; };
+		D601CA881A79B3A100344F0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA871A79B3A100344F0C /* Social.framework */; };
+		D601CA8A1A79B3A800344F0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA891A79B3A800344F0C /* Accounts.framework */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -71,6 +76,11 @@
 		D601CA761A76C10000344F0C /* LPPopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopDetailViewController.h; path = Controllers/MainView/Feed/LPPopDetailViewController.h; sourceTree = "<group>"; };
 		D601CA771A76C10000344F0C /* LPPopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopDetailViewController.m; path = Controllers/MainView/Feed/LPPopDetailViewController.m; sourceTree = "<group>"; };
 		D601CA7F1A798ABE00344F0C /* picture-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "picture-25.png"; path = "Resources/Images/TabBarIcons/picture-25.png"; sourceTree = "<group>"; };
+		D601CA811A79B1C300344F0C /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Frameworks/Firebase.framework; sourceTree = "<group>"; };
+		D601CA831A79B1FA00344F0C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		D601CA851A79B20300344F0C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		D601CA871A79B3A100344F0C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		D601CA891A79B3A800344F0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -127,6 +137,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D601CA8A1A79B3A800344F0C /* Accounts.framework in Frameworks */,
+				D601CA881A79B3A100344F0C /* Social.framework in Frameworks */,
+				D601CA861A79B20300344F0C /* libc++.dylib in Frameworks */,
+				D601CA841A79B1FA00344F0C /* libicucore.dylib in Frameworks */,
 				D683F2A71A6FFD3B00117D36 /* MapKit.framework in Frameworks */,
 				D66CC8F41A60E6F3007B9992 /* libsqlite3.dylib in Frameworks */,
 				D66CC8F21A60E6ED007B9992 /* libz.dylib in Frameworks */,
@@ -142,6 +156,7 @@
 				D66CC8E21A60E6AC007B9992 /* CFNetwork.framework in Frameworks */,
 				D66CC8E01A60E6A6007B9992 /* AudioToolbox.framework in Frameworks */,
 				D6F63A4B1A6C390A008D08F5 /* FacebookSDK.framework in Frameworks */,
+				D601CA821A79B1C300344F0C /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +274,11 @@
 		D66CC8D61A60E152007B9992 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D601CA891A79B3A800344F0C /* Accounts.framework */,
+				D601CA871A79B3A100344F0C /* Social.framework */,
+				D601CA851A79B20300344F0C /* libc++.dylib */,
+				D601CA831A79B1FA00344F0C /* libicucore.dylib */,
+				D601CA811A79B1C300344F0C /* Firebase.framework */,
 				D683F2A61A6FFD3B00117D36 /* MapKit.framework */,
 				D6F63A481A6C390A008D08F5 /* Bolts.framework */,
 				D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */,
@@ -605,6 +625,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -639,6 +660,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -660,6 +682,7 @@
 				);
 				INFOPLIST_FILE = Lopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -681,6 +704,7 @@
 				);
 				INFOPLIST_FILE = Lopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
