@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LPSignUpViewController.h"
 #import "LPMainViewTabBarController.h"
+#import "LPUIHelper.h"
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -37,7 +38,7 @@
     self.window.rootViewController = vc;
     
     // apply global tint
-    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1]];
+    [[UITabBar appearance] setTintColor:[LPUIHelper lopopColor]];
     
     return YES;
 }

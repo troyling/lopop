@@ -9,6 +9,7 @@
 #import "LPSignUpDetailViewController.h"
 #import "LPSignUpTableViewController.h"
 #import "LPUserProfileViewController.h"
+#import "LPUIHelper.h"
 #import <Parse/Parse.h>
 
 @interface LPSignUpDetailViewController ()
@@ -71,7 +72,7 @@
     if ([segue.identifier isEqualToString:@"signUpViewEmbedSegue"] &&
         [[segue destinationViewController] isKindOfClass:[LPSignUpTableViewController class]]) {
         // TODO add this to global text
-        CGColorRef lopopGreen = [[UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1] CGColor];
+        CGColorRef lopopGreen = [LPUIHelper lopopColor].CGColor;
         // setup container view
         _signUpTableViewController = [segue destinationViewController];
         _signUpTableViewController.view.layer.cornerRadius = 8.0f;

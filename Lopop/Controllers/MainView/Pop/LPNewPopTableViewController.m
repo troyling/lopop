@@ -8,6 +8,7 @@
 
 #import "LPNewPopTableViewController.h"
 #import "LPPermissionValidator.h"
+#import "LPUIHelper.h"
 #import "LPPopCategoryTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LPPop.h"
@@ -220,7 +221,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 }
 
 - (void)setupImageButtons {
-    CGColorRef lopopColor = [[UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1] CGColor];
+    CGColorRef lopopColor = [LPUIHelper lopopColor].CGColor;
     NSUInteger tag = 0;
     for (UIButton *btn in self.imageBtns) {
         btn.layer.borderColor = lopopColor;

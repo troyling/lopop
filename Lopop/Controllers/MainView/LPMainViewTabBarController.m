@@ -8,6 +8,7 @@
 
 #import "LPMainViewTabBarController.h"
 #import "LPNewPopTableViewController.h"
+#import "LPUIHelper.h"
 
 @implementation LPMainViewTabBarController
 
@@ -20,7 +21,7 @@
     float tabWidth = self.tabBar.layer.bounds.size.width / 5.0;
     float tabHeight = self.self.tabBar.layer.bounds.size.height;
     
-    UIColor *appColor = [UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1];
+    UIColor *appColor = [LPUIHelper lopopColor];
     UIImage *btnImage = [UIImage imageNamed:@"plus-32.png"];
     
     float verticalInset = (tabHeight - btnImage.size.height) / 2;
