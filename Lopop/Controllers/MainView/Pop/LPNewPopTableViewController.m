@@ -12,6 +12,7 @@
 #import "LPPopCategoryTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LPPop.h"
+#import "LPAlertViewHelper.h"
 
 @interface LPNewPopTableViewController ()
 
@@ -73,37 +74,37 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     CLLocation *popLocation = self.locationManager.location;
 
     if (title.length == 0) {
-        [self fatalError:@"Please enter the title of your Pop"];
+        [LPAlertViewHelper fatalErrorAlert:@"Please enter the title of your Pop"];
         return;
     }
     
     if (category.length == 0) {
-        [self fatalError:@"Please enter select a cagetory for you Pop"];
+        [LPAlertViewHelper fatalErrorAlert:@"Please enter select a cagetory for you Pop"];
         return;
     }
     
     if ([description isEqualToString:UITEXTVIEW_DESCRIPTION_PLACEHOLDER] || description.length == 0) {
-        [self fatalError:@"Please write a short description introducing your Pop"];
+        [LPAlertViewHelper fatalErrorAlert:@"Please write a short description introducing your Pop"];
         return;
     }
     
     if (priceStr.length == 0) {
-        [self fatalError:@"Remeber to set a price for your Pop. You don't want to get nothing"];
+        [LPAlertViewHelper fatalErrorAlert:@"Remeber to set a price for your Pop. You don't want to get nothing"];
         return;
     }
     
     if (self.imageFiles.count == 0) {
-        [self fatalError:@"A picture is worth a thousand words. Please upload at least one picture related to your Pop."];
+        [LPAlertViewHelper fatalErrorAlert:@"A picture is worth a thousand words. Please upload at least one picture related to your Pop."];
         return;
     }
     
     if (![PFUser currentUser]) {
-        [self fatalError:@"Please login to create a Pop"];
+        [LPAlertViewHelper fatalErrorAlert:@"Please login to create a Pop"];
         return;
     }
     
     if (!popLocation) {
-        [self fatalError:@"Don't be a ninja. Let people know where you are poping."];
+        [LPAlertViewHelper fatalErrorAlert:@"Don't be a ninja. Let people know where you are poping."];
         return;
     }
     
@@ -148,12 +149,12 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
         }
         
         if (status == kCLAuthorizationStatusDenied) {
-            [self fatalError:@"Please allow location permission in app Settings to create a Pop"];
+            [LPAlertViewHelper fatalErrorAlert:@"Please allow location permission in app Settings to create a Pop"];
             [self dismissViewControllerAnimated:YES completion:NULL];
         }
         [self.locationManager startUpdatingLocation];
     } else {
-        [self fatalError:@"Location service is required to create a Pop"];
+        [LPAlertViewHelper fatalErrorAlert:@"Location service is required to create a Pop"];
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
     
@@ -184,7 +185,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
         // TODO changed it to add a button to access the system settings
-        [self fatalError:@"Unable to take picture. Please allow camera permission in settings"];
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to take picture. Please allow camera permission in settings"];
     }
 }
 
@@ -202,7 +203,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
         imagePicker.allowsEditing = YES;
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
-        [self fatalError:@"Unable to choose picture. Please allow photo library access permission in settings"];
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to choose picture. Please allow photo library access permission in settings"];
     }
 }
 
@@ -260,7 +261,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
             [self.imageFiles addObject:parseImageFile];
             [self reloadButtonImages];
         } else {
-            [self fatalError:[error localizedDescription]];
+            [LPAlertViewHelper fatalErrorAlert:[error localizedDescription]];
         }
     }];
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -298,12 +299,6 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
             tvc.vc = self;
         }
     }
-}
-
-// TODO make this global
-- (void)fatalError:(NSString *)errorMsg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorMsg delegate:nil cancelButtonTitle:BTN_TITLE_DISMISS otherButtonTitles:nil, nil];
-    [alert show];
 }
 
 @end
