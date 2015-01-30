@@ -7,6 +7,7 @@
 //
 
 #import "LPUserProfileViewController.h"
+#import "UIImage+ImageEffects.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
@@ -15,13 +16,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self _loadData];
+    [self loadData];
 }
 
-- (void)_loadData {
+- (void)loadData {
     // present what's been previsouly cached and display the update from Facebook
     if ([PFUser currentUser]) {
-        [self _presentProfileData];
+        [self presentProfileData];
     }
     
     // request data from Facebook
@@ -64,7 +65,7 @@
             [[PFUser currentUser] setObject:profile forKey:@"profile"];
             [[PFUser currentUser] saveInBackground];
             
-            [self _presentProfileData];
+            [self presentProfileData];
         
         } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"OAuthException"]) {
             NSLog(@"Session error");
@@ -75,7 +76,7 @@
     }];
 }
 
-- (void)_presentProfileData {
+- (void)presentProfileData {
     NSLog(@"presenting profile data");
     NSDictionary *profile = [PFUser currentUser][@"profile"];
     NSLog(@"%@", profile);
@@ -92,7 +93,7 @@
         NSLog(@"birthday: %@", birthday);
         
         if (name) {
-            _nameLabel.text = name;
+            self.nameLabel.text = name;
         }
         
         if (profilePicURLStr) {
@@ -101,9 +102,17 @@
             NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
             [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                 if (connectionError == nil && data != nil) {
-                    _profileImageView.image = [UIImage imageWithData:data];
-                    _profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-                    _profileImageView.clipsToBounds = YES;
+                    UIImage *userImage = [UIImage imageWithData:data];
+                    self.profileImageView.image = userImage;
+                    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+                    self.profileImageView.clipsToBounds = YES;
+                    
+                    // background image
+                    userImage = [userImage applyBlurWithRadius:20
+                                                     tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                                        saturationDeltaFactor:1.3
+                                                     maskImage:nil];
+                    self.bkgImageView.image = userImage;
                 } else {
                     NSLog(@"Failed to load profile photo.");
                 }
@@ -112,14 +121,14 @@
     } else {
         NSString *name = [PFUser currentUser][@"username"];
         if (name) {
-            _nameLabel.text = name;
+            self.nameLabel.text = name;
         }
     }
     
     // populate user description
     NSString *description = [PFUser currentUser][@"description"];
     if (description) {
-        _descriptionTextField.text = description;
+        self.descriptionTextField.text = description;
     }
 }
 
@@ -128,6 +137,7 @@
     [alert show];
 }
 
+#pragma mark alertView Delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
@@ -138,15 +148,10 @@
     }
 }
 
-
-- (IBAction)profileEdited:(id)sender {
-  
-}
-
 - (IBAction)profileFinishedEdit:(id)sender {
-    [_descriptionTextField resignFirstResponder];
+    [self.descriptionTextField resignFirstResponder];
     PFUser *user = [PFUser currentUser];
-    user[@"description"] =_descriptionTextField.text;
+    user[@"description"] = self.descriptionTextField.text;
     [user saveInBackground];
 }
 @end

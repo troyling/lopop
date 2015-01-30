@@ -11,12 +11,12 @@
 @interface LPUserProfileViewController : UIViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *bkgImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 - (IBAction)logout:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 
-- (IBAction)profileEdited:(id)sender;
 - (IBAction)profileFinishedEdit:(id)sender;
 
 @end
