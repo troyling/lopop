@@ -9,6 +9,7 @@
 #import "LPUserProfileViewController.h"
 #import "UIImage+ImageEffects.h"
 #import "LPUserRelationship.h"
+#import "LPFollowerTableViewController.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @implementation LPUserProfileViewController
@@ -186,6 +187,27 @@
     [self.descriptionTextField resignFirstResponder];
     self.targetUser[@"description"] = self.descriptionTextField.text;
     [self.targetUser saveInBackground];
+}
+
+#pragma mark segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[LPFollowerTableViewController class]]) {
+        
+        LPFollowerTableViewController *vc = segue.destinationViewController;
+        
+        // setup query
+        PFQuery *query = [PFQuery queryWithClassName:@"UserRelationship"];
+        [query orderByDescending:@"createdAt"];
+        
+        if ([segue.identifier isEqualToString:@"viewFollowingUsers"]) {
+            [query whereKey:@"follower" equalTo:self.targetUser];
+            vc.type = FOLLOWING_USER;
+        } else if ([segue.identifier isEqualToString:@"viewFollowers"]) {
+            [query whereKey:@"followedUser" equalTo:self.targetUser];
+            vc.type = FOLLOWER;
+        }
+        vc.query = query;
+    }
 }
 
 @end
