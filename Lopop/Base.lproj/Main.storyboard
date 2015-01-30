@@ -754,10 +754,10 @@
             </objects>
             <point key="canvasLocation" x="1829" y="-1572"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="2hV-KF-D8C">
             <objects>
-                <viewController id="ZfQ-9O-fwM" sceneMemberID="viewController">
+                <viewController id="ZfQ-9O-fwM" customClass="LPSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qVc-PT-Lqa"/>
                         <viewControllerLayoutGuide type="bottom" id="RcF-qx-Q2B"/>
@@ -785,7 +785,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signup:" destination="gxO-aq-khb" eventType="touchUpInside" id="jYb-OZ-QeB"/>
-                                    <segue destination="Cg3-tZ-sYk" kind="push" id="diL-iH-sje"/>
+                                    <segue destination="Cg3-tZ-sYk" kind="push" identifier="LPDisplayCurrentUserProfile" id="diL-iH-sje"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -844,8 +844,8 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eo-Yw-vX3">
-                                <rect key="frame" x="15" y="180" width="290" height="26.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <rect key="frame" x="15" y="180" width="290" height="21.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -865,59 +865,79 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vertical_line" translatesAutoresizingMaskIntoConstraints="NO" id="Tkb-lu-6PN">
-                                <rect key="frame" x="158" y="252" width="2" height="30"/>
+                                <rect key="frame" x="159" y="254" width="2" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="vtt-Gy-YVG"/>
+                                    <constraint firstAttribute="height" constant="15" id="vtt-Gy-YVG"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wu-oF-6Zb">
+                                <rect key="frame" x="175" y="252" width="114" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="lo5-bB-4as"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Follower 101">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Edit your description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gc2-f5-iiI">
-                                <rect key="frame" x="31" y="214.5" width="258" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="31" y="209" width="258" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="profileFinishedEdit:" destination="Cg3-tZ-sYk" eventType="editingDidEndOnExit" id="Xzq-Wj-Rey"/>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZi-cB-M4K">
-                                <rect key="frame" x="31" y="252" width="112" height="30"/>
+                                <rect key="frame" x="31" y="252" width="112" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="HmF-3Q-z2W"/>
+                                    <constraint firstAttribute="height" constant="20" id="HmF-3Q-z2W"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Following 100">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wu-oF-6Zb">
-                                <rect key="frame" x="175" y="252" width="114" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhx-UU-ni0">
+                                <rect key="frame" x="31" y="280" width="258" height="30"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="lo5-bB-4as"/>
+                                    <constraint firstAttribute="height" constant="30" id="91x-7h-OLo"/>
                                 </constraints>
-                                <state key="normal" title="Follower 101">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Follow">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="followUser:" destination="Cg3-tZ-sYk" eventType="touchUpInside" id="yIt-rO-X9O"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="mCV-24-vsL" secondAttribute="trailing" constant="15" id="5f6-cM-6ln"/>
-                            <constraint firstItem="Tkb-lu-6PN" firstAttribute="top" secondItem="g4f-OX-DQn" secondAttribute="bottom" constant="8" id="6CD-Bn-u0w"/>
+                            <constraint firstItem="Tkb-lu-6PN" firstAttribute="top" secondItem="g4f-OX-DQn" secondAttribute="bottom" constant="10" id="6CD-Bn-u0w"/>
                             <constraint firstItem="gc2-f5-iiI" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leadingMargin" constant="15" id="71i-Do-umy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g4f-OX-DQn" secondAttribute="trailing" constant="-16" id="8GJ-WW-Tbq"/>
-                            <constraint firstAttribute="centerX" secondItem="Tkb-lu-6PN" secondAttribute="centerX" constant="1" id="AGz-bK-SV6"/>
+                            <constraint firstAttribute="centerX" secondItem="Tkb-lu-6PN" secondAttribute="centerX" id="AGz-bK-SV6"/>
                             <constraint firstItem="8Wu-oF-6Zb" firstAttribute="top" secondItem="g4f-OX-DQn" secondAttribute="bottom" constant="8" id="BeR-0u-b5X"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8Wu-oF-6Zb" secondAttribute="trailing" constant="15" id="Ems-wa-ETc"/>
+                            <constraint firstItem="vhx-UU-ni0" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leadingMargin" constant="15" id="KDO-L4-wpj"/>
                             <constraint firstItem="Li2-Np-Vw7" firstAttribute="top" secondItem="Zhe-8U-Wfs" secondAttribute="bottom" constant="8" id="N74-Hv-ivT"/>
                             <constraint firstItem="hZi-cB-M4K" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leadingMargin" constant="15" id="Ntg-LG-tFy"/>
-                            <constraint firstItem="8Wu-oF-6Zb" firstAttribute="leading" secondItem="Tkb-lu-6PN" secondAttribute="trailing" constant="15" id="OT2-XM-bkL"/>
+                            <constraint firstItem="8Wu-oF-6Zb" firstAttribute="leading" secondItem="Tkb-lu-6PN" secondAttribute="trailing" constant="14" id="OT2-XM-bkL"/>
                             <constraint firstAttribute="width" secondItem="g4f-OX-DQn" secondAttribute="height" multiplier="16:9" id="SBA-uu-M4w"/>
                             <constraint firstItem="g4f-OX-DQn" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leadingMargin" constant="-16" id="VA4-bW-qFL"/>
                             <constraint firstItem="g4f-OX-DQn" firstAttribute="top" secondItem="Zhe-8U-Wfs" secondAttribute="bottom" id="X3s-dI-yff"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vhx-UU-ni0" secondAttribute="trailing" constant="15" id="YqB-KV-WiC"/>
                             <constraint firstItem="7eo-Yw-vX3" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leading" constant="15" id="fID-Xk-98l"/>
                             <constraint firstItem="7eo-Yw-vX3" firstAttribute="top" secondItem="Li2-Np-Vw7" secondAttribute="bottom" constant="8" id="gzp-Tx-6kK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gc2-f5-iiI" secondAttribute="trailing" constant="15" id="hb8-gs-EYs"/>
-                            <constraint firstItem="Tkb-lu-6PN" firstAttribute="leading" secondItem="hZi-cB-M4K" secondAttribute="trailing" constant="15" id="lEP-1N-9ne"/>
+                            <constraint firstItem="vhx-UU-ni0" firstAttribute="top" secondItem="hZi-cB-M4K" secondAttribute="bottom" constant="8" id="hbY-xc-FUJ"/>
+                            <constraint firstItem="Tkb-lu-6PN" firstAttribute="leading" secondItem="hZi-cB-M4K" secondAttribute="trailing" constant="16" id="lEP-1N-9ne"/>
                             <constraint firstItem="RBM-6m-LxC" firstAttribute="top" secondItem="mCV-24-vsL" secondAttribute="bottom" constant="20" id="lz5-fd-ZTu"/>
                             <constraint firstItem="hZi-cB-M4K" firstAttribute="top" secondItem="g4f-OX-DQn" secondAttribute="bottom" constant="8" id="nHK-Jb-NCA"/>
                             <constraint firstItem="gc2-f5-iiI" firstAttribute="top" secondItem="7eo-Yw-vX3" secondAttribute="bottom" constant="8" id="riA-UW-BU1"/>
@@ -1240,6 +1260,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThY-VP-Pf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1436" y="0.0"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="OVh-4s-tNL">
+            <objects>
+                <viewController id="h0A-ap-IUx" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hAt-tk-wwG"/>
+                        <viewControllerLayoutGuide type="bottom" id="aaq-R6-DFM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JAA-Ka-qDY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ey-Kc-vgs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

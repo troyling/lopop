@@ -8,20 +8,20 @@
 
 #import "LPUserProfileViewController.h"
 #import "UIImage+ImageEffects.h"
-#import <Parse/Parse.h>
+#import "LPUserRelationship.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @implementation LPUserProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self loadData];
+    [self presentProfileData];
+//    [self loadData];
 }
 
 - (void)loadData {
     // present what's been previsouly cached and display the update from Facebook
-    if ([PFUser currentUser]) {
+    if (self.targetUser) {
         [self presentProfileData];
     }
     
@@ -78,7 +78,7 @@
 
 - (void)presentProfileData {
     NSLog(@"presenting profile data");
-    NSDictionary *profile = [PFUser currentUser][@"profile"];
+    NSDictionary *profile = self.targetUser[@"profile"];
     NSLog(@"%@", profile);
     
     if (profile) {
@@ -119,14 +119,14 @@
             }];
         }
     } else {
-        NSString *name = [PFUser currentUser][@"username"];
+        NSString *name = self.targetUser[@"username"];
         if (name) {
             self.nameLabel.text = name;
         }
     }
     
     // populate user description
-    NSString *description = [PFUser currentUser][@"description"];
+    NSString *description = self.targetUser[@"description"];
     if (description) {
         self.descriptionTextField.text = description;
     }
@@ -148,10 +148,22 @@
     }
 }
 
-- (IBAction)profileFinishedEdit:(id)sender {
-    [self.descriptionTextField resignFirstResponder];
-    PFUser *user = [PFUser currentUser];
-    user[@"description"] = self.descriptionTextField.text;
-    [user saveInBackground];
+- (IBAction)followUser:(id)sender {
+    LPUserRelationship *follow = [LPUserRelationship object];
+    follow.follower = [PFUser currentUser];
+    follow.followedUser = self.targetUser;
+    [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully following this user");
+        }
+    }];
 }
+
+- (IBAction)profileFinishedEdit:(id)sender {
+    // FIXME this is broken. Current user shoudn't save the user in view
+    [self.descriptionTextField resignFirstResponder];
+    self.targetUser[@"description"] = self.descriptionTextField.text;
+    [self.targetUser saveInBackground];
+}
+
 @end
