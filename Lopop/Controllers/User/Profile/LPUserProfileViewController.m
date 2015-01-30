@@ -15,6 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadFollowers];
     [self presentProfileData];
 //    [self loadData];
 }
@@ -79,7 +80,6 @@
 - (void)presentProfileData {
     NSLog(@"presenting profile data");
     NSDictionary *profile = self.targetUser[@"profile"];
-    NSLog(@"%@", profile);
     
     if (profile) {
         NSString *name = profile[@"name"];
@@ -135,6 +135,28 @@
 - (IBAction)logout:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     [alert show];
+}
+
+#pragma mark follower/following system
+- (void)loadFollowers {
+    PFQuery *followedQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
+    
+    // being followed by other users
+    [followedQuery whereKey:@"followedUser" equalTo:self.targetUser];
+    [followedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            self.followerBtn.titleLabel.text = [NSString stringWithFormat:@"Follower %d", number];
+        }
+    }];
+    
+    // following other users
+    PFQuery *followerQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
+    [followerQuery whereKey:@"follower" equalTo:self.targetUser];
+    [followerQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            self.followingBtn.titleLabel.text = [NSString stringWithFormat:@"Following %d", number];
+        }
+    }];
 }
 
 #pragma mark alertView Delegate

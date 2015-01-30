@@ -7,6 +7,7 @@
 //
 
 #import "LPPopDetailViewController.h"
+#import "LPUserProfileViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -40,6 +41,14 @@
     self.distanceLabel.text = self.distanceText;
     self.priceLabel.text = self.priceText;
     self.descriptionLabel.text = self.pop.popDescription;
+    
+    // TODO DELETEME!
+    [self.pop.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            self.profileBtn.titleLabel.text = self.pop.seller.email;
+            NSLog(@"User: %@", self.pop.seller);
+        }
+    }];
 }
 
 - (void)loadImageViews {
@@ -93,6 +102,13 @@
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width + 1;
     self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %ld/%ld", (long)page, self.numImages];
+}
+
+- (IBAction)viewSellerProfile:(id)sender {
+    LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
+    // TODO check if the seller is the currentUser
+    vc.targetUser = self.pop.seller;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

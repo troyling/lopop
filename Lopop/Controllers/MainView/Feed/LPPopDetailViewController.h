@@ -19,8 +19,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *sellerProfileImageView;
+
+@property (weak, nonatomic) IBOutlet UIButton *profileBtn; // TODO delete me!!!!
 
 @property (retain, nonatomic) NSString *priceText;
 @property (retain ,nonatomic) NSString *distanceText;
+
+- (IBAction)viewSellerProfile:(id)sender;
 
 @end

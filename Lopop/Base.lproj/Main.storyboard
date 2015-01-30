@@ -695,15 +695,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wr1-9G-X8B">
-                                        <rect key="frame" x="15" y="36" width="50" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="Rva-ab-npr"/>
-                                            <constraint firstAttribute="height" constant="50" id="Zu3-Os-4Yz"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0y0-2B-8uG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Description" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0y0-2B-8uG">
                                         <rect key="frame" x="15" y="94" width="281" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="59" id="f6Z-9t-EMq"/>
@@ -712,19 +704,34 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iu3-r7-PCE">
+                                        <rect key="frame" x="15" y="36" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="91r-fN-hk7"/>
+                                            <constraint firstAttribute="height" constant="50" id="Do6-YX-BIp"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bK9-0U-UyD">
+                                        <rect key="frame" x="73" y="46" width="223" height="30"/>
+                                        <state key="normal" title="View user Profile">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewSellerProfile:" destination="1XU-5b-TyA" eventType="touchUpInside" id="oPK-f4-0MX"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="0y0-2B-8uG" secondAttribute="trailing" constant="24" id="55k-9X-8ld"/>
                                     <constraint firstItem="0y0-2B-8uG" firstAttribute="leading" secondItem="rzI-KM-Vex" secondAttribute="leading" constant="15" id="5UF-B4-d3M"/>
-                                    <constraint firstItem="0y0-2B-8uG" firstAttribute="top" secondItem="Wr1-9G-X8B" secondAttribute="bottom" constant="8" id="9RU-hY-AzE"/>
+                                    <constraint firstItem="iu3-r7-PCE" firstAttribute="top" secondItem="e1W-hj-1s8" secondAttribute="bottom" constant="8" id="BjJ-Bh-pbo"/>
                                     <constraint firstItem="Q6x-0X-ad5" firstAttribute="top" secondItem="rzI-KM-Vex" secondAttribute="top" constant="8" id="Ct5-Te-fN3"/>
                                     <constraint firstItem="e1W-hj-1s8" firstAttribute="top" secondItem="rzI-KM-Vex" secondAttribute="top" constant="8" id="DlH-gf-hKr"/>
                                     <constraint firstAttribute="trailing" secondItem="Q6x-0X-ad5" secondAttribute="trailing" constant="24" id="FMs-vm-YBO"/>
-                                    <constraint firstItem="Wr1-9G-X8B" firstAttribute="top" secondItem="e1W-hj-1s8" secondAttribute="bottom" constant="8" id="V63-gE-Gwf"/>
                                     <constraint firstAttribute="height" constant="153" id="Xa5-Ym-eRm"/>
-                                    <constraint firstItem="Wr1-9G-X8B" firstAttribute="leading" secondItem="rzI-KM-Vex" secondAttribute="leading" constant="15" id="wwX-I7-gTJ"/>
                                     <constraint firstItem="e1W-hj-1s8" firstAttribute="leading" secondItem="rzI-KM-Vex" secondAttribute="leading" constant="15" id="ypa-YJ-q9n"/>
+                                    <constraint firstItem="iu3-r7-PCE" firstAttribute="leading" secondItem="rzI-KM-Vex" secondAttribute="leading" constant="15" id="z9e-rP-wDU"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -748,6 +755,8 @@
                         <outlet property="numPhotoLabel" destination="1xC-hS-iQL" id="R3i-Im-oAy"/>
                         <outlet property="numPhotoView" destination="xCv-sg-jjL" id="KMb-7y-5yx"/>
                         <outlet property="priceLabel" destination="Q6x-0X-ad5" id="h4K-ZC-fs3"/>
+                        <outlet property="profileBtn" destination="bK9-0U-UyD" id="Tm6-iB-LQL"/>
+                        <outlet property="sellerProfileImageView" destination="iu3-r7-PCE" id="7z8-t4-502"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeZ-aG-QVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -950,6 +959,8 @@
                     <connections>
                         <outlet property="bkgImageView" destination="g4f-OX-DQn" id="9uI-y5-Bfe"/>
                         <outlet property="descriptionTextField" destination="gc2-f5-iiI" id="vsd-EY-UAS"/>
+                        <outlet property="followerBtn" destination="8Wu-oF-6Zb" id="ggy-q2-yCl"/>
+                        <outlet property="followingBtn" destination="hZi-cB-M4K" id="Ev0-7T-zjK"/>
                         <outlet property="nameLabel" destination="7eo-Yw-vX3" id="F7Q-9Y-7sh"/>
                         <outlet property="profileImageView" destination="Li2-Np-Vw7" id="GIR-Nx-wSf"/>
                     </connections>
