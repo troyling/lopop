@@ -10,127 +10,60 @@
 #import "UIImage+ImageEffects.h"
 #import "LPUserRelationship.h"
 #import "LPFollowerTableViewController.h"
+#import "LPAlertViewHelper.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @implementation LPUserProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadFollowers];
+    [self loadUserStats];
     [self presentProfileData];
-//    [self loadData];
-}
-
-- (void)loadData {
-    // present what's been previsouly cached and display the update from Facebook
-    if (self.targetUser) {
-        [self presentProfileData];
-    }
-    
-    // request data from Facebook
-    FBRequest *request = [FBRequest requestForMe];
-    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            // process the data
-            NSDictionary *userData = (NSDictionary *)result;
-            NSString *facebookID = userData[@"id"];
-            NSString *name = userData[@"name"];
-            NSString *location = userData[@"location"][@"name"];
-            NSString *gender = userData[@"gender"];
-            NSString *birthday = userData[@"birthday"];
-            BOOL isFBUser = YES;
-            NSMutableDictionary *profile = [[NSMutableDictionary alloc] init];
-    
-            if (facebookID) {
-                profile[@"facebookID"] = facebookID;
-            }
-            
-            if (name) {
-                profile[@"name"] = name;
-            }
-            
-            if (location) {
-                profile[@"locaton"] = location;
-            }
-            
-            if (gender) {
-                profile[@"gender"] = gender;
-            }
-            
-            if (birthday) {
-                profile[@"birthday"] = birthday;
-            }
-            
-            profile[@"pictureURL"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1&height=150&width=150", facebookID];
-            
-            // save data to parse
-            [[PFUser currentUser] setObject:profile forKey:@"profile"];
-            [[PFUser currentUser] saveInBackground];
-            
-            [self presentProfileData];
-        
-        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"OAuthException"]) {
-            NSLog(@"Session error");
-            // TODO should log user out
-        } else {
-            NSLog(@"Other error");
-        }
-    }];
 }
 
 - (void)presentProfileData {
-    NSLog(@"presenting profile data");
-    NSDictionary *profile = self.targetUser[@"profile"];
-    
-    if (profile) {
-        NSString *name = profile[@"name"];
-        NSString *profilePicURLStr = profile[@"pictureURL"];
-        NSString *email = profile[@"email"];
-        NSString *gender = profile[@"gender"];
-        NSString *birthday = profile[@"birthday"];
-
-        NSLog(@"email: %@", email);
-        NSLog(@"gender: %@", gender);
-        NSLog(@"birthday: %@", birthday);
+    if (self.targetUser) {
+        NSString *name = self.targetUser[@"name"];
+        NSString *description = self.targetUser[@"description"];
+        NSString *profilePictureUrl = self.targetUser[@"profilePictureUrl"];
         
         if (name) {
             self.nameLabel.text = name;
         }
         
-        if (profilePicURLStr) {
-            // download the user's facebook profile picture
-            NSURL *pictureURL = [NSURL URLWithString:profilePicURLStr];
-            NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
-            [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                if (connectionError == nil && data != nil) {
-                    UIImage *userImage = [UIImage imageWithData:data];
-                    self.profileImageView.image = userImage;
-                    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-                    self.profileImageView.clipsToBounds = YES;
-                    
-                    // background image
-                    userImage = [userImage applyBlurWithRadius:20
-                                                     tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
-                                        saturationDeltaFactor:1.3
-                                                     maskImage:nil];
-                    self.bkgImageView.image = userImage;
-                } else {
-                    NSLog(@"Failed to load profile photo.");
-                }
-            }];
+        if (description) {
+            self.descriptionTextField.text = description;
+        }
+        
+        if (profilePictureUrl) {
+            [self loadProfilePictureWithURL:profilePictureUrl];
         }
     } else {
-        NSString *name = self.targetUser[@"username"];
-        if (name) {
-            self.nameLabel.text = name;
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile"];
+    }
+}
+
+- (void)loadProfilePictureWithURL:(NSString *)UrlString {
+    // download the user's facebook profile picture
+    NSURL *pictureURL = [NSURL URLWithString:UrlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError == nil && data != nil) {
+            UIImage *userImage = [UIImage imageWithData:data];
+            self.profileImageView.image = userImage;
+            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+            self.profileImageView.clipsToBounds = YES;
+            
+            // background image
+            userImage = [userImage applyBlurWithRadius:20
+                                             tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                                 saturationDeltaFactor:1.3
+                                             maskImage:nil];
+            self.bkgImageView.image = userImage;
+        } else {
+            [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile picture"];
         }
-    }
-    
-    // populate user description
-    NSString *description = self.targetUser[@"description"];
-    if (description) {
-        self.descriptionTextField.text = description;
-    }
+    }];
 }
 
 - (IBAction)logout:(id)sender {
@@ -138,8 +71,29 @@
     [alert show];
 }
 
+- (IBAction)followUser:(id)sender {
+    LPUserRelationship *follow = [LPUserRelationship object];
+    follow.follower = [PFUser currentUser];
+    follow.followedUser = self.targetUser;
+    [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully following this user");
+        } else {
+            NSLog(@"%@", error);
+            [LPAlertViewHelper fatalErrorAlert:error.userInfo[@"error"]];
+        }
+    }];
+}
+
+- (IBAction)profileFinishedEdit:(id)sender {
+    // FIXME this is broken. Current user shoudn't save the user in view
+    [self.descriptionTextField resignFirstResponder];
+    self.targetUser[@"description"] = self.descriptionTextField.text;
+    [self.targetUser saveInBackground];
+}
+
 #pragma mark follower/following system
-- (void)loadFollowers {
+- (void)loadUserStats {
     PFQuery *followedQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
     
     // being followed by other users
@@ -169,24 +123,6 @@
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
         [self presentViewController:vc animated:NO completion:nil];
     }
-}
-
-- (IBAction)followUser:(id)sender {
-    LPUserRelationship *follow = [LPUserRelationship object];
-    follow.follower = [PFUser currentUser];
-    follow.followedUser = self.targetUser;
-    [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            NSLog(@"Successfully following this user");
-        }
-    }];
-}
-
-- (IBAction)profileFinishedEdit:(id)sender {
-    // FIXME this is broken. Current user shoudn't save the user in view
-    [self.descriptionTextField resignFirstResponder];
-    self.targetUser[@"description"] = self.descriptionTextField.text;
-    [self.targetUser saveInBackground];
 }
 
 #pragma mark segue
