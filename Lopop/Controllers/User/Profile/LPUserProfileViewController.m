@@ -13,6 +13,13 @@
 #import "LPAlertViewHelper.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
+@interface LPUserProfileViewController ()
+
+@property (strong, nonatomic) NSString *followingBtnStr;
+@property (strong, nonatomic) NSString *followerBtnStr;
+
+@end
+
 @implementation LPUserProfileViewController
 
 - (void)viewDidLoad {
@@ -41,6 +48,12 @@
     } else {
         [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile"];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.followerBtn.titleLabel.text = self.followerBtnStr;
+    self.followingBtn.titleLabel.text = self.followingBtnStr;
 }
 
 - (void)loadProfilePictureWithURL:(NSString *)UrlString {
@@ -100,7 +113,7 @@
     [followedQuery whereKey:@"followedUser" equalTo:self.targetUser];
     [followedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            self.followerBtn.titleLabel.text = [NSString stringWithFormat:@"Follower %d", number];
+            [self.followerBtn setTitle:[NSString stringWithFormat:@"Follower %d", number] forState:UIControlStateNormal];
         }
     }];
     
@@ -109,7 +122,7 @@
     [followerQuery whereKey:@"follower" equalTo:self.targetUser];
     [followerQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            self.followingBtn.titleLabel.text = [NSString stringWithFormat:@"Following %d", number];
+            [self.followingBtn setTitle:[NSString stringWithFormat:@"Following %d", number] forState:UIControlStateNormal];
         }
     }];
 }
