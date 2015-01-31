@@ -106,7 +106,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVb-UI-zXb">
-                                <rect key="frame" x="31" y="479" width="26" height="21"/>
+                                <rect key="frame" x="31" y="479" width="25.5" height="20.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -589,7 +589,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0C-fa-J6t">
-                                            <rect key="frame" x="16" y="228" width="53" height="20"/>
+                                            <rect key="frame" x="16" y="228" width="52.5" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="vyR-M9-UiF"/>
                                             </constraints>
@@ -687,7 +687,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1W-hj-1s8">
-                                        <rect key="frame" x="15" y="8" width="53" height="20"/>
+                                        <rect key="frame" x="15" y="8" width="52.5" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="1Fx-Mv-Ajg"/>
                                         </constraints>
@@ -853,7 +853,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eo-Yw-vX3">
-                                <rect key="frame" x="15" y="180" width="290" height="22"/>
+                                <rect key="frame" x="15" y="180" width="290" height="21.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

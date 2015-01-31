@@ -77,7 +77,7 @@
             userToDisplay = relationship.follower;
         }
         
-        [userToDisplay fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        [userToDisplay fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             if (!error) {
                 // FIXME change username to name
                 if (userToDisplay.email) {
