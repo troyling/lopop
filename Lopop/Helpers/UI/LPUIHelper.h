@@ -12,5 +12,6 @@
 @interface LPUIHelper : NSObject
 
 + (UIColor *)lopopColor;
++ (UIImage *)convertViewToImage:(UIView *)view;
 
 @end

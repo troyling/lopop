@@ -11,6 +11,9 @@
 #import "LPUserProfileViewController.h"
 #import "UIImage+ImageEffects.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "LPUserHelper.h"
+#import "LPAlertViewHelper.h"
+#import "LPUIHelper.h"
 
 @implementation LPSignUpViewController
 
@@ -26,7 +29,7 @@
     // Bypass login view if the user is already logged in
     if  ([PFUser currentUser] &&
          [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [self _presentUserProfileViewControllerAnimated:NO];
+        [self presentUserProfileViewControllerAnimated:NO];
     }
     
     self.activityIndicator.hidden = YES;
@@ -41,47 +44,41 @@
     return YES;
 }
 
+#pragma mark FB SDK
+
 - (IBAction)connectWithFacebook:(id)sender {
     NSArray *permissions = @[@"public_profile",
-                             @"user_birthday",
                              @"user_friends",
-                             @"email",
-                             @"user_interests",
-                             @"user_location"];
+                             @"email"];
     
     [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
-        [_activityIndicator stopAnimating];
+        [self dismissActivityIndicator];
         if (!user) {
-            NSString *errMsg = @"Error occurred when connecting with Facebook. Please try again.";
-            NSLog(@"%@", errMsg);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errMsg delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-            [alert show];
+            [LPAlertViewHelper fatalErrorAlert:@"Error occurred when connecting with Facebook. Please try again."];
         } else {
             if (user.isNew) {
-                NSLog(@"New user signed up and logged in via Facebook");
-                // TODO show tutorial maybe?
-            } else {
-                NSLog(@"User logged in through FB");
+                [LPUserHelper mapCurrentUserFBData];
             }
-            [self _presentUserProfileViewControllerAnimated:NO];
+            [self presentUserProfileViewControllerAnimated:NO];
         }
     }];
     
-    self.activityIndicator.hidden = NO;
-    [_activityIndicator startAnimating];
+    [self showActivityIndicator];
 }
 
-- (UIImage *)convertCurrentViewToImage {
-    UIGraphicsBeginImageContext(self.view.bounds.size);
-    [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return img;
+#pragma mark activityIndicator
+- (void)showActivityIndicator {
+    self.activityIndicator.hidden = NO;
+    [self.activityIndicator startAnimating];
+}
+
+- (void)dismissActivityIndicator {
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
 }
 
 #pragma mark - Navigation
-- (void)_presentUserProfileViewControllerAnimated:(BOOL)animated {
+- (void)presentUserProfileViewControllerAnimated:(BOOL)animated {
     LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
     [self presentViewController:vc animated:animated completion:nil];
 }
@@ -90,7 +87,7 @@
     if ([segue.identifier isEqualToString:@"signUpDetailViewControllerSegue"] &&
         [[segue destinationViewController] isKindOfClass:[LPSignUpDetailViewController class]]) {
         LPSignUpDetailViewController *vc = [segue destinationViewController];
-        UIImage *img = [self convertCurrentViewToImage];
+        UIImage *img = [LPUIHelper convertViewToImage:self.view];
         img = [img applyBlurWithRadius:20
                              tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
                  saturationDeltaFactor:1.3

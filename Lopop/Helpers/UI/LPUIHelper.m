@@ -14,4 +14,12 @@
     return [UIColor colorWithRed:0.33 green:0.87 blue:0.75 alpha:1];
 }
 
++ (UIImage *)convertViewToImage:(UIView *)view {
+    UIGraphicsBeginImageContext(view.bounds.size);
+    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
 @end
