@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C41A7D740B0020B7A3 /* MessageViewController.m */; };
+		335FD8C81A7D75960020B7A3 /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* ChatMessage.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
@@ -67,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		335FD8C31A7D740B0020B7A3 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = Controllers/MainView/Message/MessageViewController.h; sourceTree = "<group>"; };
+		335FD8C41A7D740B0020B7A3 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Controllers/MainView/Message/MessageViewController.m; sourceTree = "<group>"; };
+		335FD8C61A7D75960020B7A3 /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatMessage.h; path = Controllers/MainView/Message/ChatMessage.h; sourceTree = "<group>"; };
+		335FD8C71A7D75960020B7A3 /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatMessage.m; path = Controllers/MainView/Message/ChatMessage.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
 		D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedTableViewController.m; path = Controllers/MainView/Feed/LPFeedTableViewController.m; sourceTree = "<group>"; };
 		D6008A221A67269F0057771A /* LPNewPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopTableViewController.h; path = Controllers/MainView/Pop/LPNewPopTableViewController.h; sourceTree = "<group>"; };
@@ -176,6 +182,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		335FD8C21A7D72590020B7A3 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				335FD8C31A7D740B0020B7A3 /* MessageViewController.h */,
+				335FD8C41A7D740B0020B7A3 /* MessageViewController.m */,
+				335FD8C61A7D75960020B7A3 /* ChatMessage.h */,
+				335FD8C71A7D75960020B7A3 /* ChatMessage.m */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
 		D6008A101A65A1340057771A /* TabBarIcons */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +460,7 @@
 		D6E6EB151A659108008085F7 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				335FD8C21A7D72590020B7A3 /* Message */,
 				D6008A211A67266F0057771A /* Pop */,
 				D6008A1A1A6711830057771A /* Feed */,
 				D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */,
@@ -566,7 +584,9 @@
 				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,
+				335FD8C81A7D75960020B7A3 /* ChatMessage.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
+				335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */,
