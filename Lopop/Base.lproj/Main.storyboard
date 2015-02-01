@@ -190,26 +190,38 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="skb-eL-0rW">
-                                <rect key="frame" x="0.0" y="481" width="320" height="30"/>
+                                <rect key="frame" x="26" y="352" width="234" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Opn-IY-AoF">
-                                <rect key="frame" x="0.0" y="64" width="326" height="409"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="280"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1NB-vu-tbv">
+                                <rect key="frame" x="268" y="352" width="36" height="30"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendMessage:" destination="PhZ-EF-xaN" eventType="touchUpInside" id="yJg-Uh-ycU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="8ji-fo-Y7L"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="inputField" destination="skb-eL-0rW" id="9oM-Ao-V4O"/>
+                        <outlet property="sendButton" destination="1NB-vu-tbv" id="hgL-vd-CbW"/>
                         <outlet property="tableView" destination="Opn-IY-AoF" id="DaB-xx-uOj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1VF-nu-ikx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1436" y="628"/>
+            <point key="canvasLocation" x="1446" y="628"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Kfv-cO-f4B">

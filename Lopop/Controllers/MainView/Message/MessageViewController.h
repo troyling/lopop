@@ -15,6 +15,8 @@
 @interface MessageViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+- (IBAction)sendMessage:(id)sender;
 
 @property Firebase *firebase;
 @property (nonatomic, strong) NSMutableArray* chatArray;

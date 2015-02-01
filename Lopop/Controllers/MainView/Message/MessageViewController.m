@@ -13,12 +13,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.chatArray = [[NSMutableArray alloc] init];
+    self.tableView.allowsSelection=NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     self.firebase = [[Firebase alloc] initWithUrl:@"https://vivid-heat-6123.firebaseio.com/"];
-    
-
     
     // This allows us to check if these were messages already stored on the server
     // when we booted up (YES) or if they are new messages since we've started the app.
@@ -72,6 +71,7 @@
     return cell;
 }
 
+/*
 // This method is called when the user enters text in the text field.
 // We add the chat message to our Firebase.
 - (BOOL)textFieldShouldReturn:(UITextField*)aTextField
@@ -87,7 +87,7 @@
     [aTextField setText:@""];
     return NO;
 }
-
+*/
 
 // This method will be called when the user touches on the tableView, at
 // which point we will hide the keyboard (if open). This method is called
@@ -97,5 +97,13 @@
     if ([self.inputField isFirstResponder]) {
         [self.inputField resignFirstResponder];
     }
+}
+
+- (IBAction)sendMessage:(id)sender {
+    ChatMessage *msg = [ChatMessage alloc];
+    msg.content = self.inputField.text;
+    
+    [[self.firebase childByAutoId] setValue:[msg toDict]];
+    self.inputField.text = @"";
 }
 @end
