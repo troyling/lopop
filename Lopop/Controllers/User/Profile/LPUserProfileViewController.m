@@ -7,6 +7,7 @@
 //
 
 #import "LPUserProfileViewController.h"
+#import "LPUIHelper.h"
 #import "UIImage+ImageEffects.h"
 #import "LPUserRelationship.h"
 #import "LPFollowerTableViewController.h"
@@ -88,9 +89,17 @@
 
 - (IBAction)followUser:(id)sender {
     if (self.isFollowingTargetUser) {
-        [LPUserHelper unfollowUserEventually:self.targetUser];
+        [LPUserHelper unfollowUserInBackground:self.targetUser withBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self toggleFollowBtn];
+            }
+        }];
     } else {
-        [LPUserHelper followUserEventually:self.targetUser];
+        [LPUserHelper followUserInBackground:self.targetUser withBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self toggleFollowBtn];
+            }
+        }];
     }
 }
 
@@ -99,6 +108,19 @@
     [self.descriptionTextField resignFirstResponder];
     self.targetUser[@"description"] = self.descriptionTextField.text;
     [self.targetUser saveInBackground];
+}
+
+#pragma mark Controller UI
+- (void)toggleFollowBtn {
+    self.isFollowingTargetUser ^= YES; // toggle BOOL
+    
+    if (self.isFollowingTargetUser) {
+        [self.followBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
+        [self.followBtn setBackgroundColor:[UIColor grayColor]];
+    } else {
+        [self.followBtn setTitle:@"Follow" forState:UIControlStateNormal];
+        [self.followBtn setBackgroundColor:[LPUIHelper lopopColor]];
+    }
 }
 
 #pragma mark follower/following system

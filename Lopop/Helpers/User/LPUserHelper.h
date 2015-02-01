@@ -15,7 +15,10 @@
 
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser;
 
-+ (void)followUserEventually:(PFUser *)targetUser;
-+ (void)unfollowUserEventually:(PFUser *)targetUser;
++ (void)followUserInBackground:(PFUser *)targetUser
+                     withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock;
+
++ (void)unfollowUserInBackground:(PFUser *)targetUser
+                       withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock;
 
 @end

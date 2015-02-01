@@ -61,7 +61,7 @@
 
 
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser {
-    if ([targetUser isEqual:[PFUser currentUser]]) return NO;
+    if ([targetUser.objectId isEqualToString:[[PFUser currentUser] objectId]]) return NO;
     
     PFQuery *query = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
     [query whereKey:@"follower" equalTo:[PFUser currentUser]];
@@ -72,34 +72,53 @@
     return count != 0 ? YES : NO;
 }
 
-+ (void)followUserEventually:(PFUser *)targetUser {
++ (void)followUserInBackground:(PFUser *)targetUser withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock {
+    if ([targetUser.objectId isEqualToString:[[PFUser currentUser] objectId]]) {
+        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+        [details setValue:@"Can't follow yourself" forKey: NSLocalizedDescriptionKey];
+        NSError *error = [[NSError alloc] initWithDomain:[LPUserRelationship parseClassName] code:200 userInfo:details];
+        completionBlock(NO, error);
+        return;
+    }
+    
     LPUserRelationship *follow = [LPUserRelationship object];
     follow.follower = [PFUser currentUser];
     follow.followedUser = targetUser;
     [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully following this user");
+            if (completionBlock) {
+                completionBlock(YES, nil);
+            }
         } else {
-            [LPAlertViewHelper fatalErrorAlert:error.userInfo[@"error"]];
+            completionBlock(NO, error);
         }
     }];
 }
 
-+ (void)unfollowUserEventually:(PFUser *)targetUser {
++ (void)unfollowUserInBackground:(PFUser *)targetUser withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock {
     PFQuery *unfollowQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
     [unfollowQuery whereKey:@"followedUser" equalTo:targetUser];
     [unfollowQuery whereKey:@"follower" equalTo:[PFUser currentUser]];
     [unfollowQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects.count > 0) {
-            for (id obj in objects) {
-                if ([obj isKindOfClass:[LPUserRelationship class]]) {
-                    LPUserRelationship *follow = obj;
-                    [follow deleteEventually];
+        if (!error) {
+            // remove following activity
+            if (objects.count > 0) {
+                for (id obj in objects) {
+                    if ([obj isKindOfClass:[LPUserRelationship class]]) {
+                        LPUserRelationship *follow = obj;
+                        [follow deleteEventually];
+                    }
                 }
             }
+            
+            // execute callback
+            if (completionBlock) {
+                completionBlock(YES, nil);
+            }
+        } else {
+            completionBlock(NO, error);
         }
     }];
 }
-
 
 @end
