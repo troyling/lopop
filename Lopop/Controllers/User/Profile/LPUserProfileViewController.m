@@ -17,9 +17,8 @@
 
 @interface LPUserProfileViewController ()
 
-@property (strong, nonatomic) NSString *followingBtnStr;
-@property (strong, nonatomic) NSString *followerBtnStr;
 @property BOOL isFollowingTargetUser;
+@property NSUInteger numFollower;
 
 @end
 
@@ -53,13 +52,8 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.followerBtn.titleLabel.text = self.followerBtnStr;
-    self.followingBtn.titleLabel.text = self.followingBtnStr;
-}
-
 - (void)loadProfilePictureWithURL:(NSString *)UrlString {
+    // FIXME should cache images in the future
     // download the user's facebook profile picture
     NSURL *pictureURL = [NSURL URLWithString:UrlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
@@ -117,21 +111,30 @@
     if (self.isFollowingTargetUser) {
         [self.followBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
         [self.followBtn setBackgroundColor:[UIColor grayColor]];
+        self.numFollower++;
     } else {
         [self.followBtn setTitle:@"Follow" forState:UIControlStateNormal];
         [self.followBtn setBackgroundColor:[LPUIHelper lopopColor]];
+        self.numFollower--;
     }
+    
+    [self updateFollowerBtn];
+}
+
+- (void)updateFollowerBtn {
+    [self.followerBtn setTitle:[NSString stringWithFormat:@"Follower %lu", (unsigned long)self.numFollower] forState:UIControlStateNormal];
 }
 
 #pragma mark follower/following system
 - (void)loadUserStats {
     PFQuery *followedQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
     
-    // being followed by other users
+    // number of followers
     [followedQuery whereKey:@"followedUser" equalTo:self.targetUser];
     [followedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [self.followerBtn setTitle:[NSString stringWithFormat:@"Follower %d", number] forState:UIControlStateNormal];
+            self.numFollower = number;
+            [self updateFollowerBtn];
         }
     }];
     
@@ -170,7 +173,7 @@
         LPFollowerTableViewController *vc = segue.destinationViewController;
         
         // setup query
-        PFQuery *query = [PFQuery queryWithClassName:@"UserRelationship"];
+        PFQuery *query = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
         [query orderByDescending:@"createdAt"];
         
         if ([segue.identifier isEqualToString:@"viewFollowingUsers"]) {
