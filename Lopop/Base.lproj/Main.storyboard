@@ -965,6 +965,7 @@
                     <connections>
                         <outlet property="bkgImageView" destination="g4f-OX-DQn" id="9uI-y5-Bfe"/>
                         <outlet property="descriptionTextField" destination="gc2-f5-iiI" id="vsd-EY-UAS"/>
+                        <outlet property="followBtn" destination="vhx-UU-ni0" id="cGC-cT-HO7"/>
                         <outlet property="followerBtn" destination="8Wu-oF-6Zb" id="ggy-q2-yCl"/>
                         <outlet property="followingBtn" destination="hZi-cB-M4K" id="Ev0-7T-zjK"/>
                         <outlet property="nameLabel" destination="7eo-Yw-vX3" id="F7Q-9Y-7sh"/>

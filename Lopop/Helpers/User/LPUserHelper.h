@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface LPUserHelper : NSObject
 
 + (void)mapCurrentUserFBData;
+
++ (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser;
 
 @end

@@ -11,6 +11,7 @@
 #import "LPUserRelationship.h"
 #import "LPFollowerTableViewController.h"
 #import "LPAlertViewHelper.h"
+#import "LPUserHelper.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @interface LPUserProfileViewController ()
@@ -125,6 +126,13 @@
             [self.followingBtn setTitle:[NSString stringWithFormat:@"Following %d", number] forState:UIControlStateNormal];
         }
     }];
+    
+    // check if current user is following the target user
+    if ([LPUserHelper isCurrentUserFollowingUser:self.targetUser]) {
+        self.followBtn.enabled = NO;
+        [self.followBtn setTitle:@"Following" forState:UIControlStateNormal];
+        [self.followBtn setBackgroundColor:[UIColor grayColor]];
+    }
 }
 
 #pragma mark alertView Delegate

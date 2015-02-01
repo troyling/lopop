@@ -16,8 +16,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (retain, nonatomic) PFUser *targetUser;
-@property (strong, nonatomic) IBOutlet UIButton *followingBtn;
-@property (strong, nonatomic) IBOutlet UIButton *followerBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *followingBtn;
+@property (weak, nonatomic) IBOutlet UIButton *followerBtn;
+@property (weak, nonatomic) IBOutlet UIButton *followBtn;
 
 - (IBAction)followUser:(id)sender;
 - (IBAction)profileFinishedEdit:(id)sender;

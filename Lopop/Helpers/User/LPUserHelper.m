@@ -7,8 +7,8 @@
 //
 
 #import "LPUserHelper.h"
+#import "LPUserRelationship.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import <Parse/PFUser.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @implementation LPUserHelper
@@ -56,6 +56,19 @@
             }
         }];
     }
+}
+
+
++ (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser {
+    PFQuery *query = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
+    [query whereKey:@"follower" equalTo:[PFUser currentUser]];
+    [query whereKey:@"followedUser" equalTo:targetUser];
+    BOOL result = NO;
+    NSInteger count = [query countObjects];
+    if (count != 0) {
+        result = YES;
+    }
+    return result;
 }
 
 @end
