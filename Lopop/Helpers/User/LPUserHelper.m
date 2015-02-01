@@ -8,6 +8,7 @@
 
 #import "LPUserHelper.h"
 #import "LPUserRelationship.h"
+#import "LPAlertViewHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
@@ -60,15 +61,45 @@
 
 
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser {
+    if ([targetUser isEqual:[PFUser currentUser]]) return NO;
+    
     PFQuery *query = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
     [query whereKey:@"follower" equalTo:[PFUser currentUser]];
     [query whereKey:@"followedUser" equalTo:targetUser];
-    BOOL result = NO;
+    
     NSInteger count = [query countObjects];
-    if (count != 0) {
-        result = YES;
-    }
-    return result;
+    
+    return count != 0 ? YES : NO;
 }
+
++ (void)followUserEventually:(PFUser *)targetUser {
+    LPUserRelationship *follow = [LPUserRelationship object];
+    follow.follower = [PFUser currentUser];
+    follow.followedUser = targetUser;
+    [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully following this user");
+        } else {
+            [LPAlertViewHelper fatalErrorAlert:error.userInfo[@"error"]];
+        }
+    }];
+}
+
++ (void)unfollowUserEventually:(PFUser *)targetUser {
+    PFQuery *unfollowQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
+    [unfollowQuery whereKey:@"followedUser" equalTo:targetUser];
+    [unfollowQuery whereKey:@"follower" equalTo:[PFUser currentUser]];
+    [unfollowQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count > 0) {
+            for (id obj in objects) {
+                if ([obj isKindOfClass:[LPUserRelationship class]]) {
+                    LPUserRelationship *follow = obj;
+                    [follow deleteEventually];
+                }
+            }
+        }
+    }];
+}
+
 
 @end

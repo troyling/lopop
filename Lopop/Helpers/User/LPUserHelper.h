@@ -15,4 +15,7 @@
 
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser;
 
++ (void)followUserEventually:(PFUser *)targetUser;
++ (void)unfollowUserEventually:(PFUser *)targetUser;
+
 @end

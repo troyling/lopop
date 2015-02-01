@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) NSString *followingBtnStr;
 @property (strong, nonatomic) NSString *followerBtnStr;
+@property BOOL isFollowingTargetUser;
 
 @end
 
@@ -86,17 +87,11 @@
 }
 
 - (IBAction)followUser:(id)sender {
-    LPUserRelationship *follow = [LPUserRelationship object];
-    follow.follower = [PFUser currentUser];
-    follow.followedUser = self.targetUser;
-    [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            NSLog(@"Successfully following this user");
-        } else {
-            NSLog(@"%@", error);
-            [LPAlertViewHelper fatalErrorAlert:error.userInfo[@"error"]];
-        }
-    }];
+    if (self.isFollowingTargetUser) {
+        [LPUserHelper unfollowUserEventually:self.targetUser];
+    } else {
+        [LPUserHelper followUserEventually:self.targetUser];
+    }
 }
 
 - (IBAction)profileFinishedEdit:(id)sender {
@@ -128,9 +123,9 @@
     }];
     
     // check if current user is following the target user
-    if ([LPUserHelper isCurrentUserFollowingUser:self.targetUser]) {
-        self.followBtn.enabled = NO;
-        [self.followBtn setTitle:@"Following" forState:UIControlStateNormal];
+    self.isFollowingTargetUser = [LPUserHelper isCurrentUserFollowingUser:self.targetUser];
+    if (self.isFollowingTargetUser) {
+        [self.followBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
         [self.followBtn setBackgroundColor:[UIColor grayColor]];
     }
 }
