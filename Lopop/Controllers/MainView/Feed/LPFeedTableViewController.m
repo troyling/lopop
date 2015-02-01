@@ -12,6 +12,7 @@
 #import "LPPopDetailViewController.h"
 #import "LPPop.h"
 #import <Parse/Parse.h>
+#import "LPPopLike.h"
 
 @interface LPFeedTableViewController ()
 
@@ -153,10 +154,49 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
                 cell.imgView.image = img;
             }
         }];
-    }
+        
+        cell.likeBtn.tag = indexPath.row;
+        
+        [cell.likeBtn addTarget:nil action:@selector(like_pop:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self updateButton:cell.likeBtn with:pop];
+}
     
     return cell;
 }
+
+- (void)updateButton:(UIButton*)updateButton with:(LPPop*)pop{
+    PFQuery *likedQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    // being followed by other users
+    [likedQuery whereKey:@"pop" equalTo:pop];
+    [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            NSLog(@"%d", number);
+            NSLog(@"%@", pop.objectId);
+            [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+            
+        }
+    }];
+}
+- (void)like_pop:(id) sender {
+    UIButton *button = (UIButton*) sender;
+    NSInteger row = button.tag;
+    LPPopLike *like = [LPPopLike object];
+    like.pop = [self.pops objectAtIndex:row];
+    like.likedUser = [PFUser currentUser];
+    [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"liked!");
+            [self updateButton:button with:[self.pops objectAtIndex:row]];
+
+        } else {
+            NSLog(@"%@", error);
+           
+        }
+    }];
+    }
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = self.imgHeight + ROW_HEIGHT_OFFSET;

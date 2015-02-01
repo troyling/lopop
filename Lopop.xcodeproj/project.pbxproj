@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		718065A61A7D92F00052486D /* LPPopLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 718065A51A7D92F00052486D /* LPPopLike.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
@@ -72,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		718065A41A7D92F00052486D /* LPPopLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopLike.h; path = Models/LPPopLike.h; sourceTree = "<group>"; };
+		718065A51A7D92F00052486D /* LPPopLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopLike.m; path = Models/LPPopLike.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
 		D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedTableViewController.m; path = Controllers/MainView/Feed/LPFeedTableViewController.m; sourceTree = "<group>"; };
 		D6008A221A67269F0057771A /* LPNewPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopTableViewController.h; path = Controllers/MainView/Pop/LPNewPopTableViewController.h; sourceTree = "<group>"; };
@@ -326,6 +329,8 @@
 				D6008A291A67FD990057771A /* LPPop.m */,
 				D6AB46981A7B0004001BCCFC /* LPUserRelationship.h */,
 				D6AB46991A7B0004001BCCFC /* LPUserRelationship.m */,
+				718065A41A7D92F00052486D /* LPPopLike.h */,
+				718065A51A7D92F00052486D /* LPPopLike.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -608,6 +613,7 @@
 				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,
+				718065A61A7D92F00052486D /* LPPopLike.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
