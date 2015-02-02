@@ -9,7 +9,7 @@
 #import "LPFeedTableViewController.h"
 #import "LPNewPopTableViewController.h"
 #import "LPPopFeedTableViewCell.h"
-#import "LPPopDetailViewController.h"
+#import "LPPopDetailTableViewController.h"
 #import "LPPop.h"
 #import <Parse/Parse.h>
 #import "LPPopLike.h"
@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSArray *pops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
-@property CGFloat imgHeight;
 
 @end
 
@@ -38,7 +37,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     
     // init
     CGRect bound = [[UIScreen mainScreen] bounds];
-    self.imgHeight = bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO;
+    self.tableView.rowHeight = bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO + ROW_HEIGHT_OFFSET;
     
     // query data
     [self queryForPops];
@@ -196,13 +195,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     }];
     }
 
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = self.imgHeight + ROW_HEIGHT_OFFSET;
-    return height;
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.pops) {
         if (indexPath.row == (self.pops.count - 1)) {
@@ -214,9 +206,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue destinationViewController] isKindOfClass:[LPPopDetailViewController class]]) {
+    if ([[segue destinationViewController] isKindOfClass:[LPPopDetailTableViewController class]]) {
         LPPopFeedTableViewCell *cell = (LPPopFeedTableViewCell *)sender;
-        LPPopDetailViewController *vc = segue.destinationViewController;
+        LPPopDetailTableViewController *vc = segue.destinationViewController;
         
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         

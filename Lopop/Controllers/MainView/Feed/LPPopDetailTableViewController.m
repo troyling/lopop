@@ -6,11 +6,12 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "LPPopDetailViewController.h"
+#import "LPPopDetailTableViewController.h"
 #import "LPUserProfileViewController.h"
+#import "LPAlertViewHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface LPPopDetailViewController ()
+@interface LPPopDetailTableViewController ()
 
 @property (retain, nonatomic) NSMutableArray *images;
 @property (retain, nonatomic) NSMutableArray *imageViews;
@@ -18,7 +19,7 @@
 
 @end
 
-@implementation LPPopDetailViewController
+@implementation LPPopDetailTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,8 +46,7 @@
     // TODO DELETEME!
     [self.pop.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
-            self.profileBtn.titleLabel.text = self.pop.seller.email;
-            NSLog(@"User: %@", self.pop.seller);
+            [self.profileBtn setTitle:self.pop.seller.email forState:UIControlStateNormal];
         }
     }];
 }
@@ -89,7 +89,7 @@
                 }
             } else {
                 // FIXME with a fatal error prompt
-                NSLog(@"Can't retrieve image from server");
+                [LPAlertViewHelper fatalErrorAlert:@"Unable to load images from server"];
             }
         }];
     }
@@ -98,7 +98,7 @@
 #pragma mark scrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // remove top offset
-    [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0f)];
+    [self.imageScrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0f)];
     CGFloat width = scrollView.frame.size.width;
     NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width + 1;
     self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %ld/%ld", (long)page, self.numImages];
@@ -109,6 +109,40 @@
     // TODO check if the seller is the currentUser
     vc.targetUser = self.pop.seller;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark TableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 3;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat retval = 0.0f;
+    CGRect bound = [[UIScreen mainScreen] bounds];
+    CGFloat height = bound.size.width * 0.8;
+    
+    switch (indexPath.row) {
+        case 0:
+            retval = 50.0f;
+            break;
+            
+        case 1:
+            retval = height;
+            break;
+            
+        case 2:
+            retval = 100.0f;
+            break;
+        default:
+            break;
+    }
+    return retval;
 }
 
 @end

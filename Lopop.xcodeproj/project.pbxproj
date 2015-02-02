@@ -12,7 +12,7 @@
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
 		D6008A2A1A67FD990057771A /* LPPop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A291A67FD990057771A /* LPPop.m */; };
-		D601CA781A76C10000344F0C /* LPPopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D601CA771A76C10000344F0C /* LPPopDetailViewController.m */; };
+		D601CA781A76C10000344F0C /* LPPopDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D601CA771A76C10000344F0C /* LPPopDetailTableViewController.m */; };
 		D601CA801A798ABE00344F0C /* picture-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D601CA7F1A798ABE00344F0C /* picture-25.png */; };
 		D601CA821A79B1C300344F0C /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA811A79B1C300344F0C /* Firebase.framework */; };
 		D601CA841A79B1FA00344F0C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA831A79B1FA00344F0C /* libicucore.dylib */; };
@@ -83,8 +83,8 @@
 		D6008A261A675E8D0057771A /* LPPermissionValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPermissionValidator.m; path = Helpers/LPPermissionValidator.m; sourceTree = "<group>"; };
 		D6008A281A67FD990057771A /* LPPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPop.h; path = Models/LPPop.h; sourceTree = "<group>"; };
 		D6008A291A67FD990057771A /* LPPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPop.m; path = Models/LPPop.m; sourceTree = "<group>"; };
-		D601CA761A76C10000344F0C /* LPPopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopDetailViewController.h; path = Controllers/MainView/Feed/LPPopDetailViewController.h; sourceTree = "<group>"; };
-		D601CA771A76C10000344F0C /* LPPopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopDetailViewController.m; path = Controllers/MainView/Feed/LPPopDetailViewController.m; sourceTree = "<group>"; };
+		D601CA761A76C10000344F0C /* LPPopDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopDetailTableViewController.h; path = Controllers/MainView/Feed/LPPopDetailTableViewController.h; sourceTree = "<group>"; };
+		D601CA771A76C10000344F0C /* LPPopDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopDetailTableViewController.m; path = Controllers/MainView/Feed/LPPopDetailTableViewController.m; sourceTree = "<group>"; };
 		D601CA7F1A798ABE00344F0C /* picture-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "picture-25.png"; path = "Resources/Images/TabBarIcons/picture-25.png"; sourceTree = "<group>"; };
 		D601CA811A79B1C300344F0C /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Frameworks/Firebase.framework; sourceTree = "<group>"; };
 		D601CA831A79B1FA00344F0C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -207,8 +207,8 @@
 			children = (
 				D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */,
 				D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */,
-				D601CA761A76C10000344F0C /* LPPopDetailViewController.h */,
-				D601CA771A76C10000344F0C /* LPPopDetailViewController.m */,
+				D601CA761A76C10000344F0C /* LPPopDetailTableViewController.h */,
+				D601CA771A76C10000344F0C /* LPPopDetailTableViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -605,7 +605,7 @@
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
 				D6008A2A1A67FD990057771A /* LPPop.m in Sources */,
 				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,
-				D601CA781A76C10000344F0C /* LPPopDetailViewController.m in Sources */,
+				D601CA781A76C10000344F0C /* LPPopDetailTableViewController.m in Sources */,
 				D6AB46A41A7C01A9001BCCFC /* LPFollowerTableViewController.m in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6AB469E1A7B21B8001BCCFC /* LPSettingsViewController.m in Sources */,

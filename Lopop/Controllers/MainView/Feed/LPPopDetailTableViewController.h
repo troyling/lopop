@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LPPop.h"
 
-@interface LPPopDetailViewController : UIViewController <UIScrollViewDelegate>
+@interface LPPopDetailTableViewController : UITableViewController <UIScrollViewDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
 
