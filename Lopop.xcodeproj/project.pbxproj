@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C41A7D740B0020B7A3 /* MessageViewController.m */; };
 		335FD8C81A7D75960020B7A3 /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* ChatMessage.m */; };
+		335FD8D41A7EE7AA0020B7A3 /* UIMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
 		D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A261A675E8D0057771A /* LPPermissionValidator.m */; };
@@ -73,6 +74,8 @@
 		335FD8C41A7D740B0020B7A3 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Controllers/MainView/Message/MessageViewController.m; sourceTree = "<group>"; };
 		335FD8C61A7D75960020B7A3 /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatMessage.h; path = Controllers/MainView/Message/ChatMessage.h; sourceTree = "<group>"; };
 		335FD8C71A7D75960020B7A3 /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatMessage.m; path = Controllers/MainView/Message/ChatMessage.m; sourceTree = "<group>"; };
+		335FD8D21A7EE7AA0020B7A3 /* UIMessageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIMessageTableView.h; path = Controllers/MainView/Message/UIMessageTableView.h; sourceTree = "<group>"; };
+		335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIMessageTableView.m; path = Controllers/MainView/Message/UIMessageTableView.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
 		D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedTableViewController.m; path = Controllers/MainView/Feed/LPFeedTableViewController.m; sourceTree = "<group>"; };
 		D6008A221A67269F0057771A /* LPNewPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopTableViewController.h; path = Controllers/MainView/Pop/LPNewPopTableViewController.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 		335FD8C21A7D72590020B7A3 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				335FD8D21A7EE7AA0020B7A3 /* UIMessageTableView.h */,
+				335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */,
 				335FD8C31A7D740B0020B7A3 /* MessageViewController.h */,
 				335FD8C41A7D740B0020B7A3 /* MessageViewController.m */,
 				335FD8C61A7D75960020B7A3 /* ChatMessage.h */,
@@ -575,6 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				335FD8D41A7EE7AA0020B7A3 /* UIMessageTableView.m in Sources */,
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
 				D6008A2A1A67FD990057771A /* LPPop.m in Sources */,
 				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,

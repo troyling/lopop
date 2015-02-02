@@ -12,10 +12,16 @@
 @implementation MessageViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.chatArray = [[NSMutableArray alloc] init];
+
     self.tableView.allowsSelection=NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.inputField.delegate = self;
+    
+    [self.inputField setReturnKeyType:UIReturnKeySend];
+    self.inputField.enablesReturnKeyAutomatically = YES;
+    
+    self.chatArray = [[NSMutableArray alloc] init];
     
     self.firebase = [[Firebase alloc] initWithUrl:@"https://vivid-heat-6123.firebaseio.com/"];
     
@@ -29,6 +35,9 @@
         // Reload the table view so the new message will show up.
         if (!initialAdds) {
             [self.tableView reloadData];
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.chatArray.count - 1 inSection:0];
+            
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
     }];
     
@@ -41,6 +50,8 @@
         initialAdds = NO;
     }];
 }
+
+#pragma mark - delegate for tableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -71,23 +82,87 @@
     return cell;
 }
 
-/*
+#pragma mark - send message
 // This method is called when the user enters text in the text field.
 // We add the chat message to our Firebase.
-- (BOOL)textFieldShouldReturn:(UITextField*)aTextField
+- (BOOL)textFieldShouldReturn:(UITextField*)textField
 {
-    [aTextField resignFirstResponder];
+    //[textField resignFirstResponder];
     
-    // This will also add the message to our local array self.chat because
-    // the FEventTypeChildAdded event will be immediately fired.
     ChatMessage* msg = [ChatMessage alloc];
-    msg.content = aTextField.text;
+    msg.content = textField.text;
     [[self.firebase childByAutoId] setValue:[msg toDict]];
     
-    [aTextField setText:@""];
+    [textField setText:@""];
     return NO;
 }
-*/
+
+#pragma mark - handle keyboard
+
+// Subscribe to keyboard show/hide notifications.
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(keyboardWillShow:)
+     name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(keyboardDidShow:)
+     name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(keyboardWillHide:)
+     name:UIKeyboardWillHideNotification object:nil];
+}
+
+// Unsubscribe from keyboard show/hide notifications.
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+// Slide the view containing the table view and
+// text field upwards when the keyboard shows,
+- (void)keyboardWillShow:(NSNotification*)notification
+{
+    CGRect keyboardEndFrame;
+    [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey]
+     getValue:&keyboardEndFrame];
+    
+    CGRect frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.x, self.view.frame.size.width, self.view.frame.size.height - keyboardEndFrame.size.height);
+
+    self.view.frame = frame;
+}
+
+// Scroll the tableView to the last message cell.
+- (void)keyboardDidShow:(NSNotification*)notification
+{
+    if(self.chatArray.count > 0){
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.chatArray.count - 1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+
+}
+
+// Slide the view containing the table view and
+// text field downwards when the keyboard hides,
+- (void)keyboardWillHide:(NSNotification*)notification
+{
+    CGRect keyboardEndFrame;
+    [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey]
+     getValue:&keyboardEndFrame];
+    
+    CGRect frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.x, self.view.frame.size.width, self.view.frame.size.height + keyboardEndFrame.size.height);
+    
+    self.view.frame = frame;
+}
 
 // This method will be called when the user touches on the tableView, at
 // which point we will hide the keyboard (if open). This method is called
@@ -99,11 +174,4 @@
     }
 }
 
-- (IBAction)sendMessage:(id)sender {
-    ChatMessage *msg = [ChatMessage alloc];
-    msg.content = self.inputField.text;
-    
-    [[self.firebase childByAutoId] setValue:[msg toDict]];
-    self.inputField.text = @"";
-}
 @end
