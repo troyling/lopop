@@ -29,6 +29,4 @@
 @property (retain, nonatomic) NSString *priceText;
 @property (retain ,nonatomic) NSString *distanceText;
 
-- (IBAction)viewSellerProfile:(id)sender;
-
 @end

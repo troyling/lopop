@@ -66,6 +66,10 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = CLLocationCoordinate2DMake(self.pop.location.latitude, self.pop.location.longitude);
     [self.mapView addAnnotation:point];
+    
+    // add gestures
+    [self addGestureToViewUserProfile];
+    
 }
 
 -(void)zoomInToMyLocation {
@@ -99,7 +103,7 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
         if (!error) {
             self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
             
-            // FIXME implement review and change it to reflect the
+            // FIXME implement review and change it to reflect the actual rating
             RateView *rv = [RateView rateViewWithRating:4.4f];
             rv.starFillColor = [LPUIHelper lopopColor];
             rv.starSize = 15.0f;
@@ -175,6 +179,14 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
     }
 }
 
+#pragma mark gesture
+
+- (void) addGestureToViewUserProfile {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewSellerProfile)];
+    self.userRatingView.profileImageView.userInteractionEnabled = YES;
+    [self.userRatingView.profileImageView addGestureRecognizer:tap];
+}
+
 #pragma mark scrollView
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -187,7 +199,7 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
     }
 }
 
-- (IBAction)viewSellerProfile:(id)sender {
+- (void)viewSellerProfile {
     LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
     // TODO check if the seller is the currentUser
     vc.targetUser = self.pop.seller;
