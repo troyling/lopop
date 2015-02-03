@@ -20,18 +20,20 @@
 
 @end
 
+
 @implementation LPPopDetailTableViewController
 
 CGFloat const PROFILE_VIEW_HEIGHT               = 65.0f;
-CGFloat const MAP_VIEW_HEIGHT                   = 120.0f;
 CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET    = 72.0f;
 CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
+double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // delegate
     self.imageScrollView.delegate = self;
+    self.mapView.delegate = self;
     
     // load image from cache or server
     [self retreveImages];
@@ -54,6 +56,26 @@ CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
     
     // responsive text
     [self resizeDescriptionLabel];
+    
+    // mapview
+    self.mapView.scrollEnabled = NO;
+    self.mapView.zoomEnabled = NO;
+    [self zoomInToMyLocation];
+    
+    // add annotation
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate = CLLocationCoordinate2DMake(self.pop.location.latitude, self.pop.location.longitude);
+    [self.mapView addAnnotation:point];
+}
+
+-(void)zoomInToMyLocation {
+    MKCoordinateRegion region;
+    PFGeoPoint *popLocation = self.pop.location;
+    region.center.latitude = popLocation.latitude;
+    region.center.longitude = popLocation.longitude;
+    region.span.longitudeDelta = MAP_ZOO_IN_DEGREE;
+    region.span.latitudeDelta = MAP_ZOO_IN_DEGREE;
+    [self.mapView setRegion:region animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -196,7 +218,7 @@ CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
             retval = self.descriptionLabel.frame.size.height > 500.0f ? self.descriptionLabel.frame.size.height : self.self.descriptionLabel.frame.size.height + DESCRIPTION_VIEW_HEIGHT_OFFSET;
             break;
         case 3:
-            retval = MAP_VIEW_HEIGHT;
+            retval = self.mapView.frame.size.height;
             break;
         case 4:
             retval = 30.0f;
@@ -205,6 +227,15 @@ CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
             break;
     }
     return retval;
+}
+
+#pragma mark Map Annotation
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKAnnotationView *view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
+    [view setImage:[UIImage imageNamed:@"Oval 1@3x.png"]];
+    [view setCanShowCallout:NO];
+    return view;
 }
 
 @end

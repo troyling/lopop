@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LPUserRatingView.h";
+#import <MapKit/MapKit.h>
+#import "LPUserRatingView.h"
 #import "LPPop.h"
 
-@interface LPPopDetailTableViewController : UITableViewController <UIScrollViewDelegate>
+@interface LPPopDetailTableViewController : UITableViewController <UIScrollViewDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
 
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet LPUserRatingView *userRatingView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (retain, nonatomic) NSString *priceText;
 @property (retain ,nonatomic) NSString *distanceText;

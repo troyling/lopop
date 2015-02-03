@@ -816,9 +816,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AoU-fy-LCf">
-                                                    <rect key="frame" x="0.0" y="8" width="320" height="120"/>
+                                                    <rect key="frame" x="0.0" y="8" width="320" height="180"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="AoU-fy-LCf" secondAttribute="height" multiplier="8:3" id="CTk-2G-hvz"/>
+                                                        <constraint firstAttribute="width" secondItem="AoU-fy-LCf" secondAttribute="height" multiplier="8:3" constant="-160" id="CTk-2G-hvz"/>
                                                     </constraints>
                                                 </mapView>
                                             </subviews>
@@ -850,6 +850,7 @@
                         <outlet property="descriptionLabel" destination="5Yz-fZ-b2P" id="IPF-Fz-KDi"/>
                         <outlet property="distanceLabel" destination="EDF-xo-YZ8" id="CPb-ye-IwX"/>
                         <outlet property="imageScrollView" destination="zYk-tU-Txe" id="75g-OH-61Y"/>
+                        <outlet property="mapView" destination="AoU-fy-LCf" id="YIk-oN-SvG"/>
                         <outlet property="numPhotoLabel" destination="epH-pI-YzI" id="67h-be-CgU"/>
                         <outlet property="numPhotoView" destination="o16-0b-Tr7" id="ziR-34-G5J"/>
                         <outlet property="priceLabel" destination="hYm-WD-jEg" id="EKQ-WF-iXQ"/>
