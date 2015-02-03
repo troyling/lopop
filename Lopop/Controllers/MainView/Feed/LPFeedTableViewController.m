@@ -17,6 +17,7 @@
 @interface LPFeedTableViewController ()
 
 @property (strong, nonatomic) NSArray *pops;
+@property (strong, nonatomic) NSMutableArray *userLikedPops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
 
@@ -92,6 +93,12 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             // TODO stop the loading indicator
         }
     }];
+    self.userLikedPops = [[NSMutableArray alloc] init];
+    PFQuery *likeQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    [likeQuery whereKey:@"likedUser" equalTo:[PFUser currentUser]];
+    [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.userLikedPops addObjectsFromArray:objects];
+    }];
 }
 
 - (void)initRefreshControl {
@@ -161,7 +168,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         
         cell.likeBtn.tag = indexPath.row;
         
-        [cell.likeBtn addTarget:nil action:@selector(like_pop:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
         
         [self updateButton:cell.likeBtn with:pop];
 }
@@ -175,9 +182,80 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [likedQuery whereKey:@"pop" equalTo:pop];
     [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+            NSMutableArray *popsLikeByCurrentUser = [[NSMutableArray alloc] init];
+            for (LPPopLike *pop in self.userLikedPops) {
+                if ([pop.likedUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [popsLikeByCurrentUser addObject:pop.pop];
+                }
+            }
+            if ([popsLikeByCurrentUser containsObject:pop]) {
+                [updateButton setTitle:[NSString stringWithFormat:@"unlike %d", number] forState:UIControlStateNormal];
+            } else {
+                [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+            }
+            
+            
+        } else {
+            NSLog(@"%@", error);
         }
     }];
+}
+
+- (void)like_pop2:(id) sender {
+    UIButton *button = (UIButton*) sender;
+    NSInteger row = button.tag;
+    LPPop *currentPop = [self.pops objectAtIndex:row];
+    
+    
+    PFQuery *likedQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    // being followed by other users
+    [likedQuery whereKey:@"pop" equalTo:currentPop];
+    
+    [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            NSMutableArray *popsLikeByCurrentUser = [[NSMutableArray alloc] init];
+            for (LPPopLike *pop in self.userLikedPops) {
+                if ([pop.likedUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [popsLikeByCurrentUser addObject:pop.pop];
+                }
+            }
+
+            if ([popsLikeByCurrentUser containsObject:currentPop]) {
+                
+                [likedQuery whereKey:@"likedUser" equalTo:[PFUser currentUser]];
+                LPPopLike *popToBeDeleted;
+                for (LPPopLike *popLike in self.userLikedPops) {
+                    if ([popLike.objectId isEqualToString:[[likedQuery getFirstObject] objectId]]) {
+                        popToBeDeleted = popLike;
+                        break;
+                    }
+                }
+                [self.userLikedPops removeObject:popToBeDeleted];
+                [[likedQuery getFirstObject] deleteInBackground];
+                
+                [button setTitle:[NSString stringWithFormat:@"like %d", number - 1] forState:UIControlStateNormal];
+            } else {
+                LPPopLike *like = [LPPopLike object];
+                like.pop = currentPop;
+                like.likedUser = [PFUser currentUser];
+                [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        [self.userLikedPops addObject:like];
+                        [button setTitle:[NSString stringWithFormat:@"unlike %d", number + 1] forState:UIControlStateNormal];
+                    } else {
+                        NSLog(@"%@", error);
+                        
+                    }
+                }];
+               
+            }
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+    }];
+    
+
 }
 - (void)like_pop:(id) sender {
     UIButton *button = (UIButton*) sender;
@@ -187,12 +265,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     like.likedUser = [PFUser currentUser];
     [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSLog(@"liked!");
             [self updateButton:button with:[self.pops objectAtIndex:row]];
-
         } else {
             NSLog(@"%@", error);
-           
         }
     }];
     }
