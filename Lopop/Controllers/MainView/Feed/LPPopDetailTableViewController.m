@@ -22,6 +22,11 @@
 
 @implementation LPPopDetailTableViewController
 
+CGFloat const PROFILE_VIEW_HEIGHT = 65.0f;
+CGFloat const MAP_VIEW_HEIGHT = 120.0f;
+CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET = 72.0f;
+CGFloat const IMAGE_ASPECT_RATIO = 0.8;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -48,7 +53,18 @@
     
     // load seller profile and rating
     [self loadSellerRatingView];
-    NSLog(@"%@", self.pop.popDescription);
+    
+    // responsive text
+    [self resizeDescriptionLabel];
+}
+
+#pragma mark UI elements
+
+- (void)resizeDescriptionLabel {
+    CGFloat labelHeight = [LPUIHelper heightOfText:self.pop.popDescription forLabel:self.descriptionLabel];
+    CGRect newFrame = self.descriptionLabel.frame;
+    newFrame.size.height = labelHeight;
+    self.descriptionLabel.frame = newFrame;
 }
 
 - (void)loadSellerRatingView {
@@ -57,7 +73,7 @@
         if (!error) {
             self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
             
-            RateView *rv = [RateView rateViewWithRating:4.0f];
+            RateView *rv = [RateView rateViewWithRating:4.4f];
             rv.starFillColor = [LPUIHelper lopopColor];
             rv.starSize = 15.0f;
             rv.starNormalColor = [UIColor lightGrayColor];
@@ -131,11 +147,13 @@
 
 #pragma mark scrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // remove top offset
-    [self.imageScrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0f)];
-    CGFloat width = scrollView.frame.size.width;
-    NSInteger page = (scrollView.contentOffset.x + (0.5f * width)) / width + 1;
-    self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %ld/%ld", (long)page, self.numImages];
+    if ([scrollView isEqual:self.imageScrollView]) {
+        // remove top offset
+        [self.imageScrollView setContentOffset:CGPointMake(self.imageScrollView.contentOffset.x, 0.0f)];
+        CGFloat width = self.imageScrollView.frame.size.width;
+        NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
+        self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %ld/%ld", (long)page, self.numImages];
+    }
 }
 
 - (IBAction)viewSellerProfile:(id)sender {
@@ -158,23 +176,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat retval = 0.0f;
-    CGRect bound = [[UIScreen mainScreen] bounds];
-    CGFloat height = bound.size.width * 0.8;
-    
     switch (indexPath.row) {
         case 0:
-            retval = 65.0f;
+            retval = PROFILE_VIEW_HEIGHT;
             break;
-            
         case 1:
-            retval = height;
+            retval = [LPUIHelper screenWidth] * IMAGE_ASPECT_RATIO;
             break;
-            
         case 2:
-            retval = 400.0f;
+            retval = self.descriptionLabel.frame.size.height > 500.0f ? self.descriptionLabel.frame.size.height : self.self.descriptionLabel.frame.size.height + DESCRIPTION_VIEW_HEIGHT_OFFSET;
             break;
         case 3:
-            retval = 120.0f;
+            retval = MAP_VIEW_HEIGHT;
             break;
         case 4:
             retval = 30.0f;

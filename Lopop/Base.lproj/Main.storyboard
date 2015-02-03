@@ -648,7 +648,7 @@
             </objects>
             <point key="canvasLocation" x="1436" y="-1334"/>
         </scene>
-        <!--Pop Detail Table View Controller-->
+        <!--Detail-->
         <scene sceneID="S3j-AR-U9u">
             <objects>
                 <tableViewController id="oWB-Se-Afq" customClass="LPPopDetailTableViewController" sceneMemberID="viewController">
@@ -759,7 +759,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="260" id="Xkt-ww-aNE" userLabel="PopDetail">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="97" id="Xkt-ww-aNE" userLabel="PopDetail">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xkt-ww-aNE" id="yEN-t0-wVa">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -792,11 +792,8 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yz-fZ-b2P">
-                                                    <rect key="frame" x="16" y="64" width="288" height="100"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="100" id="IDB-ro-cV4"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yz-fZ-b2P">
+                                                    <rect key="frame" x="16" y="64" width="288" height="15"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -849,7 +846,7 @@
                             <outlet property="delegate" destination="oWB-Se-Afq" id="hOs-5g-eP2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="0O1-CZ-le0"/>
+                    <navigationItem key="navigationItem" title="Detail" id="0O1-CZ-le0"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="900"/>
                     <connections>

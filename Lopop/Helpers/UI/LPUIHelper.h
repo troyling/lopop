@@ -13,5 +13,7 @@
 
 + (UIColor *)lopopColor;
 + (UIImage *)convertViewToImage:(UIView *)view;
++ (CGFloat)heightOfText:(NSString *)textStr forLabel:(UILabel *)label;
++ (CGFloat)screenWidth;
 
 @end
