@@ -56,6 +56,12 @@ CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
     [self resizeDescriptionLabel];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    self.navigationController.hidesBarsOnSwipe = NO;
+}
+
 #pragma mark UI elements
 
 - (void)resizeDescriptionLabel {
@@ -71,6 +77,7 @@ CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
         if (!error) {
             self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
             
+            // FIXME implement review and change it to reflect the
             RateView *rv = [RateView rateViewWithRating:4.4f];
             rv.starFillColor = [LPUIHelper lopopColor];
             rv.starSize = 15.0f;

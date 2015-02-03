@@ -53,6 +53,11 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.hidesBarsOnSwipe = YES;
+}
+
 - (void)getUserCurrentLocation {
     [self.locationManager startUpdatingLocation];
     if (self.locationManager.location) {
@@ -170,10 +175,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [likedQuery whereKey:@"pop" equalTo:pop];
     [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            NSLog(@"%d", number);
-            NSLog(@"%@", pop.objectId);
             [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
-            
         }
     }];
 }
