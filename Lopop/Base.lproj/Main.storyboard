@@ -828,8 +828,11 @@
                                                 <constraint firstItem="AoU-fy-LCf" firstAttribute="top" secondItem="92O-Fy-QlW" secondAttribute="topMargin" id="pXI-i3-74r"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="cV6-He-fyb" kind="push" identifier="popLocationSegue" id="ZoF-sX-hYr"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="260" id="lrF-0O-nA3" userLabel="MapView">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="260" id="lrF-0O-nA3" userLabel="EmptyMargin">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lrF-0O-nA3" id="jUx-Lx-b3h">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -861,6 +864,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWQ-PB-S1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1887" y="-1334"/>
+        </scene>
+        <!--Desired Location-->
+        <scene sceneID="Z85-uH-c3C">
+            <objects>
+                <viewController storyboardIdentifier="popLocation" id="cV6-He-fyb" customClass="LPPopLocationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sch-90-mDT"/>
+                        <viewControllerLayoutGuide type="bottom" id="GC2-vJ-g41"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AeK-gh-t0i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QrJ-t2-8F3">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="QrJ-t2-8F3" secondAttribute="trailing" constant="-16" id="KaR-Z0-bcA"/>
+                            <constraint firstItem="GC2-vJ-g41" firstAttribute="top" secondItem="QrJ-t2-8F3" secondAttribute="bottom" id="M4L-Vl-0qQ"/>
+                            <constraint firstItem="QrJ-t2-8F3" firstAttribute="top" secondItem="sch-90-mDT" secondAttribute="bottom" id="Ywa-lM-Yjd"/>
+                            <constraint firstItem="QrJ-t2-8F3" firstAttribute="leading" secondItem="AeK-gh-t0i" secondAttribute="leadingMargin" constant="-16" id="fJp-Eh-kCb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Desired Location" id="2d1-UB-MPJ"/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="QrJ-t2-8F3" id="Vf9-a8-8Bb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Zd-NM-enC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2355" y="-1334"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="2hV-KF-D8C">

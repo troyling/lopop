@@ -8,6 +8,7 @@
 
 #import "LPPopDetailTableViewController.h"
 #import "LPUserProfileViewController.h"
+#import "LPPopLocationViewController.h"
 #import "LPAlertViewHelper.h"
 #import "LPUIHelper.h"
 #import <QuartzCore/QuartzCore.h>
@@ -26,7 +27,7 @@
 CGFloat const PROFILE_VIEW_HEIGHT               = 65.0f;
 CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET    = 72.0f;
 CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
-double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
+double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,7 +70,7 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
     
     // add gestures
     [self addGestureToViewUserProfile];
-    
+    [self addGestureToMapView];
 }
 
 -(void)zoomInToMyLocation {
@@ -77,8 +78,8 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
     PFGeoPoint *popLocation = self.pop.location;
     region.center.latitude = popLocation.latitude;
     region.center.longitude = popLocation.longitude;
-    region.span.longitudeDelta = MAP_ZOO_IN_DEGREE;
-    region.span.latitudeDelta = MAP_ZOO_IN_DEGREE;
+    region.span.longitudeDelta = MAP_ZOOM_IN_DEGREE;
+    region.span.latitudeDelta = MAP_ZOOM_IN_DEGREE;
     [self.mapView setRegion:region animated:NO];
 }
 
@@ -181,10 +182,16 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
 
 #pragma mark gesture
 
-- (void) addGestureToViewUserProfile {
+- (void)addGestureToViewUserProfile {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewSellerProfile)];
     self.userRatingView.profileImageView.userInteractionEnabled = YES;
     [self.userRatingView.profileImageView addGestureRecognizer:tap];
+}
+
+- (void)addGestureToMapView {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewPopLocation)];
+    self.mapView.userInteractionEnabled = YES;
+    [self.mapView addGestureRecognizer:tap];
 }
 
 #pragma mark scrollView
@@ -197,13 +204,6 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
         NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
         self.numPhotoLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)page, self.numImages];
     }
-}
-
-- (void)viewSellerProfile {
-    LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
-    // TODO check if the seller is the currentUser
-    vc.targetUser = self.pop.seller;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark TableView
@@ -248,6 +248,21 @@ double  const MAP_ZOO_IN_DEGREE                 = 0.008f;
     [view setImage:[UIImage imageNamed:@"Oval 1@3x.png"]];
     [view setCanShowCallout:NO];
     return view;
+}
+
+#pragma mark View Controller Transition
+
+- (void)viewSellerProfile {
+    LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
+    // TODO check if the seller is the currentUser
+    vc.targetUser = self.pop.seller;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)viewPopLocation {
+    LPPopLocationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"popLocation"];
+    vc.center = self.pop.location;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
