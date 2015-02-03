@@ -22,10 +22,10 @@
 
 @implementation LPPopDetailTableViewController
 
-CGFloat const PROFILE_VIEW_HEIGHT = 65.0f;
-CGFloat const MAP_VIEW_HEIGHT = 120.0f;
-CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET = 72.0f;
-CGFloat const IMAGE_ASPECT_RATIO = 0.8;
+CGFloat const PROFILE_VIEW_HEIGHT               = 65.0f;
+CGFloat const MAP_VIEW_HEIGHT                   = 120.0f;
+CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET    = 72.0f;
+CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,10 +40,8 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
     self.numImages = self.pop.images.count;
     
     // photo number label
-    self.numPhotoView.layer.cornerRadius = 5.0f;
     self.numPhotoView.layer.zPosition = MAXFLOAT; // always on top
     self.numPhotoView.hidden = YES;
-    
     
     // labels
     self.titleLabel.text = self.pop.title;
@@ -84,6 +82,8 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
     }];
 }
 
+#pragma mark connect to server
+
 - (void)loadProfilePictureWithURL:(NSString *)UrlString {
     // FIXME should cache images in the future
     // download the user's facebook profile picture
@@ -103,8 +103,8 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
 
 - (void)loadImageViews {
     // update photo display
-    self.numPhotoView.hidden = NO;
     self.numPhotoLabel.text = [NSString stringWithFormat:@"%d/%ld", 1, self.numImages];
+    self.numPhotoView.hidden = NO;
     
     // init scroll view for displaying images
     self.imageScrollView.pagingEnabled = YES;
@@ -134,6 +134,7 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
             if (!error) {
                 [self.images addObject:[UIImage imageWithData:data]];
                 
+                // begin works on other UI when all images have been loaded
                 if (self.images.count == self.pop.images.count) {
                     [self loadImageViews];
                 }
@@ -146,6 +147,7 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
 }
 
 #pragma mark scrollView
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.imageScrollView]) {
         // remove top offset
