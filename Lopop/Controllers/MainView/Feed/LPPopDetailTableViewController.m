@@ -9,6 +9,7 @@
 #import "LPPopDetailTableViewController.h"
 #import "LPUserProfileViewController.h"
 #import "LPAlertViewHelper.h"
+#import "LPUIHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailTableViewController ()
@@ -38,15 +39,48 @@
     self.numPhotoView.layer.zPosition = MAXFLOAT; // always on top
     self.numPhotoView.hidden = YES;
     
+    
     // labels
+    self.titleLabel.text = self.pop.title;
     self.distanceLabel.text = self.distanceText;
     self.priceLabel.text = self.priceText;
     self.descriptionLabel.text = self.pop.popDescription;
     
-    // TODO DELETEME!
-    [self.pop.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    // load seller profile and rating
+    [self loadSellerRatingView];
+    NSLog(@"%@", self.pop.popDescription);
+}
+
+- (void)loadSellerRatingView {
+    PFUser *seller = self.pop.seller;
+    [seller fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
-            [self.profileBtn setTitle:self.pop.seller.email forState:UIControlStateNormal];
+            self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
+            
+            RateView *rv = [RateView rateViewWithRating:4.0f];
+            rv.starFillColor = [LPUIHelper lopopColor];
+            rv.starSize = 15.0f;
+            rv.starNormalColor = [UIColor lightGrayColor];
+            [self.userRatingView.userRateView addSubview:rv];
+            
+            [self loadProfilePictureWithURL:self.pop.seller[@"thumbnailUrl"]];
+        }
+    }];
+}
+
+- (void)loadProfilePictureWithURL:(NSString *)UrlString {
+    // FIXME should cache images in the future
+    // download the user's facebook profile picture
+    NSURL *pictureURL = [NSURL URLWithString:UrlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError == nil && data != nil) {
+            UIImage *userImage = [UIImage imageWithData:data];
+            self.userRatingView.profileImageView.image = userImage;
+            self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
+            self.userRatingView.profileImageView.clipsToBounds = YES;
+        } else {
+            [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile picture"];
         }
     }];
 }
@@ -119,7 +153,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 3;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,7 +163,7 @@
     
     switch (indexPath.row) {
         case 0:
-            retval = 50.0f;
+            retval = 65.0f;
             break;
             
         case 1:
@@ -137,7 +171,13 @@
             break;
             
         case 2:
-            retval = 100.0f;
+            retval = 400.0f;
+            break;
+        case 3:
+            retval = 120.0f;
+            break;
+        case 4:
+            retval = 30.0f;
             break;
         default:
             break;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LPUserRatingView.h";
 #import "LPPop.h"
 
 @interface LPPopDetailTableViewController : UITableViewController <UIScrollViewDelegate>
@@ -19,9 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *sellerProfileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *profileBtn; // TODO delete me!!!!
+@property (weak, nonatomic) IBOutlet LPUserRatingView *userRatingView;
 
 @property (retain, nonatomic) NSString *priceText;
 @property (retain ,nonatomic) NSString *distanceText;

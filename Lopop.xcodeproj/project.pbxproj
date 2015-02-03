@@ -44,6 +44,8 @@
 		D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */; };
 		D683F2A71A6FFD3B00117D36 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D683F2A61A6FFD3B00117D36 /* MapKit.framework */; };
 		D683F2B31A70438C00117D36 /* plus-32.png in Resources */ = {isa = PBXBuildFile; fileRef = D683F2B21A70438C00117D36 /* plus-32.png */; };
+		D6A5D7BF1A80087700A631CD /* RateView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A5D7BE1A80087700A631CD /* RateView.m */; };
+		D6A5D7C41A80090A00A631CD /* LPUserRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A5D7C31A80090A00A631CD /* LPUserRatingView.m */; };
 		D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB468E1A7AA7DB001BCCFC /* LPUIHelper.m */; };
 		D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB46921A7AAA0B001BCCFC /* LPAlertViewHelper.m */; };
 		D6AB469A1A7B0004001BCCFC /* LPUserRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB46991A7B0004001BCCFC /* LPUserRelationship.m */; };
@@ -125,6 +127,10 @@
 		D683F2A41A6F459100117D36 /* LPPopCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopCategoryTableViewController.m; path = Controllers/MainView/Pop/LPPopCategoryTableViewController.m; sourceTree = "<group>"; };
 		D683F2A61A6FFD3B00117D36 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D683F2B21A70438C00117D36 /* plus-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-32.png"; path = "Resources/Images/TabBarIcons/plus-32.png"; sourceTree = "<group>"; };
+		D6A5D7BD1A80087700A631CD /* RateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RateView.h; path = Vendors/Libs/RateView/RateView.h; sourceTree = "<group>"; };
+		D6A5D7BE1A80087700A631CD /* RateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RateView.m; path = Vendors/Libs/RateView/RateView.m; sourceTree = "<group>"; };
+		D6A5D7C21A80090A00A631CD /* LPUserRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingView.h; path = Views/MainView/Feed/LPUserRatingView.h; sourceTree = "<group>"; };
+		D6A5D7C31A80090A00A631CD /* LPUserRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingView.m; path = Views/MainView/Feed/LPUserRatingView.m; sourceTree = "<group>"; };
 		D6AB468D1A7AA7DB001BCCFC /* LPUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUIHelper.h; path = Helpers/UI/LPUIHelper.h; sourceTree = "<group>"; };
 		D6AB468E1A7AA7DB001BCCFC /* LPUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUIHelper.m; path = Helpers/UI/LPUIHelper.m; sourceTree = "<group>"; };
 		D6AB46911A7AAA0B001BCCFC /* LPAlertViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPAlertViewHelper.h; path = Helpers/Alert/LPAlertViewHelper.h; sourceTree = "<group>"; };
@@ -235,6 +241,7 @@
 		D66CC8A41A60DD8C007B9992 = {
 			isa = PBXGroup;
 			children = (
+				D6A5D7BA1A80083F00A631CD /* Vendors */,
 				D66CC8AF1A60DD8C007B9992 /* Lopop */,
 				D66CC9081A619AEB007B9992 /* Resources */,
 				D66CC8C91A60DD8C007B9992 /* LopopTests */,
@@ -414,6 +421,31 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		D6A5D7BA1A80083F00A631CD /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				D6A5D7BB1A80084600A631CD /* Libs */,
+			);
+			name = Vendors;
+			sourceTree = "<group>";
+		};
+		D6A5D7BB1A80084600A631CD /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				D6A5D7BC1A80086400A631CD /* RateView */,
+			);
+			name = Libs;
+			sourceTree = "<group>";
+		};
+		D6A5D7BC1A80086400A631CD /* RateView */ = {
+			isa = PBXGroup;
+			children = (
+				D6A5D7BD1A80087700A631CD /* RateView.h */,
+				D6A5D7BE1A80087700A631CD /* RateView.m */,
+			);
+			name = RateView;
+			sourceTree = "<group>";
+		};
 		D6AB468C1A7AA6F7001BCCFC /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +495,8 @@
 			children = (
 				D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */,
 				D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */,
+				D6A5D7C21A80090A00A631CD /* LPUserRatingView.h */,
+				D6A5D7C31A80090A00A631CD /* LPUserRatingView.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -602,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6A5D7C41A80090A00A631CD /* LPUserRatingView.m in Sources */,
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
 				D6008A2A1A67FD990057771A /* LPPop.m in Sources */,
 				D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */,
@@ -622,6 +657,7 @@
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
 				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */,
+				D6A5D7BF1A80087700A631CD /* RateView.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
 				D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */,
 				D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */,
