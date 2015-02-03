@@ -20,8 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(self.type == FOLLOWING_USER ? @"Following User" : @"followers");
-    
     if (self.query) {
         [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
@@ -57,7 +55,6 @@
     }
     return rows;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *reusedIdentifier = @"LPFollowerCell";
