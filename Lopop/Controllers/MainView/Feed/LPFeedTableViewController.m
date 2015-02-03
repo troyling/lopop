@@ -17,6 +17,7 @@
 @interface LPFeedTableViewController ()
 
 @property (strong, nonatomic) NSArray *pops;
+@property (strong, nonatomic) NSMutableArray *userLikedPops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
 @property CGFloat imgHeight;
@@ -88,6 +89,17 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             // TODO stop the loading indicator
         }
     }];
+    self.userLikedPops = [[NSMutableArray alloc] init];
+    PFQuery *likeQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    [likeQuery whereKey:@"likedUser" equalTo:[PFUser currentUser]];
+    [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        //NSLog(@"size of retrieved list: %d", (int)[objects count]);
+        [_userLikedPops addObjectsFromArray:objects];
+        //NSLog(@"size of created list: %d", (int)[_userLikedPops count]);
+    }];
+    //NSLog(@"currentuser: %@", [PFUser currentUser]);
+    //NSLog(@"userlikedpop: %@", _userLikedPops);
+    
 }
 
 - (void)initRefreshControl {
@@ -157,7 +169,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         
         cell.likeBtn.tag = indexPath.row;
         
-        [cell.likeBtn addTarget:nil action:@selector(like_pop:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
         
         [self updateButton:cell.likeBtn with:pop];
 }
@@ -171,12 +183,91 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [likedQuery whereKey:@"pop" equalTo:pop];
     [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            NSLog(@"%d", number);
-            NSLog(@"%@", pop.objectId);
-            [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+            ///NSLog(@"%d", number);
+            //NSLog(@"%@", pop.objectId);
+            NSMutableArray *popsLikeByCurrentUser = [[NSMutableArray alloc] init];
+            for (LPPopLike *pop in _userLikedPops) {
+                if ([pop.likedUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [popsLikeByCurrentUser addObject:pop.pop];
+                    //NSLog(@"likedPop: %@", pop.pop);
+                }
+            }
+            //NSLog(@"currentPop: %@", currentPop);
+            if ([popsLikeByCurrentUser containsObject:pop]) {
+                [updateButton setTitle:[NSString stringWithFormat:@"unlike %d", number] forState:UIControlStateNormal];
+            } else {
+                [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+            }
             
+            
+        } else {
+            NSLog(@"%@", error);
         }
     }];
+}
+
+- (void)like_pop2:(id) sender {
+    UIButton *button = (UIButton*) sender;
+    NSInteger row = button.tag;
+    LPPop *currentPop = [self.pops objectAtIndex:row];
+    
+    
+    PFQuery *likedQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    // being followed by other users
+    [likedQuery whereKey:@"pop" equalTo:currentPop];
+    
+    [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            NSMutableArray *popsLikeByCurrentUser = [[NSMutableArray alloc] init];
+            for (LPPopLike *pop in _userLikedPops) {
+                if ([pop.likedUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [popsLikeByCurrentUser addObject:pop.pop];
+                    //NSLog(@"likedPop: %@", pop.pop);
+                }
+            }
+            //NSLog(@"currentPop: %@", currentPop);
+            if ([popsLikeByCurrentUser containsObject:currentPop]) {
+                
+                [likedQuery whereKey:@"likedUser" equalTo:[PFUser currentUser]];
+                //NSLog(@"first object: %@", [likedQuery getFirstObject]);
+                //NSLog(@"before: %@", self.userLikedPops);
+                LPPopLike *popToBeDeleted;
+                for (LPPopLike *popLike in self.userLikedPops) {
+                    if ([popLike.objectId isEqualToString:[[likedQuery getFirstObject] objectId]]) {
+                        popToBeDeleted = popLike;
+                        break;
+                    }
+                }
+                [_userLikedPops removeObject:popToBeDeleted];
+                //NSLog(@"after: %@", self.userLikedPops);
+                [[likedQuery getFirstObject] deleteInBackground];
+                
+                [button setTitle:[NSString stringWithFormat:@"like %d", number - 1] forState:UIControlStateNormal];
+            } else {
+                //NSLog(@"liked clicked");
+                LPPopLike *like = [LPPopLike object];
+                like.pop = currentPop;
+                like.likedUser = [PFUser currentUser];
+                [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        //NSLog(@"liked!");
+                        //[self updateButton:button with:[self.pops objectAtIndex:row]];
+                        [_userLikedPops addObject:like];
+                        [button setTitle:[NSString stringWithFormat:@"unlike %d", number + 1] forState:UIControlStateNormal];
+                    } else {
+                        NSLog(@"%@", error);
+                        
+                    }
+                }];
+               
+            }
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+    }];
+    
+
 }
 - (void)like_pop:(id) sender {
     UIButton *button = (UIButton*) sender;
@@ -186,7 +277,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     like.likedUser = [PFUser currentUser];
     [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSLog(@"liked!");
+            //NSLog(@"liked!");
             [self updateButton:button with:[self.pops objectAtIndex:row]];
 
         } else {
