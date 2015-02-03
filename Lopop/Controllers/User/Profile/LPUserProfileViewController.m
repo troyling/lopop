@@ -32,21 +32,25 @@
 
 - (void)presentProfileData {
     if (self.targetUser) {
-        NSString *name = self.targetUser[@"name"];
-        NSString *description = self.targetUser[@"description"];
-        NSString *profilePictureUrl = self.targetUser[@"profilePictureUrl"];
-        
-        if (name) {
-            self.nameLabel.text = name;
-        }
-        
-        if (description) {
-            self.descriptionTextField.text = description;
-        }
-        
-        if (profilePictureUrl) {
-            [self loadProfilePictureWithURL:profilePictureUrl];
-        }
+        [self.targetUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (!error) {
+                NSString *name = self.targetUser[@"name"];
+                NSString *description = self.targetUser[@"description"];
+                NSString *profilePictureUrl = self.targetUser[@"profilePictureUrl"];
+
+                if (name) {
+                    self.nameLabel.text = name;
+                }
+
+                if (description) {
+                    self.descriptionTextField.text = description;
+                }
+
+                if (profilePictureUrl) {
+                    [self loadProfilePictureWithURL:profilePictureUrl];
+                }
+            }
+        }];
     } else {
         [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile"];
     }
