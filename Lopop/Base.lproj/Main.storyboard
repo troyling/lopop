@@ -729,32 +729,29 @@
                                                         <constraint firstAttribute="width" secondItem="zYk-tU-Txe" secondAttribute="height" multiplier="5:4" id="rAz-qK-0Gh"/>
                                                     </constraints>
                                                 </scrollView>
-                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o16-0b-Tr7" userLabel="ImageIndicator">
-                                                    <rect key="frame" x="15" y="216" width="96" height="25"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o16-0b-Tr7" userLabel="ImageIndicator">
+                                                    <rect key="frame" x="254" y="216" width="50" height="25"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Photo x/y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epH-pI-YzI">
-                                                            <rect key="frame" x="35" y="3" width="74" height="20"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Photo x/y" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epH-pI-YzI">
+                                                            <rect key="frame" x="0.0" y="3" width="50" height="20"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="picture-25.png" translatesAutoresizingMaskIntoConstraints="NO" id="CZQ-Gb-C5N">
-                                                            <rect key="frame" x="8" y="3" width="20" height="20"/>
-                                                        </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="96" id="0jI-Uo-vlo"/>
+                                                        <constraint firstAttribute="width" constant="50" id="0jI-Uo-vlo"/>
                                                         <constraint firstAttribute="height" constant="25" id="XuV-IZ-NLg"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="zYk-tU-Txe" secondAttribute="trailing" constant="-8" id="85B-4M-k69"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="o16-0b-Tr7" secondAttribute="trailing" constant="8" id="D6T-bI-oRR"/>
                                                 <constraint firstItem="zYk-tU-Txe" firstAttribute="leading" secondItem="CXb-Ch-4CD" secondAttribute="leadingMargin" constant="-8" id="IG6-oL-RUD"/>
                                                 <constraint firstItem="zYk-tU-Txe" firstAttribute="bottom" secondItem="o16-0b-Tr7" secondAttribute="bottom" constant="15" id="Sin-va-TqY"/>
                                                 <constraint firstItem="zYk-tU-Txe" firstAttribute="width" secondItem="zYk-tU-Txe" secondAttribute="height" multiplier="5:4" id="ceY-4A-p3r"/>
-                                                <constraint firstItem="zYk-tU-Txe" firstAttribute="leading" secondItem="o16-0b-Tr7" secondAttribute="leading" constant="-15" id="iDr-bh-4gp"/>
                                                 <constraint firstItem="zYk-tU-Txe" firstAttribute="top" secondItem="CXb-Ch-4CD" secondAttribute="topMargin" constant="-8" id="znp-aj-IOS"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1431,7 +1428,6 @@
         <image name="TabBarMarket" width="32" height="32"/>
         <image name="TabBarMessage" width="32" height="32"/>
         <image name="TabBarSettings" width="32" height="32"/>
-        <image name="picture-25.png" width="24" height="24"/>
         <image name="signup_view.jpg" width="1080" height="1920"/>
         <image name="vertical_line" width="2" height="53"/>
     </resources>

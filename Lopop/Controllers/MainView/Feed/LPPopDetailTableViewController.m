@@ -104,7 +104,7 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
 - (void)loadImageViews {
     // update photo display
     self.numPhotoView.hidden = NO;
-    self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %d/%ld", 1, self.numImages];
+    self.numPhotoLabel.text = [NSString stringWithFormat:@"%d/%ld", 1, self.numImages];
     
     // init scroll view for displaying images
     self.imageScrollView.pagingEnabled = YES;
@@ -152,7 +152,7 @@ CGFloat const IMAGE_ASPECT_RATIO = 0.8;
         [self.imageScrollView setContentOffset:CGPointMake(self.imageScrollView.contentOffset.x, 0.0f)];
         CGFloat width = self.imageScrollView.frame.size.width;
         NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
-        self.numPhotoLabel.text = [NSString stringWithFormat:@"Photo %ld/%ld", (long)page, self.numImages];
+        self.numPhotoLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)page, self.numImages];
     }
 }
 
