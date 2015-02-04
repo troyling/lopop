@@ -12,14 +12,13 @@
 
 
 
-@interface MessageViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface MessageViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
-- (IBAction)sendMessage:(id)sender;
+@property (retain, nonatomic) NSString * chatId;
 
 @property Firebase *firebase;
-@property (nonatomic, strong) NSMutableArray* chatArray;
+@property (nonatomic, strong) NSMutableArray* messageArray;
 
 
 @end

@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		332F4B131A814D3700B186C9 /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332F4B121A814D3700B186C9 /* ChatTableViewController.m */; };
+		332F4B161A818AFE00B186C9 /* ChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 332F4B151A818AFE00B186C9 /* ChatModel.m */; };
 		335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C41A7D740B0020B7A3 /* MessageViewController.m */; };
-		335FD8C81A7D75960020B7A3 /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* ChatMessage.m */; };
+		335FD8C81A7D75960020B7A3 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* MessageModel.m */; };
 		335FD8D41A7EE7AA0020B7A3 /* UIMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
@@ -70,10 +72,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		332F4B111A814D3700B186C9 /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatTableViewController.h; path = Controllers/MainView/Message/ChatTableViewController.h; sourceTree = "<group>"; };
+		332F4B121A814D3700B186C9 /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatTableViewController.m; path = Controllers/MainView/Message/ChatTableViewController.m; sourceTree = "<group>"; };
+		332F4B141A818AFE00B186C9 /* ChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatModel.h; path = Controllers/MainView/Message/ChatModel.h; sourceTree = "<group>"; };
+		332F4B151A818AFE00B186C9 /* ChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatModel.m; path = Controllers/MainView/Message/ChatModel.m; sourceTree = "<group>"; };
 		335FD8C31A7D740B0020B7A3 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = Controllers/MainView/Message/MessageViewController.h; sourceTree = "<group>"; };
 		335FD8C41A7D740B0020B7A3 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Controllers/MainView/Message/MessageViewController.m; sourceTree = "<group>"; };
-		335FD8C61A7D75960020B7A3 /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatMessage.h; path = Controllers/MainView/Message/ChatMessage.h; sourceTree = "<group>"; };
-		335FD8C71A7D75960020B7A3 /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatMessage.m; path = Controllers/MainView/Message/ChatMessage.m; sourceTree = "<group>"; };
+		335FD8C61A7D75960020B7A3 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageModel.h; path = Controllers/MainView/Message/MessageModel.h; sourceTree = "<group>"; };
+		335FD8C71A7D75960020B7A3 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageModel.m; path = Controllers/MainView/Message/MessageModel.m; sourceTree = "<group>"; };
 		335FD8D21A7EE7AA0020B7A3 /* UIMessageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIMessageTableView.h; path = Controllers/MainView/Message/UIMessageTableView.h; sourceTree = "<group>"; };
 		335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIMessageTableView.m; path = Controllers/MainView/Message/UIMessageTableView.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
@@ -188,12 +194,16 @@
 		335FD8C21A7D72590020B7A3 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				332F4B121A814D3700B186C9 /* ChatTableViewController.m */,
+				332F4B111A814D3700B186C9 /* ChatTableViewController.h */,
 				335FD8D21A7EE7AA0020B7A3 /* UIMessageTableView.h */,
 				335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */,
 				335FD8C31A7D740B0020B7A3 /* MessageViewController.h */,
 				335FD8C41A7D740B0020B7A3 /* MessageViewController.m */,
-				335FD8C61A7D75960020B7A3 /* ChatMessage.h */,
-				335FD8C71A7D75960020B7A3 /* ChatMessage.m */,
+				335FD8C61A7D75960020B7A3 /* MessageModel.h */,
+				335FD8C71A7D75960020B7A3 /* MessageModel.m */,
+				332F4B141A818AFE00B186C9 /* ChatModel.h */,
+				332F4B151A818AFE00B186C9 /* ChatModel.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -590,10 +600,12 @@
 				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,
-				335FD8C81A7D75960020B7A3 /* ChatMessage.m in Sources */,
+				335FD8C81A7D75960020B7A3 /* MessageModel.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */,
+				332F4B131A814D3700B186C9 /* ChatTableViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
+				332F4B161A818AFE00B186C9 /* ChatModel.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,

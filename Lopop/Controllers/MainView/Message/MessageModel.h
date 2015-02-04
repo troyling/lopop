@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ChatMessage : NSObject
+@interface MessageModel : NSObject
 
 @property NSString *content;
 @property NSTimeInterval timeStamp;
 
 - (NSDictionary *) toDict;
-+ (ChatMessage *) fromDict:(NSDictionary *) dict;
++ (MessageModel *) fromDict:(NSDictionary *) dict;
 
 @end

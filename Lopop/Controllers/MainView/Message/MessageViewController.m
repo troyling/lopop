@@ -7,11 +7,17 @@
 //
 
 #import "MessageViewController.h"
-#import "ChatMessage.h"
+#import "MessageModel.h"
+
+
 
 @implementation MessageViewController
+
+NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%@", self.chatId);
 
     self.tableView.allowsSelection=NO;
     self.tableView.delegate = self;
@@ -20,10 +26,14 @@
     
     [self.inputField setReturnKeyType:UIReturnKeySend];
     self.inputField.enablesReturnKeyAutomatically = YES;
+    [self setupFirebase];
+}
+
+- (void) setupFirebase{
     
-    self.chatArray = [[NSMutableArray alloc] init];
+    self.messageArray = [[NSMutableArray alloc] init];
     
-    self.firebase = [[Firebase alloc] initWithUrl:@"https://vivid-heat-6123.firebaseio.com/"];
+    self.firebase = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/messages/"]];
     
     // This allows us to check if these were messages already stored on the server
     // when we booted up (YES) or if they are new messages since we've started the app.
@@ -31,11 +41,11 @@
     __block BOOL initialAdds = YES;
     
     [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        [self.chatArray addObject:[ChatMessage fromDict:snapshot.value]];
+        [self.messageArray addObject:[MessageModel fromDict:snapshot.value]];
         // Reload the table view so the new message will show up.
         if (!initialAdds) {
             [self.tableView reloadData];
-            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.chatArray.count - 1 inSection:0];
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.messageArray.count - 1 inSection:0];
             
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
@@ -49,6 +59,7 @@
         [self.tableView reloadData];
         initialAdds = NO;
     }];
+
 }
 
 #pragma mark - delegate for tableView
@@ -61,7 +72,7 @@
 - (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)section
 {
     // This is the number of chat messages.
-    return [self.chatArray count];
+    return [self.messageArray count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)table cellForRowAtIndexPath:(NSIndexPath *)index
@@ -75,7 +86,7 @@
         cell.textLabel.numberOfLines = 0;
     }
     
-    ChatMessage *message = [self.chatArray objectAtIndex:index.row];
+    MessageModel *message = [self.messageArray objectAtIndex:index.row];
     
     cell.textLabel.text = message.content;
     //cell.detailTextLabel.text = chatMessage[@"name"];
@@ -89,7 +100,7 @@
 {
     //[textField resignFirstResponder];
     
-    ChatMessage* msg = [ChatMessage alloc];
+    MessageModel* msg = [MessageModel alloc];
     msg.content = textField.text;
     [[self.firebase childByAutoId] setValue:[msg toDict]];
     
@@ -144,8 +155,8 @@
 // Scroll the tableView to the last message cell.
 - (void)keyboardDidShow:(NSNotification*)notification
 {
-    if(self.chatArray.count > 0){
-        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.chatArray.count - 1 inSection:0];
+    if(self.messageArray.count > 0){
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.messageArray.count - 1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 
