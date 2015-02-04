@@ -7,6 +7,7 @@
 //
 
 #import "LPPopDetailTableViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
 #import "LPAlertViewHelper.h"
@@ -71,6 +72,7 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
     // add gestures
     [self addGestureToViewUserProfile];
     [self addGestureToMapView];
+    
 }
 
 -(void)zoomInToMyLocation {
@@ -197,6 +199,12 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
 #pragma mark scrollView
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // show/hide tabBar
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+        [tb setTabBarVisible:NO animated:YES];
+    }
+    
     if ([scrollView isEqual:self.imageScrollView]) {
         // remove top offset
         [self.imageScrollView setContentOffset:CGPointMake(self.imageScrollView.contentOffset.x, 0.0f)];
