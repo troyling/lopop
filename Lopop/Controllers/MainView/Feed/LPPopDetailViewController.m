@@ -25,10 +25,7 @@
 
 @implementation LPPopDetailViewController
 
-CGFloat const PROFILE_VIEW_HEIGHT               = 65.0f;
-CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET    = 72.0f;
-CGFloat const IMAGE_ASPECT_RATIO                = 0.8;
-double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
+double const MAP_ZOOM_IN_DEGREE = 0.008f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
