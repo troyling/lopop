@@ -137,7 +137,7 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
 
 - (void)loadImageViews {
     // update photo display
-    self.numPhotoLabel.text = [NSString stringWithFormat:@"%d/%ld", 1, self.numImages];
+    self.numPhotoLabel.text = [NSString stringWithFormat:@"%d/%ld", 1, (unsigned long)self.numImages];
     self.numPhotoView.hidden = NO;
     
     // init scroll view for displaying images
@@ -202,7 +202,7 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
         [self.imageScrollView setContentOffset:CGPointMake(self.imageScrollView.contentOffset.x, 0.0f)];
         CGFloat width = self.imageScrollView.frame.size.width;
         NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
-        self.numPhotoLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)page, self.numImages];
+        self.numPhotoLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)page, (unsigned long)self.numImages];
     }
 }
 
