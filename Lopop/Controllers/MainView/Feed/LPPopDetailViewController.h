@@ -11,7 +11,7 @@
 #import "LPUserRatingView.h"
 #import "LPPop.h"
 
-@interface LPPopDetailTableViewController : UITableViewController <UIScrollViewDelegate, MKMapViewDelegate>
+@interface LPPopDetailViewController : UIViewController <UIScrollViewDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
 

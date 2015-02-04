@@ -9,7 +9,7 @@
 #import "LPFeedTableViewController.h"
 #import "LPNewPopTableViewController.h"
 #import "LPPopFeedTableViewCell.h"
-#import "LPPopDetailTableViewController.h"
+#import "LPPopDetailViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import <Parse/Parse.h>
@@ -306,9 +306,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue destinationViewController] isKindOfClass:[LPPopDetailTableViewController class]]) {
+    if ([[segue destinationViewController] isKindOfClass:[LPPopDetailViewController class]]) {
         LPPopFeedTableViewCell *cell = (LPPopFeedTableViewCell *)sender;
-        LPPopDetailTableViewController *vc = segue.destinationViewController;
+        LPPopDetailViewController *vc = segue.destinationViewController;
         
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         

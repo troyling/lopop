@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "LPPopDetailTableViewController.h"
+#import "LPPopDetailViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
@@ -14,7 +14,7 @@
 #import "LPUIHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface LPPopDetailTableViewController ()
+@interface LPPopDetailViewController ()
 
 @property (retain, nonatomic) NSMutableArray *images;
 @property (retain, nonatomic) NSMutableArray *imageViews;
@@ -23,7 +23,7 @@
 @end
 
 
-@implementation LPPopDetailTableViewController
+@implementation LPPopDetailViewController
 
 CGFloat const PROFILE_VIEW_HEIGHT               = 65.0f;
 CGFloat const DESCRIPTION_VIEW_HEIGHT_OFFSET    = 72.0f;
@@ -209,41 +209,6 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
         NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
         self.numPhotoLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)page, (unsigned long)self.numImages];
     }
-}
-
-#pragma mark TableView
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 5;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat retval = 0.0f;
-    switch (indexPath.row) {
-        case 0:
-            retval = PROFILE_VIEW_HEIGHT;
-            break;
-        case 1:
-            retval = [LPUIHelper screenWidth] * IMAGE_ASPECT_RATIO;
-            break;
-        case 2:
-            retval = self.descriptionLabel.frame.size.height > 500.0f ? self.descriptionLabel.frame.size.height : self.self.descriptionLabel.frame.size.height + DESCRIPTION_VIEW_HEIGHT_OFFSET;
-            break;
-        case 3:
-            retval = self.mapView.frame.size.height;
-            break;
-        case 4:
-            retval = 30.0f;
-            break;
-        default:
-            break;
-    }
-    return retval;
 }
 
 #pragma mark Map Annotation
