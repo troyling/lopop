@@ -235,5 +235,14 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"offerSegue"]) {
+        // TODO pass necessary data here
+        NSLog(@"FIXME");
+    }
+}
+
 @end
 
