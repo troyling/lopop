@@ -10,6 +10,7 @@
 #import "LPNewPopTableViewController.h"
 #import "LPPopFeedTableViewCell.h"
 #import "LPPopDetailTableViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import <Parse/Parse.h>
 #import "LPPopLike.h"
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *userLikedPops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
+@property (assign, nonatomic) CGFloat lastContentOffsetY;
 
 @end
 
@@ -35,6 +37,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.locationManager.delegate = self;
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
+    
+    // content offset used to calculate view position
+    self.lastContentOffsetY = self.tableView.contentOffset.y;
     
     // init
     CGRect bound = [[UIScreen mainScreen] bounds];
@@ -52,11 +57,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     // set table background
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.hidesBarsOnSwipe = YES;
 }
 
 - (void)getUserCurrentLocation {
@@ -120,6 +120,29 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         self.refreshControl.attributedTitle = attributedTitle;
 
         [self.refreshControl endRefreshing];
+    }
+}
+
+#pragma mark Scrollview Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.pops.count > 0) {
+        CGFloat margin = scrollView.contentOffset.y - self.lastContentOffsetY;
+
+        if (margin > 15.0f) {
+            // scrolling down
+            if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+                LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+                [tb setTabBarVisible:NO animated:YES];
+            }
+        } else if (margin < -15.0f) {
+            // scrolling up
+            if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+                LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+                [tb setTabBarVisible:YES animated:YES];
+            }
+        }
+        self.lastContentOffsetY = scrollView.contentOffset.y;
     }
 }
 

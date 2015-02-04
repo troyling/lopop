@@ -878,13 +878,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QrJ-t2-8F3">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="QrJ-t2-8F3" secondAttribute="trailing" constant="-16" id="KaR-Z0-bcA"/>
-                            <constraint firstItem="GC2-vJ-g41" firstAttribute="top" secondItem="QrJ-t2-8F3" secondAttribute="bottom" id="M4L-Vl-0qQ"/>
+                            <constraint firstItem="GC2-vJ-g41" firstAttribute="top" secondItem="QrJ-t2-8F3" secondAttribute="bottom" constant="-49" id="M4L-Vl-0qQ"/>
                             <constraint firstItem="QrJ-t2-8F3" firstAttribute="top" secondItem="sch-90-mDT" secondAttribute="bottom" id="Ywa-lM-Yjd"/>
                             <constraint firstItem="QrJ-t2-8F3" firstAttribute="leading" secondItem="AeK-gh-t0i" secondAttribute="leadingMargin" constant="-16" id="fJp-Eh-kCb"/>
                         </constraints>
@@ -1441,23 +1441,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThY-VP-Pf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1436" y="0.0"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="OVh-4s-tNL">
-            <objects>
-                <viewController id="h0A-ap-IUx" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hAt-tk-wwG"/>
-                        <viewControllerLayoutGuide type="bottom" id="aaq-R6-DFM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JAA-Ka-qDY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1ey-Kc-vgs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

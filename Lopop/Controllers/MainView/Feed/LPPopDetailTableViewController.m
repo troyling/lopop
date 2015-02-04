@@ -72,10 +72,19 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
     // add gestures
     [self addGestureToViewUserProfile];
     [self addGestureToMapView];
-    
 }
 
--(void)zoomInToMyLocation {
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // hide tab bar
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+        [tb setTabBarVisible:NO animated:YES];
+    }
+}
+
+- (void)zoomInToMyLocation {
     MKCoordinateRegion region;
     PFGeoPoint *popLocation = self.pop.location;
     region.center.latitude = popLocation.latitude;
@@ -83,12 +92,6 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
     region.span.longitudeDelta = MAP_ZOOM_IN_DEGREE;
     region.span.latitudeDelta = MAP_ZOOM_IN_DEGREE;
     [self.mapView setRegion:region animated:NO];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.navigationController.hidesBarsOnSwipe = NO;
 }
 
 #pragma mark UI elements
@@ -199,12 +202,6 @@ double  const MAP_ZOOM_IN_DEGREE                 = 0.008f;
 #pragma mark scrollView
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // show/hide tabBar
-    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
-        LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
-        [tb setTabBarVisible:NO animated:YES];
-    }
-    
     if ([scrollView isEqual:self.imageScrollView]) {
         // remove top offset
         [self.imageScrollView setContentOffset:CGPointMake(self.imageScrollView.contentOffset.x, 0.0f)];
