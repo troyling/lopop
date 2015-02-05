@@ -33,6 +33,18 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     
     self.messageArray = [[NSMutableArray alloc] init];
     
+    Firebase *infoRef = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/info/"]];
+    
+    [infoRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if(snapshot.value [@"user1"] == USER1){
+            self.userNumber = USER1;
+        }else{
+            self.userNumber = USER2;
+        }
+    }];
+
+    
+    
     self.firebase = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/messages/"]];
     
     // This allows us to check if these were messages already stored on the server
@@ -50,7 +62,8 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
     }];
-    
+
+
     // Value event fires right after we get the events already stored in the Firebase repo.
     // We've gotten the initial messages stored on the server, and we want to run reloadData on the batch.
     // Also set initialAdds=NO so that we'll reload after each additional childAdded event.
@@ -58,8 +71,10 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
         // Reload the table view so that the intial messages show up
         [self.tableView reloadData];
         initialAdds = NO;
+        
     }];
-
+    
+    
 }
 
 #pragma mark - delegate for tableView
@@ -81,14 +96,23 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     UITableViewCell *cell = [table dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:18];
-        cell.textLabel.numberOfLines = 0;
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
     }
     
+    //cell.textLabel.backgroundColor = [UIColor redColor];
+    //cell textLabel sizeTo
+    cell.textLabel.font = [UIFont systemFontOfSize:18];
+    cell.textLabel.numberOfLines = 0;
     MessageModel *message = [self.messageArray objectAtIndex:index.row];
     
     cell.textLabel.text = message.content;
+    if(message.userNumber == self.userNumber){
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+    }else{
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    
     //cell.detailTextLabel.text = chatMessage[@"name"];
     return cell;
 }
@@ -102,7 +126,9 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     
     MessageModel* msg = [MessageModel alloc];
     msg.content = textField.text;
+    msg.userNumber = self.userNumber;
     [[self.firebase childByAutoId] setValue:[msg toDict]];
+
     
     [textField setText:@""];
     return NO;

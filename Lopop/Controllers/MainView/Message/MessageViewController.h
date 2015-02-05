@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Firebase/firebase.h"
-
+#import "MessageModel.h"
 
 
 @interface MessageViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
 @property (retain, nonatomic) NSString * chatId;
 
+@property USER1OR2 userNumber;
 @property Firebase *firebase;
 @property (nonatomic, strong) NSMutableArray* messageArray;
 

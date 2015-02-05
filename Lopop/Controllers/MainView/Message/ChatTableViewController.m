@@ -155,7 +155,7 @@ NSString * troyId = @"qXHdNj9Skh";
     
     //Generate a new chat in '/chats'
     Firebase * aChatRef = [[[Firebase alloc] initWithUrl:[FirebaseUrl1 stringByAppendingString: @"chats"]] childByAutoId];
-    [aChatRef setValue: @{@"user1" : userId, @"user2" : troyId}];
+    [aChatRef setValue: @{@"info": @{@"user1" : userId, @"user2" : troyId}}];
     aChatModel.chatId = aChatRef.key;
 
     //Add a chatInfo to the chat list of '/users/user-id'

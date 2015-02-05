@@ -14,12 +14,15 @@
 
 
 - (NSDictionary *)toDict{
-    return @{@"content":self.content, @"timeStamp":[NSNumber numberWithDouble: self.timeStamp]};
+    return @{@"content":self.content,
+             @"timeStamp":[NSNumber numberWithDouble: self.timeStamp],
+             @"userNumber":[NSNumber numberWithInt:self.userNumber]};
 }
 
 + (MessageModel *)fromDict: (NSDictionary *) dict{
     MessageModel * msg = [[MessageModel alloc] init];
     msg.content = [dict objectForKey:@"content"];
+    msg.userNumber = [(NSNumber *)[dict objectForKey:@"userNumber"] intValue];
     msg.timeStamp = [(NSNumber *)[dict objectForKey:@"timeStamp"] doubleValue];
     return msg;
 }

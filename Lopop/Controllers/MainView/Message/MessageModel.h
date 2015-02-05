@@ -12,6 +12,11 @@
 
 @property NSString *content;
 @property NSTimeInterval timeStamp;
+typedef NS_ENUM(NSInteger, USER1OR2) {
+    USER1,
+    USER2
+};
+@property USER1OR2 userNumber;
 
 - (NSDictionary *) toDict;
 + (MessageModel *) fromDict:(NSDictionary *) dict;
