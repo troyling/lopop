@@ -18,6 +18,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@", self.chatId);
+    
 
     self.tableView.allowsSelection=NO;
     self.tableView.delegate = self;
