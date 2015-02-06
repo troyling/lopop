@@ -93,6 +93,7 @@
 		D6F5F8411A8514680005758B /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F5F8281A8514680005758B /* TransitionManager.swift */; };
 		D6F5F8421A8514680005758B /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F5F8291A8514680005758B /* TransitionZoom.swift */; };
 		D6F5F8431A8514680005758B /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F5F82A1A8514680005758B /* UnwindSegue.swift */; };
+		D6F5F8471A8531740005758B /* LPMakeOfferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F5F8461A8531740005758B /* LPMakeOfferViewController.m */; };
 		D6F63A4B1A6C390A008D08F5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -223,6 +224,8 @@
 		D6F5F8281A8514680005758B /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionManager.swift; path = Vendors/Libs/Spring/TransitionManager.swift; sourceTree = "<group>"; };
 		D6F5F8291A8514680005758B /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionZoom.swift; path = Vendors/Libs/Spring/TransitionZoom.swift; sourceTree = "<group>"; };
 		D6F5F82A1A8514680005758B /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnwindSegue.swift; path = Vendors/Libs/Spring/UnwindSegue.swift; sourceTree = "<group>"; };
+		D6F5F8451A8531740005758B /* LPMakeOfferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMakeOfferViewController.h; path = Controllers/MainView/Feed/LPMakeOfferViewController.h; sourceTree = "<group>"; };
+		D6F5F8461A8531740005758B /* LPMakeOfferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMakeOfferViewController.m; path = Controllers/MainView/Feed/LPMakeOfferViewController.m; sourceTree = "<group>"; };
 		D6F63A481A6C390A008D08F5 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
 		D6F63A491A6C390A008D08F5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -283,6 +286,8 @@
 				D601CA771A76C10000344F0C /* LPPopDetailViewController.m */,
 				D6A5D7DD1A8157CF00A631CD /* LPPopLocationViewController.h */,
 				D6A5D7DE1A8157CF00A631CD /* LPPopLocationViewController.m */,
+				D6F5F8451A8531740005758B /* LPMakeOfferViewController.h */,
+				D6F5F8461A8531740005758B /* LPMakeOfferViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -789,6 +794,7 @@
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D6F5F83A1A8514680005758B /* SpringAnimation.swift in Sources */,
 				D6AB469A1A7B0004001BCCFC /* LPUserRelationship.m in Sources */,
+				D6F5F8471A8531740005758B /* LPMakeOfferViewController.m in Sources */,
 				D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */,
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
 				D6F5F8381A8514680005758B /* Misc.swift in Sources */,
