@@ -10,6 +10,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
+#import "LPMakeOfferViewController.h"
 #import "LPAlertViewHelper.h"
 #import "LPUIHelper.h"
 #import <QuartzCore/QuartzCore.h>
@@ -235,9 +236,13 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
 #pragma mark segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"offerSegue"]) {
-        // TODO pass necessary data here
-        NSLog(@"FIXME");
+    if ([segue.identifier isEqualToString:@"makeOfferSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[LPMakeOfferViewController class]]) {
+            LPMakeOfferViewController *vc = [segue destinationViewController];
+            vc.nameStr = self.userRatingView.nameLabel.text;
+            vc.priceStr = self.priceLabel.text;
+            vc.profileImage = self.userRatingView.profileImageView.image;
+        }
     }
 }
 

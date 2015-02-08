@@ -16,7 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // load content
+    self.profileImageView.image = self.profileImage;
+    self.profileImageView.layer.cornerRadius = 25.0f;
+    self.profileImageView.clipsToBounds = YES;
+    self.nameLabel.text = self.nameStr;
+    self.priceLabel.text = self.priceStr;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,5 +43,8 @@
 - (IBAction)dismissViewController:(id)sender {
     NSLog(@"Touched");
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)confirmOffer:(id)sender {
 }
 @end

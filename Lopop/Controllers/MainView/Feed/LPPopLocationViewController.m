@@ -15,7 +15,7 @@
 
 @implementation LPPopLocationViewController
 
-double const MAP_ZOOM_IN_DEGREE = 0.008f;
+double const ZOOM_IN_DEGREE = 0.008f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,8 +40,8 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     MKCoordinateRegion region;
     region.center.latitude = self.center.latitude;
     region.center.longitude = self.center.longitude;
-    region.span.longitudeDelta = MAP_ZOOM_IN_DEGREE;
-    region.span.latitudeDelta = MAP_ZOOM_IN_DEGREE;
+    region.span.longitudeDelta = ZOOM_IN_DEGREE;
+    region.span.latitudeDelta = ZOOM_IN_DEGREE;
     [self.mapView setRegion:region animated:NO];
 }
 
