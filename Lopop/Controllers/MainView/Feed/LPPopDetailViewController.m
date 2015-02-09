@@ -114,7 +114,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             rv.starNormalColor = [UIColor lightGrayColor];
             [self.userRatingView.userRateView addSubview:rv];
             
-            [self loadProfilePictureWithURL:self.pop.seller[@"thumbnailUrl"]];
+            [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
         }
     }];
 }

@@ -19,7 +19,7 @@
     
     // load content
     self.profileImageView.image = self.profileImage;
-    self.profileImageView.layer.cornerRadius = 25.0f;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.size.height / 2.0;
     self.profileImageView.clipsToBounds = YES;
     self.nameLabel.text = self.nameStr;
     self.priceLabel.text = self.priceStr;
@@ -41,10 +41,10 @@
 */
 
 - (IBAction)dismissViewController:(id)sender {
-    NSLog(@"Touched");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)confirmOffer:(id)sender {
+    NSLog(@"Confirm clicked");
 }
 @end
