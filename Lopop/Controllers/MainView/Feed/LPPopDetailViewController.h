@@ -11,6 +11,13 @@
 #import "LPUserRatingView.h"
 #import "LPPop.h"
 
+typedef enum {
+    OfferNotSent = 0,
+    OfferSent,
+    Purchased,
+    Sold
+} OfferState;
+
 @interface LPPopDetailViewController : UIViewController <UIScrollViewDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
@@ -22,11 +29,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *offerBtn;
 
 @property (weak, nonatomic) IBOutlet LPUserRatingView *userRatingView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (retain, nonatomic) NSString *priceText;
 @property (retain ,nonatomic) NSString *distanceText;
+
+- (void)setUIForOfferState:(OfferState)state;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LPPop.h"
 
 @interface LPMakeOfferViewController : UIViewController
 
@@ -18,6 +19,7 @@
 @property (assign, nonatomic) NSString *priceStr;
 @property (assign, nonatomic) NSString *nameStr;
 @property (assign, nonatomic) UIImage *profileImage;
+@property (strong, nonatomic) LPPop *pop;
 
 - (IBAction)dismissViewController:(id)sender;
 - (IBAction)confirmOffer:(id)sender;

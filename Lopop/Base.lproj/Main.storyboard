@@ -883,6 +883,7 @@
                         <outlet property="mapView" destination="KMG-Ze-nYL" id="1Tq-jM-cA4"/>
                         <outlet property="numPhotoLabel" destination="K8U-An-5tF" id="imN-Eh-Dym"/>
                         <outlet property="numPhotoView" destination="fUs-AN-xXE" id="ZDX-ib-sJB"/>
+                        <outlet property="offerBtn" destination="ayD-S3-anV" id="mHd-QJ-EOu"/>
                         <outlet property="priceLabel" destination="xb4-hM-aBi" id="uFp-Vp-qLS"/>
                         <outlet property="titleLabel" destination="ihj-Tu-sXq" id="GNU-AA-DHg"/>
                         <outlet property="userRatingView" destination="uji-4M-9bF" id="GsJ-4a-awa"/>
@@ -1049,9 +1050,11 @@
                         <outlet property="nameLabel" destination="jJI-ch-l1l" id="nLe-Nh-ffW"/>
                         <outlet property="priceLabel" destination="4nZ-gc-895" id="qLO-lP-TOs"/>
                         <outlet property="profileImageView" destination="CRM-HA-dtt" id="Yoq-AE-Jp1"/>
+                        <segue destination="mFs-ib-Aqv" kind="unwind" identifier="offerSent" unwindAction="unwindToViewController:" id="TnN-18-Wqc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6q-7c-OXF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mFs-ib-Aqv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4178.5" y="-931.5"/>
         </scene>

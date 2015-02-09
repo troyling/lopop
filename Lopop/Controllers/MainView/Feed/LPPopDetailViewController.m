@@ -13,6 +13,7 @@
 #import "LPMakeOfferViewController.h"
 #import "LPAlertViewHelper.h"
 #import "LPUIHelper.h"
+#import "LPOffer.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -66,10 +67,13 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = CLLocationCoordinate2DMake(self.pop.location.latitude, self.pop.location.longitude);
     [self.mapView addAnnotation:point];
-    
+
     // add gestures
     [self addGestureToViewUserProfile];
     [self addGestureToMapView];
+
+    // check for offer state
+    [self checkForOffer];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -92,6 +96,18 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     [self.mapView setRegion:region animated:NO];
 }
 
+- (void)checkForOffer {
+    PFQuery *offerQuery = [LPOffer query];
+    [offerQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
+    [offerQuery whereKey:@"pop" equalTo:self.pop];
+    [offerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count > 0) {
+                [self setUIForOfferState:OfferSent];
+            }
+        }
+    }];
+}
 #pragma mark UI elements
 
 - (void)resizeDescriptionLabel {
@@ -117,6 +133,18 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
         }
     }];
+}
+
+- (void)setUIForOfferState:(OfferState)state {
+    switch (state) {
+        case OfferSent:
+            self.offerBtn.enabled = NO;
+            [self.offerBtn setTitle:@"Offer sent" forState:UIControlStateNormal];
+            self.offerBtn.backgroundColor = [LPUIHelper infoColor];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark connect to server
@@ -242,6 +270,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             vc.nameStr = self.userRatingView.nameLabel.text;
             vc.priceStr = self.priceLabel.text;
             vc.profileImage = self.userRatingView.profileImageView.image;
+            vc.pop = self.pop;
         }
     }
 }
