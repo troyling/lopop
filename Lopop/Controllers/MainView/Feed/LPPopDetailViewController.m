@@ -186,6 +186,10 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
         CGFloat horizontalOffset = imageViewWidth * i;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(horizontalOffset, 0, imageViewWidth, imageViewHeight)];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
+        
+        // layout
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         [imageView setImage:[self.images objectAtIndex:i]];
         [view addSubview:imageView];
         [self.imageScrollView addSubview:view];

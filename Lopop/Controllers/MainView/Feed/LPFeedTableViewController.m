@@ -186,6 +186,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             if (!error) {
                 UIImage *img = [UIImage imageWithData:data scale:0.05f];
                 cell.imgView.image = img;
+                cell.imgView.clipsToBounds = YES;
             }
         }];
         
