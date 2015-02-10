@@ -20,7 +20,6 @@
 @interface LPPopDetailViewController ()
 
 @property (retain, nonatomic) NSMutableArray *images;
-@property (retain, nonatomic) NSMutableArray *imageViews;
 @property NSUInteger numImages;
 
 @end
@@ -180,10 +179,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     CGFloat imageViewWidth = scrollViewSize.width;
     CGFloat imageViewHeight = scrollViewSize.height;
     self.imageScrollView.contentSize = CGSizeMake(imageViewWidth * self.numImages, imageViewHeight);
-  
-    // add image to views
-    self.imageViews = [[NSMutableArray alloc] init];
-    
+
     for (NSInteger i = 0; i < self.numImages; i++) {
         CGFloat horizontalOffset = imageViewWidth * i;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(horizontalOffset, 0, imageViewWidth, imageViewHeight)];
