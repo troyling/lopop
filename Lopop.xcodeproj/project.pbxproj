@@ -19,6 +19,7 @@
 		D601CA861A79B20300344F0C /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA851A79B20300344F0C /* libc++.dylib */; };
 		D601CA881A79B3A100344F0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA871A79B3A100344F0C /* Social.framework */; };
 		D601CA8A1A79B3A800344F0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA891A79B3A800344F0C /* Accounts.framework */; };
+		D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -127,6 +128,8 @@
 		D601CA851A79B20300344F0C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D601CA871A79B3A100344F0C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D601CA891A79B3A800344F0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		D661F71B1A89A2AE00E938F8 /* LPSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignInViewController.h; path = Controllers/User/Login/LPSignInViewController.h; sourceTree = "<group>"; };
+		D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignInViewController.m; path = Controllers/User/Login/LPSignInViewController.m; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -455,6 +458,8 @@
 		D66CC8F91A60E9B3007B9992 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D661F71B1A89A2AE00E938F8 /* LPSignInViewController.h */,
+				D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */,
 				D66CC8FF1A619A86007B9992 /* LPSignUpViewController.h */,
 				D66CC9001A619A86007B9992 /* LPSignUpViewController.m */,
 				D66CC9021A619A9C007B9992 /* LPSignUpDetailViewController.h */,
@@ -776,6 +781,7 @@
 				D6F5F82B1A8514680005758B /* BlurView.swift in Sources */,
 				D6F5F8431A8514680005758B /* UnwindSegue.swift in Sources */,
 				D6F5F8331A8514680005758B /* ImageLoader.swift in Sources */,
+				D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */,
 				D6F5F83F1A8514680005758B /* SpringTextView.swift in Sources */,
 				D6AB46A41A7C01A9001BCCFC /* LPFollowerTableViewController.m in Sources */,
 				D6F5F8421A8514680005758B /* TransitionZoom.swift in Sources */,
