@@ -27,6 +27,10 @@
     [self displayContent];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)displayContent {
     CGSize scrollViewSize = self.imageScrollView.frame.size;
     CGFloat width = scrollViewSize.width;
@@ -89,11 +93,7 @@
 # pragma VC control
 
 - (void)viewTapped:(UITapGestureRecognizer *)sender {
-    NSLog(@"%@", sender.view);
-    if (![sender.view isKindOfClass:[UIImageView class]]) {
-        // dismiss view
-        [self dismissViewControllerAnimated:NO completion:NULL];
-    }
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
 @end
