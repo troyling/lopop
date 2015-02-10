@@ -103,14 +103,14 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 - (void)initRefreshControl {
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshPops) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [refreshControl addTarget:self action:@selector(refreshPops) forControlEvents:UIControlEventValueChanged];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     self.refreshControl = refreshControl;
 }
 
 - (void)refreshPops {
     [self queryForPops];
-    
+
     // add last update
     if (self.refreshControl) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -218,7 +218,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             } else {
                 [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
             }
-            
             
         } else {
             NSLog(@"%@", error);
