@@ -20,6 +20,7 @@
 		D601CA881A79B3A100344F0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA871A79B3A100344F0C /* Social.framework */; };
 		D601CA8A1A79B3A800344F0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA891A79B3A800344F0C /* Accounts.framework */; };
 		D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */; };
+		D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F7201A89ABE000E938F8 /* LPImageShowcaseViewController.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
 		D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B51A60DD8C007B9992 /* AppDelegate.m */; };
 		D66CC8BC1A60DD8C007B9992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D66CC8BA1A60DD8C007B9992 /* Main.storyboard */; };
@@ -130,6 +131,8 @@
 		D601CA891A79B3A800344F0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D661F71B1A89A2AE00E938F8 /* LPSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignInViewController.h; path = Controllers/User/Login/LPSignInViewController.h; sourceTree = "<group>"; };
 		D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignInViewController.m; path = Controllers/User/Login/LPSignInViewController.m; sourceTree = "<group>"; };
+		D661F71F1A89ABE000E938F8 /* LPImageShowcaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPImageShowcaseViewController.h; path = Controllers/Common/LPImageShowcaseViewController.h; sourceTree = "<group>"; };
+		D661F7201A89ABE000E938F8 /* LPImageShowcaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPImageShowcaseViewController.m; path = Controllers/Common/LPImageShowcaseViewController.m; sourceTree = "<group>"; };
 		D66CC8AD1A60DD8C007B9992 /* Lopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66CC8B11A60DD8C007B9992 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D66CC8B21A60DD8C007B9992 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -323,6 +326,15 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		D661F71E1A89AA1400E938F8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D661F71F1A89ABE000E938F8 /* LPImageShowcaseViewController.h */,
+				D661F7201A89ABE000E938F8 /* LPImageShowcaseViewController.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		D66CC8A41A60DD8C007B9992 = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +452,7 @@
 		D66CC8F71A60E9A0007B9992 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D661F71E1A89AA1400E938F8 /* Common */,
 				D6E6EB151A659108008085F7 /* MainView */,
 				D66CC8F81A60E9AC007B9992 /* User */,
 			);
@@ -794,6 +807,7 @@
 				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6F5F8411A8514680005758B /* TransitionManager.swift in Sources */,
+				D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */,
 				D6F5F8311A8514680005758B /* DesignableTextView.swift in Sources */,
 				D6F5F8321A8514680005758B /* DesignableView.swift in Sources */,
 				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,

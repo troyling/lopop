@@ -10,6 +10,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
+#import "LPImageShowcaseViewController.h"
 #import "LPMakeOfferViewController.h"
 #import "LPAlertViewHelper.h"
 #import "LPUIHelper.h"
@@ -71,6 +72,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     // add gestures
     [self addGestureToViewUserProfile];
     [self addGestureToMapView];
+    [self addGestureToImageScrollView];
 
     // check for offer state
     [self checkForOffer];
@@ -229,6 +231,11 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     [self.mapView addGestureRecognizer:tap];
 }
 
+- (void)addGestureToImageScrollView {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewImageInDetail)];
+    [self.imageScrollView addGestureRecognizer:tap];
+}
+
 #pragma mark scrollView
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -263,6 +270,17 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     LPPopLocationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"popLocation"];
     vc.center = self.pop.location;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)viewImageInDetail {
+    LPImageShowcaseViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"imageShowcase"];
+    
+    // TODO Configure this
+    CGFloat width = self.imageScrollView.frame.size.width;
+    NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
+    vc.index = page - 1;
+    vc.images = self.images;
+    [self.navigationController presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark segue

@@ -650,6 +650,48 @@
             </objects>
             <point key="canvasLocation" x="2692.5" y="-1409.5"/>
         </scene>
+        <!--Image Showcase View Controller-->
+        <scene sceneID="7MH-9T-8Nx">
+            <objects>
+                <viewController storyboardIdentifier="imageShowcase" id="6q2-lq-eiQ" customClass="LPImageShowcaseViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JFF-Eg-ix7"/>
+                        <viewControllerLayoutGuide type="bottom" id="4JN-O3-Qcf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1w8-yf-9pj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCk-e6-Ir3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XT-J8-2va">
+                                <rect key="frame" x="239" y="627" width="120" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="588-iB-obL"/>
+                                    <constraint firstAttribute="width" constant="120" id="uVW-yq-Nra"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4JN-O3-Qcf" firstAttribute="top" secondItem="3XT-J8-2va" secondAttribute="bottom" constant="20" id="bm4-8g-O28"/>
+                            <constraint firstItem="3XT-J8-2va" firstAttribute="trailing" secondItem="1w8-yf-9pj" secondAttribute="trailingMargin" id="p0i-YP-ki7"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="imageScrollView" destination="pCk-e6-Ir3" id="a3s-RU-EZ6"/>
+                        <outlet property="indicatorLabel" destination="3XT-J8-2va" id="dAh-Ka-Lvr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jTk-3K-UVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4064.5" y="-2971.5"/>
+        </scene>
         <!--Desired Location-->
         <scene sceneID="Z85-uH-c3C">
             <objects>
@@ -682,7 +724,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Zd-NM-enC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4179.375" y="-1688.0281690140844"/>
+            <point key="canvasLocation" x="4070.5" y="-2236.5"/>
         </scene>
         <!--Detail-->
         <scene sceneID="URi-3Y-OIZ">
@@ -1056,7 +1098,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6q-7c-OXF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="mFs-ib-Aqv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4178.5" y="-931.5"/>
+            <point key="canvasLocation" x="4070.5" y="-1479.5"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="2hV-KF-D8C">
