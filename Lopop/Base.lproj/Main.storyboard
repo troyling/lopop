@@ -1669,7 +1669,7 @@
         <!--Navigation Controller-->
         <scene sceneID="l43-Dl-xhj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pnp-Hn-7lV" sceneMemberID="viewController">
+                <navigationController id="Pnp-Hn-7lV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="TabBarFeed" id="8qe-N2-nmF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UoT-fz-mae">
