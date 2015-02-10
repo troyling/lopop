@@ -280,7 +280,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
     vc.index = page - 1;
     vc.images = self.images;
-    [self.navigationController presentViewController:vc animated:YES completion:NULL];
+    [self.navigationController presentViewController:vc animated:NO completion:NULL];
 }
 
 #pragma mark segue

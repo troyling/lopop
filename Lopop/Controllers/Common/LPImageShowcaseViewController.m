@@ -20,6 +20,9 @@
 
     // label always on top
     self.indicatorLabel.layer.zPosition = MAXFLOAT;
+
+    // add gesture to dismiss view
+    [self addGestureToView];
     
     [self displayContent];
 }
@@ -68,11 +71,28 @@
     return page;
 }
 
+# pragma mark Gesture
+
+- (void)addGestureToView {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self.imageScrollView addGestureRecognizer:tap];
+}
+
 # pragma mark ScrollView
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.imageScrollView]) {
        [self updatePageNumber];
+    }
+}
+
+# pragma VC control
+
+- (void)viewTapped:(UITapGestureRecognizer *)sender {
+    NSLog(@"%@", sender.view);
+    if (![sender.view isKindOfClass:[UIImageView class]]) {
+        // dismiss view
+        [self dismissViewControllerAnimated:NO completion:NULL];
     }
 }
 
