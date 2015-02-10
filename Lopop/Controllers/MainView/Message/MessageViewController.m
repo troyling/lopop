@@ -8,6 +8,7 @@
 
 #import "MessageViewController.h"
 #import "MessageModel.h"
+#import <Parse/Parse.h>
 
 
 
@@ -37,14 +38,13 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     Firebase *infoRef = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/info/"]];
     
     [infoRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if(snapshot.value [@"user1"] == USER1){
+        NSString *userId = [[PFUser currentUser] objectId];
+        if([snapshot.value [@"user1"] isEqualToString:userId]){
             self.userNumber = USER1;
         }else{
             self.userNumber = USER2;
         }
     }];
-
-    
     
     self.firebase = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/messages/"]];
     
@@ -58,12 +58,9 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
         // Reload the table view so the new message will show up.
         if (!initialAdds) {
             [self.tableView reloadData];
-            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.messageArray.count - 1 inSection:0];
-            
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            [self moveToTheLastMessage];
         }
     }];
-
 
     // Value event fires right after we get the events already stored in the Firebase repo.
     // We've gotten the initial messages stored on the server, and we want to run reloadData on the batch.
@@ -71,11 +68,18 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     [self.firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         // Reload the table view so that the intial messages show up
         [self.tableView reloadData];
+        [self moveToTheLastMessage];
         initialAdds = NO;
-        
     }];
     
     
+}
+
+- (void)moveToTheLastMessage{
+    if(self.messageArray.count > 0){
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.messageArray.count - 1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 #pragma mark - delegate for tableView
@@ -173,6 +177,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     CGRect keyboardEndFrame;
     [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey]
      getValue:&keyboardEndFrame];
+    
     
     CGRect frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.x, self.view.frame.size.width, self.view.frame.size.height - keyboardEndFrame.size.height);
 
