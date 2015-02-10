@@ -10,4 +10,6 @@
 
 @interface LPMainViewTabBarController : UITabBarController
 
+- (void)setTabBarVisible:(BOOL)visible animated:(BOOL)animated;
+
 @end

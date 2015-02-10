@@ -12,5 +12,9 @@
 @interface LPUIHelper : NSObject
 
 + (UIColor *)lopopColor;
++ (UIColor *)infoColor;
++ (UIImage *)convertViewToImage:(UIView *)view;
++ (CGFloat)heightOfText:(NSString *)textStr forLabel:(UILabel *)label;
++ (CGFloat)screenWidth;
 
 @end

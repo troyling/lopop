@@ -10,15 +10,18 @@
 #import "LPNewPopTableViewController.h"
 #import "LPPopFeedTableViewCell.h"
 #import "LPPopDetailViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import <Parse/Parse.h>
+#import "LPPopLike.h"
 
 @interface LPFeedTableViewController ()
 
 @property (strong, nonatomic) NSArray *pops;
+@property (strong, nonatomic) NSMutableArray *userLikedPops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
-@property CGFloat imgHeight;
+@property (assign, nonatomic) CGFloat lastContentOffsetY;
 
 @end
 
@@ -35,9 +38,12 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
     
+    // content offset used to calculate view position
+    self.lastContentOffsetY = self.tableView.contentOffset.y;
+    
     // init
     CGRect bound = [[UIScreen mainScreen] bounds];
-    self.imgHeight = bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO;
+    self.tableView.rowHeight = bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO + ROW_HEIGHT_OFFSET;
     
     // query data
     [self queryForPops];
@@ -87,6 +93,12 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             // TODO stop the loading indicator
         }
     }];
+    self.userLikedPops = [[NSMutableArray alloc] init];
+    PFQuery *likeQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    [likeQuery whereKey:@"likedUser" equalTo:[PFUser currentUser]];
+    [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.userLikedPops addObjectsFromArray:objects];
+    }];
 }
 
 - (void)initRefreshControl {
@@ -108,6 +120,29 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         self.refreshControl.attributedTitle = attributedTitle;
 
         [self.refreshControl endRefreshing];
+    }
+}
+
+#pragma mark Scrollview Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.pops.count > 0) {
+        CGFloat margin = scrollView.contentOffset.y - self.lastContentOffsetY;
+
+        if (margin > 15.0f) {
+            // scrolling down
+            if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+                LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+                [tb setTabBarVisible:NO animated:YES];
+            }
+        } else if (margin < -15.0f) {
+            // scrolling up
+            if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+                LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+                [tb setTabBarVisible:YES animated:YES];
+            }
+        }
+        self.lastContentOffsetY = scrollView.contentOffset.y;
     }
 }
 
@@ -151,17 +186,115 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             if (!error) {
                 UIImage *img = [UIImage imageWithData:data scale:0.05f];
                 cell.imgView.image = img;
+                cell.imgView.clipsToBounds = YES;
             }
         }];
-    }
+        
+        cell.likeBtn.tag = indexPath.row;
+        
+        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self updateButton:cell.likeBtn with:pop];
+}
     
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = self.imgHeight + ROW_HEIGHT_OFFSET;
-    return height;
+- (void)updateButton:(UIButton*)updateButton with:(LPPop*)pop{
+    PFQuery *likedQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    // being followed by other users
+    [likedQuery whereKey:@"pop" equalTo:pop];
+    [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            NSMutableArray *popsLikeByCurrentUser = [[NSMutableArray alloc] init];
+            for (LPPopLike *pop in self.userLikedPops) {
+                if ([pop.likedUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [popsLikeByCurrentUser addObject:pop.pop];
+                }
+            }
+            if ([popsLikeByCurrentUser containsObject:pop]) {
+                [updateButton setTitle:[NSString stringWithFormat:@"unlike %d", number] forState:UIControlStateNormal];
+            } else {
+                [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+            }
+            
+            
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
+
+- (void)like_pop2:(id) sender {
+    UIButton *button = (UIButton*) sender;
+    NSInteger row = button.tag;
+    LPPop *currentPop = [self.pops objectAtIndex:row];
+    
+    
+    PFQuery *likedQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
+    // being followed by other users
+    [likedQuery whereKey:@"pop" equalTo:currentPop];
+    
+    [likedQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            NSMutableArray *popsLikeByCurrentUser = [[NSMutableArray alloc] init];
+            for (LPPopLike *pop in self.userLikedPops) {
+                if ([pop.likedUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [popsLikeByCurrentUser addObject:pop.pop];
+                }
+            }
+
+            if ([popsLikeByCurrentUser containsObject:currentPop]) {
+                
+                [likedQuery whereKey:@"likedUser" equalTo:[PFUser currentUser]];
+                LPPopLike *popToBeDeleted;
+                for (LPPopLike *popLike in self.userLikedPops) {
+                    if ([popLike.objectId isEqualToString:[[likedQuery getFirstObject] objectId]]) {
+                        popToBeDeleted = popLike;
+                        break;
+                    }
+                }
+                [self.userLikedPops removeObject:popToBeDeleted];
+                [[likedQuery getFirstObject] deleteInBackground];
+                
+                [button setTitle:[NSString stringWithFormat:@"like %d", number - 1] forState:UIControlStateNormal];
+            } else {
+                LPPopLike *like = [LPPopLike object];
+                like.pop = currentPop;
+                like.likedUser = [PFUser currentUser];
+                [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        [self.userLikedPops addObject:like];
+                        [button setTitle:[NSString stringWithFormat:@"unlike %d", number + 1] forState:UIControlStateNormal];
+                    } else {
+                        NSLog(@"%@", error);
+                        
+                    }
+                }];
+               
+            }
+        } else {
+            NSLog(@"%@", error);
+        }
+        
+    }];
+    
+
+}
+- (void)like_pop:(id) sender {
+    UIButton *button = (UIButton*) sender;
+    NSInteger row = button.tag;
+    LPPopLike *like = [LPPopLike object];
+    like.pop = [self.pops objectAtIndex:row];
+    like.likedUser = [PFUser currentUser];
+    [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            [self updateButton:button with:[self.pops objectAtIndex:row]];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
+    }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.pops) {
@@ -183,7 +316,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         vc.pop = [self.pops objectAtIndex:indexPath.row];
         
         // setup destination
-        vc.navigationItem.title = [[self.pops objectAtIndex:indexPath.row] title];
         vc.priceText = cell.priceLabel.text;
         vc.distanceText = cell.distanceLabel.text;
     }
