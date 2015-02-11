@@ -946,7 +946,13 @@
                             <constraint firstItem="GMy-HH-Wmr" firstAttribute="leading" secondItem="0qP-Zy-o25" secondAttribute="leadingMargin" constant="-16" id="hOI-AR-bR7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="WEg-C4-CE1"/>
+                    <navigationItem key="navigationItem" title="Detail" id="WEg-C4-CE1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Wvq-Hi-Rq8">
+                            <connections>
+                                <action selector="sharePop:" destination="TTt-MV-RDu" id="Qup-RJ-uEK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="800"/>
                     <connections>
@@ -1130,6 +1136,152 @@
                 <exit id="mFs-ib-Aqv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4070.5" y="-1479.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="2CM-hv-I3n">
+            <objects>
+                <viewController storyboardIdentifier="shareView" id="EOD-0a-yzw" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZlZ-tL-nZC"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zee-gz-1W1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HGk-1K-ZtK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNo-u4-xCA" userLabel="dismissBtn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPd-3N-S2z">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="z0t-UT-J6Y">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TdZ-jY-7Gx">
+                                <rect key="frame" x="146.5" y="100" width="82.5" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="82.5" id="9GI-7j-rHq"/>
+                                    <constraint firstAttribute="height" constant="33" id="Uf3-4P-7tf"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="glL-z1-PLg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="glL-z1-PLg"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nox-bA-GX5">
+                                <rect key="frame" x="31" y="193.5" width="313" height="40"/>
+                                <color key="backgroundColor" red="0.2784313725" green="0.39607843139999999" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="XVN-Rw-ofY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7px-vu-aOn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xgj-fi-9t4">
+                                <rect key="frame" x="31" y="253.5" width="313" height="40"/>
+                                <color key="backgroundColor" red="0.56470588235294117" green="0.81568627450980391" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="bUB-Jc-9L3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="WeChat">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yQ1-cE-pWZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hh5-yI-Yre">
+                                <rect key="frame" x="31" y="433.5" width="313" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="313" id="8KA-Pr-3CW"/>
+                                    <constraint firstAttribute="height" constant="40" id="SXv-78-bxV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Copy link">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="go8-ZF-qM9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5c-TF-MdG">
+                                <rect key="frame" x="31" y="373.5" width="313" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DmV-Ou-VtR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Email">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yce-0h-AQ9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jr8-Oy-Z7E">
+                                <rect key="frame" x="31" y="313.5" width="313" height="40"/>
+                                <color key="backgroundColor" red="0.92156862745098034" green="0.098039215686274508" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="7yc-rh-obT"/>
+                                    <constraint firstAttribute="width" constant="313" id="PYp-qP-rpu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Weibo">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nEs-lJ-XBh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="hh5-yI-Yre" secondAttribute="trailing" constant="15" id="43O-Ct-Wi0"/>
+                            <constraint firstItem="hh5-yI-Yre" firstAttribute="top" secondItem="v5c-TF-MdG" secondAttribute="bottom" constant="20" id="582-F6-PwR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nox-bA-GX5" secondAttribute="trailing" constant="15" id="6Vh-Ea-Jts"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Xgj-fi-9t4" secondAttribute="trailing" constant="15" id="8T5-uZ-hb5"/>
+                            <constraint firstItem="Xgj-fi-9t4" firstAttribute="top" secondItem="nox-bA-GX5" secondAttribute="bottom" constant="20" id="8ai-5l-j4X"/>
+                            <constraint firstItem="v5c-TF-MdG" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="BBe-ON-le8"/>
+                            <constraint firstItem="nox-bA-GX5" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="BmD-2y-RBR"/>
+                            <constraint firstItem="hh5-yI-Yre" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="Gfj-tR-N6g"/>
+                            <constraint firstItem="jr8-Oy-Z7E" firstAttribute="top" secondItem="Xgj-fi-9t4" secondAttribute="bottom" constant="20" id="Ozq-d8-sy9"/>
+                            <constraint firstItem="Xgj-fi-9t4" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="Sb2-Bn-YzB"/>
+                            <constraint firstItem="TdZ-jY-7Gx" firstAttribute="top" secondItem="ZlZ-tL-nZC" secondAttribute="bottom" constant="80" id="WwL-5H-dhp"/>
+                            <constraint firstAttribute="centerY" secondItem="jr8-Oy-Z7E" secondAttribute="centerY" id="bh1-qh-Dne"/>
+                            <constraint firstAttribute="centerX" secondItem="TdZ-jY-7Gx" secondAttribute="centerX" id="imc-an-Rum"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="v5c-TF-MdG" secondAttribute="trailing" constant="15" id="pCV-Dw-eD4"/>
+                            <constraint firstItem="v5c-TF-MdG" firstAttribute="top" secondItem="jr8-Oy-Z7E" secondAttribute="bottom" constant="20" id="pUT-e2-k1y"/>
+                            <constraint firstAttribute="centerX" secondItem="jr8-Oy-Z7E" secondAttribute="centerX" id="sbP-om-b8g"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H29-M5-wsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4552.5" y="-1476.5"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="2hV-KF-D8C">

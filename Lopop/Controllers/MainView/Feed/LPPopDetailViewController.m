@@ -148,6 +148,10 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     }
 }
 
+- (IBAction)sharePop:(id)sender {
+    
+}
+
 #pragma mark connect to server
 
 - (void)loadProfilePictureWithURL:(NSString *)UrlString {
