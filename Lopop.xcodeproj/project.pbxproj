@@ -71,6 +71,7 @@
 		D6BD4AA41A7D77760094732A /* blur_signup_view.png in Resources */ = {isa = PBXBuildFile; fileRef = D6BD4AA31A7D77760094732A /* blur_signup_view.png */; };
 		D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C503201A6EB3DC00C18241 /* photo-25.png */; };
 		D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CAF27E1A7D65A700F48E6E /* LPUserHelper.m */; };
+		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
@@ -212,6 +213,8 @@
 		D6C503201A6EB3DC00C18241 /* photo-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-25.png"; path = "Resources/Images/TabBarIcons/photo-25.png"; sourceTree = "<group>"; };
 		D6CAF27D1A7D65A700F48E6E /* LPUserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserHelper.h; path = Helpers/User/LPUserHelper.h; sourceTree = "<group>"; };
 		D6CAF27E1A7D65A700F48E6E /* LPUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserHelper.m; path = Helpers/User/LPUserHelper.m; sourceTree = "<group>"; };
+		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
+		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopFeedTableViewCell.h; path = Views/MainView/Feed/LPPopFeedTableViewCell.h; sourceTree = "<group>"; };
 		D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopFeedTableViewCell.m; path = Views/MainView/Feed/LPPopFeedTableViewCell.m; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
@@ -617,6 +620,15 @@
 			name = User;
 			sourceTree = "<group>";
 		};
+		D6D973AE1A8AA8A600A30539 /* Listing */ = {
+			isa = PBXGroup;
+			children = (
+				D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */,
+				D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */,
+			);
+			name = Listing;
+			sourceTree = "<group>";
+		};
 		D6DBD6F41A7418FF009F6FFE /* MainView */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +667,7 @@
 		D6E6EB151A659108008085F7 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				D6D973AE1A8AA8A600A30539 /* Listing */,
 				335FD8C21A7D72590020B7A3 /* Message */,
 				D6AB469B1A7B216B001BCCFC /* Settings */,
 				D6008A211A67266F0057771A /* Pop */,
@@ -865,6 +878,7 @@
 				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */,
 				D6F5F82C1A8514680005758B /* DesignableButton.swift in Sources */,
+				D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */,
 				D6B9E9661A8948FD00A62D9B /* LPOffer.m in Sources */,
 				D6A5D7BF1A80087700A631CD /* RateView.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
