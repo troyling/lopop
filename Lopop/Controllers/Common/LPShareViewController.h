@@ -12,6 +12,7 @@
 @interface LPShareViewController : UIViewController
 
 @property (strong, nonatomic) LPPop *pop;
+@property (weak, nonatomic) IBOutlet UIButton *messengerBtn;
 
 - (IBAction)shareOnFacebook:(id)sender;
 - (IBAction)shareOnMessenger:(id)sender;

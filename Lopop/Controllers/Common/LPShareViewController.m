@@ -14,12 +14,20 @@
 
 @interface LPShareViewController ()
 
+@property (retain, nonatomic) FBLinkShareParams *params;
+
 @end
 
 @implementation LPShareViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // check if Messenger is installed
+    self.params = [self populateParamsWithPop:self.pop];
+    if (![FBDialogs canPresentMessageDialogWithParams:self.params]) {
+        self.messengerBtn.hidden = YES;
+    }
 }
 
 - (FBLinkShareParams *)populateParamsWithPop:(LPPop *)pop {
@@ -44,11 +52,10 @@
     // 1. Add source to keep track of where users are coming from
     // 2. Hash the URL to protect our data
     // 3. Shorten url
-    FBLinkShareParams *params = [self populateParamsWithPop:self.pop];
 
-    if ([FBDialogs canPresentShareDialogWithParams:params]) {
+    if ([FBDialogs canPresentShareDialogWithParams:self.params]) {
         // Present the share dialog on the Facebook app
-        [FBDialogs presentShareDialogWithParams:params clientState:nil handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+        [FBDialogs presentShareDialogWithParams:self.params clientState:nil handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
             if (error) {
                 [LPAlertViewHelper fatalErrorAlert:@"Unable to share the pop at this moment. Please try again later"];
             } else {
@@ -59,11 +66,11 @@
     } else {
         // Present the feed dialog
         NSDictionary *dictParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                    params.name, @"name",
-                                    params.caption, @"caption",
-                                    params.link.absoluteString, @"link",
-                                    self.pop.popDescription, @"description",
-                                    params.picture.absoluteString, @"picture",
+                                    self.params.name, @"name",
+                                    self.params.caption, @"caption",
+                                    self.params.link.absoluteString, @"link",
+                                    self.params.description, @"description",
+                                    self.params.picture.absoluteString, @"picture",
                                     nil];
 
         [FBWebDialogs presentFeedDialogModallyWithSession:nil parameters:dictParams handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
@@ -78,7 +85,13 @@
 }
 
 - (IBAction)shareOnMessenger:(id)sender {
-
+    [FBDialogs presentMessageDialogWithParams:self.params clientState:nil handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+        if (error) {
+            [LPAlertViewHelper fatalErrorAlert:@"Unable to share with Messenger. Please try again later"];
+        } else {
+            NSLog(@"Successfully share on Messenger");
+        }
+    }];
 }
 
 - (IBAction)shareOnWeChat:(id)sender {

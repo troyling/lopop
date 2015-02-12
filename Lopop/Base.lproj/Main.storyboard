@@ -1183,7 +1183,7 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nox-bA-GX5">
-                                <rect key="frame" x="31" y="193.5" width="313" height="40"/>
+                                <rect key="frame" x="31" y="254.5" width="313" height="40"/>
                                 <color key="backgroundColor" red="0.2784313725" green="0.39607843139999999" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="XVN-Rw-ofY"/>
@@ -1274,7 +1274,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6qz-gZ-A5Q" userLabel="Messanger">
-                                <rect key="frame" x="31" y="254" width="313" height="40"/>
+                                <rect key="frame" x="31" y="194" width="313" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.64313725490196083" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="PyC-Je-bcH"/>
@@ -1291,6 +1291,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Xgj-fi-9t4" firstAttribute="top" secondItem="nox-bA-GX5" secondAttribute="bottom" constant="20" id="3BD-7U-bSl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hh5-yI-Yre" secondAttribute="trailing" constant="15" id="43O-Ct-Wi0"/>
                             <constraint firstItem="hh5-yI-Yre" firstAttribute="top" secondItem="v5c-TF-MdG" secondAttribute="bottom" constant="20" id="582-F6-PwR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nox-bA-GX5" secondAttribute="trailing" constant="15" id="6Vh-Ea-Jts"/>
@@ -1305,6 +1306,8 @@
                             <constraint firstItem="Xgj-fi-9t4" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="Sb2-Bn-YzB"/>
                             <constraint firstItem="Xgj-fi-9t4" firstAttribute="top" secondItem="6qz-gZ-A5Q" secondAttribute="bottom" constant="20.5" id="SwO-Fc-VyA"/>
                             <constraint firstAttribute="centerY" secondItem="Xgj-fi-9t4" secondAttribute="centerY" constant="-1" id="Xmo-3e-l5z"/>
+                            <constraint firstItem="6qz-gZ-A5Q" firstAttribute="top" secondItem="TdZ-jY-7Gx" secondAttribute="bottom" constant="51" id="XvK-WY-6np"/>
+                            <constraint firstItem="nox-bA-GX5" firstAttribute="top" secondItem="6qz-gZ-A5Q" secondAttribute="bottom" constant="20.5" id="feR-pA-V6a"/>
                             <constraint firstAttribute="centerX" secondItem="TdZ-jY-7Gx" secondAttribute="centerX" id="imc-an-Rum"/>
                             <constraint firstAttribute="trailingMargin" secondItem="v5c-TF-MdG" secondAttribute="trailing" constant="15" id="pCV-Dw-eD4"/>
                             <constraint firstItem="v5c-TF-MdG" firstAttribute="top" secondItem="jr8-Oy-Z7E" secondAttribute="bottom" constant="20" id="pUT-e2-k1y"/>
@@ -1312,8 +1315,18 @@
                             <constraint firstItem="nox-bA-GX5" firstAttribute="top" secondItem="TdZ-jY-7Gx" secondAttribute="bottom" constant="50.5" id="vZO-Tf-TAs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jr8-Oy-Z7E" secondAttribute="trailing" constant="15" id="xbk-zY-Jmd"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="uPv-1g-Bao"/>
+                                <exclude reference="vZO-Tf-TAs"/>
+                                <exclude reference="SwO-Fc-VyA"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="messengerBtn" destination="6qz-gZ-A5Q" id="VIa-1X-pYS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H29-M5-wsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
