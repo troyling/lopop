@@ -138,7 +138,13 @@
 }
 
 - (IBAction)copyLinkToClipboard:(id)sender {
-    NSLog(@"Copy to clipboard");
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    [pb setString:[self publicLink:self.pop]];
+
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *copyBtn = sender;
+        [copyBtn setTitle:@"Copied!" forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)dismissView:(id)sender {
