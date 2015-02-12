@@ -48,6 +48,29 @@
     return params;
 }
 
+- (WXMediaMessage *)wechatMsgWithPop:(LPPop *)pop {
+    // TODO fix the link
+    //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", self.pop.objectId];
+    NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
+
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = pop.title;
+    message.description = pop.popDescription;
+
+    // TODO compress the image
+    //    PFFile *imgFile = pop.images.firstObject;
+    //    UIImage *img = [UIImage imageWithData:[imgFile getData]];
+    //    [message setThumbImage:img];
+
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = linkStr;
+
+    message.mediaObject = ext;
+    message.mediaTagName = @"Lopop";
+
+    return message;
+}
+
 - (IBAction)shareOnFacebook:(id)sender {
     // TODO couple ways to improve this
     // 1. Add source to keep track of where users are coming from
@@ -61,6 +84,7 @@
                 [LPAlertViewHelper fatalErrorAlert:@"Unable to share the pop at this moment. Please try again later"];
             } else {
                 // TODO add indicator
+                // TODO check if the message is shared
                 NSLog(@"Share successfully");
             }
         }];
@@ -79,6 +103,7 @@
                 [LPAlertViewHelper fatalErrorAlert:@"Unable to share the pop at this moment. Please try again later"];
             } else {
                 // TODO add indicator
+                // TODO check if the message is shared
                 NSLog(@"Share successfully");
             }
         }];
@@ -96,26 +121,9 @@
 }
 
 - (IBAction)shareOnWeChat:(id)sender {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = self.pop.title;
-    message.description = self.pop.popDescription;
-
-    // TODO compress the image
-//    PFFile *imgFile = self.pop.images.firstObject;
-//    UIImage *img = [UIImage imageWithData:[imgFile getData]];
-//    [message setThumbImage:img];
-
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = self.params.link.absoluteString;
-
-    message.mediaObject = ext;
-    message.mediaTagName = @"Lopop";
-
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = WXSceneTimeline;
-    [WXApi sendReq:req];
+    // present actionsheet
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"WeChat Friend", @"WeChat Timeline", nil];
+    [sheet showInView:self.view];
 }
 
 - (IBAction)shareOnWeibo:(id)sender {
@@ -132,6 +140,25 @@
 
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:NO completion:NULL];
+}
+
+#pragma mark Actionsheet
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    WXMediaMessage *message = [self wechatMsgWithPop:self.pop];
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+
+    if ([title isEqualToString:@"WeChat Friend"]) {
+        req.scene = WXSceneSession;
+    } else if ([title isEqualToString:@"WeChat Timeline"]) {
+        req.scene = WXSceneTimeline;
+    }
+
+    [WXApi sendReq:req];
 }
 
 @end

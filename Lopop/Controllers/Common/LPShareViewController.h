@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LPPop.h"
 
-@interface LPShareViewController : UIViewController
+@interface LPShareViewController : UIViewController <UIActionSheetDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
 @property (weak, nonatomic) IBOutlet UIButton *messengerBtn;
