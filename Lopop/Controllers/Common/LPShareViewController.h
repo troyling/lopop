@@ -14,6 +14,7 @@
 @property (strong, nonatomic) LPPop *pop;
 
 - (IBAction)shareOnFacebook:(id)sender;
+- (IBAction)shareOnMessenger:(id)sender;
 - (IBAction)shareOnWeChat:(id)sender;
 - (IBAction)shareOnWeibo:(id)sender;
 - (IBAction)shareWithEmail:(id)sender;

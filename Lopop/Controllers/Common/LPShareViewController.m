@@ -22,21 +22,29 @@
     [super viewDidLoad];
 }
 
-- (IBAction)shareOnFacebook:(id)sender {
-    // TODO couple ways to improve this
-    // 1. Add source to keep track of where users are coming from
-    // 2. Hash the URL to protect our data
-    // 3. Shorten url
-
+- (FBLinkShareParams *)populateParamsWithPop:(LPPop *)pop {
     // TODO fix the link
     //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", self.pop.objectId];
     NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
     NSURL *link = [NSURL URLWithString:linkStr];
 
-    // TODO generate a thumbnail when user creating a pop
-    PFFile *thumbnail = self.pop.images.firstObject;
+    PFFile *thumbnail = pop.images.firstObject;
     NSURL *pictureUrl = [NSURL URLWithString:thumbnail.url];
-    FBLinkShareParams *params = [[FBLinkShareParams alloc] initWithLink:link name:self.pop.title caption:@"Lopop" description:self.pop.popDescription picture:pictureUrl];
+
+    FBLinkShareParams *params = [[FBLinkShareParams alloc] initWithLink:link
+                                                                   name:pop.title
+                                                                caption:@"Lopop"
+                                                            description:pop.popDescription
+                                                                picture:pictureUrl];
+    return params;
+}
+
+- (IBAction)shareOnFacebook:(id)sender {
+    // TODO couple ways to improve this
+    // 1. Add source to keep track of where users are coming from
+    // 2. Hash the URL to protect our data
+    // 3. Shorten url
+    FBLinkShareParams *params = [self populateParamsWithPop:self.pop];
 
     if ([FBDialogs canPresentShareDialogWithParams:params]) {
         // Present the share dialog on the Facebook app
@@ -53,9 +61,9 @@
         NSDictionary *dictParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     params.name, @"name",
                                     params.caption, @"caption",
-                                    linkStr, @"link",
+                                    params.link.absoluteString, @"link",
                                     self.pop.popDescription, @"description",
-                                    thumbnail.url, @"picture",
+                                    params.picture.absoluteString, @"picture",
                                     nil];
 
         [FBWebDialogs presentFeedDialogModallyWithSession:nil parameters:dictParams handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
@@ -67,6 +75,10 @@
             }
         }];
     }
+}
+
+- (IBAction)shareOnMessenger:(id)sender {
+
 }
 
 - (IBAction)shareOnWeChat:(id)sender {
