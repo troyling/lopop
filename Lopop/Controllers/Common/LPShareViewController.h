@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 #import "LPPop.h"
 
-@interface LPShareViewController : UIViewController <UIActionSheetDelegate>
+@interface LPShareViewController : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) LPPop *pop;
 @property (weak, nonatomic) IBOutlet UIButton *messengerBtn;

@@ -29,6 +29,11 @@
     if (![FBDialogs canPresentMessageDialogWithParams:self.params]) {
         self.messengerBtn.hidden = YES;
     }
+
+    if (![WXApi isWXAppInstalled]) {
+        // TODO disable wechat button
+        NSLog(@"WX is not installed");
+    }
 }
 
 - (NSString *)publicLink:(LPPop *)pop {
@@ -134,7 +139,22 @@
 }
 
 - (IBAction)shareWithEmail:(id)sender {
-    NSLog(@"Share with email");
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+        vc.mailComposeDelegate = self;
+
+        NSString *subject = [NSString stringWithFormat:@"[Lopop] %@", self.pop.title];
+        NSString *body = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
+                          self.pop.title,
+                          self.pop.popDescription,
+                          [self publicLink:self.pop]];
+
+        [vc setSubject:subject];
+        [vc setMessageBody:body isHTML:NO];
+        [self presentViewController:vc animated:YES completion:NULL];
+    } else {
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to send email now. Please try again later."];
+    }
 }
 
 - (IBAction)copyLinkToClipboard:(id)sender {
@@ -168,6 +188,21 @@
     }
 
     [WXApi sendReq:req];
+}
+
+#pragma mark MailController
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    if (error) {
+        [LPAlertViewHelper fatalErrorAlert:error.description];
+    } else {
+        if (result == MFMailComposeResultSent) {
+            NSLog(@"SENT");
+        } else if (result == MFMailComposeResultSaved) {
+            NSLog(@"DRAFT saved");
+        }
+    }
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
