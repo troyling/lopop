@@ -7,12 +7,14 @@
 //
 
 #import "LPPopDetailViewController.h"
+#import "LPShareViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
 #import "LPImageShowcaseViewController.h"
 #import "LPMakeOfferViewController.h"
 #import "LPAlertViewHelper.h"
+#import "LPShareViewController.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
 #import <QuartzCore/QuartzCore.h>
@@ -146,10 +148,6 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
         default:
             break;
     }
-}
-
-- (IBAction)sharePop:(id)sender {
-    
 }
 
 #pragma mark connect to server
@@ -292,6 +290,11 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             vc.nameStr = self.userRatingView.nameLabel.text;
             vc.priceStr = self.priceLabel.text;
             vc.profileImage = self.userRatingView.profileImageView.image;
+            vc.pop = self.pop;
+        }
+    } else if ([segue.identifier isEqualToString:@"shareSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[LPShareViewController class]]) {
+            LPShareViewController *vc = segue.destinationViewController;
             vc.pop = self.pop;
         }
     }

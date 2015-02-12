@@ -721,7 +721,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jTk-3K-UVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4064.5" y="-2971.5"/>
+            <point key="canvasLocation" x="4070.5" y="-2971.5"/>
         </scene>
         <!--Desired Location-->
         <scene sceneID="Z85-uH-c3C">
@@ -755,11 +755,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Zd-NM-enC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4070.5" y="-2236.5"/>
+            <point key="canvasLocation" x="3650.5" y="-2971.5"/>
         </scene>
         <!--Detail-->
         <scene sceneID="URi-3Y-OIZ">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gtX-Xp-SuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="TTt-MV-RDu" customClass="LPPopDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e8T-1x-j23"/>
@@ -949,7 +950,7 @@
                     <navigationItem key="navigationItem" title="Detail" id="WEg-C4-CE1">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="Wvq-Hi-Rq8">
                             <connections>
-                                <action selector="sharePop:" destination="TTt-MV-RDu" id="Qup-RJ-uEK"/>
+                                <segue destination="EOD-0a-yzw" kind="presentation" identifier="shareSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="n6d-G2-yQc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -968,7 +969,6 @@
                         <outlet property="userRatingView" destination="uji-4M-9bF" id="GsJ-4a-awa"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gtX-Xp-SuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3450" y="-1410"/>
         </scene>
@@ -1001,7 +1001,7 @@
                                     <action selector="dismissViewController:" destination="qQ5-CJ-vxC" eventType="touchUpInside" id="0Eb-Dg-wGh"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSn-Jj-rI3" customClass="DesignableView" customModule="Lopop" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QSn-Jj-rI3" customClass="DesignableView" customModule="Lopop" customModuleProvider="target">
                                 <rect key="frame" x="62" y="209" width="250" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Leave a comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cw5-bq-sQa">
@@ -1019,7 +1019,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nZ-gc-895">
-                                        <rect key="frame" x="106" y="177.5" width="38.5" height="20"/>
+                                        <rect key="frame" x="106" y="177" width="38.5" height="20"/>
                                         <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ba8-ws-gel"/>
@@ -1137,10 +1137,10 @@
             </objects>
             <point key="canvasLocation" x="4070.5" y="-1479.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Share View Controller-->
         <scene sceneID="2CM-hv-I3n">
             <objects>
-                <viewController storyboardIdentifier="shareView" id="EOD-0a-yzw" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="shareView" id="EOD-0a-yzw" customClass="LPShareViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZlZ-tL-nZC"/>
                         <viewControllerLayoutGuide type="bottom" id="Zee-gz-1W1"/>
@@ -1149,12 +1149,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNo-u4-xCA" userLabel="dismissBtn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPd-3N-S2z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="z0t-UT-J6Y">
@@ -1163,6 +1157,15 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNo-u4-xCA" userLabel="dismissBtn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissView:" destination="EOD-0a-yzw" eventType="touchUpInside" id="ldS-6U-m4g"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TdZ-jY-7Gx">
                                 <rect key="frame" x="146.5" y="100" width="82.5" height="33"/>
                                 <constraints>
@@ -1192,6 +1195,7 @@
                                 </state>
                                 <connections>
                                     <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7px-vu-aOn"/>
+                                    <action selector="shareOnFacebook:" destination="EOD-0a-yzw" eventType="touchUpInside" id="Bw1-mL-dM4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xgj-fi-9t4">
@@ -1207,6 +1211,7 @@
                                 </state>
                                 <connections>
                                     <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yQ1-cE-pWZ"/>
+                                    <action selector="shareOnWeChat:" destination="EOD-0a-yzw" eventType="touchUpInside" id="Umc-QR-DRS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hh5-yI-Yre">
@@ -1223,6 +1228,7 @@
                                 </state>
                                 <connections>
                                     <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="go8-ZF-qM9"/>
+                                    <action selector="copyLinkToClipboard:" destination="EOD-0a-yzw" eventType="touchUpInside" id="gDC-db-D6u"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5c-TF-MdG">
@@ -1238,6 +1244,7 @@
                                 </state>
                                 <connections>
                                     <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yce-0h-AQ9"/>
+                                    <action selector="shareWithEmail:" destination="EOD-0a-yzw" eventType="touchUpInside" id="nXj-cE-yQ3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jr8-Oy-Z7E">
@@ -1254,10 +1261,11 @@
                                 </state>
                                 <connections>
                                     <action selector="connectWithFacebook:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nEs-lJ-XBh"/>
+                                    <action selector="shareOnWeibo:" destination="EOD-0a-yzw" eventType="touchUpInside" id="UDb-z6-soH"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="hh5-yI-Yre" secondAttribute="trailing" constant="15" id="43O-Ct-Wi0"/>
                             <constraint firstItem="hh5-yI-Yre" firstAttribute="top" secondItem="v5c-TF-MdG" secondAttribute="bottom" constant="20" id="582-F6-PwR"/>
@@ -1281,7 +1289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H29-M5-wsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4552.5" y="-1476.5"/>
+            <point key="canvasLocation" x="4070.5" y="-2224.5"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="2hV-KF-D8C">

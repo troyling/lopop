@@ -38,6 +38,5 @@ typedef enum {
 @property (retain ,nonatomic) NSString *distanceText;
 
 - (void)setUIForOfferState:(OfferState)state;
-- (IBAction)sharePop:(id)sender;
 
 @end
