@@ -28,6 +28,9 @@
     
     
     [PFFacebookUtils initializeFacebook];
+
+    // Register WeChat
+    [WXApi registerApp:@"wx1256c4ac9c7155a8"];
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -67,8 +70,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    // direct to Wechat if it is installed
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSLog(@"application: \n %@", application);
+    NSLog(@"url: \n %@", url);
+    NSLog(@"sourceApplicaiton: \n %@", sourceApplication);
+
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication
                         withSession:[PFFacebookUtils session]];
 }

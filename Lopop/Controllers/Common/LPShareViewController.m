@@ -7,6 +7,7 @@
 //
 
 #import "LPShareViewController.h"
+#import "WXApi.h"
 #import "LPAlertViewHelper.h"
 #import <FacebookSDK/FBLinkShareParams.h>
 #import <FacebookSDK/FBDialogs.h>
@@ -95,7 +96,26 @@
 }
 
 - (IBAction)shareOnWeChat:(id)sender {
-    NSLog(@"Share on wechat");
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = self.pop.title;
+    message.description = self.pop.popDescription;
+
+    // TODO compress the image
+//    PFFile *imgFile = self.pop.images.firstObject;
+//    UIImage *img = [UIImage imageWithData:[imgFile getData]];
+//    [message setThumbImage:img];
+
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = self.params.link.absoluteString;
+
+    message.mediaObject = ext;
+    message.mediaTagName = @"Lopop";
+
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneTimeline;
+    [WXApi sendReq:req];
 }
 
 - (IBAction)shareOnWeibo:(id)sender {
