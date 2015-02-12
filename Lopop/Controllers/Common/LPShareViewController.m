@@ -31,10 +31,15 @@
     }
 }
 
-- (FBLinkShareParams *)populateParamsWithPop:(LPPop *)pop {
+- (NSString *)publicLink:(LPPop *)pop {
     // TODO fix the link
-    //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", self.pop.objectId];
+    //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", pop.objectId];
     NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
+    return linkStr;
+}
+
+- (FBLinkShareParams *)populateParamsWithPop:(LPPop *)pop {
+    NSString *linkStr = [self publicLink:self.pop];
     NSURL *link = [NSURL URLWithString:linkStr];
 
     PFFile *thumbnail = pop.images.firstObject;
@@ -49,9 +54,7 @@
 }
 
 - (WXMediaMessage *)wechatMsgWithPop:(LPPop *)pop {
-    // TODO fix the link
-    //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", self.pop.objectId];
-    NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
+    NSString *linkStr = [self publicLink:self.pop];
 
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = pop.title;
