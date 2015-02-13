@@ -1346,6 +1346,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="dAJ-ok-tqN"/>
+                                <exclude reference="vrO-5B-X4Y"/>
                                 <exclude reference="uPv-1g-Bao"/>
                                 <exclude reference="vZO-Tf-TAs"/>
                                 <exclude reference="SwO-Fc-VyA"/>
