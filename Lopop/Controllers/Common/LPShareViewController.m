@@ -39,11 +39,6 @@
     if (![FBDialogs canPresentMessageDialogWithParams:self.params]) {
         self.messengerBtn.hidden = YES;
     }
-
-    if (![WXApi isWXAppInstalled]) {
-        // TODO disable wechat button
-        NSLog(@"WX is not installed");
-    }
 }
 
 - (IBAction)shareOnFacebook:(id)sender {
@@ -92,8 +87,12 @@
 
 - (IBAction)shareOnWeChat:(id)sender {
     // present actionsheet
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"WeChat Friend", @"WeChat Timeline", nil];
-    [sheet showInView:self.view];
+    if ([WXApi isWXAppInstalled]) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"WeChat Friend", @"WeChat Timeline", nil];
+        [sheet showInView:self.view];
+    } else {
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to share with WeChat. Please make sure you have WeChat installed on your device."];
+    }
 }
 
 - (IBAction)shareWithSms:(id)sender {
