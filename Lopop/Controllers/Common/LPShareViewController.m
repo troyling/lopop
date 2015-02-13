@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *smsBtn;
 @property (weak, nonatomic) IBOutlet UIButton *emailBtn;
 
-@property (retain, nonatomic) FBLinkShareParams *params;
+@property (retain, nonatomic) FBLinkShareParams *params; // params used for sharing on fb and fb messenger
 
 @end
 
@@ -45,6 +45,14 @@
     //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", pop.objectId];
     NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
     return linkStr;
+}
+
+- (NSString *)shareMsg:(LPPop *)pop {
+    NSString *shareMsg = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
+                      self.pop.title,
+                      self.pop.popDescription,
+                      [self publicLink:self.pop]];
+    return shareMsg;
 }
 
 - (FBLinkShareParams *)populateParamsWithPop:(LPPop *)pop {
@@ -141,10 +149,7 @@
 - (IBAction)shareWithSms:(id)sender {
     if ([MFMessageComposeViewController canSendText]) {
         MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
-        NSString *body = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
-                          self.pop.title,
-                          self.pop.popDescription,
-                          [self publicLink:self.pop]];
+        NSString *body = [self shareMsg:self.pop];
         vc.body = body;
         vc.messageComposeDelegate = self;
         [self presentViewController:vc animated:YES completion:NULL];
@@ -176,10 +181,7 @@
         vc.mailComposeDelegate = self;
 
         NSString *subject = [NSString stringWithFormat:@"[Lopop] %@", self.pop.title];
-        NSString *body = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
-                          self.pop.title,
-                          self.pop.popDescription,
-                          [self publicLink:self.pop]];
+        NSString *body = [self shareMsg:self.pop];
 
         [vc setSubject:subject];
         [vc setMessageBody:body isHTML:NO];
