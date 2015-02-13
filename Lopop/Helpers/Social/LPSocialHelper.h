@@ -11,7 +11,7 @@
 #import "LPPop.h"
 #import "WXApi.h"
 
-@interface LPSocialNetworkHelper : NSObject
+@interface LPSocialHelper : NSObject
 
 + (FBLinkShareParams *)fbParamsWithPop:(LPPop *)pop;
 + (WXMediaMessage *)wechatMessageWithPop:(LPPop *)pop;

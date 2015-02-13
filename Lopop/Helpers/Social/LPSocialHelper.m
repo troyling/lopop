@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "LPSocialNetworkHelper.h"
+#import "LPSocialHelper.h"
 
-@implementation LPSocialNetworkHelper
+@implementation LPSocialHelper
 
 
 + (FBLinkShareParams *)fbParamsWithPop:(LPPop *)pop {

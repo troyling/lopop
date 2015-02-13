@@ -13,7 +13,7 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 #import "LPAlertViewHelper.h"
-#import "LPSocialNetworkHelper.h"
+#import "LPSocialHelper.h"
 
 // TODO couple ways to improve this
 // 1. Add source to keep track of where users are coming from
@@ -35,7 +35,7 @@
     [super viewDidLoad];
 
     // check if Messenger is installed
-    self.params = [LPSocialNetworkHelper fbParamsWithPop:self.pop];
+    self.params = [LPSocialHelper fbParamsWithPop:self.pop];
     if (![FBDialogs canPresentMessageDialogWithParams:self.params]) {
         self.messengerBtn.hidden = YES;
     }
@@ -158,7 +158,7 @@
 #pragma mark Actionsheet
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    WXMediaMessage *message = [LPSocialNetworkHelper wechatMessageWithPop:self.pop];
+    WXMediaMessage *message = [LPSocialHelper wechatMessageWithPop:self.pop];
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;
