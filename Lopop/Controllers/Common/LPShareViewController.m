@@ -16,6 +16,9 @@
 
 @interface LPShareViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *smsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *emailBtn;
+
 @property (retain, nonatomic) FBLinkShareParams *params;
 
 @end
@@ -135,6 +138,21 @@
     [sheet showInView:self.view];
 }
 
+- (IBAction)shareWithSms:(id)sender {
+    if ([MFMessageComposeViewController canSendText]) {
+        MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
+        NSString *body = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
+                          self.pop.title,
+                          self.pop.popDescription,
+                          [self publicLink:self.pop]];
+        vc.body = body;
+        vc.messageComposeDelegate = self;
+        [self presentViewController:vc animated:YES completion:NULL];
+    } else {
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to send text message."];
+    }
+}
+
 - (IBAction)shareOnWeibo:(id)sender {
     if ([WeiboSDK isCanShareInWeiboAPP]) {
         WBMessageObject *message = [WBMessageObject message];
@@ -211,10 +229,19 @@
         [LPAlertViewHelper fatalErrorAlert:error.description];
     } else {
         if (result == MFMailComposeResultSent) {
-            NSLog(@"SENT");
+            [self.emailBtn setTitle:@"Sent!" forState:UIControlStateNormal];
         } else if (result == MFMailComposeResultSaved) {
-            NSLog(@"DRAFT saved");
+            [self.emailBtn setTitle:@"Draft saved" forState:UIControlStateNormal];
         }
+    }
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark MessageController
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    if (result == MessageComposeResultSent) {
+        [self.smsBtn setTitle:@"Sent!" forState:UIControlStateNormal];
     }
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
