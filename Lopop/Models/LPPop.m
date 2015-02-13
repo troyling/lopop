@@ -29,4 +29,23 @@
     return @"Pop";
 }
 
+- (NSString *)publicLink {
+    // TODO fix the link
+    //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", pop.objectId];
+    NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
+    return linkStr;
+}
+
+- (NSString *)shareMsg {
+    if (self.title == nil || self.popDescription == nil) {
+        [self fetchIfNeeded];
+    }
+
+    NSString *shareMsg = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
+                          self.title,
+                          self.popDescription,
+                          [self publicLink]];
+    return shareMsg;
+}
+
 @end

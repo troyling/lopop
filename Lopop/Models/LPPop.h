@@ -21,6 +21,8 @@
 @property PFGeoPoint *location;
 @property BOOL isSold;
 @property NSNumber *price;
-// TODO add location 
+
+- (NSString *)publicLink;
+- (NSString *)shareMsg;
 
 @end

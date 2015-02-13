@@ -7,12 +7,18 @@
 //
 
 #import "LPShareViewController.h"
-#import "WXApi.h"
-#import "WeiboSDK.h"
-#import "LPAlertViewHelper.h"
 #import <FacebookSDK/FBLinkShareParams.h>
 #import <FacebookSDK/FBDialogs.h>
 #import <FacebookSDK/FBWebDialogs.h>
+#import "WXApi.h"
+#import "WeiboSDK.h"
+#import "LPAlertViewHelper.h"
+#import "LPSocialNetworkHelper.h"
+
+// TODO couple ways to improve this
+// 1. Add source to keep track of where users are coming from
+// 2. Hash the URL to protect our data
+// 3. Shorten url
 
 @interface LPShareViewController ()
 
@@ -29,7 +35,7 @@
     [super viewDidLoad];
 
     // check if Messenger is installed
-    self.params = [self populateParamsWithPop:self.pop];
+    self.params = [LPSocialNetworkHelper fbParamsWithPop:self.pop];
     if (![FBDialogs canPresentMessageDialogWithParams:self.params]) {
         self.messengerBtn.hidden = YES;
     }
@@ -40,63 +46,7 @@
     }
 }
 
-- (NSString *)publicLink:(LPPop *)pop {
-    // TODO fix the link
-    //    NSString *linkStr = [NSString stringWithFormat:@"https://lopopapp/pop/%@", pop.objectId];
-    NSString *linkStr = [NSString stringWithFormat:@"https://www.crunchbase.com/organization/lopop"];
-    return linkStr;
-}
-
-- (NSString *)shareMsg:(LPPop *)pop {
-    NSString *shareMsg = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
-                      self.pop.title,
-                      self.pop.popDescription,
-                      [self publicLink:self.pop]];
-    return shareMsg;
-}
-
-- (FBLinkShareParams *)populateParamsWithPop:(LPPop *)pop {
-    NSString *linkStr = [self publicLink:self.pop];
-    NSURL *link = [NSURL URLWithString:linkStr];
-
-    PFFile *thumbnail = pop.images.firstObject;
-    NSURL *pictureUrl = [NSURL URLWithString:thumbnail.url];
-
-    FBLinkShareParams *params = [[FBLinkShareParams alloc] initWithLink:link
-                                                                   name:pop.title
-                                                                caption:@"Lopop"
-                                                            description:pop.popDescription
-                                                                picture:pictureUrl];
-    return params;
-}
-
-- (WXMediaMessage *)wechatMsgWithPop:(LPPop *)pop {
-    NSString *linkStr = [self publicLink:self.pop];
-
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = pop.title;
-    message.description = pop.popDescription;
-
-    // TODO compress the image
-    //    PFFile *imgFile = pop.images.firstObject;
-    //    UIImage *img = [UIImage imageWithData:[imgFile getData]];
-    //    [message setThumbImage:img];
-
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = linkStr;
-
-    message.mediaObject = ext;
-    message.mediaTagName = @"Lopop";
-
-    return message;
-}
-
 - (IBAction)shareOnFacebook:(id)sender {
-    // TODO couple ways to improve this
-    // 1. Add source to keep track of where users are coming from
-    // 2. Hash the URL to protect our data
-    // 3. Shorten url
-
     if ([FBDialogs canPresentShareDialogWithParams:self.params]) {
         // Present the share dialog on the Facebook app
         [FBDialogs presentShareDialogWithParams:self.params clientState:nil handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
@@ -149,7 +99,7 @@
 - (IBAction)shareWithSms:(id)sender {
     if ([MFMessageComposeViewController canSendText]) {
         MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
-        NSString *body = [self shareMsg:self.pop];
+        NSString *body = [self.pop shareMsg];
         vc.body = body;
         vc.messageComposeDelegate = self;
         [self presentViewController:vc animated:YES completion:NULL];
@@ -181,7 +131,7 @@
         vc.mailComposeDelegate = self;
 
         NSString *subject = [NSString stringWithFormat:@"[Lopop] %@", self.pop.title];
-        NSString *body = [self shareMsg:self.pop];
+        NSString *body = [self.pop shareMsg];
 
         [vc setSubject:subject];
         [vc setMessageBody:body isHTML:NO];
@@ -193,7 +143,7 @@
 
 - (IBAction)copyLinkToClipboard:(id)sender {
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    [pb setString:[self publicLink:self.pop]];
+    [pb setString:[self.pop publicLink]];
 
     if ([sender isKindOfClass:[UIButton class]]) {
         UIButton *copyBtn = sender;
@@ -208,7 +158,7 @@
 #pragma mark Actionsheet
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    WXMediaMessage *message = [self wechatMsgWithPop:self.pop];
+    WXMediaMessage *message = [LPSocialNetworkHelper wechatMessageWithPop:self.pop];
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;

@@ -24,6 +24,7 @@
 		D601CA861A79B20300344F0C /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA851A79B20300344F0C /* libc++.dylib */; };
 		D601CA881A79B3A100344F0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA871A79B3A100344F0C /* Social.framework */; };
 		D601CA8A1A79B3A800344F0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D601CA891A79B3A800344F0C /* Accounts.framework */; };
+		D609A5491A8E5B8800800F3E /* LPSocialNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D609A5481A8E5B8800800F3E /* LPSocialNetworkHelper.m */; };
 		D62217451A8D3C6A00C999E4 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D62217421A8D3C6A00C999E4 /* libWeChatSDK.a */; };
 		D62217471A8D3D9100C999E4 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D62217461A8D3D9100C999E4 /* libsqlite3.0.dylib */; };
 		D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */; };
@@ -151,6 +152,8 @@
 		D601CA851A79B20300344F0C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D601CA871A79B3A100344F0C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D601CA891A79B3A800344F0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		D609A5471A8E5B8800800F3E /* LPSocialNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSocialNetworkHelper.h; path = Helpers/Social/LPSocialNetworkHelper.h; sourceTree = "<group>"; };
+		D609A5481A8E5B8800800F3E /* LPSocialNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSocialNetworkHelper.m; path = Helpers/Social/LPSocialNetworkHelper.m; sourceTree = "<group>"; };
 		D62217421A8D3C6A00C999E4 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = Frameworks/WeChatSDK_1.5/libWeChatSDK.a; sourceTree = "<group>"; };
 		D62217431A8D3C6A00C999E4 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = Frameworks/WeChatSDK_1.5/WXApi.h; sourceTree = "<group>"; };
 		D62217441A8D3C6A00C999E4 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = Frameworks/WeChatSDK_1.5/WXApiObject.h; sourceTree = "<group>"; };
@@ -387,6 +390,15 @@
 				D601CA7F1A798ABE00344F0C /* picture-25.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		D609A5451A8E5B5E00800F3E /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				D609A5471A8E5B8800800F3E /* LPSocialNetworkHelper.h */,
+				D609A5481A8E5B8800800F3E /* LPSocialNetworkHelper.m */,
+			);
+			name = Social;
 			sourceTree = "<group>";
 		};
 		D622173B1A8D173100C999E4 /* WeChatSDK */ = {
@@ -695,6 +707,7 @@
 		D6E6EB0E1A6470A6008085F7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D609A5451A8E5B5E00800F3E /* Social */,
 				D6CAF27C1A7D658000F48E6E /* User */,
 				D6AB46901A7AA9C9001BCCFC /* Alert */,
 				D6AB468C1A7AA6F7001BCCFC /* UI */,
@@ -948,6 +961,7 @@
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
 				D6F5F82F1A8514680005758B /* DesignableTabBarController.swift in Sources */,
 				D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */,
+				D609A5491A8E5B8800800F3E /* LPSocialNetworkHelper.m in Sources */,
 				D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
