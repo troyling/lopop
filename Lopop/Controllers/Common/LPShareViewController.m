@@ -8,6 +8,7 @@
 
 #import "LPShareViewController.h"
 #import "WXApi.h"
+#import "WeiboSDK.h"
 #import "LPAlertViewHelper.h"
 #import <FacebookSDK/FBLinkShareParams.h>
 #import <FacebookSDK/FBDialogs.h>
@@ -135,7 +136,20 @@
 }
 
 - (IBAction)shareOnWeibo:(id)sender {
-    NSLog(@"Share on weibo");
+    if ([WeiboSDK isCanShareInWeiboAPP]) {
+        WBMessageObject *message = [WBMessageObject message];
+        message.text = self.pop.popDescription;
+
+        WBImageObject *imgObj = [WBImageObject object];
+        PFFile *imgFile = self.pop.images.firstObject;
+        imgObj.imageData = [imgFile getData];
+
+        message.imageObject = imgObj;
+        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message];
+        [WeiboSDK sendRequest:request];
+    } else {
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to share on Weibo."];
+    }
 }
 
 - (IBAction)shareWithEmail:(id)sender {

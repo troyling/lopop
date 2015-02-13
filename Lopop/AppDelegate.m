@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "WeiboSDK.h"
 #import "LPSignUpViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPUIHelper.h"
@@ -26,11 +27,14 @@
     [Parse setApplicationId:@"9Of1MI65pusWlQ4qXlXOzQSjsqFDLQbpxe6DepXk"
                   clientKey:@"TPOPIODRPCUvPxoguXUPcUNffAN56uLN3PGWZ4Fl"];
     
-    
     [PFFacebookUtils initializeFacebook];
 
     // Register WeChat
     [WXApi registerApp:@"wx1256c4ac9c7155a8"];
+
+    // Register Weibo
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:@"3279676740"];
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -71,15 +75,17 @@
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    // TODO conditionally handle url for weibo, wechat, and
+    //    [WeiboSDK handleOpenURL:url delegate:self];
+
     // direct to Wechat if it is installed
     return [WXApi handleOpenURL:url delegate:self];
 }
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    NSLog(@"application: \n %@", application);
-    NSLog(@"url: \n %@", url);
-    NSLog(@"sourceApplicaiton: \n %@", sourceApplication);
+    // TODO conditionally handle url for weibo, wechat, and
+    //    [WeiboSDK handleOpenURL:url delegate:self];
 
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication
                         withSession:[PFFacebookUtils session]];
