@@ -48,9 +48,12 @@
             if (error) {
                 [LPAlertViewHelper fatalErrorAlert:@"Unable to share the pop at this moment. Please try again later"];
             } else {
-                // TODO add indicator
-                // TODO check if the message is shared
-                NSLog(@"Share successfully");
+                if ([results[@"completionGesture"] isEqual:@"post"]) {
+                    if ([sender isKindOfClass:[UIButton class]]) {
+                        UIButton *fbBtn = sender;
+                        [fbBtn setTitle:@"Shared!" forState:UIControlStateNormal];
+                    }
+                }
             }
         }];
     } else {
@@ -67,9 +70,12 @@
             if (error) {
                 [LPAlertViewHelper fatalErrorAlert:@"Unable to share the pop at this moment. Please try again later"];
             } else {
-                // TODO add indicator
-                // TODO check if the message is shared
-                NSLog(@"Share successfully");
+                if ([resultURL.absoluteString containsString:@"post_id"]) {
+                    if ([sender isKindOfClass:[UIButton class]]) {
+                        UIButton *fbBtn = sender;
+                        [fbBtn setTitle:@"Shared!" forState:UIControlStateNormal];
+                    }
+                }
             }
         }];
     }
@@ -80,7 +86,12 @@
         if (error) {
             [LPAlertViewHelper fatalErrorAlert:@"Unable to share with Messenger. Please try again later"];
         } else {
-            NSLog(@"Successfully share on Messenger");
+            if ([results[@"completionGesture"] isEqual:@"message"]) {
+                if ([sender isKindOfClass:[UIButton class]]) {
+                    UIButton *msgBtn = sender;
+                    [msgBtn setTitle:@"Sent!" forState:UIControlStateNormal];
+                }
+            }
         }
     }];
 }
@@ -157,6 +168,8 @@
 #pragma mark Actionsheet
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
+
     WXMediaMessage *message = [LPSocialHelper wechatMessageWithPop:self.pop];
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
