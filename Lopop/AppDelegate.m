@@ -29,7 +29,7 @@
     
     [PFFacebookUtils initializeFacebook];
 
-    // Notification
+    // Register notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
                                                     UIUserNotificationTypeSound);
