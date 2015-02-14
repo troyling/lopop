@@ -1082,9 +1082,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1QC-Lr-kow" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1QC-Lr-kow" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
                                 <rect key="frame" x="95" y="467" width="184" height="35"/>
                                 <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="0jz-Ke-P5j"/>
+                                    <constraint firstAttribute="width" constant="184" id="bTG-jK-0rV"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Confirm">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1112,6 +1116,7 @@
                             <constraint firstItem="w40-h5-oIV" firstAttribute="top" secondItem="2dH-Jy-mwW" secondAttribute="bottom" constant="-20" id="1IO-rd-5H8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9b6-tR-iFl" secondAttribute="trailing" id="3Hj-Op-szZ"/>
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="top" secondItem="2dH-Jy-mwW" secondAttribute="bottom" constant="299" id="4Ad-d5-lHn"/>
+                            <constraint firstAttribute="centerX" secondItem="1QC-Lr-kow" secondAttribute="centerX" id="7Ub-1N-deN"/>
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" constant="0.5" id="BLM-ps-QhU"/>
                             <constraint firstAttribute="width" secondItem="w40-h5-oIV" secondAttribute="width" id="CvI-Yo-y5K"/>
                             <constraint firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" constant="0.5" id="D3w-UA-H49"/>
@@ -1120,6 +1125,7 @@
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="leading" secondItem="w40-h5-oIV" secondAttribute="leading" id="coh-Wq-jh4"/>
                             <constraint firstAttribute="centerY" secondItem="QSn-Jj-rI3" secondAttribute="centerY" id="gAd-Xt-xxn"/>
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="trailing" secondItem="w40-h5-oIV" secondAttribute="trailing" id="vii-l3-GTh"/>
+                            <constraint firstItem="1QC-Lr-kow" firstAttribute="top" secondItem="QSn-Jj-rI3" secondAttribute="bottom" constant="8" id="xV4-Rj-nH0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1163,8 +1169,8 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNo-u4-xCA" userLabel="dismissBtn">
-                                <rect key="frame" x="0.0" y="-49" width="375" height="667"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNo-u4-xCA" userLabel="dismissBtn">
+                                <rect key="frame" x="0.0" y="-49" width="375" height="716"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1322,6 +1328,7 @@
                             <constraint firstItem="nox-bA-GX5" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="BmD-2y-RBR"/>
                             <constraint firstItem="jr8-Oy-Z7E" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="E9S-VI-DAO"/>
                             <constraint firstItem="TPd-3N-S2z" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="-16" id="Ebg-80-yZh"/>
+                            <constraint firstItem="Zee-gz-1W1" firstAttribute="top" secondItem="FNo-u4-xCA" secondAttribute="bottom" id="Fy1-88-f0N"/>
                             <constraint firstItem="hh5-yI-Yre" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="Gfj-tR-N6g"/>
                             <constraint firstItem="jr8-Oy-Z7E" firstAttribute="top" secondItem="Xgj-fi-9t4" secondAttribute="bottom" constant="59" id="Ozq-d8-sy9"/>
                             <constraint firstItem="Zee-gz-1W1" firstAttribute="top" secondItem="TPd-3N-S2z" secondAttribute="bottom" id="Re4-9F-ihX"/>
@@ -1331,11 +1338,14 @@
                             <constraint firstItem="3wj-z5-XPw" firstAttribute="top" secondItem="Xgj-fi-9t4" secondAttribute="bottom" constant="15" id="Xic-EE-NEZ"/>
                             <constraint firstAttribute="centerY" secondItem="Xgj-fi-9t4" secondAttribute="centerY" constant="38" id="Xmo-3e-l5z"/>
                             <constraint firstItem="6qz-gZ-A5Q" firstAttribute="top" secondItem="TdZ-jY-7Gx" secondAttribute="bottom" constant="50" id="XvK-WY-6np"/>
+                            <constraint firstItem="FNo-u4-xCA" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="-16" id="Zv3-EV-7fs"/>
+                            <constraint firstItem="FNo-u4-xCA" firstAttribute="top" secondItem="ZlZ-tL-nZC" secondAttribute="bottom" constant="-69" id="aA6-h4-4Iz"/>
                             <constraint firstAttribute="centerX" secondItem="TPd-3N-S2z" secondAttribute="centerX" id="dAJ-ok-tqN"/>
                             <constraint firstItem="TPd-3N-S2z" firstAttribute="top" secondItem="ZlZ-tL-nZC" secondAttribute="bottom" constant="-20" id="ePF-PU-SZU"/>
                             <constraint firstItem="nox-bA-GX5" firstAttribute="top" secondItem="6qz-gZ-A5Q" secondAttribute="bottom" constant="15" id="feR-pA-V6a"/>
                             <constraint firstItem="3wj-z5-XPw" firstAttribute="leading" secondItem="HGk-1K-ZtK" secondAttribute="leadingMargin" constant="15" id="h9F-QI-sm2"/>
                             <constraint firstAttribute="centerX" secondItem="TdZ-jY-7Gx" secondAttribute="centerX" id="imc-an-Rum"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FNo-u4-xCA" secondAttribute="trailing" constant="-16" id="l4C-GJ-AP5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="v5c-TF-MdG" secondAttribute="trailing" constant="15" id="pCV-Dw-eD4"/>
                             <constraint firstItem="v5c-TF-MdG" firstAttribute="top" secondItem="jr8-Oy-Z7E" secondAttribute="bottom" constant="15" id="pUT-e2-k1y"/>
                             <constraint firstItem="6qz-gZ-A5Q" firstAttribute="top" secondItem="nox-bA-GX5" secondAttribute="bottom" constant="20.5" id="uPv-1g-Bao"/>
