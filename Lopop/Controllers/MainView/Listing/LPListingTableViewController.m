@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) NSMutableArray *listings;
 @property (strong, nonatomic) NSMutableArray *offerredPops;
+@property (strong, nonatomic) NSMutableDictionary *incomingOffers;
 
 @property (assign) LPDisplayState displayState;
 
@@ -27,22 +28,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // remove empty cells
+    // configure table view
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
     self.tableView.rowHeight = 90.0f;
+
+    // cache the offer
+    self.incomingOffers = [[NSMutableDictionary alloc] init];
 
     self.displayState = LPListingDisplay;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self loadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
     if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
         [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
     }
-
-    [self loadData];
 }
 
 - (void)loadData {
@@ -123,11 +129,19 @@
     if (self.displayState == LPListingDisplay) {
         pop = [self.listings objectAtIndex:indexPath.row];
 
-        [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
-            if (!error) {
-                cell.numOfferLabel.text = count == 0 ? @"No offer yet" : [NSString stringWithFormat:@"%d offers!", count];
-            }
-        }];
+        // asynchronously load number of offers, if needed
+        id count = [self.incomingOffers objectForKey:pop.objectId];
+
+        if (count != nil) {
+            cell.numOfferLabel.text = [NSString stringWithFormat:@"%@ offers!", count];
+        } else {
+            [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
+                if (!error) {
+                    [self.incomingOffers setObject:[NSNumber numberWithInt:count] forKey:pop.objectId];
+                    cell.numOfferLabel.text = count == 0 ? @"No offer yet" : [NSString stringWithFormat:@"%d offers!", count];
+                }
+            }];
+        }
     } else {
         pop = [self.offerredPops objectAtIndex:indexPath.row];
     }
