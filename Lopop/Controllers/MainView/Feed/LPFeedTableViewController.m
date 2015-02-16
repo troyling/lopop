@@ -181,14 +181,23 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         
         // load image
         PFFile *popImageFile = pop.images.firstObject;
-        [popImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *img = [UIImage imageWithData:data scale:0.05f];
-                cell.imgView.image = img;
-                cell.imgView.clipsToBounds = YES;
-            }
-        }];
-        
+
+        if ([popImageFile isDataAvailable]) {
+            UIImage *img = [UIImage imageWithData:[popImageFile getData] scale:0.05f];
+            cell.imgView.image = img;
+            cell.imgView.clipsToBounds = YES;
+        } else {
+            // asynchronously load data
+            [popImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    NSLog(@"Loading again!!");
+                    UIImage *img = [UIImage imageWithData:data scale:0.05f];
+                    cell.imgView.image = img;
+                    cell.imgView.clipsToBounds = YES;
+                }
+            }];
+        }
+
         cell.likeBtn.tag = indexPath.row;
         
         [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
