@@ -80,6 +80,7 @@
 		D6CB771C1A9293D900629985 /* icon_location.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77181A9293D900629985 /* icon_location.png */; };
 		D6CB771D1A9293D900629985 /* icon_money.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77191A9293D900629985 /* icon_money.png */; };
 		D6CB77211A92A4B000629985 /* LPPopHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB77201A92A4B000629985 /* LPPopHelper.m */; };
+		D6CB77231A92B18700629985 /* pop_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77221A92B18700629985 /* pop_white.png */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
@@ -240,6 +241,7 @@
 		D6CB77191A9293D900629985 /* icon_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_money.png; path = Resources/Images/icons/icon_money.png; sourceTree = "<group>"; };
 		D6CB771F1A92A4B000629985 /* LPPopHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopHelper.h; path = Helpers/Pop/LPPopHelper.h; sourceTree = "<group>"; };
 		D6CB77201A92A4B000629985 /* LPPopHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopHelper.m; path = Helpers/Pop/LPPopHelper.m; sourceTree = "<group>"; };
+		D6CB77221A92B18700629985 /* pop_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pop_white.png; path = Resources/Images/icons/pop_white.png; sourceTree = "<group>"; };
 		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				D6CB77171A9293D900629985 /* icon_like.png */,
 				D6CB77181A9293D900629985 /* icon_location.png */,
 				D6CB77191A9293D900629985 /* icon_money.png */,
+				D6CB77221A92B18700629985 /* pop_white.png */,
 				D6A5D7E21A82A8DC00A631CD /* pop.png */,
 				D6A5D7E31A82A8DC00A631CD /* pop@2x.png */,
 				D6A5D7E41A82A8DC00A631CD /* pop@3x.png */,
@@ -925,6 +928,7 @@
 				D6A5D7DA1A8153C700A631CD /* Oval 1.png in Resources */,
 				D6A5D7E61A82A8DC00A631CD /* pop@2x.png in Resources */,
 				D66CC8C11A60DD8C007B9992 /* LaunchScreen.xib in Resources */,
+				D6CB77231A92B18700629985 /* pop_white.png in Resources */,
 				D66CC8BE1A60DD8C007B9992 /* Images.xcassets in Resources */,
 				D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */,
 			);
