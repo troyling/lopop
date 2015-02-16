@@ -38,7 +38,7 @@
 
 - (NSString *)shareMsg {
     if (self.title == nil || self.popDescription == nil) {
-        [self fetchIfNeeded];
+        [self fetch];
     }
 
     NSString *shareMsg = [NSString stringWithFormat:@"Check out this Pop:\n\n%@ \n %@ \n\n %@",
@@ -46,6 +46,14 @@
                           self.popDescription,
                           [self publicLink]];
     return shareMsg;
+}
+
+- (NSString *)publicPriceStr {
+    if (self.price == nil) {
+        [self fetch];
+    }
+
+    return [self.price isEqualToNumber:[NSNumber numberWithInt:0]] ? @"  Free!  " : [NSString stringWithFormat:@"  $%@  ", self.price];
 }
 
 @end

@@ -96,7 +96,7 @@
     LPPop *pop = self.displayState == LPListingDisplay ? [self.listings objectAtIndex:indexPath.row] : [self.offerredPops objectAtIndex:indexPath.row];
 
     cell.titleLabel.text = pop.title;
-    cell.priceLabel.text = [NSString stringWithFormat:@"  %@  ", pop.price];
+    cell.priceLabel.text = [pop publicPriceStr];
 
     PFFile *file = pop.images.firstObject;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {

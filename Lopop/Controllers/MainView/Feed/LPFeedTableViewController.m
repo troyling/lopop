@@ -171,9 +171,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         CLLocationDistance distance = [pop.location distanceInMilesTo:[PFGeoPoint geoPointWithLocation:self.userLocation]];
         
         cell.titleLabel.text = pop.title;
-        
-        NSString *priceStr = [pop.price isEqualToNumber:[NSNumber numberWithInt:0]] ? @"  Free!  " : [NSString stringWithFormat:@"  $%@  ", pop.price];
-        cell.priceLabel.text = priceStr;
+        cell.priceLabel.text = [pop publicPriceStr];
         
         // format distance
         NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];

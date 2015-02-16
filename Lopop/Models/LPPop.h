@@ -24,5 +24,6 @@
 
 - (NSString *)publicLink;
 - (NSString *)shareMsg;
+- (NSString *)publicPriceStr;
 
 @end
