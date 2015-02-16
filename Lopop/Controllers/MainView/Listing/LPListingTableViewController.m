@@ -8,6 +8,7 @@
 
 #import "LPListingTableViewController.h"
 #import "LPPopListingTableViewCell.h"
+#import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import "LPOffer.h"
 
@@ -24,8 +25,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     self.displayState = LPListingDisplay;
     [self loadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
+    }
 }
 
 - (void)loadData {
@@ -145,15 +156,8 @@
 }
 */
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+#pragma mark SegmentedControl
 
 - (IBAction)viewSelected:(id)sender {
     switch(self.segmentedControl.selectedSegmentIndex) {
