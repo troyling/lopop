@@ -74,6 +74,7 @@
 		D6BD4AA41A7D77760094732A /* blur_signup_view.png in Resources */ = {isa = PBXBuildFile; fileRef = D6BD4AA31A7D77760094732A /* blur_signup_view.png */; };
 		D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C503201A6EB3DC00C18241 /* photo-25.png */; };
 		D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CAF27E1A7D65A700F48E6E /* LPUserHelper.m */; };
+		D6CB770B1A926AC000629985 /* LPPopListingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB770A1A926AC000629985 /* LPPopListingTableViewCell.m */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
@@ -226,6 +227,8 @@
 		D6C503201A6EB3DC00C18241 /* photo-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-25.png"; path = "Resources/Images/TabBarIcons/photo-25.png"; sourceTree = "<group>"; };
 		D6CAF27D1A7D65A700F48E6E /* LPUserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserHelper.h; path = Helpers/User/LPUserHelper.h; sourceTree = "<group>"; };
 		D6CAF27E1A7D65A700F48E6E /* LPUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserHelper.m; path = Helpers/User/LPUserHelper.m; sourceTree = "<group>"; };
+		D6CB77091A926AC000629985 /* LPPopListingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopListingTableViewCell.h; path = Views/MainView/Listing/LPPopListingTableViewCell.h; sourceTree = "<group>"; };
+		D6CB770A1A926AC000629985 /* LPPopListingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopListingTableViewCell.m; path = Views/MainView/Listing/LPPopListingTableViewCell.m; sourceTree = "<group>"; };
 		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
@@ -667,6 +670,15 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		D6BFF5411A926A6F004D4897 /* Listing */ = {
+			isa = PBXGroup;
+			children = (
+				D6CB77091A926AC000629985 /* LPPopListingTableViewCell.h */,
+				D6CB770A1A926AC000629985 /* LPPopListingTableViewCell.m */,
+			);
+			name = Listing;
+			sourceTree = "<group>";
+		};
 		D6CAF27C1A7D658000F48E6E /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -688,6 +700,7 @@
 		D6DBD6F41A7418FF009F6FFE /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				D6BFF5411A926A6F004D4897 /* Listing */,
 				D6DBD6F51A74190C009F6FFE /* Feed */,
 			);
 			name = MainView;
@@ -932,6 +945,7 @@
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6F5F8411A8514680005758B /* TransitionManager.swift in Sources */,
 				D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */,
+				D6CB770B1A926AC000629985 /* LPPopListingTableViewCell.m in Sources */,
 				D6F5F8311A8514680005758B /* DesignableTextView.swift in Sources */,
 				D6F5F8321A8514680005758B /* DesignableView.swift in Sources */,
 				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,

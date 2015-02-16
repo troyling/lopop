@@ -7,6 +7,7 @@
 //
 
 #import "LPListingTableViewController.h"
+#import "LPPopListingTableViewCell.h"
 #import "LPPop.h"
 #import "LPOffer.h"
 
@@ -83,24 +84,35 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     NSString *cellIdentifier = @"listingCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+
+    LPPopListingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[LPPopListingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
 
-    LPPop *pop = self.displayState == LPListingDisplay ? [self.listings objectAtIndex:indexPath.row] : [self.offerredPops objectAtIndex:indexPath.row];
 
-    cell.textLabel.text = pop.title;
+    LPPop *pop;
+
+    if (self.displayState == LPListingDisplay) {
+        pop = [self.listings objectAtIndex:indexPath.row];
+    } else {
+        pop = [self.offerredPops objectAtIndex:indexPath.row];
+        cell.numOfferLabel.text = @"Offer sent!";
+    }
+
+    cell.titleLabel.text = pop.title;
+    cell.priceLabel.text = [NSString stringWithFormat:@"  %@  ", pop.price];
 
     PFFile *file = pop.images.firstObject;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             UIImage *img = [UIImage imageWithData:data];
-            cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-            cell.imageView.image = img;
-            cell.imageView.clipsToBounds = YES;
+            cell.imgView.contentMode = UIViewContentModeScaleAspectFit;
+            cell.imgView.image = img;
+            cell.imgView.clipsToBounds = YES;
         }
     }];
 

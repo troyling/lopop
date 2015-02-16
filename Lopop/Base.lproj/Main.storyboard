@@ -1932,17 +1932,84 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="listingCell" rowHeight="145" id="1wE-RY-NF0">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="listingCell" rowHeight="145" id="1wE-RY-NF0" customClass="LPPopListingTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1wE-RY-NF0" id="c48-rr-U2I">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rFd-6v-ady" customClass="I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="144.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUb-dP-SOC">
+                                            <rect key="frame" x="152.5" y="43" width="36.5" height="20"/>
+                                            <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="QVx-fq-9OV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soi-oM-z8j">
+                                            <rect key="frame" x="152.5" y="16" width="199.5" height="19.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="nyO-i3-uS4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="nyO-i3-uS4"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No offer yet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuC-IN-7ND">
+                                            <rect key="frame" x="152.5" y="71" width="90" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="Y1Q-dy-F2V"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y34-hl-0YV">
+                                            <rect key="frame" x="0.0" y="0.0" width="144.5" height="144.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="y34-hl-0YV" secondAttribute="height" multiplier="1:1" id="1bG-A4-XVb"/>
+                                                <constraint firstAttribute="width" secondItem="y34-hl-0YV" secondAttribute="height" multiplier="1:1" id="DYH-JT-0Tf"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="1bG-A4-XVb"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="y34-hl-0YV" firstAttribute="top" secondItem="c48-rr-U2I" secondAttribute="topMargin" constant="-8" id="2Ad-uI-qsy"/>
+                                        <constraint firstItem="soi-oM-z8j" firstAttribute="top" secondItem="c48-rr-U2I" secondAttribute="topMargin" constant="8" id="2Ki-Si-5BP"/>
+                                        <constraint firstItem="soi-oM-z8j" firstAttribute="leading" secondItem="y34-hl-0YV" secondAttribute="trailing" constant="8" id="372-yf-7T6"/>
+                                        <constraint firstItem="wuC-IN-7ND" firstAttribute="top" secondItem="oUb-dP-SOC" secondAttribute="bottom" constant="8" id="8HJ-rC-yv0"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="y34-hl-0YV" secondAttribute="bottom" constant="-8" id="K61-VY-Vn7"/>
+                                        <constraint firstItem="oUb-dP-SOC" firstAttribute="leading" secondItem="y34-hl-0YV" secondAttribute="trailing" constant="8" id="PcK-HH-O6R"/>
+                                        <constraint firstItem="y34-hl-0YV" firstAttribute="top" secondItem="c48-rr-U2I" secondAttribute="topMargin" constant="-7.5" id="bC5-kI-3eM"/>
+                                        <constraint firstItem="y34-hl-0YV" firstAttribute="leading" secondItem="c48-rr-U2I" secondAttribute="leadingMargin" constant="-8" id="fd6-z6-0sV"/>
+                                        <constraint firstItem="wuC-IN-7ND" firstAttribute="leading" secondItem="y34-hl-0YV" secondAttribute="trailing" constant="8" id="hLQ-Q2-sRi"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="soi-oM-z8j" secondAttribute="trailing" constant="15" id="o2e-eV-Chy"/>
+                                        <constraint firstItem="oUb-dP-SOC" firstAttribute="top" secondItem="soi-oM-z8j" secondAttribute="bottom" constant="7.5" id="sT2-Q0-SFe"/>
+                                        <constraint firstItem="y34-hl-0YV" firstAttribute="width" secondItem="y34-hl-0YV" secondAttribute="height" multiplier="1:1" id="ymk-Co-2xd"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="bC5-kI-3eM"/>
+                                            <exclude reference="ymk-Co-2xd"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imgView" destination="y34-hl-0YV" id="Q7g-JK-g7s"/>
+                                    <outlet property="numOfferLabel" destination="wuC-IN-7ND" id="mWG-gK-sru"/>
+                                    <outlet property="priceLabel" destination="oUb-dP-SOC" id="6OI-Vy-Qem"/>
+                                    <outlet property="titleLabel" destination="soi-oM-z8j" id="co0-zm-KLA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
