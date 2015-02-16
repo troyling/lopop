@@ -11,11 +11,13 @@
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import "LPOffer.h"
+#import "LPPopHelper.h"
 
 @interface LPListingTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *listings;
 @property (strong, nonatomic) NSMutableArray *offerredPops;
+
 @property (assign) LPDisplayState displayState;
 
 @end
@@ -25,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // remove empty cells
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     self.displayState = LPListingDisplay;
@@ -104,7 +107,19 @@
         cell = [[LPPopListingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
 
-    LPPop *pop = self.displayState == LPListingDisplay ? [self.listings objectAtIndex:indexPath.row] : [self.offerredPops objectAtIndex:indexPath.row];
+    LPPop *pop;
+
+    if (self.displayState == LPListingDisplay) {
+        pop = [self.listings objectAtIndex:indexPath.row];
+
+        [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
+            if (!error) {
+                cell.numOfferLabel.text = count == 0 ? @"No offer yet" : [NSString stringWithFormat:@"%d offers!", count];
+            }
+        }];
+    } else {
+        pop = [self.offerredPops objectAtIndex:indexPath.row];
+    }
 
     cell.titleLabel.text = pop.title;
     cell.priceLabel.text = [pop publicPriceStr];

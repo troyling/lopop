@@ -79,6 +79,7 @@
 		D6CB771B1A9293D900629985 /* icon_like.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77171A9293D900629985 /* icon_like.png */; };
 		D6CB771C1A9293D900629985 /* icon_location.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77181A9293D900629985 /* icon_location.png */; };
 		D6CB771D1A9293D900629985 /* icon_money.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77191A9293D900629985 /* icon_money.png */; };
+		D6CB77211A92A4B000629985 /* LPPopHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB77201A92A4B000629985 /* LPPopHelper.m */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
@@ -237,6 +238,8 @@
 		D6CB77171A9293D900629985 /* icon_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_like.png; path = Resources/Images/icons/icon_like.png; sourceTree = "<group>"; };
 		D6CB77181A9293D900629985 /* icon_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_location.png; path = Resources/Images/icons/icon_location.png; sourceTree = "<group>"; };
 		D6CB77191A9293D900629985 /* icon_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_money.png; path = Resources/Images/icons/icon_money.png; sourceTree = "<group>"; };
+		D6CB771F1A92A4B000629985 /* LPPopHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopHelper.h; path = Helpers/Pop/LPPopHelper.h; sourceTree = "<group>"; };
+		D6CB77201A92A4B000629985 /* LPPopHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopHelper.m; path = Helpers/Pop/LPPopHelper.m; sourceTree = "<group>"; };
 		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
@@ -700,6 +703,15 @@
 			name = User;
 			sourceTree = "<group>";
 		};
+		D6CB771E1A92A48200629985 /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				D6CB771F1A92A4B000629985 /* LPPopHelper.h */,
+				D6CB77201A92A4B000629985 /* LPPopHelper.m */,
+			);
+			name = Pop;
+			sourceTree = "<group>";
+		};
 		D6D973AE1A8AA8A600A30539 /* Listing */ = {
 			isa = PBXGroup;
 			children = (
@@ -732,6 +744,7 @@
 		D6E6EB0E1A6470A6008085F7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB771E1A92A48200629985 /* Pop */,
 				D609A5451A8E5B5E00800F3E /* Social */,
 				D6CAF27C1A7D658000F48E6E /* User */,
 				D6AB46901A7AA9C9001BCCFC /* Alert */,
@@ -990,6 +1003,7 @@
 				D6A5D7BF1A80087700A631CD /* RateView.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
 				D6F5F82F1A8514680005758B /* DesignableTabBarController.swift in Sources */,
+				D6CB77211A92A4B000629985 /* LPPopHelper.m in Sources */,
 				D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */,
 				D609A5491A8E5B8800800F3E /* LPSocialHelper.m in Sources */,
 				D6008A271A675E8D0057771A /* LPPermissionValidator.m in Sources */,
