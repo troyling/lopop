@@ -214,7 +214,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             if ([popsLikeByCurrentUser containsObject:pop]) {
                 [updateButton setTitle:[NSString stringWithFormat:@"unlike %d", number] forState:UIControlStateNormal];
             } else {
-                [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+                [updateButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
             }
             
         } else {

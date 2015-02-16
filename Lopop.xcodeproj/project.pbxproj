@@ -75,6 +75,10 @@
 		D6C503211A6EB3DC00C18241 /* photo-25.png in Resources */ = {isa = PBXBuildFile; fileRef = D6C503201A6EB3DC00C18241 /* photo-25.png */; };
 		D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CAF27E1A7D65A700F48E6E /* LPUserHelper.m */; };
 		D6CB770B1A926AC000629985 /* LPPopListingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB770A1A926AC000629985 /* LPPopListingTableViewCell.m */; };
+		D6CB771A1A9293D900629985 /* icon_like_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77161A9293D900629985 /* icon_like_fill.png */; };
+		D6CB771B1A9293D900629985 /* icon_like.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77171A9293D900629985 /* icon_like.png */; };
+		D6CB771C1A9293D900629985 /* icon_location.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77181A9293D900629985 /* icon_location.png */; };
+		D6CB771D1A9293D900629985 /* icon_money.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77191A9293D900629985 /* icon_money.png */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
@@ -229,6 +233,10 @@
 		D6CAF27E1A7D65A700F48E6E /* LPUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserHelper.m; path = Helpers/User/LPUserHelper.m; sourceTree = "<group>"; };
 		D6CB77091A926AC000629985 /* LPPopListingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopListingTableViewCell.h; path = Views/MainView/Listing/LPPopListingTableViewCell.h; sourceTree = "<group>"; };
 		D6CB770A1A926AC000629985 /* LPPopListingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopListingTableViewCell.m; path = Views/MainView/Listing/LPPopListingTableViewCell.m; sourceTree = "<group>"; };
+		D6CB77161A9293D900629985 /* icon_like_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_like_fill.png; path = Resources/Images/icons/icon_like_fill.png; sourceTree = "<group>"; };
+		D6CB77171A9293D900629985 /* icon_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_like.png; path = Resources/Images/icons/icon_like.png; sourceTree = "<group>"; };
+		D6CB77181A9293D900629985 /* icon_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_location.png; path = Resources/Images/icons/icon_location.png; sourceTree = "<group>"; };
+		D6CB77191A9293D900629985 /* icon_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_money.png; path = Resources/Images/icons/icon_money.png; sourceTree = "<group>"; };
 		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
@@ -384,6 +392,10 @@
 		D601CA7E1A798AA600344F0C /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB77161A9293D900629985 /* icon_like_fill.png */,
+				D6CB77171A9293D900629985 /* icon_like.png */,
+				D6CB77181A9293D900629985 /* icon_location.png */,
+				D6CB77191A9293D900629985 /* icon_money.png */,
 				D6A5D7E21A82A8DC00A631CD /* pop.png */,
 				D6A5D7E31A82A8DC00A631CD /* pop@2x.png */,
 				D6A5D7E41A82A8DC00A631CD /* pop@3x.png */,
@@ -880,10 +892,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6CB771C1A9293D900629985 /* icon_location.png in Resources */,
 				D6F5F8341A8514680005758B /* Info.plist in Resources */,
 				D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */,
+				D6CB771D1A9293D900629985 /* icon_money.png in Resources */,
 				D6A5D7E71A82A8DC00A631CD /* pop@3x.png in Resources */,
+				D6CB771A1A9293D900629985 /* icon_like_fill.png in Resources */,
 				D601CA801A798ABE00344F0C /* picture-25.png in Resources */,
+				D6CB771B1A9293D900629985 /* icon_like.png in Resources */,
 				D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */,
 				D6F5B0401A8D648900914A3F /* WeiboSDK.bundle in Resources */,
 				D6BD4AA41A7D77760094732A /* blur_signup_view.png in Resources */,
