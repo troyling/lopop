@@ -31,27 +31,31 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     self.displayState = LPListingDisplay;
-    [self loadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
     if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
         [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
     }
+
+    [self loadData];
 }
 
 - (void)loadData {
     // populate data for user
-
     PFQuery *listingQuery = [LPPop query];
     [listingQuery whereKey:@"seller" equalTo:[PFUser currentUser]];
     [listingQuery orderByDescending:@"createdAt"];
     [listingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.listings = [[NSMutableArray alloc] initWithArray:objects];
-            [self.tableView reloadData];
+
+            // reload table if necessary
+            if (self.displayState == LPListingDisplay) {
+                [self.tableView reloadData];
+            }
         }
     }];
 
@@ -66,6 +70,11 @@
                 if ([o isKindOfClass:[LPOffer class]]) {
                     LPOffer *offer = o;
                     [self.offerredPops addObject:offer.pop];
+
+                    // reload table if necessary
+                    if (self.displayState == LPOfferDisplay) {
+                        [self.tableView reloadData];
+                    }
                 }
             }
         }
