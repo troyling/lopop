@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) NSArray *pops;
 @property (strong, nonatomic) NSMutableArray *userLikedPops;
+@property (strong, nonatomic) NSMutableDictionary *cachedPopImages;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
 @property (assign, nonatomic) CGFloat lastContentOffsetY;
@@ -44,6 +45,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     // init
     CGRect bound = [[UIScreen mainScreen] bounds];
     self.tableView.rowHeight = bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO + ROW_HEIGHT_OFFSET;
+    self.cachedPopImages = [[NSMutableDictionary alloc] init];
     
     // query data
     [self queryForPops];
@@ -181,28 +183,30 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         
         // load image
         PFFile *popImageFile = pop.images.firstObject;
-
-        if ([popImageFile isDataAvailable]) {
-            UIImage *img = [UIImage imageWithData:[popImageFile getData] scale:0.05f];
+        id img = [self.cachedPopImages objectForKey:pop.objectId];
+        if (img != nil) {
+            // load image locally
             cell.imgView.image = img;
             cell.imgView.clipsToBounds = YES;
         } else {
             // asynchronously load data
             [popImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 if (!error) {
-                    NSLog(@"Loading again!!");
                     UIImage *img = [UIImage imageWithData:data scale:0.05f];
                     cell.imgView.image = img;
                     cell.imgView.clipsToBounds = YES;
+
+                    // cache images
+                    [self.cachedPopImages setObject:img forKey:pop.objectId];
                 }
             }];
         }
 
-        cell.likeBtn.tag = indexPath.row;
-        
-        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self updateButton:cell.likeBtn with:pop];
+//        cell.likeBtn.tag = indexPath.row;
+//        
+//        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [self updateButton:cell.likeBtn with:pop];
 }
     
     return cell;
