@@ -30,6 +30,8 @@
     // remove empty cells
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
+    self.tableView.rowHeight = 90.0f;
+
     self.displayState = LPListingDisplay;
 }
 
