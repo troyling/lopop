@@ -115,7 +115,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     NSString *cellIdentifier = self.displayState == LPListingDisplay? @"listingCell" : @"offerCell";
 
     LPPopListingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -130,10 +129,16 @@
         pop = [self.listings objectAtIndex:indexPath.row];
 
         // asynchronously load number of offers, if needed
-        id count = [self.incomingOffers objectForKey:pop.objectId];
+        id item = [self.incomingOffers objectForKey:pop.objectId];
 
-        if (count != nil) {
-            cell.numOfferLabel.text = [NSString stringWithFormat:@"%@ offers!", count];
+        if (item != nil) {
+            int count = 0;
+
+            if ([item isKindOfClass:[NSNumber class]]) {
+                count = [(NSNumber *)item intValue];
+            }
+
+            cell.numOfferLabel.text = count == 0 ? @"No offer yet" : [NSString stringWithFormat:@"%d offers!", count];
         } else {
             [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
