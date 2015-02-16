@@ -602,7 +602,7 @@
                                                 <constraint firstAttribute="width" secondItem="sWU-k3-nnA" secondAttribute="height" multiplier="1:0.6" id="PFy-ke-jOH"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eoz-G8-kjk">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eoz-G8-kjk">
                                             <rect key="frame" x="16" y="233" width="343" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="DSJ-AF-eYe"/>
@@ -611,8 +611,8 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-wm-rS0">
-                                            <rect key="frame" x="322" y="261" width="36.5" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-wm-rS0">
+                                            <rect key="frame" x="324" y="261" width="34.5" height="20"/>
                                             <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="8Is-ay-9ux"/>
@@ -645,11 +645,11 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Tl-KW-41d">
-                                            <rect key="frame" x="196" y="261" width="46" height="20"/>
+                                            <rect key="frame" x="196" y="261" width="44" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="zzl-1c-jCR"/>
                                             </constraints>
-                                            <state key="normal" title="Button">
+                                            <state key="normal" title="          ">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
