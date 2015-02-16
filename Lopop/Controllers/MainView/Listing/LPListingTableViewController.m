@@ -85,7 +85,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSString *cellIdentifier = @"listingCell";
+    NSString *cellIdentifier = self.displayState == LPListingDisplay? @"listingCell" : @"offerCell";
 
     LPPopListingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 
@@ -93,15 +93,7 @@
         cell = [[LPPopListingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
 
-
-    LPPop *pop;
-
-    if (self.displayState == LPListingDisplay) {
-        pop = [self.listings objectAtIndex:indexPath.row];
-    } else {
-        pop = [self.offerredPops objectAtIndex:indexPath.row];
-        cell.numOfferLabel.text = @"Offer sent!";
-    }
+    LPPop *pop = self.displayState == LPListingDisplay ? [self.listings objectAtIndex:indexPath.row] : [self.offerredPops objectAtIndex:indexPath.row];
 
     cell.titleLabel.text = pop.title;
     cell.priceLabel.text = [NSString stringWithFormat:@"  %@  ", pop.price];
@@ -110,7 +102,7 @@
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             UIImage *img = [UIImage imageWithData:data];
-            cell.imgView.contentMode = UIViewContentModeScaleAspectFit;
+            cell.imgView.contentMode = UIViewContentModeScaleAspectFill;
             cell.imgView.image = img;
             cell.imgView.clipsToBounds = YES;
         }
