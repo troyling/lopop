@@ -12,13 +12,13 @@
 #import "LPPop.h"
 #import "LPOffer.h"
 #import "LPPopHelper.h"
+#import "UIImageView+WebCache.h"
 
 @interface LPListingTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *listings;
 @property (strong, nonatomic) NSMutableArray *offerredPops;
 @property (strong, nonatomic) NSMutableDictionary *incomingOffers;
-@property (strong, nonatomic) NSMutableDictionary *cachedPopImages;
 
 @property (assign) LPDisplayState displayState;
 
@@ -35,7 +35,6 @@
 
     // cache the offer
     self.incomingOffers = [[NSMutableDictionary alloc] init];
-    self.cachedPopImages = [[NSMutableDictionary alloc] init];
 
     self.displayState = LPListingDisplay;
 }
@@ -157,25 +156,7 @@
     cell.priceLabel.text = [pop publicPriceStr];
 
     PFFile *file = pop.images.firstObject;
-
-    if ([self.cachedPopImages objectForKey:pop.objectId]) {
-        cell.imgView.contentMode = UIViewContentModeScaleAspectFill;
-        cell.imgView.image = [self.cachedPopImages objectForKey:pop.objectId];
-        cell.imgView.clipsToBounds = YES;
-    } else {
-        // asynchronously load image
-        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *img = [UIImage imageWithData:data];
-                cell.imgView.contentMode = UIViewContentModeScaleAspectFill;
-                cell.imgView.image = img;
-                cell.imgView.clipsToBounds = YES;
-
-                // save images locally
-                [self.cachedPopImages setObject:img forKey:pop.objectId];
-            }
-        }];
-    }
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:file.url]];
     
     return cell;
 }
