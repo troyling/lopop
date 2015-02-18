@@ -17,6 +17,7 @@
 #import "LPShareViewController.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
+#import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -132,8 +133,12 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             rv.starSize = 15.0f;
             rv.starNormalColor = [UIColor lightGrayColor];
             [self.userRatingView.userRateView addSubview:rv];
-            
-            [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
+
+            // Profile picture
+            [self.userRatingView.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.pop.seller[@"profilePictureUrl"]]];
+            self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
+            self.userRatingView.profileImageView.clipsToBounds = YES;
+//            [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
         }
     }];
 }
@@ -148,25 +153,6 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
         default:
             break;
     }
-}
-
-#pragma mark connect to server
-
-- (void)loadProfilePictureWithURL:(NSString *)UrlString {
-    // FIXME should cache images in the future
-    // download the user's facebook profile picture
-    NSURL *pictureURL = [NSURL URLWithString:UrlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (connectionError == nil && data != nil) {
-            UIImage *userImage = [UIImage imageWithData:data];
-            self.userRatingView.profileImageView.image = userImage;
-            self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
-            self.userRatingView.profileImageView.clipsToBounds = YES;
-        } else {
-            [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile picture"];
-        }
-    }];
 }
 
 - (void)loadImageViews {
