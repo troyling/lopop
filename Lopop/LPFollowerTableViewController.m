@@ -8,6 +8,8 @@
 
 #import "LPFollowerTableViewController.h"
 #import "LPUserRelationship.h"
+#import "LPFollowerTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface LPFollowerTableViewController ()
 
@@ -58,10 +60,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *reusedIdentifier = @"LPFollowerCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusedIdentifier forIndexPath:indexPath];
+    LPFollowerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusedIdentifier forIndexPath:indexPath];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusedIdentifier];
+        cell = [[LPFollowerTableViewCell alloc] init];
     }
     
     // display the content from the given array

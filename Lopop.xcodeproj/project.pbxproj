@@ -97,6 +97,7 @@
 		D6CB77531A94055C00629985 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB77411A94055C00629985 /* UIImageView+HighlightedWebCache.m */; };
 		D6CB77541A94055C00629985 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB77431A94055C00629985 /* UIImageView+WebCache.m */; };
 		D6CB77551A94055C00629985 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB77451A94055C00629985 /* UIView+WebCacheOperation.m */; };
+		D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB775A1A95770000629985 /* LPFollowerTableViewCell.m */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
@@ -291,6 +292,8 @@
 		D6CB77431A94055C00629985 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "Vendors/Libs/SDWebImage/UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		D6CB77441A94055C00629985 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "Vendors/Libs/SDWebImage/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		D6CB77451A94055C00629985 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "Vendors/Libs/SDWebImage/UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		D6CB77591A95770000629985 /* LPFollowerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFollowerTableViewCell.h; path = Views/User/LPFollowerTableViewCell.h; sourceTree = "<group>"; };
+		D6CB775A1A95770000629985 /* LPFollowerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFollowerTableViewCell.m; path = Views/User/LPFollowerTableViewCell.m; sourceTree = "<group>"; };
 		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
@@ -603,6 +606,7 @@
 		D66CC8F61A60E98E007B9992 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB77581A95769500629985 /* User */,
 				D6DBD6F41A7418FF009F6FFE /* MainView */,
 			);
 			name = Views;
@@ -803,6 +807,15 @@
 				D6CB77451A94055C00629985 /* UIView+WebCacheOperation.m */,
 			);
 			name = SDWebImage;
+			sourceTree = "<group>";
+		};
+		D6CB77581A95769500629985 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D6CB77591A95770000629985 /* LPFollowerTableViewCell.h */,
+				D6CB775A1A95770000629985 /* LPFollowerTableViewCell.m */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		D6D973AE1A8AA8A600A30539 /* Listing */ = {
@@ -1083,6 +1096,7 @@
 				335FD8C81A7D75960020B7A3 /* MessageModel.m in Sources */,
 				718065A61A7D92F00052486D /* LPPopLike.m in Sources */,
 				D6F5F83C1A8514680005758B /* SpringImageView.swift in Sources */,
+				D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */,
 				332F4B131A814D3700B186C9 /* ChatTableViewController.m in Sources */,
