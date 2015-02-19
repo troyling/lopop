@@ -1620,16 +1620,60 @@
         <scene sceneID="Gpk-zJ-afj">
             <objects>
                 <tableViewController id="LZl-Ci-cN1" customClass="LPFollowerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="22" sectionFooterHeight="22" id="a1f-73-NzW">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" id="a1f-73-NzW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LPFollowerCell" rowHeight="76" id="oQS-GI-5iw" customClass="LPFollowerTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LPFollowerCell" rowHeight="68" id="oQS-GI-5iw" customClass="LPFollowerTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oQS-GI-5iw" id="NSp-av-IUj">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wgj-dL-xbO">
+                                            <rect key="frame" x="8" y="9" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Wgj-dL-xbO" secondAttribute="height" multiplier="1:1" id="rz1-Iw-ift"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhl-pI-vcJ">
+                                            <rect key="frame" x="66" y="14" width="218" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="gPu-6G-YIQ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ja1-Nu-sQt">
+                                            <rect key="frame" x="303" y="19" width="63" height="30"/>
+                                            <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="63" id="Qqi-8e-7oM"/>
+                                            </constraints>
+                                            <state key="normal" title="  Follow  ">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ja1-Nu-sQt" firstAttribute="leading" secondItem="dhl-pI-vcJ" secondAttribute="trailing" constant="19" id="8zz-UZ-Og2"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Wgj-dL-xbO" secondAttribute="bottom" constant="0.5" id="90f-QY-ab2"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ja1-Nu-sQt" secondAttribute="bottom" constant="10.5" id="AXR-HX-bWE"/>
+                                        <constraint firstItem="dhl-pI-vcJ" firstAttribute="leading" secondItem="Wgj-dL-xbO" secondAttribute="trailing" constant="8" id="FJd-XY-Xjt"/>
+                                        <constraint firstItem="Wgj-dL-xbO" firstAttribute="top" secondItem="NSp-av-IUj" secondAttribute="topMargin" constant="1" id="Tw9-UV-7Dt"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ja1-Nu-sQt" secondAttribute="trailing" constant="1" id="q33-7q-RIW"/>
+                                        <constraint firstItem="ja1-Nu-sQt" firstAttribute="top" secondItem="NSp-av-IUj" secondAttribute="topMargin" constant="11" id="qdj-bQ-sK8"/>
+                                        <constraint firstItem="Wgj-dL-xbO" firstAttribute="leading" secondItem="NSp-av-IUj" secondAttribute="leadingMargin" id="wdL-Zg-YFj"/>
+                                        <constraint firstItem="dhl-pI-vcJ" firstAttribute="top" secondItem="NSp-av-IUj" secondAttribute="topMargin" constant="6" id="x2N-V4-yg2"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="followBtn" destination="ja1-Nu-sQt" id="mjo-Hh-bau"/>
+                                    <outlet property="nameLabel" destination="dhl-pI-vcJ" id="qTw-kz-1Ge"/>
+                                    <outlet property="profileImageView" destination="Wgj-dL-xbO" id="x0o-6v-8Zq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

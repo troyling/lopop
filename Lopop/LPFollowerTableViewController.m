@@ -76,19 +76,31 @@
             userToDisplay = relationship.follower;
         }
         
-        [userToDisplay fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            if (!error) {
-                // FIXME change username to name
-                if (userToDisplay.email) {
-                    cell.textLabel.text = userToDisplay.email;
-                } else {
-                    cell.textLabel.text = userToDisplay.username;
+//        [userToDisplay fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//            if (!error) {
+//                // FIXME change username to name
+//                if (userToDisplay.email) {
+//                    cell.textLabel.text = userToDisplay.email;
+//                } else {
+//                    cell.textLabel.text = userToDisplay.username;
+//                }
+//            } else {
+//                // FIXEME error handling
+//                NSLog(@"Error: %@", error);
+//            }
+//        }];
+        if ([userToDisplay isDataAvailable]) {
+            [cell.profileImageView sd_setImageWithURL:userToDisplay[@"profilePictureUrl"]];
+            cell.nameLabel = userToDisplay[@"name"];
+//            cell.followBtn
+        } else {
+            [userToDisplay fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (!error) {
+                    [cell.profileImageView sd_setImageWithURL:userToDisplay[@"profilePictureUrl"]];
+                    cell.nameLabel.text = userToDisplay[@"name"];
                 }
-            } else {
-                // FIXEME error handling
-                NSLog(@"Error: %@", error);
-            }
-        }];
+            }];
+        }
     }
     
     return cell;
