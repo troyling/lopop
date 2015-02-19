@@ -26,6 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // configure table
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     self.myFollowingUsers = [[NSMutableSet alloc] init];
 
     PFQuery *folloingQuery = [LPUserRelationship query];
@@ -103,6 +106,9 @@
 - (void)loadFollowerCell:(LPFollowerTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withUser:(PFUser *)user {
     [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
     cell.nameLabel.text = user[@"name"];
+
+    // move inset line
+    cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.profileImageView.bounds.size.width + 15.0f, 0.0f, 0.0f);
 
     // configure follow button
     if (self.myFollowingUsers.count > 0 && ![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
