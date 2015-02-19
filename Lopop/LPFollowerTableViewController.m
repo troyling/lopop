@@ -75,35 +75,26 @@
         } else if (self.type == FOLLOWER) {
             userToDisplay = relationship.follower;
         }
-        
-//        [userToDisplay fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-//            if (!error) {
-//                // FIXME change username to name
-//                if (userToDisplay.email) {
-//                    cell.textLabel.text = userToDisplay.email;
-//                } else {
-//                    cell.textLabel.text = userToDisplay.username;
-//                }
-//            } else {
-//                // FIXEME error handling
-//                NSLog(@"Error: %@", error);
-//            }
-//        }];
+
+        // fetch user data, if necessary
         if ([userToDisplay isDataAvailable]) {
-            [cell.profileImageView sd_setImageWithURL:userToDisplay[@"profilePictureUrl"]];
-            cell.nameLabel = userToDisplay[@"name"];
-//            cell.followBtn
+            [self loadFollowerCell:cell withUser:userToDisplay];
         } else {
             [userToDisplay fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 if (!error) {
-                    [cell.profileImageView sd_setImageWithURL:userToDisplay[@"profilePictureUrl"]];
-                    cell.nameLabel.text = userToDisplay[@"name"];
+                    [self loadFollowerCell:cell withUser:userToDisplay];
                 }
             }];
         }
     }
-    
     return cell;
+}
+
+#pragma mark UI
+- (void)loadFollowerCell:(LPFollowerTableViewCell *)cell withUser:(PFUser *)user {
+    [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
+    cell.nameLabel.text = user[@"name"];
+    //            cell.followBtn
 }
 
 /*
