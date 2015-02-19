@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface LPFollowerTableViewController : UITableViewController
+@interface LPFollowerTableViewController : UITableViewController <UIActionSheetDelegate>
 
 typedef NS_ENUM(NSUInteger, ContentType) {
     FOLLOWING_USER,

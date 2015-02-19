@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) NSMutableArray *userRelationships;
 @property (strong, nonatomic) NSMutableSet *myFollowingUsers;
+@property (strong, nonatomic) PFUser *userToUnfollow;
 
 @end
 
@@ -119,11 +120,31 @@
             [cell.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             cell.followBtn.layer.borderWidth = 0.0f;
             // add unfollow action
+            [cell.followBtn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside ];
         } else {
             [cell.followBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
             // add follow action
         }
         cell.followBtn.hidden = NO;
+    }
+}
+
+#pragma mark UIActionsheet
+
+- (IBAction)attemptUnfollowUser:(id)sender {
+    NSLog(@"Sender %@", sender);
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Unfollow user" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Unfollow" otherButtonTitles:nil, nil];
+    [as showInView:self.view];
+}
+
+- (IBAction)followUser:(id)sender {
+    NSLog(@"follower user");
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Yes"]) {
+        // unfollow the user
     }
 }
 
