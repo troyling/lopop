@@ -166,6 +166,8 @@
                 [btn setBackgroundColor:[LPUIHelper lopopColor]];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 btn.layer.borderWidth = 0.0f;
+                [btn removeTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+                [btn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
             }
         }];
     }
@@ -185,6 +187,12 @@
                     [self.clickedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                     self.clickedBtn.layer.borderWidth = 1.0f;
                     self.clickedBtn.layer.borderColor = [UIColor blackColor].CGColor;
+
+                    // remove and attach new action
+                    [self.clickedBtn removeTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+                    [self.clickedBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+
+                    // remove reference
                     self.clickedBtn = nil;
                 }
             }];
