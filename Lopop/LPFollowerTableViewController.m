@@ -126,7 +126,10 @@
                 [cell.followBtn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside ];
             } else {
                 [cell.followBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
+                cell.followBtn.layer.borderWidth = 1.0f;
+                cell.followBtn.layer.borderColor = [UIColor blackColor].CGColor;
                 // add follow action
+                [cell.followBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
             }
             cell.followBtn.hidden = NO;
         }
@@ -154,7 +157,18 @@
 }
 
 - (IBAction)followUser:(id)sender {
-    NSLog(@"follower user");
+    if ([sender isKindOfClass:[LPAssociatedButton class]]) {
+        LPAssociatedButton *btn = sender;
+        PFUser *userToFollow = btn.associatedOjbect;
+        [LPUserHelper followUserInBackground:userToFollow withBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [btn setTitle:@"Following" forState:UIControlStateNormal];
+                [btn setBackgroundColor:[LPUIHelper lopopColor]];
+                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                btn.layer.borderWidth = 0.0f;
+            }
+        }];
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
