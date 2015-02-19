@@ -10,10 +10,14 @@
 #import "LPUserRelationship.h"
 #import "LPFollowerTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "LPUserProfileViewController.h"
+#import "LPUserRelationship.h"
+#import "LPUIHelper.h"
 
 @interface LPFollowerTableViewController ()
 
-@property (strong, nonatomic) NSMutableArray *contents;
+@property (strong, nonatomic) NSMutableArray *userRelationships;
+@property (strong, nonatomic) NSMutableSet *myFollowingUsers;
 
 @end
 
@@ -21,26 +25,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.myFollowingUsers = [[NSMutableSet alloc] init];
+
+    PFQuery *folloingQuery = [LPUserRelationship query];
+    folloingQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [folloingQuery whereKey:@"follower" equalTo:[PFUser currentUser]];
+    [folloingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (LPUserRelationship *r in objects) {
+                [self.myFollowingUsers addObject:r.followedUser.objectId];
+            }
+        }
+    }];
+
     if (self.query) {
         [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                self.contents = [[NSMutableArray alloc] initWithArray:objects];
-                [self.tableView reloadData];
+                self.userRelationships = [[NSMutableArray alloc] initWithArray:objects];
+                if (self.myFollowingUsers.count > 0) {
+                    [self.tableView reloadData];
+                }
             }
         }];
     }
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -52,8 +60,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 0;
-    if (self.contents) {
-        rows = self.contents.count;
+    if (self.userRelationships) {
+        rows = self.userRelationships.count;
     }
     return rows;
 }
@@ -67,22 +75,22 @@
     }
     
     // display the content from the given array
-    if (self.contents) {
-        LPUserRelationship *relationship = [self.contents objectAtIndex:indexPath.row];
+    if (self.userRelationships) {
+        LPUserRelationship *relationship = [self.userRelationships objectAtIndex:indexPath.row];
         PFUser *userToDisplay;
-        if (self.type == FOLLOWING_USER) {
+        if (self.contentType == FOLLOWING_USER) {
             userToDisplay = relationship.followedUser;
-        } else if (self.type == FOLLOWER) {
+        } else if (self.contentType == FOLLOWER) {
             userToDisplay = relationship.follower;
         }
 
         // fetch user data, if necessary
         if ([userToDisplay isDataAvailable]) {
-            [self loadFollowerCell:cell withUser:userToDisplay];
+            [self loadFollowerCell:cell atIndexPath:indexPath withUser:userToDisplay];
         } else {
             [userToDisplay fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 if (!error) {
-                    [self loadFollowerCell:cell withUser:userToDisplay];
+                    [self loadFollowerCell:cell atIndexPath:indexPath withUser:userToDisplay];
                 }
             }];
         }
@@ -91,10 +99,26 @@
 }
 
 #pragma mark UI
-- (void)loadFollowerCell:(LPFollowerTableViewCell *)cell withUser:(PFUser *)user {
+
+- (void)loadFollowerCell:(LPFollowerTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withUser:(PFUser *)user {
     [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
     cell.nameLabel.text = user[@"name"];
-    //            cell.followBtn
+
+    // configure follow button
+    if (self.myFollowingUsers.count > 0 && ![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        if ([self.myFollowingUsers containsObject:user.objectId]) {
+            // following this user already
+            [cell.followBtn setTitle:@"Following" forState:UIControlStateNormal];
+            [cell.followBtn setBackgroundColor:[LPUIHelper lopopColor]];
+            [cell.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            cell.followBtn.layer.borderWidth = 0.0f;
+            // add unfollow action
+        } else {
+            [cell.followBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
+            // add follow action
+        }
+        cell.followBtn.hidden = NO;
+    }
 }
 
 /*
@@ -131,14 +155,31 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[LPUserProfileViewController class]]) {
+        if ([sender isKindOfClass:[LPFollowerTableViewCell class]]) {
+            LPUserProfileViewController *vc = segue.destinationViewController;
+            LPFollowerTableViewCell *cell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            if (indexPath.row < self.userRelationships.count) {
+                LPUserRelationship *relationship = [self.userRelationships objectAtIndex:indexPath.row];
+
+                if (self.contentType == FOLLOWER) {
+                    vc.targetUser = relationship.follower;
+                } else {
+                    vc.targetUser = relationship.followedUser;
+                }
+            } else {
+                NSLog(@"error");
+            }
+        }
+    }
 }
-*/
+
 
 @end

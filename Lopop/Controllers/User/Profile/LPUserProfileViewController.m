@@ -172,10 +172,10 @@
         
         if ([segue.identifier isEqualToString:@"viewFollowingUsers"]) {
             [query whereKey:@"follower" equalTo:self.targetUser];
-            vc.type = FOLLOWING_USER;
+            vc.contentType = FOLLOWING_USER;
         } else if ([segue.identifier isEqualToString:@"viewFollowers"]) {
             [query whereKey:@"followedUser" equalTo:self.targetUser];
-            vc.type = FOLLOWER;
+            vc.contentType = FOLLOWER;
         }
         vc.query = query;
     }

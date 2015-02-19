@@ -17,6 +17,6 @@ typedef NS_ENUM(NSUInteger, ContentType) {
 };
 
 @property (retain, nonatomic) PFQuery *query; // Query for the contents to display on this table view
-@property (assign, readwrite) ContentType type;
+@property (assign, readwrite) ContentType contentType;
 
 @end
