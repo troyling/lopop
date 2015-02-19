@@ -14,12 +14,13 @@
 #import "LPUserRelationship.h"
 #import "LPUIHelper.h"
 #import "LPAssociatedButton.h"
+#import "LPUserHelper.h"
 
 @interface LPFollowerTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *userRelationships;
 @property (strong, nonatomic) NSMutableSet *myFollowingUsers;
-@property (strong, nonatomic) PFUser *userToUnfollow;
+@property (strong, nonatomic) LPAssociatedButton *clickedBtn;
 
 @end
 
@@ -140,8 +141,8 @@
     NSString *sheetTitle;
 
     if ([sender isKindOfClass:[LPAssociatedButton class]]) {
-        LPAssociatedButton *btn = sender;
-        user = btn.associatedOjbect;
+        self.clickedBtn = sender;
+        user = self.clickedBtn.associatedOjbect;
     }
 
     if (user) {
@@ -159,7 +160,21 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([title isEqualToString:@"Unfollow"]) {
-        // unfollow the user
+        if (self.clickedBtn.associatedOjbect) {
+            // unfollow the user
+            PFUser *userToUnfollow = self.clickedBtn.associatedOjbect;
+            [LPUserHelper unfollowUserInBackground:userToUnfollow withBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"Unfollowed");
+                    [self.clickedBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
+                    [self.clickedBtn setBackgroundColor:[UIColor whiteColor]];
+                    [self.clickedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    self.clickedBtn.layer.borderWidth = 1.0f;
+                    self.clickedBtn.layer.borderColor = [UIColor blackColor].CGColor;
+                    self.clickedBtn = nil;
+                }
+            }];
+        }
     }
 }
 
