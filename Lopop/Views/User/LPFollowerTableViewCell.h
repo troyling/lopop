@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LPAssociatedButton.h"
 
 @interface LPFollowerTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *followBtn;
+@property (weak, nonatomic) IBOutlet LPAssociatedButton *followBtn;
 
 @end

@@ -13,6 +13,7 @@
 #import "LPUserProfileViewController.h"
 #import "LPUserRelationship.h"
 #import "LPUIHelper.h"
+#import "LPAssociatedButton.h"
 
 @interface LPFollowerTableViewController ()
 
@@ -112,28 +113,42 @@
     cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.profileImageView.bounds.size.width + 15.0f, 0.0f, 0.0f);
 
     // configure follow button
-    if (self.myFollowingUsers.count > 0 && ![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-        if ([self.myFollowingUsers containsObject:user.objectId]) {
-            // following this user already
-            [cell.followBtn setTitle:@"Following" forState:UIControlStateNormal];
-            [cell.followBtn setBackgroundColor:[LPUIHelper lopopColor]];
-            [cell.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            cell.followBtn.layer.borderWidth = 0.0f;
-            // add unfollow action
-            [cell.followBtn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside ];
-        } else {
-            [cell.followBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
-            // add follow action
+    if (self.myFollowingUsers.count > 0) {
+        if (![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+            if ([self.myFollowingUsers containsObject:user.objectId]) {
+                // following this user already
+                [cell.followBtn setTitle:@"Following" forState:UIControlStateNormal];
+                [cell.followBtn setBackgroundColor:[LPUIHelper lopopColor]];
+                [cell.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                cell.followBtn.layer.borderWidth = 0.0f;
+                // add unfollow action
+                [cell.followBtn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside ];
+            } else {
+                [cell.followBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
+                // add follow action
+            }
+            cell.followBtn.hidden = NO;
         }
-        cell.followBtn.hidden = NO;
+        cell.followBtn.associatedOjbect = user;
     }
 }
 
 #pragma mark UIActionsheet
 
 - (IBAction)attemptUnfollowUser:(id)sender {
-    NSLog(@"Sender %@", sender);
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Unfollow user" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Unfollow" otherButtonTitles:nil, nil];
+    PFUser *user;
+    NSString *sheetTitle;
+
+    if ([sender isKindOfClass:[LPAssociatedButton class]]) {
+        LPAssociatedButton *btn = sender;
+        user = btn.associatedOjbect;
+    }
+
+    if (user) {
+        sheetTitle = [NSString stringWithFormat:@"Unfollow %@?", user[@"name"]];
+    }
+
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Unfollow" otherButtonTitles:nil, nil];
     [as showInView:self.view];
 }
 
@@ -143,7 +158,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:@"Yes"]) {
+    if ([title isEqualToString:@"Unfollow"]) {
         // unfollow the user
     }
 }
