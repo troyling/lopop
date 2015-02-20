@@ -9,6 +9,7 @@
 #import "LPIncomingOfferTableViewController.h"
 #import "LPUserRatingTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "LPAssociatedButton.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
 
@@ -92,7 +93,15 @@
     rv.starNormalColor = [UIColor lightGrayColor];
     [cell.userRateView addSubview:rv];
 
+    cell.actionBtn.associatedOjbect = offerUser;
+    [cell.actionBtn addTarget:self action:@selector(contactOfferUser:) forControlEvents:UIControlEventTouchUpInside];
+}
 
+- (IBAction)contactOfferUser:(id)sender {
+    if ([sender isKindOfClass:[LPAssociatedButton class]]) {
+        LPAssociatedButton *btn = sender;
+        
+    }
 }
 
 

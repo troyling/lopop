@@ -135,6 +135,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             [self.userRatingView.userRateView addSubview:rv];
 
             // Profile picture
+            // FIXME move UI code back to view class
             [self.userRatingView.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.pop.seller[@"profilePictureUrl"]]];
             self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
             self.userRatingView.profileImageView.clipsToBounds = YES;

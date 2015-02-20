@@ -7,12 +7,13 @@
 //
 #import <UIKit/UIKit.h>
 #import "RateView.h"
+#import "LPAssociatedButton.h"
 
 @interface LPUserRatingTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet RateView *userRateView;
-@property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+@property (weak, nonatomic) IBOutlet LPAssociatedButton *actionBtn;
 
 @end

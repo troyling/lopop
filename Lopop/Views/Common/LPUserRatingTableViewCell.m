@@ -24,6 +24,9 @@
     // circle profile
     self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.size.width / 2.0f;
     self.profileImageView.clipsToBounds = YES;
+
+    // button
+    self.actionBtn.layer.cornerRadius = 3.0f;
 }
 
 @end
