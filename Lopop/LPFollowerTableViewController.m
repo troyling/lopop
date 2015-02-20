@@ -8,10 +8,19 @@
 
 #import "LPFollowerTableViewController.h"
 #import "LPUserRelationship.h"
+#import "LPFollowerTableViewCell.h"
+#import "UIImageView+WebCache.h"
+#import "LPUserProfileViewController.h"
+#import "LPUserRelationship.h"
+#import "LPUIHelper.h"
+#import "LPAssociatedButton.h"
+#import "LPUserHelper.h"
 
 @interface LPFollowerTableViewController ()
 
-@property (strong, nonatomic) NSMutableArray *contents;
+@property (strong, nonatomic) NSMutableArray *userRelationships;
+@property (strong, nonatomic) NSMutableSet *myFollowingUsers;
+@property (strong, nonatomic) LPAssociatedButton *clickedBtn;
 
 @end
 
@@ -19,26 +28,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    // configure table
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
+    self.myFollowingUsers = [[NSMutableSet alloc] init];
+
+    PFQuery *folloingQuery = [LPUserRelationship query];
+    folloingQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [folloingQuery whereKey:@"follower" equalTo:[PFUser currentUser]];
+    [folloingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (LPUserRelationship *r in objects) {
+                [self.myFollowingUsers addObject:r.followedUser.objectId];
+            }
+        }
+    }];
+
     if (self.query) {
         [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                self.contents = [[NSMutableArray alloc] initWithArray:objects];
-                [self.tableView reloadData];
+                self.userRelationships = [[NSMutableArray alloc] initWithArray:objects];
+                if (self.myFollowingUsers.count > 0) {
+                    [self.tableView reloadData];
+                }
             }
         }];
     }
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -50,90 +66,166 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 0;
-    if (self.contents) {
-        rows = self.contents.count;
+    if (self.userRelationships) {
+        rows = self.userRelationships.count;
     }
     return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *reusedIdentifier = @"LPFollowerCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusedIdentifier forIndexPath:indexPath];
+    LPFollowerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reusedIdentifier forIndexPath:indexPath];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusedIdentifier];
+        cell = [[LPFollowerTableViewCell alloc] init];
     }
     
     // display the content from the given array
-    if (self.contents) {
-        LPUserRelationship *relationship = [self.contents objectAtIndex:indexPath.row];
+    if (self.userRelationships) {
+        LPUserRelationship *relationship = [self.userRelationships objectAtIndex:indexPath.row];
         PFUser *userToDisplay;
-        if (self.type == FOLLOWING_USER) {
+        if (self.contentType == FOLLOWING_USER) {
             userToDisplay = relationship.followedUser;
-        } else if (self.type == FOLLOWER) {
+        } else if (self.contentType == FOLLOWER) {
             userToDisplay = relationship.follower;
         }
-        
-        [userToDisplay fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            if (!error) {
-                // FIXME change username to name
-                if (userToDisplay.email) {
-                    cell.textLabel.text = userToDisplay.email;
-                } else {
-                    cell.textLabel.text = userToDisplay.username;
+
+        // fetch user data, if necessary
+        if ([userToDisplay isDataAvailable]) {
+            [self loadFollowerCell:cell atIndexPath:indexPath withUser:userToDisplay];
+        } else {
+            [userToDisplay fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (!error) {
+                    [self loadFollowerCell:cell atIndexPath:indexPath withUser:userToDisplay];
                 }
-            } else {
-                // FIXEME error handling
-                NSLog(@"Error: %@", error);
-            }
-        }];
+            }];
+        }
     }
-    
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+#pragma mark UI
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+- (void)loadFollowerCell:(LPFollowerTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withUser:(PFUser *)user {
+    // FIXME remove indexPath, unused variable
+    [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
+    cell.nameLabel.text = user[@"name"];
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+    // move inset line
+    cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.profileImageView.bounds.size.width + 15.0f, 0.0f, 0.0f);
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    // configure follow button
+    if (self.myFollowingUsers.count > 0) {
+        if (![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+            if ([self.myFollowingUsers containsObject:user.objectId]) {
+                [self setUnfollowLayoutForButton:cell.followBtn];
+            } else {
+                [self setFollowLayoutForButton:cell.followBtn];
+            }
+            cell.followBtn.hidden = NO;
+        }
+        cell.followBtn.associatedOjbect = user;
+    }
 }
-*/
 
-/*
+- (void)setUnfollowLayoutForButton:(UIButton *)button {
+    [button setTitle:@"Following" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[LPUIHelper lopopColor]];
+
+    button.layer.borderWidth = 0.0f;
+    [button addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setFollowLayoutForButton:(UIButton *)button {
+    [button setTitle:@"+ Follow" forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    button.layer.borderWidth = 1.0f;
+    button.layer.borderColor = [UIColor blackColor].CGColor;
+
+    // add follow action
+    [button addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark UIActionsheet
+
+- (IBAction)attemptUnfollowUser:(id)sender {
+    PFUser *user;
+    NSString *sheetTitle;
+
+    if ([sender isKindOfClass:[LPAssociatedButton class]]) {
+        self.clickedBtn = sender;
+        user = self.clickedBtn.associatedOjbect;
+    }
+
+    if (user) {
+        sheetTitle = [NSString stringWithFormat:@"Unfollow %@?", user[@"name"]];
+    }
+
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Unfollow" otherButtonTitles:nil, nil];
+    [as showInView:self.view];
+}
+
+- (IBAction)followUser:(id)sender {
+    if ([sender isKindOfClass:[LPAssociatedButton class]]) {
+        LPAssociatedButton *btn = sender;
+        PFUser *userToFollow = btn.associatedOjbect;
+        [LPUserHelper followUserInBackground:userToFollow withBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [btn removeTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+                [self setUnfollowLayoutForButton:btn];
+            }
+        }];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Unfollow"]) {
+        if (self.clickedBtn.associatedOjbect) {
+            // unfollow the user
+            PFUser *userToUnfollow = self.clickedBtn.associatedOjbect;
+            [LPUserHelper unfollowUserInBackground:userToUnfollow withBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    // remove and attach new action
+                    [self.clickedBtn removeTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+                    [self setFollowLayoutForButton:self.clickedBtn];
+
+                    // remove reference
+                    self.clickedBtn = nil;
+                }
+            }];
+        }
+    }
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[LPUserProfileViewController class]]) {
+        if ([sender isKindOfClass:[LPFollowerTableViewCell class]]) {
+            LPUserProfileViewController *vc = segue.destinationViewController;
+            LPFollowerTableViewCell *cell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            if (indexPath.row < self.userRelationships.count) {
+                LPUserRelationship *relationship = [self.userRelationships objectAtIndex:indexPath.row];
+
+                if (self.contentType == FOLLOWER) {
+                    vc.targetUser = relationship.follower;
+                } else {
+                    vc.targetUser = relationship.followedUser;
+                }
+            } else {
+                NSLog(@"error");
+            }
+        }
+    }
 }
-*/
+
 
 @end

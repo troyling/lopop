@@ -13,6 +13,7 @@
 #import "LPFollowerTableViewController.h"
 #import "LPAlertViewHelper.h"
 #import "LPUserHelper.h"
+#import "UIImageView+WebCache.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 @interface LPUserProfileViewController ()
@@ -47,37 +48,26 @@
                 }
 
                 if (profilePictureUrl) {
-                    [self loadProfilePictureWithURL:profilePictureUrl];
+                    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:profilePictureUrl]];
+                    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+                    self.profileImageView.clipsToBounds = YES;
+
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                        //Background Thread
+                        dispatch_async(dispatch_get_main_queue(), ^(void){
+                            UIImage *bkgImg = [self.profileImageView.image applyBlurWithRadius:20
+                                                                   tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                                                       saturationDeltaFactor:1.3
+                                                                   maskImage:nil];
+                            self.bkgImageView.image = bkgImg;
+                        });
+                    });
                 }
             }
         }];
     } else {
         [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile"];
     }
-}
-
-- (void)loadProfilePictureWithURL:(NSString *)UrlString {
-    // FIXME should cache images in the future
-    // download the user's facebook profile picture
-    NSURL *pictureURL = [NSURL URLWithString:UrlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (connectionError == nil && data != nil) {
-            UIImage *userImage = [UIImage imageWithData:data];
-            self.profileImageView.image = userImage;
-            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-            self.profileImageView.clipsToBounds = YES;
-            
-            // background image
-            userImage = [userImage applyBlurWithRadius:20
-                                             tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
-                                 saturationDeltaFactor:1.3
-                                             maskImage:nil];
-            self.bkgImageView.image = userImage;
-        } else {
-            [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile picture"];
-        }
-    }];
 }
 
 - (IBAction)logout:(id)sender {
@@ -182,10 +172,10 @@
         
         if ([segue.identifier isEqualToString:@"viewFollowingUsers"]) {
             [query whereKey:@"follower" equalTo:self.targetUser];
-            vc.type = FOLLOWING_USER;
+            vc.contentType = FOLLOWING_USER;
         } else if ([segue.identifier isEqualToString:@"viewFollowers"]) {
             [query whereKey:@"followedUser" equalTo:self.targetUser];
-            vc.type = FOLLOWER;
+            vc.contentType = FOLLOWER;
         }
         vc.query = query;
     }

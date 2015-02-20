@@ -14,6 +14,7 @@
 #import "LPPop.h"
 #import <Parse/Parse.h>
 #import "LPPopLike.h"
+#import "UIImageView+WebCache.h"
 
 @interface LPFeedTableViewController ()
 
@@ -171,9 +172,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         CLLocationDistance distance = [pop.location distanceInMilesTo:[PFGeoPoint geoPointWithLocation:self.userLocation]];
         
         cell.titleLabel.text = pop.title;
-        
-        NSString *priceStr = [pop.price isEqualToNumber:[NSNumber numberWithInt:0]] ? @"  Free!  " : [NSString stringWithFormat:@"  $%@  ", pop.price];
-        cell.priceLabel.text = priceStr;
+        cell.priceLabel.text = [pop publicPriceStr];
         
         // format distance
         NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
@@ -183,19 +182,14 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         
         // load image
         PFFile *popImageFile = pop.images.firstObject;
-        [popImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *img = [UIImage imageWithData:data scale:0.05f];
-                cell.imgView.image = img;
-                cell.imgView.clipsToBounds = YES;
-            }
-        }];
-        
-        cell.likeBtn.tag = indexPath.row;
-        
-        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self updateButton:cell.likeBtn with:pop];
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url]];
+        cell.imgView.clipsToBounds = YES;
+
+//        cell.likeBtn.tag = indexPath.row;
+//        
+//        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [self updateButton:cell.likeBtn with:pop];
 }
     
     return cell;
@@ -216,7 +210,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
             if ([popsLikeByCurrentUser containsObject:pop]) {
                 [updateButton setTitle:[NSString stringWithFormat:@"unlike %d", number] forState:UIControlStateNormal];
             } else {
-                [updateButton setTitle:[NSString stringWithFormat:@"like %d", number] forState:UIControlStateNormal];
+                [updateButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
             }
             
         } else {

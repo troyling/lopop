@@ -7,14 +7,17 @@
 //
 
 #import "LPPopDetailViewController.h"
+#import "LPShareViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
 #import "LPImageShowcaseViewController.h"
 #import "LPMakeOfferViewController.h"
 #import "LPAlertViewHelper.h"
+#import "LPShareViewController.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
+#import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -126,12 +129,17 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             
             // FIXME implement review and change it to reflect the actual rating
             RateView *rv = [RateView rateViewWithRating:4.4f];
-            rv.starFillColor = [LPUIHelper lopopColor];
+            rv.starFillColor = [LPUIHelper ratingStarColor];
             rv.starSize = 15.0f;
             rv.starNormalColor = [UIColor lightGrayColor];
             [self.userRatingView.userRateView addSubview:rv];
-            
-            [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
+
+            // Profile picture
+            // FIXME move UI code back to view class
+            [self.userRatingView.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.pop.seller[@"profilePictureUrl"]]];
+            self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
+            self.userRatingView.profileImageView.clipsToBounds = YES;
+//            [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
         }
     }];
 }
@@ -146,25 +154,6 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
         default:
             break;
     }
-}
-
-#pragma mark connect to server
-
-- (void)loadProfilePictureWithURL:(NSString *)UrlString {
-    // FIXME should cache images in the future
-    // download the user's facebook profile picture
-    NSURL *pictureURL = [NSURL URLWithString:UrlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (connectionError == nil && data != nil) {
-            UIImage *userImage = [UIImage imageWithData:data];
-            self.userRatingView.profileImageView.image = userImage;
-            self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
-            self.userRatingView.profileImageView.clipsToBounds = YES;
-        } else {
-            [LPAlertViewHelper fatalErrorAlert:@"Unable to load the user's profile picture"];
-        }
-    }];
 }
 
 - (void)loadImageViews {
@@ -288,6 +277,11 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             vc.nameStr = self.userRatingView.nameLabel.text;
             vc.priceStr = self.priceLabel.text;
             vc.profileImage = self.userRatingView.profileImageView.image;
+            vc.pop = self.pop;
+        }
+    } else if ([segue.identifier isEqualToString:@"shareSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[LPShareViewController class]]) {
+            LPShareViewController *vc = segue.destinationViewController;
             vc.pop = self.pop;
         }
     }

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface LPFollowerTableViewController : UITableViewController
+@interface LPFollowerTableViewController : UITableViewController <UIActionSheetDelegate>
 
 typedef NS_ENUM(NSUInteger, ContentType) {
     FOLLOWING_USER,
@@ -17,6 +17,6 @@ typedef NS_ENUM(NSUInteger, ContentType) {
 };
 
 @property (retain, nonatomic) PFQuery *query; // Query for the contents to display on this table view
-@property (assign, readwrite) ContentType type;
+@property (assign, readwrite) ContentType contentType;
 
 @end
