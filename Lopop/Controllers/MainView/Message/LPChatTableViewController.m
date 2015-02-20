@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "ChatTableViewController.h"
+#import "LPChatTableViewController.h"
 #import <Parse/Parse.h>
-#import "MessageViewController.h"
-#import "ChatModel.h"
+#import "LPMessageViewController.h"
+#import "LPChatModel.h"
 
-@interface ChatTableViewController ()
+@interface LPChatTableViewController ()
 
 @end
 
 
-@implementation ChatTableViewController
+@implementation LPChatTableViewController
 Firebase * userRef;
 NSString * FirebaseUrl1 = @"https://vivid-heat-6123.firebaseio.com/";
 NSString * userId;
@@ -35,7 +35,7 @@ NSString * troyId = @"qXHdNj9Skh";
     __block BOOL initialAdds = YES;
     
     [userRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        [self.chatArray addObject:[ChatModel fromDict:snapshot.value]];
+        [self.chatArray addObject:[LPChatModel fromDict:snapshot.value]];
         // Reload the table view so the new message will show up.
         if (!initialAdds) {
             [self.tableView reloadData];/*
@@ -78,7 +78,7 @@ NSString * troyId = @"qXHdNj9Skh";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell"];
     
-    ChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
+    LPChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
     PFQuery *query = [PFUser query];
     [query whereKey:@"objectId" equalTo:a_chat.contactId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -138,10 +138,10 @@ NSString * troyId = @"qXHdNj9Skh";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"conversationSegue"]){
-        MessageViewController * vc = [segue destinationViewController];
+        LPMessageViewController * vc = [segue destinationViewController];
         if([sender isKindOfClass: [UITableViewCell class]]){
             NSInteger index = [self.tableView indexPathForCell:(UITableViewCell *) sender].row;
-            ChatModel * cm = [self.chatArray objectAtIndex: index];
+            LPChatModel * cm = [self.chatArray objectAtIndex: index];
             vc.chatId = cm.chatId;
         }
     }
@@ -150,7 +150,7 @@ NSString * troyId = @"qXHdNj9Skh";
 
 
 - (IBAction)newChat:(id)sender {
-    ChatModel* aChatModel = [ChatModel alloc];
+    LPChatModel* aChatModel = [LPChatModel alloc];
     aChatModel.contactId = troyId;
     
     //Generate a new chat in '/chats'

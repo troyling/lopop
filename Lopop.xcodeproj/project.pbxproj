@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		332F4B131A814D3700B186C9 /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332F4B121A814D3700B186C9 /* ChatTableViewController.m */; };
-		332F4B161A818AFE00B186C9 /* ChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 332F4B151A818AFE00B186C9 /* ChatModel.m */; };
-		335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C41A7D740B0020B7A3 /* MessageViewController.m */; };
-		335FD8C81A7D75960020B7A3 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* MessageModel.m */; };
-		335FD8D41A7EE7AA0020B7A3 /* UIMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */; };
+		332F4B131A814D3700B186C9 /* LPChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332F4B121A814D3700B186C9 /* LPChatTableViewController.m */; };
+		332F4B161A818AFE00B186C9 /* LPChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 332F4B151A818AFE00B186C9 /* LPChatModel.m */; };
+		335FD8C51A7D740B0020B7A3 /* LPMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C41A7D740B0020B7A3 /* LPMessageViewController.m */; };
+		335FD8C81A7D75960020B7A3 /* LPMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* LPMessageModel.m */; };
+		335FD8D41A7EE7AA0020B7A3 /* LPMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */; };
 		718065A61A7D92F00052486D /* LPPopLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 718065A51A7D92F00052486D /* LPPopLike.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
@@ -151,16 +151,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		332F4B111A814D3700B186C9 /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatTableViewController.h; path = Controllers/MainView/Message/ChatTableViewController.h; sourceTree = "<group>"; };
-		332F4B121A814D3700B186C9 /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatTableViewController.m; path = Controllers/MainView/Message/ChatTableViewController.m; sourceTree = "<group>"; };
-		332F4B141A818AFE00B186C9 /* ChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatModel.h; path = Controllers/MainView/Message/ChatModel.h; sourceTree = "<group>"; };
-		332F4B151A818AFE00B186C9 /* ChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatModel.m; path = Controllers/MainView/Message/ChatModel.m; sourceTree = "<group>"; };
-		335FD8C31A7D740B0020B7A3 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = Controllers/MainView/Message/MessageViewController.h; sourceTree = "<group>"; };
-		335FD8C41A7D740B0020B7A3 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Controllers/MainView/Message/MessageViewController.m; sourceTree = "<group>"; };
-		335FD8C61A7D75960020B7A3 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageModel.h; path = Controllers/MainView/Message/MessageModel.h; sourceTree = "<group>"; };
-		335FD8C71A7D75960020B7A3 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageModel.m; path = Controllers/MainView/Message/MessageModel.m; sourceTree = "<group>"; };
-		335FD8D21A7EE7AA0020B7A3 /* UIMessageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIMessageTableView.h; path = Controllers/MainView/Message/UIMessageTableView.h; sourceTree = "<group>"; };
-		335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIMessageTableView.m; path = Controllers/MainView/Message/UIMessageTableView.m; sourceTree = "<group>"; };
+		332F4B111A814D3700B186C9 /* LPChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPChatTableViewController.h; path = Controllers/MainView/Message/LPChatTableViewController.h; sourceTree = "<group>"; };
+		332F4B121A814D3700B186C9 /* LPChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPChatTableViewController.m; path = Controllers/MainView/Message/LPChatTableViewController.m; sourceTree = "<group>"; };
+		332F4B141A818AFE00B186C9 /* LPChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPChatModel.h; path = Controllers/MainView/Message/LPChatModel.h; sourceTree = "<group>"; };
+		332F4B151A818AFE00B186C9 /* LPChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPChatModel.m; path = Controllers/MainView/Message/LPChatModel.m; sourceTree = "<group>"; };
+		335FD8C31A7D740B0020B7A3 /* LPMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMessageViewController.h; path = Controllers/MainView/Message/LPMessageViewController.h; sourceTree = "<group>"; };
+		335FD8C41A7D740B0020B7A3 /* LPMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMessageViewController.m; path = Controllers/MainView/Message/LPMessageViewController.m; sourceTree = "<group>"; };
+		335FD8C61A7D75960020B7A3 /* LPMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMessageModel.h; path = Controllers/MainView/Message/LPMessageModel.h; sourceTree = "<group>"; };
+		335FD8C71A7D75960020B7A3 /* LPMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMessageModel.m; path = Controllers/MainView/Message/LPMessageModel.m; sourceTree = "<group>"; };
+		335FD8D21A7EE7AA0020B7A3 /* LPMessageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMessageTableView.h; path = Controllers/MainView/Message/LPMessageTableView.h; sourceTree = "<group>"; };
+		335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMessageTableView.m; path = Controllers/MainView/Message/LPMessageTableView.m; sourceTree = "<group>"; };
 		718065A41A7D92F00052486D /* LPPopLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopLike.h; path = Models/LPPopLike.h; sourceTree = "<group>"; };
 		718065A51A7D92F00052486D /* LPPopLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopLike.m; path = Models/LPPopLike.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
@@ -406,16 +406,16 @@
 		335FD8C21A7D72590020B7A3 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				332F4B121A814D3700B186C9 /* ChatTableViewController.m */,
-				332F4B111A814D3700B186C9 /* ChatTableViewController.h */,
-				335FD8D21A7EE7AA0020B7A3 /* UIMessageTableView.h */,
-				335FD8D31A7EE7AA0020B7A3 /* UIMessageTableView.m */,
-				335FD8C31A7D740B0020B7A3 /* MessageViewController.h */,
-				335FD8C41A7D740B0020B7A3 /* MessageViewController.m */,
-				335FD8C61A7D75960020B7A3 /* MessageModel.h */,
-				335FD8C71A7D75960020B7A3 /* MessageModel.m */,
-				332F4B141A818AFE00B186C9 /* ChatModel.h */,
-				332F4B151A818AFE00B186C9 /* ChatModel.m */,
+				332F4B121A814D3700B186C9 /* LPChatTableViewController.m */,
+				332F4B111A814D3700B186C9 /* LPChatTableViewController.h */,
+				335FD8D21A7EE7AA0020B7A3 /* LPMessageTableView.h */,
+				335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */,
+				335FD8C31A7D740B0020B7A3 /* LPMessageViewController.h */,
+				335FD8C41A7D740B0020B7A3 /* LPMessageViewController.m */,
+				335FD8C61A7D75960020B7A3 /* LPMessageModel.h */,
+				335FD8C71A7D75960020B7A3 /* LPMessageModel.m */,
+				332F4B141A818AFE00B186C9 /* LPChatModel.h */,
+				332F4B151A818AFE00B186C9 /* LPChatModel.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -1074,7 +1074,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				335FD8D41A7EE7AA0020B7A3 /* UIMessageTableView.m in Sources */,
+				335FD8D41A7EE7AA0020B7A3 /* LPMessageTableView.m in Sources */,
 				D6A5D7C41A80090A00A631CD /* LPUserRatingView.m in Sources */,
 				D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */,
 				D6008A2A1A67FD990057771A /* LPPop.m in Sources */,
@@ -1119,15 +1119,15 @@
 				D6F5F8321A8514680005758B /* DesignableView.swift in Sources */,
 				D6CB77461A94055C00629985 /* MKAnnotationView+WebCache.m in Sources */,
 				D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */,
-				335FD8C81A7D75960020B7A3 /* MessageModel.m in Sources */,
+				335FD8C81A7D75960020B7A3 /* LPMessageModel.m in Sources */,
 				718065A61A7D92F00052486D /* LPPopLike.m in Sources */,
 				D6F5F83C1A8514680005758B /* SpringImageView.swift in Sources */,
 				D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
-				335FD8C51A7D740B0020B7A3 /* MessageViewController.m in Sources */,
-				332F4B131A814D3700B186C9 /* ChatTableViewController.m in Sources */,
+				335FD8C51A7D740B0020B7A3 /* LPMessageViewController.m in Sources */,
+				332F4B131A814D3700B186C9 /* LPChatTableViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
-				332F4B161A818AFE00B186C9 /* ChatModel.m in Sources */,
+				332F4B161A818AFE00B186C9 /* LPChatModel.m in Sources */,
 				D6A5D7DF1A8157CF00A631CD /* LPPopLocationViewController.m in Sources */,
 				D6CB774C1A94055C00629985 /* SDWebImageDownloaderOperation.m in Sources */,
 				D6CB774B1A94055C00629985 /* SDWebImageDownloader.m in Sources */,

@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "ChatModel.h"
+#import "LPChatModel.h"
 
-@implementation ChatModel
+@implementation LPChatModel
 
 - (NSDictionary *)toDict{
     return @{@"contactId":self.contactId, @"chatId":self.chatId};
 }
 
-+ (ChatModel *)fromDict: (NSDictionary *) dict{
-    ChatModel * chat = [ChatModel alloc];
++ (LPChatModel *)fromDict: (NSDictionary *) dict{
+    LPChatModel * chat = [LPChatModel alloc];
     chat.contactId = [dict objectForKey:@"contactId"];
     chat.chatId = [dict objectForKey:@"chatId"];
     return chat;

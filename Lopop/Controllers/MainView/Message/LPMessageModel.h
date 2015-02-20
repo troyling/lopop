@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MessageModel : NSObject
+@interface LPMessageModel : NSObject
 
 @property NSString *content;
 @property NSTimeInterval timeStamp;
@@ -19,6 +19,6 @@ typedef NS_ENUM(NSInteger, USER1OR2) {
 @property USER1OR2 userNumber;
 
 - (NSDictionary *) toDict;
-+ (MessageModel *) fromDict:(NSDictionary *) dict;
++ (LPMessageModel *) fromDict:(NSDictionary *) dict;
 
 @end

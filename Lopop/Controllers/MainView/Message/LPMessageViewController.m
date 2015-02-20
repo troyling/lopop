@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "MessageViewController.h"
-#import "MessageModel.h"
+#import "LPMessageViewController.h"
+#import "LPMessageModel.h"
 #import <Parse/Parse.h>
 
 
 
-@implementation MessageViewController
+@implementation LPMessageViewController
 
 NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 
@@ -54,7 +54,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     __block BOOL initialAdds = YES;
     
     [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        [self.messageArray addObject:[MessageModel fromDict:snapshot.value]];
+        [self.messageArray addObject:[LPMessageModel fromDict:snapshot.value]];
         // Reload the table view so the new message will show up.
         if (!initialAdds) {
             [self.tableView reloadData];
@@ -109,7 +109,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     //cell textLabel sizeTo
     cell.textLabel.font = [UIFont systemFontOfSize:18];
     cell.textLabel.numberOfLines = 0;
-    MessageModel *message = [self.messageArray objectAtIndex:index.row];
+    LPMessageModel *message = [self.messageArray objectAtIndex:index.row];
     
     cell.textLabel.text = message.content;
     if(message.userNumber == self.userNumber){
@@ -129,7 +129,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 {
     //[textField resignFirstResponder];
     
-    MessageModel* msg = [MessageModel alloc];
+    LPMessageModel* msg = [LPMessageModel alloc];
     msg.content = textField.text;
     msg.userNumber = self.userNumber;
     [[self.firebase childByAutoId] setValue:[msg toDict]];

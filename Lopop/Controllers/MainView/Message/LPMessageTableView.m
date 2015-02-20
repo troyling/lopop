@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "UIMessageTableView.h"
+#import "LPMessageTableView.h"
 
-@implementation UIMessageTableView
+@implementation LPMessageTableView
 
 /*
 // Only override drawRect: if you perform custom drawing.

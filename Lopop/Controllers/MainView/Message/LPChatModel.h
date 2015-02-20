@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ChatModel : NSObject
+@interface LPChatModel : NSObject
 
 @property NSString *contactId;
 @property NSString *chatId;
 //@property NSTimeInterval timeStamp;
 
 - (NSDictionary *) toDict;
-+ (ChatModel *) fromDict:(NSDictionary *) dict;
++ (LPChatModel *) fromDict:(NSDictionary *) dict;
 
 
 

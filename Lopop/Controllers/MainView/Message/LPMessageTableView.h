@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIMessageTableView : UITableView
+@interface LPMessageTableView : UITableView
 
 @end

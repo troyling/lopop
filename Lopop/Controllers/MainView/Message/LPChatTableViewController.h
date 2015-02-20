@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Firebase/Firebase.h>
 
-@interface ChatTableViewController : UITableViewController
+@interface LPChatTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray* chatArray;
 @property Firebase * firebase;
