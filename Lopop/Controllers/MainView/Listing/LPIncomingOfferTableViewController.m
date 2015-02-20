@@ -8,8 +8,8 @@
 
 #import "LPIncomingOfferTableViewController.h"
 #import "LPUserRatingTableViewCell.h"
+#import "LPUserProfileViewController.h"
 #import "UIImageView+WebCache.h"
-#import "LPAssociatedButton.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
 
@@ -93,14 +93,36 @@
     rv.starNormalColor = [UIColor lightGrayColor];
     [cell.userRateView addSubview:rv];
 
-    cell.actionBtn.associatedOjbect = offerUser;
+    // actions
+    cell.profileImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewOfferUserProfile:)];
+    [cell.profileImageView addGestureRecognizer:tap];
+
     [cell.actionBtn addTarget:self action:@selector(contactOfferUser:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (IBAction)contactOfferUser:(id)sender {
-    if ([sender isKindOfClass:[LPAssociatedButton class]]) {
-        LPAssociatedButton *btn = sender;
+    if ([[[sender superview] superview] isKindOfClass:[LPUserRatingTableViewCell class]]) {
+        LPUserRatingTableViewCell *cell = (LPUserRatingTableViewCell *) [[sender superview] superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
+        PFUser *offerUser = offer.fromUser;
+        NSLog(@"%@", offerUser[@"name"]);
+    }
+}
 
+- (IBAction)viewOfferUserProfile:(id)sender {
+    if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
+        UITapGestureRecognizer *tap = sender;
+        LPUserRatingTableViewCell *cell = (LPUserRatingTableViewCell *) [[tap.view superview] superview];
+
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
+        PFUser *offerUser = offer.fromUser;
+
+        LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
+        vc.targetUser = offerUser;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
