@@ -11,6 +11,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import "LPOffer.h"
+#import "LPUIHelper.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
 #import "LPIncomingOfferTableViewController.h"
@@ -130,6 +131,9 @@
     if (self.displayState == LPListingDisplay) {
         pop = [self.listings objectAtIndex:indexPath.row];
 
+        cell.numOfferLabel.layer.cornerRadius = cell.numOfferLabel.bounds.size.width / 2.0f; // make label circle
+        cell.numOfferLabel.layer.masksToBounds = YES;
+
         // asynchronously load number of offers, if needed
         id item = [self.incomingOffers objectForKey:pop.objectId];
 
@@ -140,12 +144,14 @@
                 count = [(NSNumber *)item intValue];
             }
 
-            cell.numOfferLabel.text = count == 0 ? @"No offer yet" : [NSString stringWithFormat:@"%d offers!", count];
+            cell.numOfferLabel.text = count == 0 ? @"No yet" : [NSString stringWithFormat:@"%d", count];
+            cell.numOfferLabel.hidden = NO;
         } else {
             [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
                     [self.incomingOffers setObject:[NSNumber numberWithInt:count] forKey:pop.objectId];
-                    cell.numOfferLabel.text = count == 0 ? @"No offer yet" : [NSString stringWithFormat:@"%d offers!", count];
+                    cell.numOfferLabel.text = count == 0 ? @"No yet" : [NSString stringWithFormat:@"%d", count];
+                    cell.numOfferLabel.hidden = NO;
                 }
             }];
         }
