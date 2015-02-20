@@ -107,6 +107,7 @@
 #pragma mark UI
 
 - (void)loadFollowerCell:(LPFollowerTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withUser:(PFUser *)user {
+    // FIXME remove indexPath, unused variable
     [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
     cell.nameLabel.text = user[@"name"];
 

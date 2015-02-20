@@ -13,6 +13,7 @@
 #import "LPOffer.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
+#import "LPIncomingOfferTableViewController.h"
 
 @interface LPListingTableViewController ()
 
@@ -159,6 +160,16 @@
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:file.url]];
     
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.displayState == LPListingDisplay) {
+        LPIncomingOfferTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"incomingOfferTableViewController"];
+        LPPop *pop = [self.listings objectAtIndex:indexPath.row];
+        vc.pop = pop;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 /*

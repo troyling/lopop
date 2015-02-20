@@ -28,6 +28,8 @@
 		D62217451A8D3C6A00C999E4 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D62217421A8D3C6A00C999E4 /* libWeChatSDK.a */; };
 		D62217471A8D3D9100C999E4 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D62217461A8D3D9100C999E4 /* libsqlite3.0.dylib */; };
 		D623FDD91A9698A100D09C53 /* LPAssociatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDD81A9698A100D09C53 /* LPAssociatedButton.m */; };
+		D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */; };
+		D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */; };
 		D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */; };
 		D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F7201A89ABE000E938F8 /* LPImageShowcaseViewController.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
@@ -185,6 +187,10 @@
 		D62217461A8D3D9100C999E4 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D623FDD71A9698A100D09C53 /* LPAssociatedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPAssociatedButton.h; path = Helpers/UI/LPAssociatedButton.h; sourceTree = "<group>"; };
 		D623FDD81A9698A100D09C53 /* LPAssociatedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPAssociatedButton.m; path = Helpers/UI/LPAssociatedButton.m; sourceTree = "<group>"; };
+		D623FDDC1A97A14700D09C53 /* LPUserRatingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingTableViewCell.h; path = Views/Common/LPUserRatingTableViewCell.h; sourceTree = "<group>"; };
+		D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingTableViewCell.m; path = Views/Common/LPUserRatingTableViewCell.m; sourceTree = "<group>"; };
+		D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPIncomingOfferTableViewController.h; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.h; sourceTree = "<group>"; };
+		D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPIncomingOfferTableViewController.m; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.m; sourceTree = "<group>"; };
 		D661F71B1A89A2AE00E938F8 /* LPSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignInViewController.h; path = Controllers/User/Login/LPSignInViewController.h; sourceTree = "<group>"; };
 		D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignInViewController.m; path = Controllers/User/Login/LPSignInViewController.m; sourceTree = "<group>"; };
 		D661F71F1A89ABE000E938F8 /* LPImageShowcaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPImageShowcaseViewController.h; path = Controllers/Common/LPImageShowcaseViewController.h; sourceTree = "<group>"; };
@@ -485,6 +491,15 @@
 				D62217441A8D3C6A00C999E4 /* WXApiObject.h */,
 			);
 			name = WeChatSDK;
+			sourceTree = "<group>";
+		};
+		D623FDDA1A97A0FF00D09C53 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D623FDDC1A97A14700D09C53 /* LPUserRatingTableViewCell.h */,
+				D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		D661F71E1A89AA1400E938F8 /* Common */ = {
@@ -828,6 +843,8 @@
 			children = (
 				D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */,
 				D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */,
+				D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */,
+				D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -835,6 +852,7 @@
 		D6DBD6F41A7418FF009F6FFE /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				D623FDDA1A97A0FF00D09C53 /* Common */,
 				D6BFF5411A926A6F004D4897 /* Listing */,
 				D6DBD6F51A74190C009F6FFE /* Feed */,
 			);
@@ -1071,7 +1089,9 @@
 				D6F5F8361A8514680005758B /* LoadingView.swift in Sources */,
 				D6F5F8351A8514680005758B /* KeyboardLayoutConstraint.swift in Sources */,
 				D6F5F83E1A8514680005758B /* SpringTextField.swift in Sources */,
+				D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */,
 				D6F5F82D1A8514680005758B /* DesignableImageView.swift in Sources */,
+				D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */,
 				D6CB77541A94055C00629985 /* UIImageView+WebCache.m in Sources */,
 				D6F5F82B1A8514680005758B /* BlurView.swift in Sources */,
 				D6F5F8431A8514680005758B /* UnwindSegue.swift in Sources */,
