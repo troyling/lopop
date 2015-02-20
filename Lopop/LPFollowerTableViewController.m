@@ -117,24 +117,35 @@
     if (self.myFollowingUsers.count > 0) {
         if (![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
             if ([self.myFollowingUsers containsObject:user.objectId]) {
-                // following this user already
-                [cell.followBtn setTitle:@"Following" forState:UIControlStateNormal];
-                [cell.followBtn setBackgroundColor:[LPUIHelper lopopColor]];
-                [cell.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                cell.followBtn.layer.borderWidth = 0.0f;
-                // add unfollow action
-                [cell.followBtn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside ];
+                [self setUnfollowLayoutForButton:cell.followBtn];
             } else {
-                [cell.followBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
-                cell.followBtn.layer.borderWidth = 1.0f;
-                cell.followBtn.layer.borderColor = [UIColor blackColor].CGColor;
-                // add follow action
-                [cell.followBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+                [self setFollowLayoutForButton:cell.followBtn];
             }
             cell.followBtn.hidden = NO;
         }
         cell.followBtn.associatedOjbect = user;
     }
+}
+
+- (void)setUnfollowLayoutForButton:(UIButton *)button {
+    [button setTitle:@"Following" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[LPUIHelper lopopColor]];
+
+    button.layer.borderWidth = 0.0f;
+    [button addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setFollowLayoutForButton:(UIButton *)button {
+    [button setTitle:@"+ Follow" forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    button.layer.borderWidth = 1.0f;
+    button.layer.borderColor = [UIColor blackColor].CGColor;
+
+    // add follow action
+    [button addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark UIActionsheet
@@ -162,12 +173,8 @@
         PFUser *userToFollow = btn.associatedOjbect;
         [LPUserHelper followUserInBackground:userToFollow withBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                [btn setTitle:@"Following" forState:UIControlStateNormal];
-                [btn setBackgroundColor:[LPUIHelper lopopColor]];
-                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                btn.layer.borderWidth = 0.0f;
                 [btn removeTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
-                [btn addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+                [self setUnfollowLayoutForButton:btn];
             }
         }];
     }
@@ -181,16 +188,9 @@
             PFUser *userToUnfollow = self.clickedBtn.associatedOjbect;
             [LPUserHelper unfollowUserInBackground:userToUnfollow withBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    NSLog(@"Unfollowed");
-                    [self.clickedBtn setTitle:@"+ Follow" forState:UIControlStateNormal];
-                    [self.clickedBtn setBackgroundColor:[UIColor whiteColor]];
-                    [self.clickedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                    self.clickedBtn.layer.borderWidth = 1.0f;
-                    self.clickedBtn.layer.borderColor = [UIColor blackColor].CGColor;
-
                     // remove and attach new action
                     [self.clickedBtn removeTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
-                    [self.clickedBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+                    [self setFollowLayoutForButton:self.clickedBtn];
 
                     // remove reference
                     self.clickedBtn = nil;
@@ -199,40 +199,6 @@
         }
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Navigation
 
