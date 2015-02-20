@@ -9,6 +9,7 @@
 #import "LPIncomingOfferTableViewController.h"
 #import "LPUserRatingTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "LPUIHelper.h"
 #import "LPOffer.h"
 
 @interface LPIncomingOfferTableViewController ()
@@ -22,14 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSLog(@"WTF");
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     [self loadData];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 
@@ -83,15 +79,20 @@
 
 - (void)loadCell:(LPUserRatingTableViewCell *)cell withOfferUserData:(PFUser *)offerUser {
     cell.nameLabel.text = offerUser[@"name"];
-    [cell.profileImageView sd_setImageWithURL:offerUser[@"profilePictureUrl"]];
+
+    if (offerUser[@"profilePictureUrl"]) {
+        [cell.profileImageView sd_setImageWithURL:offerUser[@"profilePictureUrl"]];
+    }
 
     // FIXME implement review and change it to reflect the actual rating
     RateView *rv = [RateView rateViewWithRating:4.4f];
 
-    rv.starFillColor = [UIColor colorWithRed:0.99 green:0.7 blue:0.16 alpha:1];
+    rv.starFillColor = [LPUIHelper ratingStarColor];
     rv.starSize = 15.0f;
     rv.starNormalColor = [UIColor lightGrayColor];
     [cell.userRateView addSubview:rv];
+
+
 }
 
 

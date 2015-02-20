@@ -18,6 +18,10 @@
     return [UIColor colorWithRed:0.99 green:0.76 blue:0.17 alpha:1];
 }
 
++ (UIColor *)ratingStarColor {
+    return [UIColor colorWithRed:0.99 green:0.7 blue:0.16 alpha:1];
+}
+
 + (CGFloat)screenWidth {
     CGRect bounds = [[UIScreen mainScreen] bounds];
     return bounds.size.width;

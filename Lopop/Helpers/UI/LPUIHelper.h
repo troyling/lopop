@@ -13,6 +13,7 @@
 
 + (UIColor *)lopopColor;
 + (UIColor *)infoColor;
++ (UIColor *)ratingStarColor;
 + (UIImage *)convertViewToImage:(UIView *)view;
 + (CGFloat)heightOfText:(NSString *)textStr forLabel:(UILabel *)label;
 + (CGFloat)screenWidth;

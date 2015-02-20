@@ -129,7 +129,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             
             // FIXME implement review and change it to reflect the actual rating
             RateView *rv = [RateView rateViewWithRating:4.4f];
-            rv.starFillColor = [LPUIHelper lopopColor];
+            rv.starFillColor = [LPUIHelper ratingStarColor];
             rv.starSize = 15.0f;
             rv.starNormalColor = [UIColor lightGrayColor];
             [self.userRatingView.userRateView addSubview:rv];
