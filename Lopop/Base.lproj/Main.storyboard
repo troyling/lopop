@@ -183,7 +183,7 @@
         <!--Message View Controller-->
         <scene sceneID="1GF-SL-JyT">
             <objects>
-                <viewController id="PhZ-EF-xaN" customClass="LPMessageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatViewController" id="PhZ-EF-xaN" customClass="LPMessageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yBh-D8-2Ts"/>
                         <viewControllerLayoutGuide type="bottom" id="oj9-us-cIf"/>

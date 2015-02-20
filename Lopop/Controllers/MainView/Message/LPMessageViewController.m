@@ -18,8 +18,8 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.chatId);
-    
+
+    self.navigationItem.title = self.offerUser[@"name"];
 
     self.tableView.allowsSelection=NO;
     self.tableView.delegate = self;
@@ -28,7 +28,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     
     [self.inputField setReturnKeyType:UIReturnKeySend];
     self.inputField.enablesReturnKeyAutomatically = YES;
-    [self setupFirebase];
+//    [self setupFirebase];
 }
 
 - (void) setupFirebase{

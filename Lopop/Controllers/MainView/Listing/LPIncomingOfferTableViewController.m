@@ -7,8 +7,9 @@
 //
 
 #import "LPIncomingOfferTableViewController.h"
-#import "LPUserRatingTableViewCell.h"
 #import "LPUserProfileViewController.h"
+#import "LPUserRatingTableViewCell.h"
+#import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
@@ -107,7 +108,12 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
         PFUser *offerUser = offer.fromUser;
-        NSLog(@"%@", offerUser[@"name"]);
+
+        // push to chat view
+        LPMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"chatViewController"];
+        vc.pop = self.pop;
+        vc.offerUser = offerUser;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
