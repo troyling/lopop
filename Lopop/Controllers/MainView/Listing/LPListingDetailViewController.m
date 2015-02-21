@@ -8,6 +8,7 @@
 
 #import "LPListingDetailViewController.h"
 #import "LPIncomingOfferTableViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "UIImageView+WebCache.h"
 
 @interface LPListingDetailViewController ()
@@ -18,9 +19,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
     [self loadHeaderView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    // engage user by hiding tabbar
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+        [tb setTabBarVisible:NO animated:YES];
+    }
 }
 
 - (void)loadHeaderView {
@@ -40,6 +49,5 @@
         vc.pop = self.pop;
     }
 }
-
 
 @end
