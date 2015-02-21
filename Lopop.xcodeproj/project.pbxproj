@@ -108,6 +108,7 @@
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 		D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */; };
 		D6E6EB181A65914E008085F7 /* LPMainViewTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */; };
+		D6ED53E31A98352D00B5155D /* LPListingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53E21A98352D00B5155D /* LPListingDetailViewController.m */; };
 		D6F5B03F1A8D648900914A3F /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F5B0341A8D648900914A3F /* libWeiboSDK.a */; };
 		D6F5B0401A8D648900914A3F /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D6F5B03C1A8D648900914A3F /* WeiboSDK.bundle */; };
 		D6F5B0421A8D702000914A3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F5B0411A8D702000914A3F /* ImageIO.framework */; };
@@ -317,6 +318,8 @@
 		D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFormValidator.m; path = Helpers/LPFormValidator.m; sourceTree = "<group>"; };
 		D6E6EB161A65914E008085F7 /* LPMainViewTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMainViewTabBarController.h; path = Controllers/MainView/LPMainViewTabBarController.h; sourceTree = "<group>"; };
 		D6E6EB171A65914E008085F7 /* LPMainViewTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMainViewTabBarController.m; path = Controllers/MainView/LPMainViewTabBarController.m; sourceTree = "<group>"; };
+		D6ED53E11A98352D00B5155D /* LPListingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingDetailViewController.h; path = Controllers/MainView/Listing/LPListingDetailViewController.h; sourceTree = "<group>"; };
+		D6ED53E21A98352D00B5155D /* LPListingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingDetailViewController.m; path = Controllers/MainView/Listing/LPListingDetailViewController.m; sourceTree = "<group>"; };
 		D6F5B0341A8D648900914A3F /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = Frameworks/libWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		D6F5B0351A8D648900914A3F /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = Frameworks/libWeiboSDK/WBHttpRequest.h; sourceTree = "<group>"; };
 		D6F5B0361A8D648900914A3F /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "Frameworks/libWeiboSDK/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
@@ -845,6 +848,8 @@
 				D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */,
 				D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */,
 				D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */,
+				D6ED53E11A98352D00B5155D /* LPListingDetailViewController.h */,
+				D6ED53E21A98352D00B5155D /* LPListingDetailViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1128,6 +1133,7 @@
 				332F4B131A814D3700B186C9 /* LPChatTableViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				332F4B161A818AFE00B186C9 /* LPChatModel.m in Sources */,
+				D6ED53E31A98352D00B5155D /* LPListingDetailViewController.m in Sources */,
 				D6A5D7DF1A8157CF00A631CD /* LPPopLocationViewController.m in Sources */,
 				D6CB774C1A94055C00629985 /* SDWebImageDownloaderOperation.m in Sources */,
 				D6CB774B1A94055C00629985 /* SDWebImageDownloader.m in Sources */,

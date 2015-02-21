@@ -14,7 +14,7 @@
 #import "LPUIHelper.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
-#import "LPIncomingOfferTableViewController.h"
+#import "LPListingDetailViewController.h"
 
 @interface LPListingTableViewController ()
 
@@ -171,7 +171,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.displayState == LPListingDisplay) {
-        LPIncomingOfferTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"incomingOfferTableViewController"];
+        LPListingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"listingDetailViewController"];
         LPPop *pop = [self.listings objectAtIndex:indexPath.row];
         vc.pop = pop;
         [self.navigationController pushViewController:vc animated:YES];

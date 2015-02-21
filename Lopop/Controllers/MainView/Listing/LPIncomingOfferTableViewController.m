@@ -12,6 +12,7 @@
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPUIHelper.h"
+#import "LPPopHelper.h"
 #import "LPOffer.h"
 
 @interface LPIncomingOfferTableViewController ()
@@ -29,7 +30,6 @@
 
     [self loadData];
 }
-
 
 - (void)loadData {
     if (self.pop) {
