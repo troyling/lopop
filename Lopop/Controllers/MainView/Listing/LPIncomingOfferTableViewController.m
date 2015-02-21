@@ -9,6 +9,7 @@
 #import "LPIncomingOfferTableViewController.h"
 #import "LPUserProfileViewController.h"
 #import "LPUserRatingTableViewCell.h"
+#import "LPOfferChatViewController.h"
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPUIHelper.h"
@@ -110,7 +111,7 @@
         PFUser *offerUser = offer.fromUser;
 
         // push to chat view
-        LPMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"chatViewController"];
+        LPOfferChatViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"offerChatViewController"];
         vc.pop = self.pop;
         vc.offerUser = offerUser;
         [self.navigationController pushViewController:vc animated:YES];

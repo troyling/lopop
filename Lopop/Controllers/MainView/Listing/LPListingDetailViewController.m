@@ -20,10 +20,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self loadHeader];
+    [self loadHeaderView];
 }
 
-- (void)loadHeader {
+- (void)loadHeaderView {
     PFFile *imgFile = self.pop.images.firstObject;
     NSString *urlStr = imgFile.url;
     [self.popImgView sd_setImageWithURL:[NSURL URLWithString:urlStr]];
