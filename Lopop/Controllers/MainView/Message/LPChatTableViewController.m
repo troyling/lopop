@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "LPMessageViewController.h"
 #import "LPChatModel.h"
-
+#import "LPChatManager.h"
 @interface LPChatTableViewController ()
 
 @end
@@ -30,31 +30,25 @@ NSString * troyId = @"qXHdNj9Skh";
     userRef = [[Firebase alloc] initWithUrl:
                 [FirebaseUrl1 stringByAppendingString: [@"users/" stringByAppendingString: userId]]];
     
-    self.chatArray = [[NSMutableArray alloc] init];
-    
-    __block BOOL initialAdds = YES;
-    
-    [userRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        [self.chatArray addObject:[LPChatModel fromDict:snapshot.value]];
-        // Reload the table view so the new message will show up.
-        if (!initialAdds) {
-            [self.tableView reloadData];/*
-                                         NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.messageArray.count - 1 inSection:0];
-                                         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];*/
-        }
-    }];
-    
-    [userRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        [self.tableView reloadData];
-        initialAdds = NO;
-    }];
-    
-
+    self.chatArray = [[LPChatManager getInstance] getActiveChatArray];
+    [self observeChatManagerNotification];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void) observeChatManagerNotification {
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(reloadTableData:)
+     name:ChatManagerChatViewUpdateNotification
+     object:nil];
+}
+
+- (void)reloadTableData:(NSNotification*)notification {
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,7 +136,7 @@ NSString * troyId = @"qXHdNj9Skh";
         if([sender isKindOfClass: [UITableViewCell class]]){
             NSInteger index = [self.tableView indexPathForCell:(UITableViewCell *) sender].row;
             LPChatModel * cm = [self.chatArray objectAtIndex: index];
-            vc.chatId = cm.chatId;
+            //vc.chatId = cm.chatId;
         }
     }
 }
@@ -150,6 +144,7 @@ NSString * troyId = @"qXHdNj9Skh";
 
 
 - (IBAction)newChat:(id)sender {
+    /*
     LPChatModel* aChatModel = [LPChatModel alloc];
     aChatModel.contactId = troyId;
     
@@ -165,6 +160,14 @@ NSString * troyId = @"qXHdNj9Skh";
     aChatModel.contactId = userId;
     Firebase * contactRef = [[Firebase alloc] initWithUrl:
                              [FirebaseUrl1 stringByAppendingString: [@"users/" stringByAppendingString: troyId]]];
-    [[contactRef childByAutoId] setValue:[aChatModel toDict]];
+    [[contactRef childByAutoId] setValue:[aChatModel toDict]];*/
 }
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        LPChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
+        [[LPChatManager getInstance] deleteChatWithContactId:a_chat.contactId];
+    }
+}
+
 @end

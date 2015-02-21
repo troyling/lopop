@@ -12,6 +12,7 @@
 		335FD8C51A7D740B0020B7A3 /* LPMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C41A7D740B0020B7A3 /* LPMessageViewController.m */; };
 		335FD8C81A7D75960020B7A3 /* LPMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* LPMessageModel.m */; };
 		335FD8D41A7EE7AA0020B7A3 /* LPMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */; };
+		33BD0A7C1A97FA7400FEC8B3 /* LPChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */; };
 		718065A61A7D92F00052486D /* LPPopLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 718065A51A7D92F00052486D /* LPPopLike.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
@@ -161,6 +162,8 @@
 		335FD8C71A7D75960020B7A3 /* LPMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMessageModel.m; path = Controllers/MainView/Message/LPMessageModel.m; sourceTree = "<group>"; };
 		335FD8D21A7EE7AA0020B7A3 /* LPMessageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMessageTableView.h; path = Controllers/MainView/Message/LPMessageTableView.h; sourceTree = "<group>"; };
 		335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMessageTableView.m; path = Controllers/MainView/Message/LPMessageTableView.m; sourceTree = "<group>"; };
+		33BD0A7A1A97FA7400FEC8B3 /* LPChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPChatManager.h; path = Controllers/MainView/Message/LPChatManager.h; sourceTree = "<group>"; };
+		33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPChatManager.m; path = Controllers/MainView/Message/LPChatManager.m; sourceTree = "<group>"; };
 		718065A41A7D92F00052486D /* LPPopLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopLike.h; path = Models/LPPopLike.h; sourceTree = "<group>"; };
 		718065A51A7D92F00052486D /* LPPopLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopLike.m; path = Models/LPPopLike.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 				335FD8C71A7D75960020B7A3 /* LPMessageModel.m */,
 				332F4B141A818AFE00B186C9 /* LPChatModel.h */,
 				332F4B151A818AFE00B186C9 /* LPChatModel.m */,
+				33BD0A7A1A97FA7400FEC8B3 /* LPChatManager.h */,
+				33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -1143,6 +1148,7 @@
 				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D6CB77531A94055C00629985 /* UIImageView+HighlightedWebCache.m in Sources */,
 				D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */,
+				33BD0A7C1A97FA7400FEC8B3 /* LPChatManager.m in Sources */,
 				D6F5F82C1A8514680005758B /* DesignableButton.swift in Sources */,
 				D6CB77471A94055C00629985 /* NSData+ImageContentType.m in Sources */,
 				D6CB774D1A94055C00629985 /* SDWebImageManager.m in Sources */,

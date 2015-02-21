@@ -14,6 +14,7 @@
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "LPChatManager.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,8 @@
                   clientKey:@"TPOPIODRPCUvPxoguXUPcUNffAN56uLN3PGWZ4Fl"];
     
     [PFFacebookUtils initializeFacebook];
+    
+    [LPChatManager getInstance];
 
     // Register notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |

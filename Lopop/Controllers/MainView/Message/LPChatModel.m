@@ -9,16 +9,15 @@
 #import "LPChatModel.h"
 
 @implementation LPChatModel
-
+/*
 - (NSDictionary *)toDict{
     return @{@"contactId":self.contactId, @"chatId":self.chatId};
-}
+}*/
 
-+ (LPChatModel *)fromDict: (NSDictionary *) dict{
+/*
++ (LPChatModel *)fromChatInfo: (NSDictionary *) dict{
     LPChatModel * chat = [LPChatModel alloc];
     chat.contactId = [dict objectForKey:@"contactId"];
-    chat.chatId = [dict objectForKey:@"chatId"];
-    return chat;
-}
+}*/
 
 @end

@@ -7,15 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <Firebase/Firebase.h>
 @interface LPChatModel : NSObject
 
 @property NSString *contactId;
-@property NSString *chatId;
+@property NSNumber *contactStatus;
+@property NSNumber *userStatus;
+@property Firebase *chatInfoRef;
+
+
 //@property NSTimeInterval timeStamp;
 
-- (NSDictionary *) toDict;
-+ (LPChatModel *) fromDict:(NSDictionary *) dict;
+//- (NSDictionary *) toDict;
+//+ (LPChatModel *) fromDict:(NSDictionary *) dict;
 
 
 
