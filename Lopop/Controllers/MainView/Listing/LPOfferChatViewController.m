@@ -50,11 +50,4 @@
     }
 }
 
-- (IBAction)selectTime:(id)sender {
-    NSLog(@"select time");
-}
-
-- (IBAction)changeLocation:(id)sender {
-    NSLog(@"change location");
-}
 @end

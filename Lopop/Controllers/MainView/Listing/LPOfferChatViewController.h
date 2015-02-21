@@ -20,7 +20,4 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeSelectorBtn;
 @property (weak, nonatomic) IBOutlet UIButton *locationBtn;
 
-- (IBAction)selectTime:(id)sender;
-- (IBAction)changeLocation:(id)sender;
-
 @end
