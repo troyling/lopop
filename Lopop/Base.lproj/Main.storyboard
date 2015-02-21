@@ -650,10 +650,10 @@
             </objects>
             <point key="canvasLocation" x="4416.5" y="-1112.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Location Picker View Controller-->
         <scene sceneID="Ybn-k9-PfT">
             <objects>
-                <viewController id="UYA-1N-Oo8" sceneMemberID="viewController">
+                <viewController id="UYA-1N-Oo8" customClass="LPLocationPickerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="diN-rS-Xpr"/>
                         <viewControllerLayoutGuide type="bottom" id="ZDu-Ly-RNp"/>
@@ -662,31 +662,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZPu-k1-Xih">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WgM-aI-a3S">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9Yk-f2-WsI">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LSc-QL-u2w">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="qKa-Zt-hUm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Choose this location">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pickThisLocation:" destination="UYA-1N-Oo8" eventType="touchUpInside" id="iAV-qp-0Ai"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA9-PF-GeK">
+                                <rect key="frame" x="31" y="42" width="313" height="45"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="22e-bY-n5S"/>
+                                    <constraint firstAttribute="width" constant="289" id="Daw-yJ-zvF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Daw-yJ-zvF"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_location_fill" translatesAutoresizingMaskIntoConstraints="NO" id="8qD-n4-fYx">
+                                <rect key="frame" x="170.5" y="285" width="34" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="QS5-5O-kjV"/>
+                                    <constraint firstAttribute="width" secondItem="8qD-n4-fYx" secondAttribute="height" multiplier="17:24" id="pLs-ND-lvD"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9Yk-f2-WsI" firstAttribute="height" secondItem="rly-2G-HP1" secondAttribute="height" id="1y6-KY-UuS"/>
-                            <constraint firstItem="ZPu-k1-Xih" firstAttribute="height" secondItem="rly-2G-HP1" secondAttribute="height" id="Ies-AA-pXE"/>
-                            <constraint firstAttribute="centerX" secondItem="ZPu-k1-Xih" secondAttribute="centerX" id="g75-Dz-47k"/>
-                            <constraint firstAttribute="centerY" secondItem="9Yk-f2-WsI" secondAttribute="centerY" id="oEQ-QP-wHM"/>
-                            <constraint firstItem="ZPu-k1-Xih" firstAttribute="width" secondItem="rly-2G-HP1" secondAttribute="width" id="sDS-bU-iAS"/>
+                            <constraint firstItem="9Yk-f2-WsI" firstAttribute="height" secondItem="rly-2G-HP1" secondAttribute="height" constant="-53" id="1y6-KY-UuS"/>
+                            <constraint firstItem="9Yk-f2-WsI" firstAttribute="centerY" secondItem="8qD-n4-fYx" secondAttribute="centerY" id="5Yg-O0-Mdt"/>
+                            <constraint firstItem="LSc-QL-u2w" firstAttribute="top" secondItem="9Yk-f2-WsI" secondAttribute="bottom" id="93r-rD-pmP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nA9-PF-GeK" secondAttribute="trailing" constant="15" id="Fyo-nu-Mli"/>
+                            <constraint firstItem="ZDu-Ly-RNp" firstAttribute="top" secondItem="LSc-QL-u2w" secondAttribute="bottom" id="Pdg-KH-TZp"/>
+                            <constraint firstAttribute="centerX" secondItem="nA9-PF-GeK" secondAttribute="centerX" id="PkL-T1-xhj"/>
+                            <constraint firstItem="9Yk-f2-WsI" firstAttribute="top" secondItem="diN-rS-Xpr" secondAttribute="bottom" constant="-20" id="Rli-ac-4Yu"/>
+                            <constraint firstItem="nA9-PF-GeK" firstAttribute="top" secondItem="diN-rS-Xpr" secondAttribute="bottom" constant="22" id="Zus-dl-rB2"/>
+                            <constraint firstAttribute="centerX" secondItem="LSc-QL-u2w" secondAttribute="centerX" id="aWK-hf-ST6"/>
+                            <constraint firstItem="nA9-PF-GeK" firstAttribute="leading" secondItem="rly-2G-HP1" secondAttribute="leadingMargin" constant="15" id="d6T-An-bvX"/>
+                            <constraint firstItem="9Yk-f2-WsI" firstAttribute="centerX" secondItem="8qD-n4-fYx" secondAttribute="centerX" id="frO-Ek-ZrG"/>
+                            <constraint firstItem="9Yk-f2-WsI" firstAttribute="leading" secondItem="rly-2G-HP1" secondAttribute="leadingMargin" constant="-16" id="hdP-2I-n19"/>
+                            <constraint firstItem="LSc-QL-u2w" firstAttribute="width" secondItem="rly-2G-HP1" secondAttribute="width" id="l6h-kg-ceT"/>
+                            <constraint firstAttribute="centerY" secondItem="9Yk-f2-WsI" secondAttribute="centerY" constant="26.5" id="oEQ-QP-wHM"/>
                             <constraint firstItem="9Yk-f2-WsI" firstAttribute="width" secondItem="rly-2G-HP1" secondAttribute="width" id="vmS-Vt-SKQ"/>
                             <constraint firstAttribute="centerX" secondItem="9Yk-f2-WsI" secondAttribute="centerX" id="xZO-tJ-bfz"/>
-                            <constraint firstAttribute="centerY" secondItem="ZPu-k1-Xih" secondAttribute="centerY" id="y9S-if-4Zf"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1y6-KY-UuS"/>
+                                <exclude reference="hdP-2I-n19"/>
+                                <exclude reference="oEQ-QP-wHM"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="nA9-PF-GeK" id="mHG-ge-m5w"/>
+                        <outlet property="mapView" destination="9Yk-f2-WsI" id="LCs-r4-2cH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghI-a0-JTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2673,6 +2722,7 @@
         <image name="TabBarSettings" width="32" height="32"/>
         <image name="icon_like.png" width="40" height="42"/>
         <image name="icon_location.png" width="34" height="48"/>
+        <image name="icon_location_fill" width="34" height="48"/>
         <image name="signup_view.jpg" width="1080" height="1920"/>
         <image name="vertical_line" width="2" height="53"/>
     </resources>

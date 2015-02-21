@@ -9,6 +9,7 @@
 #import "LPOfferChatViewController.h"
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
+#import "LPLocationPickerViewController.h"
 
 @interface LPOfferChatViewController ()
 
@@ -47,6 +48,10 @@
         LPMessageViewController *vc = sender;
         vc.pop = self.pop;
         vc.offerUser = self.offerUser;
+    } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
+        LPLocationPickerViewController *vc = segue.destinationViewController;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
+        vc.location = location;
     }
 }
 
