@@ -416,9 +416,13 @@
                                                 <constraint firstAttribute="height" constant="22" id="duU-bU-QCy"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRA-DQ-ShS">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRA-DQ-ShS">
                                             <rect key="frame" x="306" y="28" width="61" height="30"/>
                                             <color key="backgroundColor" red="0.92156862750000001" green="0.098039215690000001" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="61" id="CYC-YE-aiS"/>
+                                                <constraint firstAttribute="height" constant="30" id="vcB-6q-iso"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                             <state key="normal" title="Contact">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -428,6 +432,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Jb5-uc-Qjv" firstAttribute="leading" secondItem="w7E-u8-1ii" secondAttribute="leadingMargin" id="HHR-SX-xOC"/>
+                                        <constraint firstItem="YRA-DQ-ShS" firstAttribute="top" secondItem="w7E-u8-1ii" secondAttribute="topMargin" constant="20" id="RPh-Rj-wQy"/>
                                         <constraint firstItem="tCg-Nc-2VF" firstAttribute="top" secondItem="ixV-w8-wIx" secondAttribute="bottom" constant="3" id="SYQ-d8-Deu"/>
                                         <constraint firstAttribute="centerY" secondItem="Jb5-uc-Qjv" secondAttribute="centerY" id="VA9-Yw-acT"/>
                                         <constraint firstItem="ixV-w8-wIx" firstAttribute="leading" secondItem="Jb5-uc-Qjv" secondAttribute="trailing" constant="8" id="a2H-Hv-j5W"/>
@@ -435,6 +440,7 @@
                                         <constraint firstItem="Jb5-uc-Qjv" firstAttribute="top" secondItem="w7E-u8-1ii" secondAttribute="topMargin" constant="10" id="ds5-VH-Hgp"/>
                                         <constraint firstItem="tCg-Nc-2VF" firstAttribute="leading" secondItem="Jb5-uc-Qjv" secondAttribute="trailing" constant="8" id="duc-dc-cmL"/>
                                         <constraint firstItem="ixV-w8-wIx" firstAttribute="top" secondItem="w7E-u8-1ii" secondAttribute="topMargin" constant="10" id="nTu-lA-q7P"/>
+                                        <constraint firstItem="YRA-DQ-ShS" firstAttribute="trailing" secondItem="w7E-u8-1ii" secondAttribute="trailingMargin" id="qBF-my-ZMs"/>
                                         <constraint firstItem="tCg-Nc-2VF" firstAttribute="leading" secondItem="Jb5-uc-Qjv" secondAttribute="trailing" constant="15" id="yhY-KN-CbB"/>
                                     </constraints>
                                     <variation key="default">
