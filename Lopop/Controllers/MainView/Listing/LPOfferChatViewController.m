@@ -10,10 +10,12 @@
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationPickerViewController.h"
+#import "LPTimePickerViewController.h"
 
 @interface LPOfferChatViewController ()
 
 @property (retain, nonatomic) CLLocation *location;
+@property (retain, nonatomic) NSDate *proposedMeetupTime;
 
 @end
 
@@ -94,6 +96,9 @@
     } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = segue.destinationViewController;
         vc.location = self.location;
+    } else if ([segue.destinationViewController isKindOfClass:[LPTimePickerViewController class]]) {
+        LPTimePickerViewController *vc = segue.destinationViewController;
+        vc.date = self.proposedMeetupTime;
     }
 }
 
@@ -106,7 +111,13 @@
         self.location = meetupLocation;
 
         // TODO save meetupLocation to server
-        [self.locationBtn setTitle:vc.locationStr forState:UIControlStateNormal];
+        [self.locationBtn setTitle:vc.addressLabel.text forState:UIControlStateNormal];
+    } else if ([unwindsegue.sourceViewController isKindOfClass:[LPTimePickerViewController class]]) {
+        LPTimePickerViewController *vc = unwindsegue.sourceViewController;
+        [self.timeSelectorBtn setTitle:vc.timeLabel.text forState:UIControlStateNormal];
+
+        // TODO save meetup time to server
+        self.proposedMeetupTime = vc.datePicker.date;
     }
 }
 

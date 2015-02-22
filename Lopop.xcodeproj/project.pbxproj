@@ -111,6 +111,7 @@
 		D6ED53E31A98352D00B5155D /* LPListingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53E21A98352D00B5155D /* LPListingDetailViewController.m */; };
 		D6ED53E61A99266500B5155D /* LPOfferChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53E51A99266500B5155D /* LPOfferChatViewController.m */; };
 		D6ED53EC1A9938DC00B5155D /* LPLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */; };
+		D6ED53F21A997D8500B5155D /* LPTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53F11A997D8500B5155D /* LPTimePickerViewController.m */; };
 		D6F5B03F1A8D648900914A3F /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F5B0341A8D648900914A3F /* libWeiboSDK.a */; };
 		D6F5B0401A8D648900914A3F /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D6F5B03C1A8D648900914A3F /* WeiboSDK.bundle */; };
 		D6F5B0421A8D702000914A3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F5B0411A8D702000914A3F /* ImageIO.framework */; };
@@ -326,6 +327,8 @@
 		D6ED53E51A99266500B5155D /* LPOfferChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPOfferChatViewController.m; path = Controllers/MainView/Listing/LPOfferChatViewController.m; sourceTree = "<group>"; };
 		D6ED53EA1A9938DC00B5155D /* LPLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPLocationPickerViewController.h; path = Controllers/MainView/Listing/LPLocationPickerViewController.h; sourceTree = "<group>"; };
 		D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPLocationPickerViewController.m; path = Controllers/MainView/Listing/LPLocationPickerViewController.m; sourceTree = "<group>"; };
+		D6ED53F01A997D8500B5155D /* LPTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPTimePickerViewController.h; path = Controllers/Common/LPTimePickerViewController.h; sourceTree = "<group>"; };
+		D6ED53F11A997D8500B5155D /* LPTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPTimePickerViewController.m; path = Controllers/Common/LPTimePickerViewController.m; sourceTree = "<group>"; };
 		D6F5B0341A8D648900914A3F /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = Frameworks/libWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		D6F5B0351A8D648900914A3F /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = Frameworks/libWeiboSDK/WBHttpRequest.h; sourceTree = "<group>"; };
 		D6F5B0361A8D648900914A3F /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "Frameworks/libWeiboSDK/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				D661F7201A89ABE000E938F8 /* LPImageShowcaseViewController.m */,
 				D6D973B21A8AFECA00A30539 /* LPShareViewController.h */,
 				D6D973B31A8AFECA00A30539 /* LPShareViewController.m */,
+				D6ED53F01A997D8500B5155D /* LPTimePickerViewController.h */,
+				D6ED53F11A997D8500B5155D /* LPTimePickerViewController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1160,6 +1165,7 @@
 				D6F5F83B1A8514680005758B /* SpringButton.swift in Sources */,
 				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D6CB77531A94055C00629985 /* UIImageView+HighlightedWebCache.m in Sources */,
+				D6ED53F21A997D8500B5155D /* LPTimePickerViewController.m in Sources */,
 				D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */,
 				D6F5F82C1A8514680005758B /* DesignableButton.swift in Sources */,
 				D6CB77471A94055C00629985 /* NSData+ImageContentType.m in Sources */,

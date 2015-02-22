@@ -62,7 +62,6 @@
                 address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];
             }
 
-            self.locationStr = address;
             self.addressLabel.text = address;
         }
     }];
