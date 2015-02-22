@@ -38,10 +38,30 @@
 - (void)updateAddress {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if(placemarks && placemarks.count > 0)
-        {
+        if(placemarks && placemarks.count > 0) {
             CLPlacemark *placemark= [placemarks objectAtIndex:0];
-            NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@, %@", [placemark subThoroughfare], [placemark thoroughfare], [placemark locality], [placemark administrativeArea], [placemark postalCode]];
+
+            NSString *address = @"";
+            if ([placemark subThoroughfare]) {
+                address = [address stringByAppendingString:[placemark subThoroughfare]];
+            }
+
+            if ([placemark thoroughfare]) {
+                address = [address stringByAppendingString:[NSString stringWithFormat:@" %@", [placemark thoroughfare]]];
+            }
+
+            if ([placemark locality]) {
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark locality]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark locality]]];;
+            }
+
+            if ([placemark administrativeArea]) {
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];;
+            }
+
+            if ([placemark postalCode]) {
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];
+            }
+
             self.locationStr = address;
             self.addressLabel.text = address;
         }
