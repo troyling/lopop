@@ -1,30 +1,24 @@
 //
-//  LPSettingsViewController.m
+//  LPSettingsTableViewController.m
 //  Lopop
 //
 //  Created by Troy Ling on 1/29/15.
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
-#import "LPSettingsViewController.h"
+#import "LPSettingsTableViewController.h"
 #import "LPUserProfileViewController.h"
 
-@interface LPSettingsViewController ()
+@interface LPSettingsTableViewController ()
 
 @end
 
-@implementation LPSettingsViewController
+@implementation LPSettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - Navigation
 
