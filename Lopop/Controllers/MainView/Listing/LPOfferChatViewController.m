@@ -13,6 +13,8 @@
 
 @interface LPOfferChatViewController ()
 
+@property (retain, nonatomic) CLLocation *location;
+
 @end
 
 @implementation LPOfferChatViewController
@@ -21,14 +23,23 @@
     [super viewDidLoad];
 
     if ([self.pop isDataAvailable]) {
-        [self loadHeaderView];
+        [self loadData];
     } else {
         [self.pop fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             if (!error) {
-                [self loadHeaderView];
+                [self loadData];
             }
         }];
     }
+}
+
+- (void)loadData {
+    self.location = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
+
+    // UI
+    self.title = self.offerUser[@"name"];
+    [self loadHeaderView];
+    [self loadAddress];
 }
 
 - (void)loadHeaderView {
@@ -39,6 +50,17 @@
     self.priceLabel.text = [self.pop publicPriceStr];
 }
 
+- (void)loadAddress {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if(placemarks && placemarks.count > 0)
+        {
+            CLPlacemark *placemark= [placemarks objectAtIndex:0];
+            NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@, %@", [placemark subThoroughfare], [placemark thoroughfare], [placemark locality], [placemark administrativeArea], [placemark postalCode]];
+            [self.locationBtn setTitle:address forState:UIControlStateNormal];
+        }
+    }];
+}
 
 #pragma mark - Navigation
 
@@ -50,8 +72,7 @@
         vc.offerUser = self.offerUser;
     } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = segue.destinationViewController;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
-        vc.location = location;
+        vc.location = self.location;
     }
 }
 
@@ -60,9 +81,11 @@
 - (IBAction)prepareForUnwindSegue:(UIStoryboardSegue *)unwindsegue {
     if ([unwindsegue.sourceViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = unwindsegue.sourceViewController;
-        CLLocation *proposeLocation = vc.location;
-        NSLog(@"%@", proposeLocation);
-        NSLog(@"STR: %@", vc.locationStr);
+        CLLocation *meetupLocation = vc.location;
+        self.location = meetupLocation;
+
+        // TODO save meetupLocation to server
+        [self.locationBtn setTitle:vc.locationStr forState:UIControlStateNormal];
     }
 }
 
