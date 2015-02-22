@@ -2752,6 +2752,7 @@
                                 <segment title="Listing"/>
                                 <segment title="Offer"/>
                             </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="viewSelected:" destination="FQ3-xK-a4n" eventType="valueChanged" id="hNq-rR-ak5"/>
                             </connections>
