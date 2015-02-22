@@ -20,7 +20,6 @@
     // init mapview
     self.mapView.delegate = self;
 
-    // Do any additional setup after loading the view.
     if (self.location) {
         [self.mapView setCenterCoordinate:self.location.coordinate animated:NO];
 
@@ -36,13 +35,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)updateAddressWithLocation: (CLLocation *)location {
+- (void)updateAddress {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+    [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
         if(placemarks && placemarks.count > 0)
         {
             CLPlacemark *placemark= [placemarks objectAtIndex:0];
             NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@, %@", [placemark subThoroughfare], [placemark thoroughfare], [placemark locality], [placemark administrativeArea], [placemark postalCode]];
+            self.locationStr = address;
             self.addressLabel.text = address;
         }
     }];
@@ -50,21 +50,16 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     CLLocation *loc = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
-    [self updateAddressWithLocation:loc];
+    self.location = loc;
+    [self updateAddress];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)pickThisLocation:(id)sender {
-    NSLog(@"Select this location");
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)dismiss:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

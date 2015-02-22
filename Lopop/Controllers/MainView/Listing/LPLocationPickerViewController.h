@@ -12,10 +12,12 @@
 @interface LPLocationPickerViewController : UIViewController <MKMapViewDelegate>
 
 @property (retain, nonatomic) CLLocation *location;
+@property (retain, nonatomic) NSString *locationStr;
 
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 - (IBAction)pickThisLocation:(id)sender;
+- (IBAction)dismiss:(id)sender;
 
 @end

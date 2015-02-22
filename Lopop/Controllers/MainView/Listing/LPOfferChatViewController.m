@@ -55,4 +55,15 @@
     }
 }
 
+#pragma mark Unwind segue
+
+- (IBAction)prepareForUnwindSegue:(UIStoryboardSegue *)unwindsegue {
+    if ([unwindsegue.sourceViewController isKindOfClass:[LPLocationPickerViewController class]]) {
+        LPLocationPickerViewController *vc = unwindsegue.sourceViewController;
+        CLLocation *proposeLocation = vc.location;
+        NSLog(@"%@", proposeLocation);
+        NSLog(@"STR: %@", vc.locationStr);
+    }
+}
+
 @end
