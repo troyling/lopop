@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Lopop-Swift.h"
 #import "LPPop.h"
 
 @interface LPOfferChatViewController : UIViewController
@@ -17,7 +18,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *popImgView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UIButton *timeSelectorBtn;
-@property (weak, nonatomic) IBOutlet UIButton *locationBtn;
+@property (weak, nonatomic) IBOutlet DesignableButton *timeSelectorBtn;
+@property (weak, nonatomic) IBOutlet DesignableButton *locationBtn;
+@property (weak, nonatomic) IBOutlet DesignableButton *meetupBtn;
+
+- (IBAction)proposeMeetup:(id)sender;
 
 @end

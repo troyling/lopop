@@ -524,7 +524,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-U1-XGv">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-U1-XGv" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
                                         <rect key="frame" x="128" y="36" width="239" height="20"/>
                                         <state key="normal" title="Pick a time">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -533,7 +533,7 @@
                                             <segue destination="sec-wm-FtH" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="8ZU-eE-3Jh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHt-GE-9ex">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHt-GE-9ex" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
                                         <rect key="frame" x="128" y="64" width="239" height="20"/>
                                         <state key="normal" title="Change pick up location">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -575,6 +575,21 @@
                                     <segue destination="PhZ-EF-xaN" kind="embed" id="CbO-hf-X98"/>
                                 </connections>
                             </containerView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OA8-0w-719" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="154" width="375" height="40"/>
+                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="CaG-Zv-gG1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal" title="Propose Meetup">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="proposeMeetup:" destination="7zp-A2-BKu" eventType="touchUpInside" id="550-ae-eEi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -582,10 +597,14 @@
                             <constraint firstAttribute="width" secondItem="k5t-4b-paO" secondAttribute="height" multiplier="25:6" id="19Y-gO-KPq"/>
                             <constraint firstItem="t8e-fT-Gyl" firstAttribute="top" secondItem="3gD-WC-ecf" secondAttribute="bottom" id="54Q-Wh-Ufe"/>
                             <constraint firstItem="k5t-4b-paO" firstAttribute="leading" secondItem="Bko-gI-iB8" secondAttribute="leadingMargin" constant="-16" id="7Ps-GM-TA1"/>
+                            <constraint firstAttribute="width" secondItem="OA8-0w-719" secondAttribute="width" id="EUD-Z1-oN4"/>
+                            <constraint firstAttribute="centerX" secondItem="OA8-0w-719" secondAttribute="centerX" id="L6O-Ee-j2C"/>
+                            <constraint firstItem="k5t-4b-paO" firstAttribute="leading" secondItem="OA8-0w-719" secondAttribute="trailing" constant="-375" id="NnB-tl-hdl"/>
                             <constraint firstItem="3gD-WC-ecf" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="bottom" id="Rj1-G0-Zru"/>
                             <constraint firstItem="t8e-fT-Gyl" firstAttribute="top" secondItem="3gD-WC-ecf" secondAttribute="bottom" constant="-49" id="UJ0-vM-zYU"/>
                             <constraint firstAttribute="width" secondItem="k5t-4b-paO" secondAttribute="width" id="ehr-WX-sm9"/>
                             <constraint firstAttribute="centerX" secondItem="3gD-WC-ecf" secondAttribute="centerX" id="ri1-sL-9X5"/>
+                            <constraint firstItem="OA8-0w-719" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="bottom" id="tY8-Q0-Aje"/>
                             <constraint firstAttribute="centerX" secondItem="k5t-4b-paO" secondAttribute="centerX" id="wd4-bq-jIS"/>
                             <constraint firstItem="k5t-4b-paO" firstAttribute="top" secondItem="MoL-Ng-0Xp" secondAttribute="bottom" id="wvb-CM-ML4"/>
                             <constraint firstItem="3gD-WC-ecf" firstAttribute="width" secondItem="Bko-gI-iB8" secondAttribute="width" id="yII-CO-iDJ"/>
@@ -593,6 +612,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="19Y-gO-KPq"/>
+                                <exclude reference="NnB-tl-hdl"/>
                                 <exclude reference="12A-7c-iD7"/>
                                 <exclude reference="54Q-Wh-Ufe"/>
                             </mask>
@@ -603,6 +623,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="locationBtn" destination="YHt-GE-9ex" id="5yA-VA-jXB"/>
+                        <outlet property="meetupBtn" destination="OA8-0w-719" id="gB1-LT-6II"/>
                         <outlet property="popImgView" destination="RLX-M6-IxV" id="TTc-zx-uS6"/>
                         <outlet property="priceLabel" destination="aJ6-y6-b69" id="oZG-OQ-fFY"/>
                         <outlet property="timeSelectorBtn" destination="eyN-U1-XGv" id="jqi-9G-hBe"/>

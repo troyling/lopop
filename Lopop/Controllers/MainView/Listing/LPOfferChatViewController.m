@@ -35,6 +35,23 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    // animation
+    if (self.location == nil) {
+        self.locationBtn.animation = @"shake";
+        self.timeSelectorBtn.force = 0.5f;
+        [self.locationBtn animate];
+    }
+
+    if (self.proposedMeetupTime == nil) {
+        self.timeSelectorBtn.animation = @"shake";
+        self.timeSelectorBtn.force = 0.5f;
+        [self.timeSelectorBtn animate];
+    }
+}
+
 - (void)loadData {
     self.location = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
 
@@ -55,8 +72,7 @@
 - (void)loadAddress {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if(placemarks && placemarks.count > 0)
-        {
+        if(placemarks && placemarks.count > 0) {
             CLPlacemark *placemark= [placemarks objectAtIndex:0];
 
             NSString *address = @"";
@@ -118,7 +134,20 @@
 
         // TODO save meetup time to server
         self.proposedMeetupTime = vc.datePicker.date;
+        [self enableMeetupBrn];
     }
+}
+
+- (void)enableMeetupBrn {
+    if (self.meetupBtn.hidden) {
+        self.meetupBtn.animation = @"pop";
+        [self.meetupBtn animate];
+        self.meetupBtn.hidden = NO;
+    }
+}
+
+- (IBAction)proposeMeetup:(id)sender {
+    NSLog(@"IMPLEMENT PROPOSE MEETUP");
 }
 
 @end
