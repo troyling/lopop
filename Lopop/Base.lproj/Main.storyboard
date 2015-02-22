@@ -506,7 +506,7 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4M-HU-qSg">
-                                        <rect key="frame" x="128" y="8" width="239" height="20"/>
+                                        <rect key="frame" x="128" y="8" width="158" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ikf-tE-AKg"/>
                                         </constraints>
@@ -515,16 +515,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJ6-y6-b69">
-                                        <rect key="frame" x="128" y="36" width="239" height="21"/>
+                                        <rect key="frame" x="294" y="8" width="73" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="kCg-xj-w8l"/>
+                                            <constraint firstAttribute="width" constant="73" id="xOt-3y-fA5"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-U1-XGv">
-                                        <rect key="frame" x="128" y="65" width="76" height="20"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-U1-XGv">
+                                        <rect key="frame" x="128" y="36" width="239" height="20"/>
                                         <state key="normal" title="Pick a time">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -532,8 +533,8 @@
                                             <segue destination="sec-wm-FtH" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="8ZU-eE-3Jh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHt-GE-9ex">
-                                        <rect key="frame" x="212" y="65" width="167" height="20"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHt-GE-9ex">
+                                        <rect key="frame" x="128" y="64" width="239" height="20"/>
                                         <state key="normal" title="Change pick up location">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -545,6 +546,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="RLX-M6-IxV" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" id="830-hz-KKU"/>
+                                    <constraint firstItem="aJ6-y6-b69" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" constant="8" id="A7q-s8-KCB"/>
+                                    <constraint firstItem="aJ6-y6-b69" firstAttribute="leading" secondItem="q4M-HU-qSg" secondAttribute="trailing" constant="8" id="AUA-cG-O1a"/>
                                     <constraint firstItem="aJ6-y6-b69" firstAttribute="top" secondItem="q4M-HU-qSg" secondAttribute="bottom" constant="8" id="IEu-Lq-2w2"/>
                                     <constraint firstAttribute="height" constant="90" id="Ims-XL-Rlf"/>
                                     <constraint firstItem="aJ6-y6-b69" firstAttribute="leading" secondItem="RLX-M6-IxV" secondAttribute="trailing" constant="8" id="PEw-hS-bgF"/>
@@ -552,7 +555,7 @@
                                     <constraint firstItem="q4M-HU-qSg" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" constant="8" id="dul-yM-rxT"/>
                                     <constraint firstItem="RLX-M6-IxV" firstAttribute="leading" secondItem="k5t-4b-paO" secondAttribute="leading" id="jlz-r9-2fY"/>
                                     <constraint firstItem="q4M-HU-qSg" firstAttribute="leading" secondItem="RLX-M6-IxV" secondAttribute="trailing" constant="8" id="nD3-Tc-rHx"/>
-                                    <constraint firstAttribute="trailing" secondItem="q4M-HU-qSg" secondAttribute="trailing" constant="8" id="qtD-Oa-hxg"/>
+                                    <constraint firstAttribute="trailing" secondItem="q4M-HU-qSg" secondAttribute="trailing" constant="99" id="qtD-Oa-hxg"/>
                                     <constraint firstItem="RLX-M6-IxV" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" id="rBo-nf-B9Q"/>
                                     <constraint firstItem="RLX-M6-IxV" firstAttribute="width" secondItem="RLX-M6-IxV" secondAttribute="height" multiplier="4:3" id="uLM-Sr-ZOx"/>
                                 </constraints>
@@ -560,6 +563,9 @@
                                     <mask key="constraints">
                                         <exclude reference="830-hz-KKU"/>
                                         <exclude reference="uLM-Sr-ZOx"/>
+                                        <exclude reference="qtD-Oa-hxg"/>
+                                        <exclude reference="IEu-Lq-2w2"/>
+                                        <exclude reference="PEw-hS-bgF"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -741,7 +747,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pickThisLocation:" destination="UYA-1N-Oo8" eventType="touchUpInside" id="iAV-qp-0Ai"/>
+                                    <action selector="dismiss:" destination="UYA-1N-Oo8" eventType="touchUpInside" id="r7a-nW-Duj"/>
                                     <segue destination="LDQ-8a-SJu" kind="unwind" unwindAction="prepareForUnwindSegue:" id="TR3-AR-hrP"/>
                                 </connections>
                             </button>

@@ -30,11 +30,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)updateAddress {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -59,7 +54,7 @@
             }
 
             if ([placemark postalCode]) {
-                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark postalCode]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark postalCode]]];
             }
 
             self.addressLabel.text = address;
@@ -71,10 +66,6 @@
     CLLocation *loc = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
     self.location = loc;
     [self updateAddress];
-}
-
-- (IBAction)pickThisLocation:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)dismiss:(id)sender {
