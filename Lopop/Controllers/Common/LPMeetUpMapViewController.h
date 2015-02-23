@@ -17,9 +17,10 @@
 
 // Outlets
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UILabel *meetUpTimeLabel;
 
 // pop view
+@property (weak, nonatomic) IBOutlet UIButton *closeBtn;
+@property (weak, nonatomic) IBOutlet UILabel *meetUpTimeLabel;
 @property (weak, nonatomic) IBOutlet DesignableView *popDetailView;
 @property (weak, nonatomic) IBOutlet UIImageView *popImgView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

@@ -26,9 +26,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
     self.mapView.delegate = self;
 
-    // TODO check status of the view
+    self.closeBtn.layer.zPosition = MAXFLOAT;
+    self.meetUpTimeLabel.layer.zPosition = MAXFLOAT - 1.0f;
+
+    // TODO check status of the offer
     PFQuery *query = [LPOffer query];
     [query whereKey:@"objectId" equalTo:self.offer.objectId];
     [query includeKey:@"pop"];
@@ -43,11 +48,6 @@
     // FIXME the meetup user is not always the fromUser of the offers
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
 - (void)loadData {
     self.meetUpUser = self.offer.fromUser;
     self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
@@ -60,7 +60,7 @@
     [outputDateFormatter setDateFormat:@"EEE, MMM d, h:mm a"];
     NSString *outputString = [outputDateFormatter stringFromDate:self.meetUpTime];
 
-    self.meetUpTimeLabel.text = [NSString stringWithFormat:@"Meet up at %@" , outputString];
+    self.meetUpTimeLabel.text = outputString;
 
     [self loadPopInfo];
 

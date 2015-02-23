@@ -789,7 +789,7 @@
                                     <action selector="dismiss:" destination="oZp-VE-EyS" eventType="touchUpInside" id="idx-lL-2sa"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTZ-hl-eYs" userLabel="MeetUpUserView">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTZ-hl-eYs" userLabel="MeetUpUserView">
                                 <rect key="frame" x="0.0" y="600" width="375" height="67"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u3x-cA-nK2">
@@ -957,6 +957,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="closeBtn" destination="hpD-KD-SF3" id="0Lk-JH-HTQ"/>
                         <outlet property="mapView" destination="fqW-Hl-Spu" id="87C-Kn-2M4"/>
                         <outlet property="meetUpTimeLabel" destination="EK2-xW-xue" id="Wwb-yJ-H2n"/>
                         <outlet property="popDetailView" destination="N57-lG-f7F" id="Nnl-Il-lKY"/>
