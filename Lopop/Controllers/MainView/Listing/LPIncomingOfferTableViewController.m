@@ -108,10 +108,9 @@
         LPUserRatingTableViewCell *cell = (LPUserRatingTableViewCell *) [[sender superview] superview];
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
-        
+
         // push to chat view
         LPOfferChatViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"offerChatViewController"];
-        vc.pop = self.pop;
         vc.offer = offer;
         [self.navigationController pushViewController:vc animated:YES];
     }

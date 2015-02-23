@@ -13,7 +13,6 @@
 
 @interface LPOfferChatViewController : UIViewController
 
-@property (strong, nonatomic) LPPop *pop;
 @property (strong, nonatomic) LPOffer *offer;
 
 @property (weak, nonatomic) IBOutlet UIImageView *popImgView;

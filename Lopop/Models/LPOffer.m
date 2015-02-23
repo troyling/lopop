@@ -14,7 +14,7 @@
 @dynamic pop;
 @dynamic fromUser;
 @dynamic greeting;
-@dynamic meetUplocation;
+@dynamic meetUpLocation;
 @dynamic meetUpTime;
 @dynamic status;
 

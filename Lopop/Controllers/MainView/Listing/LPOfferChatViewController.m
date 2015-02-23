@@ -15,7 +15,7 @@
 
 @interface LPOfferChatViewController ()
 
-
+@property (retain, nonatomic) LPPop *pop;
 @property (retain, nonatomic) CLLocation *meetUpLocation;
 @property (retain, nonatomic) NSDate *meetUpTime;
 
@@ -26,12 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.offer fetchIfNeededInBackground];
-
-    if ([self.pop isDataAvailable]) {
+    if ([self.offer isDataAvailable]) {
         [self loadData];
     } else {
-        [self.pop fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        [self.offer fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             if (!error) {
                 [self loadData];
             }
@@ -57,21 +55,49 @@
 }
 
 - (void)loadData {
-    self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
+    self.pop = self.offer.pop;
+    self.meetUpTime = self.offer.meetUpTime;
 
-    // UI
-    self.title = self.offer.fromUser[@"name"];
+    if (self.offer.meetUpLocation) {
+        self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude]; // offer;
+    }
 
-    [self loadHeaderView];
-    [self loadAddress];
+    [self.pop fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            NSLog(@"Meetup location: %@", self.meetUpLocation);
+            if (!self.meetUpLocation) {
+                // load the pop location if meet up location is not set for this particular offer
+                self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
+            }
+            NSLog(@"Afer Meetup location: %@", self.meetUpLocation);
+            // UI
+            self.title = self.offer.fromUser[@"name"];
+
+            [self loadHeaderView];
+            [self loadAddress];
+        }
+    }];
 }
 
 - (void)loadHeaderView {
+    // pop icon
     PFFile *imgFile = self.pop.images.firstObject;
     NSString *urlStr = imgFile.url;
     [self.popImgView sd_setImageWithURL:[NSURL URLWithString:urlStr]];
+
+    // labels
     self.titleLabel.text = self.pop.title;
     self.priceLabel.text = [self.pop publicPriceStr];
+
+    // buttons
+    if (self.meetUpTime) {
+        NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
+        NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+        [outputDateFormatter setTimeZone:timeZoneLocal];
+        [outputDateFormatter setDateFormat:@"EEE, MMM d, h:mm a"];
+        NSString *outputString = [outputDateFormatter stringFromDate:self.meetUpTime];
+        [self.timeSelectorBtn setTitle:outputString forState:UIControlStateNormal];
+    }
 }
 
 - (void)loadAddress {
@@ -152,7 +178,7 @@
 
 - (IBAction)proposeMeetup:(id)sender {
     // save data
-    self.offer.meetUplocation = [PFGeoPoint geoPointWithLocation:self.meetUpLocation];
+    self.offer.meetUpLocation = [PFGeoPoint geoPointWithLocation:self.meetUpLocation];
     self.offer.meetUpTime = self.meetUpTime;
     self.offer.status = kOfferMeetUpProposed;
     [self.offer saveEventually];

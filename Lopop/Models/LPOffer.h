@@ -23,7 +23,7 @@ typedef enum {
 @property LPPop *pop;
 @property PFUser *fromUser;
 @property NSString *greeting;
-@property PFGeoPoint *meetUplocation;
+@property PFGeoPoint *meetUpLocation;
 @property NSDate *meetUpTime; // UTC timezone
 @property LPOfferStatus status;
 
