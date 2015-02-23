@@ -139,7 +139,6 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             [self.userRatingView.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.pop.seller[@"profilePictureUrl"]]];
             self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
             self.userRatingView.profileImageView.clipsToBounds = YES;
-//            [self loadProfilePictureWithURL:self.pop.seller[@"profilePictureUrl"]];
         }
     }];
 }
