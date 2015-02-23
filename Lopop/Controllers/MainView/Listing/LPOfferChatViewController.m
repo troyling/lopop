@@ -11,8 +11,10 @@
 #import "UIImageView+WebCache.h"
 #import "LPLocationPickerViewController.h"
 #import "LPTimePickerViewController.h"
+#import "LPMeetUpMapViewController.h"
 
 @interface LPOfferChatViewController ()
+
 
 @property (retain, nonatomic) CLLocation *location;
 @property (retain, nonatomic) NSDate *proposedMeetupTime;
@@ -23,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.offer fetchIfNeededInBackground];
 
     if ([self.pop isDataAvailable]) {
         [self loadData];
@@ -56,7 +60,8 @@
     self.location = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
 
     // UI
-    self.title = self.offerUser[@"name"];
+    self.title = self.offer.fromUser[@"name"];
+
     [self loadHeaderView];
     [self loadAddress];
 }
@@ -106,9 +111,9 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[LPMessageViewController class]]) {
-        LPMessageViewController *vc = sender;
+        LPMessageViewController *vc = segue.destinationViewController;
         vc.pop = self.pop;
-        vc.offerUser = self.offerUser;
+        vc.offerUser = self.offer.fromUser;
     } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = segue.destinationViewController;
         vc.location = self.location;
@@ -148,6 +153,12 @@
 
 - (IBAction)proposeMeetup:(id)sender {
     NSLog(@"IMPLEMENT PROPOSE MEETUP");
+
+    // FIXME allows them to preview the map once both user agrees on the proposal
+    LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];
+    vc.pop = self.pop;
+    vc.offfer = self.offer;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

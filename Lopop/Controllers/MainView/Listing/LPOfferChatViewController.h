@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Lopop-Swift.h"
 #import "LPPop.h"
+#import "LPOffer.h"
 
 @interface LPOfferChatViewController : UIViewController
 
 @property (strong, nonatomic) LPPop *pop;
-@property (strong, nonatomic) PFUser *offerUser;
+@property (strong, nonatomic) LPOffer *offer;
 
 @property (weak, nonatomic) IBOutlet UIImageView *popImgView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
