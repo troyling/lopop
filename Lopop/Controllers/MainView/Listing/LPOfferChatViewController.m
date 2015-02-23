@@ -98,6 +98,10 @@
         NSString *outputString = [outputDateFormatter stringFromDate:self.meetUpTime];
         [self.timeSelectorBtn setTitle:outputString forState:UIControlStateNormal];
     }
+
+    if (self.meetUpLocation && self.meetUpTime) {
+        self.meetupBtn.hidden = NO;
+    }
 }
 
 - (void)loadAddress {
@@ -146,6 +150,9 @@
     } else if ([segue.destinationViewController isKindOfClass:[LPTimePickerViewController class]]) {
         LPTimePickerViewController *vc = segue.destinationViewController;
         vc.date = self.meetUpTime;
+    } else if ([segue.destinationViewController isKindOfClass:[LPMeetUpMapViewController class]]) {
+        LPMeetUpMapViewController *vc = segue.destinationViewController;
+        vc.offer = self.offer;
     }
 }
 
@@ -182,11 +189,6 @@
     self.offer.meetUpTime = self.meetUpTime;
     self.offer.status = kOfferMeetUpProposed;
     [self.offer saveEventually];
-
-    // FIXME allows them to preview the map once both user agrees on the proposal
-    LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];
-    vc.offer = self.offer;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

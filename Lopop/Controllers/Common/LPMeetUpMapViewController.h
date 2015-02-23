@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "Lopop-Swift.h"
 #import "LPOffer.h"
 
 @interface LPMeetUpMapViewController : UIViewController <MKMapViewDelegate>
@@ -16,5 +17,20 @@
 
 // Outlets
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UILabel *meetUpTimeLabel;
+
+// pop view
+@property (weak, nonatomic) IBOutlet DesignableView *popDetailView;
+@property (weak, nonatomic) IBOutlet UIImageView *popImgView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+
+// user view
+@property (weak, nonatomic) IBOutlet UIImageView *profileImgView;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIView *userRatingView;
+
+- (IBAction)dismiss:(id)sender;
+- (IBAction)contactUser:(id)sender;
 
 @end
