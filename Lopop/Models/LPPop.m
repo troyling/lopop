@@ -20,7 +20,6 @@
 @dynamic status;
 @dynamic price;
 
-
 + (void)load {
     [self registerSubclass];
 }

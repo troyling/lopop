@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "LPPop.h"
 #import "LPOffer.h"
 
 @interface LPMeetUpMapViewController : UIViewController <MKMapViewDelegate>
 
-@property (strong, nonatomic) LPPop *pop;
-@property (strong, nonatomic) LPOffer *offfer;
+@property (strong, nonatomic) LPOffer *offer;
 
 // Outlets
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;

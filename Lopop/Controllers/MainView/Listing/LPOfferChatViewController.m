@@ -185,8 +185,7 @@
 
     // FIXME allows them to preview the map once both user agrees on the proposal
     LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];
-    vc.pop = self.pop;
-    vc.offfer = self.offer;
+    vc.offer = self.offer;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

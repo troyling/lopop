@@ -7,8 +7,14 @@
 //
 
 #import "LPMeetUpMapViewController.h"
+#import "LPPop.h"
 
 @interface LPMeetUpMapViewController ()
+
+@property (strong, nonatomic) LPPop *pop;
+@property (strong, nonatomic) PFUser *meetUpUser;
+@property (strong, nonatomic) NSDate *meetUpTime;
+@property (strong, nonatomic) CLLocation *meetUpLocation;
 
 @end
 
@@ -16,23 +22,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    NSLog(@"Trading map view!");
+
+    PFQuery *query = [LPOffer query];
+    [query whereKey:@"objectId" equalTo:self.offer.objectId];
+    [query includeKey:@"pop"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count == 1) {
+            LPOffer *offer = objects.firstObject;
+            self.offer = offer;
+            self.pop = self.offer.pop;
+            [self loadData];
+        }
+    }];
+
+    // FIXME the meetup user is not always the fromUser of the offers
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-/*
-#pragma mark - Navigation
+- (void)loadData {
+    self.meetUpUser = self.offer.fromUser;
+    self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
+    self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self.meetUpUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            [self loadMeetUpUserInfo];
+        }
+    }];
 }
-*/
+
+- (void)loadMeetUpUserInfo {
+    NSLog(@"meetupUser: %@", self.meetUpUser);
+}
 
 @end
