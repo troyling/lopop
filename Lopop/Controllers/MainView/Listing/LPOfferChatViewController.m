@@ -17,7 +17,7 @@
 
 
 @property (retain, nonatomic) CLLocation *location;
-@property (retain, nonatomic) NSDate *proposedMeetupTime;
+@property (retain, nonatomic) NSDate *meetUpTime;
 
 @end
 
@@ -49,7 +49,7 @@
         [self.locationBtn animate];
     }
 
-    if (self.proposedMeetupTime == nil) {
+    if (self.meetUpTime == nil) {
         self.timeSelectorBtn.animation = @"shake";
         self.timeSelectorBtn.force = 0.5f;
         [self.timeSelectorBtn animate];
@@ -119,7 +119,7 @@
         vc.location = self.location;
     } else if ([segue.destinationViewController isKindOfClass:[LPTimePickerViewController class]]) {
         LPTimePickerViewController *vc = segue.destinationViewController;
-        vc.date = self.proposedMeetupTime;
+        vc.date = self.meetUpTime;
     }
 }
 
@@ -138,7 +138,7 @@
         [self.timeSelectorBtn setTitle:vc.timeLabel.text forState:UIControlStateNormal];
 
         // TODO save meetup time to server
-        self.proposedMeetupTime = vc.datePicker.date;
+        self.meetUpTime = vc.datePicker.date;
         [self enableMeetupBrn];
     }
 }
@@ -152,7 +152,11 @@
 }
 
 - (IBAction)proposeMeetup:(id)sender {
-    NSLog(@"IMPLEMENT PROPOSE MEETUP");
+    // save data
+    self.offer.meetUplocation = [PFGeoPoint geoPointWithLocation:self.location];
+    self.offer.meetUpTime = self.meetUpTime;
+    self.offer.status = kOfferMeetUpProposed;
+    [self.offer saveEventually];
 
     // FIXME allows them to preview the map once both user agrees on the proposal
     LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];

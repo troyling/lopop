@@ -12,8 +12,9 @@
 
 typedef enum {
     kOfferPending = 0,
+    kOfferMeetUpProposed,
     kOfferAccepted,
-    kOfferNotAccept,
+    kOfferNotAccepted,
     kOfferDeclined,
 } LPOfferStatus;
 
