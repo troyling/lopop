@@ -26,13 +26,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // nav bar
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
+    // delegate
     self.mapView.delegate = self;
 
+    // UI
     self.closeBtn.layer.zPosition = MAXFLOAT;
     self.meetUpTimeLabel.layer.zPosition = MAXFLOAT - 1.0f;
 
+    // Fetch data
     // TODO check status of the offer
     PFQuery *query = [LPOffer query];
     [query whereKey:@"objectId" equalTo:self.offer.objectId];
@@ -53,7 +57,7 @@
     self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
     self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
 
-    // load UI
+    // UI
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
     [outputDateFormatter setTimeZone:timeZoneLocal];
@@ -62,14 +66,17 @@
 
     self.meetUpTimeLabel.text = outputString;
 
+    // load views
     [self loadPopInfo];
-
+    [self loadMapView];
     [self.meetUpUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             [self loadMeetUpUserInfo];
         }
     }];
 }
+
+# pragma mark Load subviews
 
 - (void)loadPopInfo {
     if (self.pop) {
@@ -81,6 +88,21 @@
         // labels
         self.titleLabel.text = self.pop.title;
         self.priceLabel.text = [self.pop publicPriceStr];
+    }
+}
+
+- (void)loadMapView {
+    if (self.meetUpLocation) {
+        // display region in map
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.meetUpLocation.coordinate, 0.03, 0.03);
+        MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+        [self.mapView setCenterCoordinate:self.meetUpLocation.coordinate animated:NO];
+        [self.mapView setRegion:adjustedRegion animated:NO];
+
+        // add annotation
+        MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+        point.coordinate = self.meetUpLocation.coordinate;
+        [self.mapView addAnnotation:point];
     }
 }
 
@@ -98,15 +120,32 @@
         rv.starFillColor = [LPUIHelper ratingStarColor];
         rv.starSize = 15.0f;
         rv.starNormalColor = [UIColor lightGrayColor];
+        rv.starBorderColor = [UIColor clearColor];
         [self.userRatingView addSubview:rv];
     }
 }
+
+- (void)zoomToMeetUpLocation {
+
+}
+
+#pragma mark Actions
 
 - (IBAction)dismiss:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)contactUser:(id)sender {
+    NSLog(@"Contact user");
+}
+
+#pragma mark Map Annotation
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKAnnotationView *view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
+    [view setImage:[UIImage imageNamed:@"icon_location_fill.png"]];
+    [view setCanShowCallout:NO];
+    return view;
 }
 
 @end

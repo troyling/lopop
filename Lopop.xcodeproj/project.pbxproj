@@ -30,6 +30,7 @@
 		D623FDD91A9698A100D09C53 /* LPAssociatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDD81A9698A100D09C53 /* LPAssociatedButton.m */; };
 		D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */; };
 		D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */; };
+		D65C1D021A9BD1EA002B95C6 /* icon_location_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */; };
 		D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */; };
 		D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F7201A89ABE000E938F8 /* LPImageShowcaseViewController.m */; };
 		D66CC8B31A60DD8C007B9992 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC8B21A60DD8C007B9992 /* main.m */; };
@@ -196,6 +197,7 @@
 		D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingTableViewCell.m; path = Views/Common/LPUserRatingTableViewCell.m; sourceTree = "<group>"; };
 		D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPIncomingOfferTableViewController.h; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.h; sourceTree = "<group>"; };
 		D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPIncomingOfferTableViewController.m; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.m; sourceTree = "<group>"; };
+		D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_location_fill.png; path = Resources/Images/icons/icon_location_fill.png; sourceTree = "<group>"; };
 		D661F71B1A89A2AE00E938F8 /* LPSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignInViewController.h; path = Controllers/User/Login/LPSignInViewController.h; sourceTree = "<group>"; };
 		D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignInViewController.m; path = Controllers/User/Login/LPSignInViewController.m; sourceTree = "<group>"; };
 		D661F71F1A89ABE000E938F8 /* LPImageShowcaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPImageShowcaseViewController.h; path = Controllers/Common/LPImageShowcaseViewController.h; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 		D601CA7E1A798AA600344F0C /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */,
 				D6CB77161A9293D900629985 /* icon_like_fill.png */,
 				D6CB77171A9293D900629985 /* icon_like.png */,
 				D6CB77181A9293D900629985 /* icon_location.png */,
@@ -1059,6 +1062,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65C1D021A9BD1EA002B95C6 /* icon_location_fill.png in Resources */,
 				D6CB771C1A9293D900629985 /* icon_location.png in Resources */,
 				D6F5F8341A8514680005758B /* Info.plist in Resources */,
 				D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */,
