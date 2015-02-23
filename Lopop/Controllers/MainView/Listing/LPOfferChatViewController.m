@@ -16,7 +16,7 @@
 @interface LPOfferChatViewController ()
 
 
-@property (retain, nonatomic) CLLocation *location;
+@property (retain, nonatomic) CLLocation *meetUpLocation;
 @property (retain, nonatomic) NSDate *meetUpTime;
 
 @end
@@ -43,7 +43,7 @@
     [super viewDidAppear:animated];
 
     // animation
-    if (self.location == nil) {
+    if (self.meetUpLocation == nil) {
         self.locationBtn.animation = @"shake";
         self.timeSelectorBtn.force = 0.5f;
         [self.locationBtn animate];
@@ -57,7 +57,7 @@
 }
 
 - (void)loadData {
-    self.location = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
+    self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
 
     // UI
     self.title = self.offer.fromUser[@"name"];
@@ -76,7 +76,7 @@
 
 - (void)loadAddress {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:self.location completionHandler:^(NSArray *placemarks, NSError *error) {
+    [geocoder reverseGeocodeLocation:self.meetUpLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if(placemarks && placemarks.count > 0) {
             CLPlacemark *placemark= [placemarks objectAtIndex:0];
 
@@ -116,7 +116,7 @@
         vc.offerUser = self.offer.fromUser;
     } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = segue.destinationViewController;
-        vc.location = self.location;
+        vc.location = self.meetUpLocation;
     } else if ([segue.destinationViewController isKindOfClass:[LPTimePickerViewController class]]) {
         LPTimePickerViewController *vc = segue.destinationViewController;
         vc.date = self.meetUpTime;
@@ -129,22 +129,21 @@
     if ([unwindsegue.sourceViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = unwindsegue.sourceViewController;
         CLLocation *meetupLocation = vc.location;
-        self.location = meetupLocation;
-
-        // TODO save meetupLocation to server
+        self.meetUpLocation = meetupLocation;
         [self.locationBtn setTitle:vc.addressLabel.text forState:UIControlStateNormal];
+
+        [self enableMeetupBrn];
     } else if ([unwindsegue.sourceViewController isKindOfClass:[LPTimePickerViewController class]]) {
         LPTimePickerViewController *vc = unwindsegue.sourceViewController;
         [self.timeSelectorBtn setTitle:vc.timeLabel.text forState:UIControlStateNormal];
-
-        // TODO save meetup time to server
         self.meetUpTime = vc.datePicker.date;
+
         [self enableMeetupBrn];
     }
 }
 
 - (void)enableMeetupBrn {
-    if (self.meetupBtn.hidden) {
+    if (self.meetupBtn.hidden && self.meetUpTime && self.meetUpLocation) {
         self.meetupBtn.animation = @"pop";
         [self.meetupBtn animate];
         self.meetupBtn.hidden = NO;
@@ -153,7 +152,7 @@
 
 - (IBAction)proposeMeetup:(id)sender {
     // save data
-    self.offer.meetUplocation = [PFGeoPoint geoPointWithLocation:self.location];
+    self.offer.meetUplocation = [PFGeoPoint geoPointWithLocation:self.meetUpLocation];
     self.offer.meetUpTime = self.meetUpTime;
     self.offer.status = kOfferMeetUpProposed;
     [self.offer saveEventually];
