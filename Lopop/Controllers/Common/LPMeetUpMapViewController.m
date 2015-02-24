@@ -53,6 +53,11 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     self.closeBtn.layer.zPosition = MAXFLOAT;
     self.meetUpTimeLabel.layer.zPosition = MAXFLOAT - 1.0f;
 
+    // interaction
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePopDetailView)];
+    self.meetUpTimeLabel.userInteractionEnabled = YES;
+    [self.meetUpTimeLabel addGestureRecognizer:tap];
+
     // Fetch data
     PFQuery *query = [LPOffer query];
     [query whereKey:@"objectId" equalTo:self.offer.objectId];
@@ -74,7 +79,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
     // determine the mode of the map view
     [self setupMode];
-    
+
     // load firebase
     [self setupFirebase];
 
@@ -229,6 +234,25 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
     double inset = -zoomRect.size.width * 3.0;
     [self.mapView setVisibleMapRect:MKMapRectInset(zoomRect, inset, inset) animated:NO];
+}
+
+#pragma mark Interactions
+
+- (void)togglePopDetailView {
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         if (self.popDetailView.frame.origin.y < 0) {
+                            // show
+                            self.popDetailView.frame = CGRectMake(0, self.meetUpTimeLabel.frame.origin.y + self.meetUpTimeLabel.frame.size.height, self.popDetailView.frame.size.width, self.popDetailView.frame.size.height);
+                            self.popDetailView.alpha = 0.8f;
+                         } else {
+                            // hide
+                            self.popDetailView.frame = CGRectMake(0, -21.0f, self.popDetailView.frame.size.width, self.popDetailView.frame.size.height);
+                         }
+                     }
+                    completion:NULL];
 }
 
 #pragma mark Actions
