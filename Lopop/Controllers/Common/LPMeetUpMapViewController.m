@@ -178,14 +178,15 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         self.isMapViewInitialized = NO;
 
         // display region in map
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.meetUpLocation.coordinate, 0.15, 0.15);
-        MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-        [self.mapView setCenterCoordinate:self.meetUpLocation.coordinate animated:NO];
-        [self.mapView setRegion:adjustedRegion animated:NO];
+        MKCoordinateRegion region;
+        region.center = self.meetUpLocation.coordinate;
+        region.span.latitudeDelta = 0.009f;
+        region.span.longitudeDelta = 0.009f;
+        [self.mapView setRegion:region animated:NO];
 
-        // user location
-        self.meetUpUserLocationPin = [[MKPointAnnotation alloc] init];
-        [self.mapView addAnnotation:self.meetUpUserLocationPin];
+        // FIXME add meetup user to map when his/her location becomes available
+//        self.meetUpUserLocationPin = [[MKPointAnnotation alloc] init];
+//        [self.mapView addAnnotation:self.meetUpUserLocationPin];
 
         // add annotation
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
@@ -228,7 +229,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     [annotations addObject:self.mapView.userLocation];
 
     for (id <MKAnnotation> annotation in annotations) {
-        if ([annotation isEqual:self.meetUpUserLocationPin]) continue; // skip annotation
+//        if ([annotation isEqual:self.meetUpUserLocationPin]) continue; // skip annotation
 
         MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
