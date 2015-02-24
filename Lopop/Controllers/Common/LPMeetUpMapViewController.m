@@ -62,7 +62,8 @@
 
 - (void)loadData {
     // TODO check status of the offer
-    self.meetUpUser = self.offer.fromUser;
+    self.meetUpUser = [self.offer.fromUser.objectId isEqualToString:[PFUser currentUser].objectId] ? self.pop.seller : self.offer.fromUser;
+    NSLog(@"meetupuser: %@", self.meetUpUser);
     self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
     self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
 
