@@ -111,21 +111,25 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
             if (diff <= -3600) {
                 // overdue. 1 hour past the meet up time
                 self.displayMode = kMeetUpPreview;
+                            NSLog(@"PREVIEW");
 
             } else if (-3600 < diff && diff < 3600) {
                 // time of the meetup. able to view other's location
                 self.displayMode = kMeetUpInAction;
-
+                            NSLog(@"in action");
             } else {
                 // preview mode. Meet up is in the future
                 self.displayMode = kMeetUpPreview;
+                NSLog(@"PREVIEW");
             }
             break;
         case kOfferCompleted:
             self.displayMode = kMeetUpCompleted;
+            NSLog(@"Completed");
             break;
         default:
             self.displayMode = kMeetUpPreview;
+            NSLog(@"PREVIEW");
             break;
     }
 }
@@ -134,11 +138,11 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
 - (void)setupFirebase {
     // init my firebase
-    NSString *myFbUrl = [NSString stringWithFormat:@"https://lopop.firebaseio.com/meetups/%@/location", [PFUser currentUser].objectId];
+    NSString *myFbUrl = [NSString stringWithFormat:@"https://lopop.firebaseio.com/meetups/%@/%@/location", [PFUser currentUser].objectId, self.offer.objectId];
     self.myFbRef = [[Firebase alloc] initWithUrl:myFbUrl];
 
     // listen to meetup user's location update
-    NSString *meetUpUserFbUrl = [NSString stringWithFormat:@"https://lopop.firebaseio.com/meetups/%@/location", self.meetUpUser.objectId];
+    NSString *meetUpUserFbUrl = [NSString stringWithFormat:@"https://lopop.firebaseio.com/meetups/%@/%@/location", self.meetUpUser.objectId, self.offer.objectId];
     self.meetUpUserFbRef = [[Firebase alloc] initWithUrl:meetUpUserFbUrl];
 
     [[self.meetUpUserFbRef queryLimitedToLast:1] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
@@ -284,7 +288,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     return view;
 }
 
+#pragma mark mapView delegate
+
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    NSLog(@"Location updated");
     if (!self.isMapViewInitialized) {
         self.isMapViewInitialized = YES;
         [self zoomToMeetUpLocation];
