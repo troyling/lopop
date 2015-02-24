@@ -14,6 +14,12 @@
 #import "RateView.h"
 #import "LPPop.h"
 
+typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
+    kMeetUpPreview,
+    kMeetUpInAction,
+    kMeetUpCompleted
+};
+
 @interface LPMeetUpMapViewController ()
 
 @property (strong, nonatomic) LPPop *pop;
@@ -24,6 +30,7 @@
 @property (strong, nonatomic) Firebase *meetUpUserFbRef;
 @property (strong, nonatomic) Firebase *myFbRef;
 @property MKPointAnnotation *meetUpUserLocationPin;
+@property LPMeetUpMapViewMode displayMode;
 
 @property BOOL isMapViewInitialized;
 
@@ -34,13 +41,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // nav bar
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-
     // delegate
     self.mapView.delegate = self;
 
+    // start location manager
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+
     // UI
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.closeBtn.layer.zPosition = MAXFLOAT;
     self.meetUpTimeLabel.layer.zPosition = MAXFLOAT - 1.0f;
 
@@ -56,17 +65,16 @@
             [self loadData];
         }
     }];
-    // FIXME the meetup user is not always the fromUser of the offers
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
 }
 
 - (void)loadData {
-    // TODO check status of the offer
     self.meetUpUser = [self.offer.fromUser.objectId isEqualToString:[PFUser currentUser].objectId] ? self.pop.seller : self.offer.fromUser;
     self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
     self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
 
+    // determine the mode of the map view
+    [self setupMode];
+    
     // load firebase
     [self setupFirebase];
 
@@ -87,6 +95,34 @@
             [self loadMeetUpUserInfo];
         }
     }];
+}
+
+- (void)setupMode {
+    NSDate *currentTime = [NSDate date];
+    NSInteger diff = [self.offer.meetUpTime timeIntervalSinceDate:currentTime];
+
+    switch (self.offer.status) {
+        case kOfferAccepted:
+            if (diff <= -3600) {
+                // overdue. 1 hour past the meet up time
+                self.displayMode = kMeetUpPreview;
+
+            } else if (-3600 < diff && diff < 3600) {
+                // time of the meetup. able to view other's location
+                self.displayMode = kMeetUpInAction;
+
+            } else {
+                // preview mode. Meet up is in the future
+                self.displayMode = kMeetUpPreview;
+            }
+            break;
+        case kOfferCompleted:
+            self.displayMode = kMeetUpCompleted;
+            break;
+        default:
+            self.displayMode = kMeetUpPreview;
+            break;
+    }
 }
 
 # pragma mark Firebase

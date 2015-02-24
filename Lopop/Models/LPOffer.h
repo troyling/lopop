@@ -16,6 +16,7 @@ typedef enum {
     kOfferAccepted,
     kOfferNotAccepted,
     kOfferDeclined,
+    kOfferCompleted
 } LPOfferStatus;
 
 @interface LPOffer : PFObject<PFSubclassing>
