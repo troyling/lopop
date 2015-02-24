@@ -51,12 +51,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     // UI
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.closeBtn.layer.zPosition = MAXFLOAT;
-    self.meetUpTimeLabel.layer.zPosition = MAXFLOAT - 1.0f;
+    self.meetUpTimeBtn.layer.zPosition = MAXFLOAT - 1.0f;
 
     // interaction
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(togglePopDetailView)];
-    self.meetUpTimeLabel.userInteractionEnabled = YES;
-    [self.meetUpTimeLabel addGestureRecognizer:tap];
+    [self.meetUpTimeBtn addTarget:self action:@selector(togglePopDetailView) forControlEvents:UIControlEventTouchUpInside];
 
     // Fetch data
     PFQuery *query = [LPOffer query];
@@ -87,10 +85,11 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
     NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
     [outputDateFormatter setTimeZone:timeZoneLocal];
-    [outputDateFormatter setDateFormat:@"EEE, MMM d, h:mm a"];
+    [outputDateFormatter setDateFormat:@"  EEE, MMM d, h:mm a  "];
     NSString *outputString = [outputDateFormatter stringFromDate:self.meetUpTime];
 
-    self.meetUpTimeLabel.text = outputString;
+    [self.meetUpTimeBtn setTitle:outputString forState:UIControlStateNormal];
+    [self.meetUpTimeBtn setImage:[UIImage imageNamed:@"icon_dropdown_line.png"] forState:UIControlStateNormal];
 
     // load views
     [self loadPopInfo];
@@ -249,7 +248,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
                      animations:^{
                          if (self.popDetailView.frame.origin.y < 0) {
                             // show
-                            self.popDetailView.frame = CGRectMake(0, self.meetUpTimeLabel.frame.origin.y + self.meetUpTimeLabel.frame.size.height, self.popDetailView.frame.size.width, self.popDetailView.frame.size.height);
+                            self.popDetailView.frame = CGRectMake(0, self.meetUpTimeBtn.frame.origin.y + self.meetUpTimeBtn.frame.size.height, self.popDetailView.frame.size.width, self.popDetailView.frame.size.height);
                             self.popDetailView.alpha = 0.8f;
                          } else {
                             // hide
