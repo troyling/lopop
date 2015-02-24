@@ -64,12 +64,11 @@
 
     [self.pop fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
-            NSLog(@"Meetup location: %@", self.meetUpLocation);
             if (!self.meetUpLocation) {
                 // load the pop location if meet up location is not set for this particular offer
                 self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.pop.location.latitude longitude:self.pop.location.longitude];
             }
-            NSLog(@"Afer Meetup location: %@", self.meetUpLocation);
+
             // UI
             self.title = self.offer.fromUser[@"name"];
 

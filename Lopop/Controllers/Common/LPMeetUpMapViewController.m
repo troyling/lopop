@@ -18,6 +18,8 @@
 @property (strong, nonatomic) PFUser *meetUpUser;
 @property (strong, nonatomic) NSDate *meetUpTime;
 @property (strong, nonatomic) CLLocation *meetUpLocation;
+@property (retain, nonatomic) CLLocationManager *locationManager;
+@property BOOL isMapViewInitialized;
 
 @end
 
@@ -50,6 +52,8 @@
         }
     }];
     // FIXME the meetup user is not always the fromUser of the offers
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
 }
 
 - (void)loadData {
@@ -93,6 +97,8 @@
 
 - (void)loadMapView {
     if (self.meetUpLocation) {
+        self.isMapViewInitialized = NO;
+
         // display region in map
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.meetUpLocation.coordinate, 0.03, 0.03);
         MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
@@ -103,6 +109,15 @@
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
         point.coordinate = self.meetUpLocation.coordinate;
         [self.mapView addAnnotation:point];
+
+        // locate myself
+        if ([CLLocationManager locationServicesEnabled]) {
+            [self.locationManager startUpdatingLocation];
+
+            if (self.locationManager.location) {
+                self.mapView.showsUserLocation = YES;
+            }
+        }
     }
 }
 
@@ -126,7 +141,18 @@
 }
 
 - (void)zoomToMeetUpLocation {
+    MKMapRect zoomRect = MKMapRectNull;
+    NSMutableArray *annotations = [[NSMutableArray alloc] initWithArray:self.mapView.annotations];
+    [annotations addObject:self.mapView.userLocation];
 
+    for (id <MKAnnotation> annotation in annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+
+    double inset = -zoomRect.size.width * 3.0;
+    [self.mapView setVisibleMapRect:MKMapRectInset(zoomRect, inset, inset) animated:NO];
 }
 
 #pragma mark Actions
@@ -142,10 +168,19 @@
 #pragma mark Map Annotation
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if (annotation == self.mapView.userLocation) return nil;
+
     MKAnnotationView *view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
     [view setImage:[UIImage imageNamed:@"icon_location_fill.png"]];
     [view setCanShowCallout:NO];
     return view;
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    if (!self.isMapViewInitialized) {
+        self.isMapViewInitialized = YES;
+        [self zoomToMeetUpLocation];
+    }
 }
 
 @end

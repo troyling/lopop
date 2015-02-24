@@ -11,7 +11,7 @@
 #import "Lopop-Swift.h"
 #import "LPOffer.h"
 
-@interface LPMeetUpMapViewController : UIViewController <MKMapViewDelegate>
+@interface LPMeetUpMapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) LPOffer *offer;
 
