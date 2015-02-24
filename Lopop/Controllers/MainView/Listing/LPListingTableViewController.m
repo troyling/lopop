@@ -15,12 +15,14 @@
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
 #import "LPListingDetailViewController.h"
+#import "LPMeetUpMapViewController.h"
 
 @interface LPListingTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *listings;
 @property (strong, nonatomic) NSMutableArray *offerredPops;
 @property (strong, nonatomic) NSMutableDictionary *incomingOffers;
+@property (strong, nonatomic) NSMutableArray *myOffers;
 
 @property (assign) LPDisplayState displayState;
 
@@ -77,6 +79,7 @@
     [offerQuery orderByDescending:@"createdAt"];
     [offerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            self.myOffers = [[NSMutableArray alloc] initWithArray:objects];
             for(id o in objects) {
                 if ([o isKindOfClass:[LPOffer class]]) {
                     LPOffer *offer = o;
@@ -232,6 +235,22 @@
             break;
         default:
             break;
+    }
+}
+
+# pragma mark Navigation Control
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[LPMeetUpMapViewController class]]) {
+        LPMeetUpMapViewController *vc = segue.destinationViewController;
+
+        if ([sender isKindOfClass:[LPPopListingTableViewCell class]]) {
+            LPPopListingTableViewCell *cell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
+            NSLog(@"%@", offer);
+            vc.offer = offer;
+        }
     }
 }
 
