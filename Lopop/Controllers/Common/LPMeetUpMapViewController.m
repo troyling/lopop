@@ -7,6 +7,7 @@
 //
 
 #import "LPMeetUpMapViewController.h"
+#import "MKAnnotationView+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import <Firebase/Firebase.h>
 #import "LPUIHelper.h"
@@ -63,7 +64,6 @@
 - (void)loadData {
     // TODO check status of the offer
     self.meetUpUser = [self.offer.fromUser.objectId isEqualToString:[PFUser currentUser].objectId] ? self.pop.seller : self.offer.fromUser;
-    NSLog(@"meetupuser: %@", self.meetUpUser);
     self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
     self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
 
@@ -89,7 +89,7 @@
     }];
 }
 
-# pragma mark FB
+# pragma mark Firebase
 
 - (void)setupFirebase {
     // init my firebase
@@ -101,11 +101,16 @@
     self.meetUpUserFbRef = [[Firebase alloc] initWithUrl:meetUpUserFbUrl];
 
     [[self.meetUpUserFbRef queryLimitedToLast:1] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
-        double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
+        if (snapshot.value[@"latitude"] != nil && snapshot.value[@"longitude"] != nil) {
+            double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
+            double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
 
-        // update UI
-        self.meetUpUserLocationPin.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+            // update UI
+            self.meetUpUserLocationPin.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        }
+
+        // remove nodes
+        [[self.meetUpUserFbRef childByAppendingPath:snapshot.key] removeValue];
     }];
 }
 
@@ -179,6 +184,8 @@
     [annotations addObject:self.mapView.userLocation];
 
     for (id <MKAnnotation> annotation in annotations) {
+        if ([annotation isEqual:self.meetUpUserLocationPin]) continue; // skip annotation
+
         MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
@@ -201,11 +208,19 @@
 #pragma mark Map Annotation
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    if (annotation == self.mapView.userLocation) return nil;
+    if (annotation == self.mapView.userLocation) return nil; // my location
 
-    MKAnnotationView *view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
-    [view setImage:[UIImage imageNamed:@"icon_location_fill.png"]];
-    [view setCanShowCallout:NO];
+    MKAnnotationView *view;
+    if (annotation == self.meetUpUserLocationPin) {
+        // meetup user
+        view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"meetUpUser"];
+        [view setImage:[UIImage imageNamed:@"icon_like_fill.png"]];
+        [view setCanShowCallout:YES];
+    } else {
+        view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
+        [view setImage:[UIImage imageNamed:@"icon_location_fill.png"]];
+        [view setCanShowCallout:NO];
+    }
     return view;
 }
 
@@ -220,6 +235,7 @@
                                      @"latitude" : [NSNumber numberWithDouble:userLocation.coordinate.latitude],
                                      @"longitude" : [NSNumber numberWithDouble:userLocation.coordinate.longitude]
                                      };
+//    [self.myFbRef removeValue];
     [[self.myFbRef childByAutoId] setValue:locationUpdate];
 }
 
