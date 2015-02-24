@@ -8,6 +8,7 @@
 
 #import "LPMeetUpMapViewController.h"
 #import "UIImageView+WebCache.h"
+#import <Firebase/Firebase.h>
 #import "LPUIHelper.h"
 #import "RateView.h"
 #import "LPPop.h"
@@ -19,6 +20,10 @@
 @property (strong, nonatomic) NSDate *meetUpTime;
 @property (strong, nonatomic) CLLocation *meetUpLocation;
 @property (retain, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) Firebase *meetUpUserFbRef;
+@property (strong, nonatomic) Firebase *myFbRef;
+@property MKPointAnnotation *meetUpUserLocationPin;
+
 @property BOOL isMapViewInitialized;
 
 @end
@@ -39,7 +44,6 @@
     self.meetUpTimeLabel.layer.zPosition = MAXFLOAT - 1.0f;
 
     // Fetch data
-    // TODO check status of the offer
     PFQuery *query = [LPOffer query];
     [query whereKey:@"objectId" equalTo:self.offer.objectId];
     [query includeKey:@"pop"];
@@ -57,9 +61,13 @@
 }
 
 - (void)loadData {
+    // TODO check status of the offer
     self.meetUpUser = self.offer.fromUser;
     self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
     self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
+
+    // load firebase
+    [self setupFirebase];
 
     // UI
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
@@ -77,6 +85,26 @@
         if (!error) {
             [self loadMeetUpUserInfo];
         }
+    }];
+}
+
+# pragma mark FB
+
+- (void)setupFirebase {
+    // init my firebase
+    NSString *myFbUrl = [NSString stringWithFormat:@"https://lopop.firebaseio.com/meetups/%@/location", [PFUser currentUser].objectId];
+    self.myFbRef = [[Firebase alloc] initWithUrl:myFbUrl];
+
+    // listen to meetup user's location update
+    NSString *meetUpUserFbUrl = [NSString stringWithFormat:@"https://lopop.firebaseio.com/meetups/%@/location", self.meetUpUser.objectId];
+    self.meetUpUserFbRef = [[Firebase alloc] initWithUrl:meetUpUserFbUrl];
+
+    [[self.meetUpUserFbRef queryLimitedToLast:1] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
+        double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
+
+        // update UI
+        self.meetUpUserLocationPin.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
     }];
 }
 
@@ -104,6 +132,10 @@
         MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         [self.mapView setCenterCoordinate:self.meetUpLocation.coordinate animated:NO];
         [self.mapView setRegion:adjustedRegion animated:NO];
+
+        // user location
+        self.meetUpUserLocationPin = [[MKPointAnnotation alloc] init];
+        [self.mapView addAnnotation:self.meetUpUserLocationPin];
 
         // add annotation
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
@@ -181,6 +213,13 @@
         self.isMapViewInitialized = YES;
         [self zoomToMeetUpLocation];
     }
+
+    // send my location update to firebase
+    NSDictionary *locationUpdate = @{
+                                     @"latitude" : [NSNumber numberWithDouble:userLocation.coordinate.latitude],
+                                     @"longitude" : [NSNumber numberWithDouble:userLocation.coordinate.longitude]
+                                     };
+    [[self.myFbRef childByAutoId] setValue:locationUpdate];
 }
 
 @end
