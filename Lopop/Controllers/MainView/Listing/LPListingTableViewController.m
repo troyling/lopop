@@ -251,6 +251,18 @@
             NSLog(@"%@", offer);
             vc.offer = offer;
         }
+
+        // engage user by hiding tabbar
+        if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+            LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+            [tb setTabBarVisible:NO animated:YES];
+        }
+    }
+}
+
+- (IBAction)prepareForUnwind:(UIStoryboardSegue *)unwindSegue {
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
     }
 }
 

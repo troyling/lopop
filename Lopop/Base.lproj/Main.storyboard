@@ -747,6 +747,7 @@
         <scene sceneID="ms5-xh-6aY">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BoS-BV-jvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="m85-gr-ic9" userLabel="Exit" sceneMemberID="exit"/>
                 <viewController storyboardIdentifier="meetUpMapViewController" id="oZp-VE-EyS" customClass="LPMeetUpMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XIC-fc-2n1"/>
@@ -932,6 +933,7 @@
                                 <connections>
                                     <action selector="dismiss:" destination="sec-wm-FtH" eventType="touchUpInside" id="i3a-jj-UYc"/>
                                     <action selector="dismiss:" destination="oZp-VE-EyS" eventType="touchUpInside" id="idx-lL-2sa"/>
+                                    <segue destination="m85-gr-ic9" kind="unwind" unwindAction="prepareForUnwind:" id="L33-i9-i9X"/>
                                 </connections>
                             </button>
                         </subviews>

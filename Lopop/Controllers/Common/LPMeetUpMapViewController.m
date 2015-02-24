@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         self.isMapViewInitialized = NO;
 
         // display region in map
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.meetUpLocation.coordinate, 0.03, 0.03);
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.meetUpLocation.coordinate, 0.15, 0.15);
         MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         [self.mapView setCenterCoordinate:self.meetUpLocation.coordinate animated:NO];
         [self.mapView setRegion:adjustedRegion animated:NO];
@@ -192,14 +192,14 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         point.coordinate = self.meetUpLocation.coordinate;
         [self.mapView addAnnotation:point];
 
-        // locate myself
-        if ([CLLocationManager locationServicesEnabled]) {
-            [self.locationManager startUpdatingLocation];
-
-            if (self.locationManager.location) {
-                self.mapView.showsUserLocation = YES;
-            }
-        }
+//        // locate myself
+//        if ([CLLocationManager locationServicesEnabled]) {
+//            [self.locationManager startUpdatingLocation];
+//
+//            if (self.locationManager.location) {
+//                self.mapView.showsUserLocation = YES;
+//            }
+//        }
     }
 }
 
@@ -293,7 +293,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     NSLog(@"Location updated");
     if (!self.isMapViewInitialized) {
         self.isMapViewInitialized = YES;
-        [self zoomToMeetUpLocation];
+//        [self zoomToMeetUpLocation];
     }
 
     // send my location update to firebase
