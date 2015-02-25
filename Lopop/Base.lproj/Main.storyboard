@@ -974,10 +974,10 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biL-3z-fgb">
-                                <rect key="frame" x="329" y="562" width="30" height="30"/>
+                                <rect key="frame" x="332" y="557" width="35" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="Orz-Vl-Kcr"/>
-                                    <constraint firstAttribute="height" constant="30" id="pWs-dl-kMU"/>
+                                    <constraint firstAttribute="width" constant="35" id="Orz-Vl-Kcr"/>
+                                    <constraint firstAttribute="height" constant="35" id="pWs-dl-kMU"/>
                                 </constraints>
                                 <state key="normal" image="icon_radar_fill">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1009,7 +1009,7 @@
                             <constraint firstAttribute="height" secondItem="fqW-Hl-Spu" secondAttribute="height" constant="77" id="qpk-nU-zVR"/>
                             <constraint firstAttribute="centerX" secondItem="N57-lG-f7F" secondAttribute="centerX" id="rMq-3a-FmQ"/>
                             <constraint firstItem="aTZ-hl-eYs" firstAttribute="top" secondItem="fqW-Hl-Spu" secondAttribute="bottom" id="uCx-nI-mA3"/>
-                            <constraint firstItem="biL-3z-fgb" firstAttribute="leading" secondItem="fqW-Hl-Spu" secondAttribute="trailing" constant="-46" id="v11-1l-KA4"/>
+                            <constraint firstItem="biL-3z-fgb" firstAttribute="leading" secondItem="fqW-Hl-Spu" secondAttribute="trailing" constant="-43" id="v11-1l-KA4"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

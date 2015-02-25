@@ -156,6 +156,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
             double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
             double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
             NSLog(@"Latitude: %f, Longitude: %f", latitude, longitude);
+
             // update UI
             if (!self.meetUpUserLocationAnnotation) {
                 self.meetUpUserLocationAnnotation = [[MKPointAnnotation alloc] init];
@@ -165,14 +166,17 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
                 [LPAlertViewHelper fatalErrorAlert:[NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]];
                 [self zoomToFitAllAnnotation];
             }
-            CLLocationDistance distance = [self.offer.meetUpLocation distanceInMilesTo:[PFGeoPoint geoPointWithLocation:[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
 
-            // format
+            // Location
+            CLLocationDistance distance = [self.offer.meetUpLocation distanceInMilesTo:[PFGeoPoint geoPointWithLocation:[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
             NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
             [formater setPositiveFormat:@"0.##"];
             NSString *distanceStr = [formater stringFromNumber:[NSNumber numberWithDouble:distance]];
+
             self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
             self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+
+            [self showZoomBtnIfNeeded];
         }
 
         // remove nodes
@@ -277,6 +281,25 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
             self.meetUpLocationAnnotation.title = address;
         }
     }];
+}
+
+#pragma mark helpers
+
+- (BOOL)allAnnotationsVisible {
+    // check if all annotations are on display
+    MKMapRect visibleMapRect = self.mapView.visibleMapRect;
+    NSSet *visibleAnnotations = [self.mapView annotationsInMapRect:visibleMapRect];
+    return visibleAnnotations.count == self.mapView.annotations.count;
+}
+
+- (BOOL)isMeetUpLocationCenterAtMapView {
+    return self.mapView.centerCoordinate.latitude == self.meetUpLocation.coordinate.latitude &&
+    self.mapView.centerCoordinate.longitude == self.meetUpLocation.coordinate.longitude;
+}
+
+- (void)showZoomBtnIfNeeded {
+    BOOL needed = (self.displayMode == kMeetUpInAction) ? ![self allAnnotationsVisible] : ![self isMeetUpLocationCenterAtMapView];
+    self.zoomBtn.hidden = needed ? NO : YES;
 }
 
 #pragma mark Map - Zooming
@@ -398,14 +421,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-    // check if all annotations are on display
-    MKMapRect visibleMapRect = self.mapView.visibleMapRect;
-    NSSet *visibleAnnotations = [self.mapView annotationsInMapRect:visibleMapRect];
-    if (visibleAnnotations.count != self.mapView.annotations.count) {
-        self.zoomBtn.hidden = NO;
-    } else {
-        self.zoomBtn.hidden = YES;
-    }
+    [self showZoomBtnIfNeeded];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
@@ -413,6 +429,8 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     if (!self.isMyLocationInitialized) {
         self.isMyLocationInitialized = YES;
         [self zoomToFitAllAnnotation];
+    } else {
+        [self showZoomBtnIfNeeded];
     }
 
     // send my location update to firebase
