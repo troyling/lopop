@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 @property (strong, nonatomic) PFUser *meetUpUser;
 @property (strong, nonatomic) NSDate *meetUpTime;
 @property (strong, nonatomic) CLLocation *meetUpLocation;
+@property (strong, nonatomic) CLLocation *meetUpUserLocation;
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) Firebase *meetUpUserFbRef;
 @property (strong, nonatomic) Firebase *myFbRef;
@@ -155,8 +156,8 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
             double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
             double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
 
-            CLLocation *meetUpUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-            [self updateMapViewForMeetUpUserWithLocaiton:meetUpUserLocation];
+            self.meetUpUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+            [self updateMapViewForMeetUpUserWithLocaiton];
         }
     }];
 }
@@ -232,21 +233,23 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
 }
 
-- (void)updateMapViewForMeetUpUserWithLocaiton:(CLLocation *)location {
+- (void)updateMapViewForMeetUpUserWithLocaiton {
     NSLog(@"UPDATE MEETUP USER");
     if (!self.meetUpUserLocationAnnotation) {
         self.meetUpUserLocationAnnotation = [[MKPointAnnotation alloc] init];
         [self.mapView addAnnotation:self.meetUpUserLocationAnnotation];
-        self.meetUpUserLocationAnnotation.coordinate = location.coordinate;
+        self.meetUpUserLocationAnnotation.coordinate = self.meetUpUserLocation.coordinate;
 
         NSLog(@"%@", [NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]);
+        // inform user that people just enter action mode
+
         [self zoomToFitAllAnnotation];
     }
 
     // update location distance
-    NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenLocations:self.meetUpLocation and:location withFormat:@"0.##"];
+    NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenLocations:self.meetUpLocation and:self.meetUpUserLocation withFormat:@"0.##"];
     self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
-    self.meetUpUserLocationAnnotation.coordinate = location.coordinate;
+    self.meetUpUserLocationAnnotation.coordinate = self.meetUpUserLocation.coordinate;
 
     // inform user when meetup user is approaching
     CLLocationDistance distanceInMile = [distanceStr doubleValue];
@@ -262,25 +265,39 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         }
     }
 
+    // if user is in location
+    BOOL metUp = [self userMetUp];
+    NSLog(metUp ? @"YES" : @"NO");
+
     [self showZoomBtnIfNeeded];
 }
 
 #pragma mark helpers
 
-- (void)informMeetUpUserApproaching {
-    self.eventLabel.text = [NSString stringWithFormat:@"%@ is approaching to the meetup location", self.meetUpUser[@"name"]];
-    [UIView animateWithDuration:3.0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.eventLabel.hidden = NO;
-    } completion:NULL];
+- (BOOL)userMetUp {
+    PFGeoPoint *myGeoPoint = [PFGeoPoint geoPointWithLocation:self.locationManager.location];
+    PFGeoPoint *meetUpUserGeoPoint = [PFGeoPoint geoPointWithLocation:self.meetUpUserLocation];
+    CLLocationDistance myDistanceToUserInMile = [myGeoPoint distanceInMilesTo:meetUpUserGeoPoint];
+    return myDistanceToUserInMile <= 0.01875; // within 30 meters
+}
 
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideEventLabel) userInfo:nil repeats:NO];
+- (void)promptMessage:(NSString *)message withDismissTimeInterval:(double)time {
+    self.eventLabel.text = message;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.eventLabel.hidden = NO;
+    }];
+    [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(hideEventLabel) userInfo:nil repeats:NO];
+}
+
+- (void)informMeetUpUserApproaching {
+    NSString *msg = [NSString stringWithFormat:@"%@ is approaching to the meetup location", self.meetUpUser[@"name"]];
+    [self promptMessage:msg withDismissTimeInterval:5];
 }
 
 - (void)hideEventLabel {
     [UIView animateWithDuration:3.0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.eventLabel.hidden = YES;
     } completion:NULL];
-
 }
 
 - (BOOL)allAnnotationsVisible {
@@ -438,6 +455,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     // remove nodes
     [self.myFbRef removeValue];
     [[self.myFbRef childByAutoId] setValue:locationUpdate];
+
+    // if user is in location
+    BOOL metUp = [self userMetUp];
+    NSLog(metUp ? @"From update location YES" : @"From update location NO");
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
