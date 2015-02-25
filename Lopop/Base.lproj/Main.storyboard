@@ -986,16 +986,29 @@
                                     <action selector="zoomToFit:" destination="oZp-VE-EyS" eventType="touchUpInside" id="5KP-dM-olc"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pls-Sn-el2">
+                                <rect key="frame" x="62" y="77" width="250" height="49"/>
+                                <color key="backgroundColor" red="0.3411764705882353" green="0.88627450980392153" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="CWT-Ch-WBE"/>
+                                    <constraint firstAttribute="height" constant="49" id="TdU-f0-Wc3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="N57-lG-f7F" secondAttribute="width" id="1kP-Kn-CJS"/>
+                            <constraint firstItem="pls-Sn-el2" firstAttribute="top" secondItem="Qym-dv-M5Q" secondAttribute="bottom" constant="8" id="2wp-6l-24Z"/>
                             <constraint firstItem="hpD-KD-SF3" firstAttribute="top" secondItem="XIC-fc-2n1" secondAttribute="bottom" id="AXv-ip-w3N"/>
                             <constraint firstItem="aTZ-hl-eYs" firstAttribute="top" secondItem="biL-3z-fgb" secondAttribute="bottom" constant="8" id="IU7-0x-XWg"/>
                             <constraint firstAttribute="width" secondItem="fqW-Hl-Spu" secondAttribute="width" id="Kwl-sB-zF2"/>
                             <constraint firstItem="fqW-Hl-Spu" firstAttribute="top" secondItem="Qym-dv-M5Q" secondAttribute="bottom" id="Lm0-no-XPZ"/>
                             <constraint firstAttribute="centerY" secondItem="fqW-Hl-Spu" secondAttribute="centerY" constant="-38.5" id="PfI-Ku-YV9"/>
                             <constraint firstAttribute="width" secondItem="Qym-dv-M5Q" secondAttribute="width" id="PjS-vc-o5c"/>
+                            <constraint firstAttribute="centerX" secondItem="pls-Sn-el2" secondAttribute="centerX" constant="0.5" id="Qjq-ct-I39"/>
                             <constraint firstAttribute="centerX" secondItem="Qym-dv-M5Q" secondAttribute="centerX" id="RbH-g8-6d2"/>
                             <constraint firstItem="Qym-dv-M5Q" firstAttribute="top" secondItem="N57-lG-f7F" secondAttribute="bottom" constant="-49" id="T6y-SM-6FZ"/>
                             <constraint firstItem="hpD-KD-SF3" firstAttribute="leading" secondItem="LmD-QS-7R7" secondAttribute="leadingMargin" constant="-16" id="TrY-FB-nbo"/>
@@ -1023,6 +1036,7 @@
                     <connections>
                         <outlet property="closeBtn" destination="hpD-KD-SF3" id="0Lk-JH-HTQ"/>
                         <outlet property="contactUserBtn" destination="f71-iQ-I4k" id="ID0-d2-9OH"/>
+                        <outlet property="eventLabel" destination="pls-Sn-el2" id="eyH-R8-7Ap"/>
                         <outlet property="mapView" destination="fqW-Hl-Spu" id="87C-Kn-2M4"/>
                         <outlet property="meetUpTimeBtn" destination="Qym-dv-M5Q" id="khb-wm-NgT"/>
                         <outlet property="popDetailView" destination="N57-lG-f7F" id="Nnl-Il-lKY"/>

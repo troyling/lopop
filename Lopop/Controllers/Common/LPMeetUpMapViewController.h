@@ -27,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *zoomBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *eventLabel;
+
 // user view
 @property (weak, nonatomic) IBOutlet UIImageView *profileImgView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;

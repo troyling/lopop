@@ -256,6 +256,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         if (distanceInMile <= 0.2f) {
             // Meet up user is in 0.2 miles away
             NSLog(@"user is approaching");
+            [self informMeetUpUserApproaching];
             MKCircle *circle = [MKCircle circleWithCenterCoordinate:self.meetUpLocation.coordinate radius:200]; // overlay with 400 meters
             [self.mapView addOverlay:circle];
         }
@@ -265,6 +266,22 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 }
 
 #pragma mark helpers
+
+- (void)informMeetUpUserApproaching {
+    self.eventLabel.text = [NSString stringWithFormat:@"%@ is approaching to the meetup location", self.meetUpUser[@"name"]];
+    [UIView animateWithDuration:3.0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.eventLabel.hidden = NO;
+    } completion:NULL];
+
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideEventLabel) userInfo:nil repeats:NO];
+}
+
+- (void)hideEventLabel {
+    [UIView animateWithDuration:3.0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.eventLabel.hidden = YES;
+    } completion:NULL];
+
+}
 
 - (BOOL)allAnnotationsVisible {
     // check if all annotations are on display
