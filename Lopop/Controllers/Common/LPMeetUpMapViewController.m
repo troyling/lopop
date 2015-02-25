@@ -133,15 +133,9 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 }
 
 - (void)startMeetup {
-    // UI Interaction
-    [UIView animateWithDuration:0.3 animations:^{
-        self.startMeetUpBtn.frame = CGRectMake(self.startMeetUpBtn.frame.origin.x + self.startMeetUpBtn.frame.size.width + 8.0f, self.startMeetUpBtn.frame.origin.y, self.startMeetUpBtn.frame.size.width, self.startMeetUpBtn.frame.size.height);
-        self.contactUserBtn.frame = CGRectMake(self.contactUserBtn.frame.origin.x + self.contactUserBtn.frame.size.width + 8.0f, self.contactUserBtn.frame.origin.y, self.contactUserBtn.frame.size.width, self.contactUserBtn.frame.size.height);
-    }];
-
-    // TODO alert user's that his/her location will be shared with the other user
-    self.displayMode = kMeetUpInAction;
-    [self enterTradeMode];
+    // alertFirst
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sharing location" message:@"Your location will be shared to other user." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Okay", @"Okay and don't show this again", nil];
+    [alert show];
 }
 
 # pragma mark Firebase
@@ -240,6 +234,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
 }
 
+// TODO change this to a helper function 
 - (void)updateAddress {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -298,7 +293,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     [self.mapView setVisibleMapRect:MKMapRectInset(zoomRect, inset, inset) animated:YES];
 }
 
-#pragma mark Interactions
+#pragma mark UI Animation
 
 - (void)togglePopDetailView {
     [UIView animateWithDuration:0.3
@@ -317,6 +312,14 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
                     completion:NULL];
 }
 
+- (void)hideStartButtonWithAnimation {
+    // UI Interaction
+    [UIView animateWithDuration:0.3 animations:^{
+        self.startMeetUpBtn.frame = CGRectMake(self.startMeetUpBtn.frame.origin.x + self.startMeetUpBtn.frame.size.width + 8.0f, self.startMeetUpBtn.frame.origin.y, self.startMeetUpBtn.frame.size.width, self.startMeetUpBtn.frame.size.height);
+        self.contactUserBtn.frame = CGRectMake(self.contactUserBtn.frame.origin.x + self.contactUserBtn.frame.size.width + 8.0f, self.contactUserBtn.frame.origin.y, self.contactUserBtn.frame.size.width, self.contactUserBtn.frame.size.height);
+    }];
+}
+
 #pragma mark Actions
 
 - (IBAction)dismiss:(id)sender {
@@ -327,7 +330,28 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     NSLog(@"Contact user");
 }
 
-#pragma mark Map Annotation
+#pragma mark AlertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Cancel"]) {
+        // do nothing
+    } else {
+        // begin
+        self.displayMode = kMeetUpInAction;
+        [self enterTradeMode];
+
+        // UI Interaction
+        [self hideStartButtonWithAnimation];
+
+        if ([title isEqualToString:@"Okay and don't show this again"]) {
+            // save this
+            NSLog(@"SAVE THIS FLAG");
+        }
+    }
+}
+
+#pragma mark MapView
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     if (annotation == self.mapView.userLocation) return nil; // my location
@@ -345,8 +369,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
     return view;
 }
-
-#pragma mark mapView delegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     NSLog(@"Location updated");
