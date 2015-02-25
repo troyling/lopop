@@ -261,6 +261,7 @@
 }
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)unwindSegue {
+    // FIXME set enable will pop to the vc that hides the tab bar, instead of where it supoose to be
     if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
         [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
     }

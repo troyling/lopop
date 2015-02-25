@@ -746,8 +746,6 @@
         <!--Meet Up Map View Controller-->
         <scene sceneID="ms5-xh-6aY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BoS-BV-jvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="m85-gr-ic9" userLabel="Exit" sceneMemberID="exit"/>
                 <viewController storyboardIdentifier="meetUpMapViewController" id="oZp-VE-EyS" customClass="LPMeetUpMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XIC-fc-2n1"/>
@@ -828,8 +826,8 @@
                                         <exclude reference="ZY6-js-ZIQ"/>
                                         <exclude reference="b0z-ib-XMy"/>
                                         <exclude reference="Xbo-53-W5W"/>
-                                        <exclude reference="OA1-Ci-9Mj"/>
                                         <exclude reference="GBq-yy-QlU"/>
+                                        <exclude reference="OA1-Ci-9Mj"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -844,7 +842,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESp-zA-hnI" userLabel="Name">
-                                        <rect key="frame" x="66" y="9" width="232" height="25"/>
+                                        <rect key="frame" x="66" y="9" width="163" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="GVM-BF-aVD"/>
                                             <constraint firstAttribute="width" constant="232" id="laB-vw-dr4"/>
@@ -852,20 +850,31 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="laB-vw-dr4"/>
+                                            </mask>
+                                        </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WP6-Mc-TCH">
-                                        <rect key="frame" x="66" y="37" width="232" height="22"/>
+                                        <rect key="frame" x="66" y="37" width="163" height="22"/>
                                         <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="232" id="Qrr-Hh-ZEW"/>
                                             <constraint firstAttribute="height" constant="22" id="wJe-pN-KYS"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Qrr-Hh-ZEW"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f71-iQ-I4k" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
-                                        <rect key="frame" x="306" y="19" width="61" height="30"/>
+                                        <rect key="frame" x="237" y="19" width="61" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.64313725489999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="4w9-hy-ejb"/>
+                                            <constraint firstAttribute="width" constant="61" id="9VC-LH-4AM"/>
                                             <constraint firstAttribute="width" constant="61" id="hYl-o9-jRm"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -887,6 +896,30 @@
                                             <action selector="contactUser:" destination="oZp-VE-EyS" eventType="touchUpInside" id="zNl-iE-cPJ"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="606-jY-JqS" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
+                                        <rect key="frame" x="306" y="19" width="61" height="30"/>
+                                        <color key="backgroundColor" red="0.92156862750000001" green="0.098039215690000001" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="6AN-ej-XZU"/>
+                                            <constraint firstAttribute="height" constant="30" id="R5v-jO-dVi"/>
+                                            <constraint firstAttribute="width" constant="61" id="duZ-U3-5nX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="duZ-U3-5nX"/>
+                                            </mask>
+                                        </variation>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -900,12 +933,17 @@
                                     <constraint firstAttribute="height" constant="67" id="Hrz-10-JJx"/>
                                     <constraint firstItem="ESp-zA-hnI" firstAttribute="top" secondItem="aTZ-hl-eYs" secondAttribute="top" constant="9" id="OCb-ab-xx3"/>
                                     <constraint firstAttribute="centerY" secondItem="f71-iQ-I4k" secondAttribute="centerY" id="bYa-mi-ttu"/>
+                                    <constraint firstItem="f71-iQ-I4k" firstAttribute="leading" secondItem="WP6-Mc-TCH" secondAttribute="trailing" constant="8" id="c8Z-b0-dRz"/>
+                                    <constraint firstItem="606-jY-JqS" firstAttribute="leading" secondItem="f71-iQ-I4k" secondAttribute="trailing" constant="8" id="e8l-cl-5fc"/>
+                                    <constraint firstAttribute="centerY" secondItem="606-jY-JqS" secondAttribute="centerY" constant="-0.5" id="q9V-zu-kfo"/>
                                     <constraint firstAttribute="trailing" secondItem="f71-iQ-I4k" secondAttribute="trailing" constant="8" id="sr3-Gb-suf"/>
+                                    <constraint firstAttribute="trailing" secondItem="606-jY-JqS" secondAttribute="trailing" constant="8" id="vKC-Y0-Gnr"/>
                                     <constraint firstItem="u3x-cA-nK2" firstAttribute="top" secondItem="aTZ-hl-eYs" secondAttribute="top" constant="9" id="zcX-86-iOK"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="3pJ-I4-Nuo"/>
+                                        <exclude reference="sr3-Gb-suf"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -931,7 +969,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismiss:" destination="sec-wm-FtH" eventType="touchUpInside" id="i3a-jj-UYc"/>
                                     <action selector="dismiss:" destination="oZp-VE-EyS" eventType="touchUpInside" id="idx-lL-2sa"/>
                                     <segue destination="m85-gr-ic9" kind="unwind" unwindAction="prepareForUnwind:" id="L33-i9-i9X"/>
                                 </connections>
@@ -970,17 +1007,21 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="closeBtn" destination="hpD-KD-SF3" id="0Lk-JH-HTQ"/>
+                        <outlet property="contactUserBtn" destination="f71-iQ-I4k" id="ID0-d2-9OH"/>
                         <outlet property="mapView" destination="fqW-Hl-Spu" id="87C-Kn-2M4"/>
                         <outlet property="meetUpTimeBtn" destination="Qym-dv-M5Q" id="khb-wm-NgT"/>
                         <outlet property="popDetailView" destination="N57-lG-f7F" id="Nnl-Il-lKY"/>
                         <outlet property="popImgView" destination="Zyf-Pm-ewW" id="uh6-kw-Jg0"/>
                         <outlet property="priceLabel" destination="Lbg-fz-dFc" id="lJd-Ix-OcB"/>
                         <outlet property="profileImgView" destination="u3x-cA-nK2" id="kWA-xK-2la"/>
+                        <outlet property="startMeetUpBtn" destination="606-jY-JqS" id="hk6-JJ-2mM"/>
                         <outlet property="titleLabel" destination="wID-DY-YY3" id="XeV-8h-Ir5"/>
                         <outlet property="userRatingView" destination="WP6-Mc-TCH" id="c4H-52-hYC"/>
                         <outlet property="usernameLabel" destination="ESp-zA-hnI" id="0kg-yv-ity"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BoS-BV-jvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="m85-gr-ic9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4594.5" y="-655.5"/>
         </scene>

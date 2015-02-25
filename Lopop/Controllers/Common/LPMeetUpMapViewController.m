@@ -55,6 +55,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
     // interaction
     [self.meetUpTimeBtn addTarget:self action:@selector(togglePopDetailView) forControlEvents:UIControlEventTouchUpInside];
+    [self.startMeetUpBtn addTarget:self action:@selector(startMeetup) forControlEvents:UIControlEventTouchUpInside];
 
     // Fetch data
     PFQuery *query = [LPOffer query];
@@ -77,9 +78,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
     // determine the mode of the map view
     [self setupMode];
-
-    // load firebase
-    [self setupFirebase];
 
     // UI
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
@@ -133,6 +131,18 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
 }
 
+- (void)startMeetup {
+    // UI Interaction
+    [UIView animateWithDuration:0.3 animations:^{
+        self.startMeetUpBtn.frame = CGRectMake(self.startMeetUpBtn.frame.origin.x + self.startMeetUpBtn.frame.size.width + 8.0f, self.startMeetUpBtn.frame.origin.y, self.startMeetUpBtn.frame.size.width, self.startMeetUpBtn.frame.size.height);
+        self.contactUserBtn.frame = CGRectMake(self.contactUserBtn.frame.origin.x + self.contactUserBtn.frame.size.width + 8.0f, self.contactUserBtn.frame.origin.y, self.contactUserBtn.frame.size.width, self.contactUserBtn.frame.size.height);
+    }];
+
+    // TODO alert user's that his/her location will be shared with the other user
+    self.displayMode = kMeetUpInAction;
+    [self enterTradeMode];
+}
+
 # pragma mark Firebase
 
 - (void)setupFirebase {
@@ -177,30 +187,35 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     if (self.meetUpLocation) {
         self.isMapViewInitialized = NO;
 
-        // display region in map
-        MKCoordinateRegion region;
-        region.center = self.meetUpLocation.coordinate;
-        region.span.latitudeDelta = 0.009f;
-        region.span.longitudeDelta = 0.009f;
-        [self.mapView setRegion:region animated:NO];
-
-        // FIXME add meetup user to map when his/her location becomes available
-//        self.meetUpUserLocationPin = [[MKPointAnnotation alloc] init];
-//        [self.mapView addAnnotation:self.meetUpUserLocationPin];
-
         // add annotation
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
         point.coordinate = self.meetUpLocation.coordinate;
         [self.mapView addAnnotation:point];
 
-//        // locate myself
-//        if ([CLLocationManager locationServicesEnabled]) {
-//            [self.locationManager startUpdatingLocation];
-//
-//            if (self.locationManager.location) {
-//                self.mapView.showsUserLocation = YES;
-//            }
-//        }
+        // display region in map
+        [self zoomToMeetUpLocation];
+
+        // FIXME add meetup user to map when his/her location becomes available
+//        self.meetUpUserLocationPin = [[MKPointAnnotation alloc] init];
+//        [self.mapView addAnnotation:self.meetUpUserLocationPin];
+    }
+}
+
+- (void)enterTradeMode {
+    if (self.displayMode == kMeetUpInAction) {
+        NSLog(@"Enter trade mode");
+        // start monitoring my location
+        if ([CLLocationManager locationServicesEnabled]) {
+            [self.locationManager startUpdatingLocation];
+
+            if (self.locationManager.location) {
+                self.mapView.showsUserLocation = YES;
+            }
+        }
+        // load firebase to listen to meetup user's location
+        [self setupFirebase];
+    } else {
+        NSLog(@"ERROR");
     }
 }
 
@@ -223,7 +238,17 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
 }
 
+#pragma mark Map - Zooming
+
 - (void)zoomToMeetUpLocation {
+    MKCoordinateRegion region;
+    region.center = self.meetUpLocation.coordinate;
+    region.span.latitudeDelta = 0.009f;
+    region.span.longitudeDelta = 0.009f;
+    [self.mapView setRegion:region animated:NO];
+}
+
+- (void)zoomToFitAllAnnotation {
     MKMapRect zoomRect = MKMapRectNull;
     NSMutableArray *annotations = [[NSMutableArray alloc] initWithArray:self.mapView.annotations];
     [annotations addObject:self.mapView.userLocation];
@@ -237,7 +262,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
 
     double inset = -zoomRect.size.width * 3.0;
-    [self.mapView setVisibleMapRect:MKMapRectInset(zoomRect, inset, inset) animated:NO];
+    [self.mapView setVisibleMapRect:MKMapRectInset(zoomRect, inset, inset) animated:YES];
 }
 
 #pragma mark Interactions
@@ -294,7 +319,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     NSLog(@"Location updated");
     if (!self.isMapViewInitialized) {
         self.isMapViewInitialized = YES;
-//        [self zoomToMeetUpLocation];
+        [self zoomToFitAllAnnotation];
     }
 
     // send my location update to firebase
