@@ -13,6 +13,8 @@
 		335FD8C81A7D75960020B7A3 /* LPMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8C71A7D75960020B7A3 /* LPMessageModel.m */; };
 		335FD8D41A7EE7AA0020B7A3 /* LPMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */; };
 		33BD0A7C1A97FA7400FEC8B3 /* LPChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */; };
+		33BD0A7E1A99596700FEC8B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BD0A7D1A99596700FEC8B3 /* CoreData.framework */; };
+		33BD0A821A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33BD0A801A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld */; };
 		718065A61A7D92F00052486D /* LPPopLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 718065A51A7D92F00052486D /* LPPopLike.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
@@ -164,6 +166,8 @@
 		335FD8D31A7EE7AA0020B7A3 /* LPMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMessageTableView.m; path = Controllers/MainView/Message/LPMessageTableView.m; sourceTree = "<group>"; };
 		33BD0A7A1A97FA7400FEC8B3 /* LPChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPChatManager.h; path = Controllers/MainView/Message/LPChatManager.h; sourceTree = "<group>"; };
 		33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPChatManager.m; path = Controllers/MainView/Message/LPChatManager.m; sourceTree = "<group>"; };
+		33BD0A7D1A99596700FEC8B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		33BD0A811A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LPMessageCoreData.xcdatamodel; sourceTree = "<group>"; };
 		718065A41A7D92F00052486D /* LPPopLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopLike.h; path = Models/LPPopLike.h; sourceTree = "<group>"; };
 		718065A51A7D92F00052486D /* LPPopLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopLike.m; path = Models/LPPopLike.m; sourceTree = "<group>"; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
@@ -369,6 +373,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33BD0A7E1A99596700FEC8B3 /* CoreData.framework in Frameworks */,
 				D6F5B0421A8D702000914A3F /* ImageIO.framework in Frameworks */,
 				D62217471A8D3D9100C999E4 /* libsqlite3.0.dylib in Frameworks */,
 				D601CA8A1A79B3A800344F0C /* Accounts.framework in Frameworks */,
@@ -423,6 +428,14 @@
 				33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */,
 			);
 			name = Message;
+			sourceTree = "<group>";
+		};
+		33BD0A7F1A9959AD00FEC8B3 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				33BD0A801A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		D6008A101A65A1340057771A /* TabBarIcons */ = {
@@ -542,6 +555,7 @@
 		D66CC8AF1A60DD8C007B9992 /* Lopop */ = {
 			isa = PBXGroup;
 			children = (
+				33BD0A7F1A9959AD00FEC8B3 /* CoreData */,
 				D6E6EB0E1A6470A6008085F7 /* Helpers */,
 				D66CC8FE1A6199E8007B9992 /* Application */,
 				D66CC8F71A60E9A0007B9992 /* Controllers */,
@@ -584,6 +598,7 @@
 		D66CC8D61A60E152007B9992 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				33BD0A7D1A99596700FEC8B3 /* CoreData.framework */,
 				D6F5B0411A8D702000914A3F /* ImageIO.framework */,
 				D62217461A8D3D9100C999E4 /* libsqlite3.0.dylib */,
 				D601CA891A79B3A800344F0C /* Accounts.framework */,
@@ -1120,6 +1135,7 @@
 				D6F5F8411A8514680005758B /* TransitionManager.swift in Sources */,
 				D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */,
 				D6CB770B1A926AC000629985 /* LPPopListingTableViewCell.m in Sources */,
+				33BD0A821A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld in Sources */,
 				D6F5F8311A8514680005758B /* DesignableTextView.swift in Sources */,
 				D6F5F8321A8514680005758B /* DesignableView.swift in Sources */,
 				D6CB77461A94055C00629985 /* MKAnnotationView+WebCache.m in Sources */,
@@ -1404,6 +1420,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		33BD0A801A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				33BD0A811A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodel */,
+			);
+			currentVersion = 33BD0A811A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodel */;
+			path = LPMessageCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D66CC8A51A60DD8C007B9992 /* Project object */;
 }

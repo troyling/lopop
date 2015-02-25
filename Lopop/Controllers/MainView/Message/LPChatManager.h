@@ -16,6 +16,10 @@
 - (void) newChatWithContactId:(NSString*) contactId withMessage: (NSString *) content;
 - (void) newChatWithContactId:(NSString*) contactId;
 - (void) deleteChatWithContactId:(NSString *) contactId;
+- (NSArray*) getChatMessagesWith: (NSString *) contactId;
+- (void) sendMessage:(NSString *) content to:(LPChatModel*) chatModel;
+- (LPChatModel*) getChatModel: (NSString *) contactId;
+
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 
 /*
@@ -30,4 +34,5 @@
 @end
 
 static NSString* const ChatManagerChatViewUpdateNotification = @"ChatManagerChatViewUpdateNotification";
+static NSString* const ChatManagerMessageViewUpdateNotification = @"ChatManagerMessageViewUpdateNotification";
 static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";

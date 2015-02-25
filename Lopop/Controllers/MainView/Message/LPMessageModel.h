@@ -11,10 +11,11 @@
 @interface LPMessageModel : NSObject
 
 @property NSString *content;
-@property NSTimeInterval timeStamp;
+@property NSString *messageId;
 @property NSString *senderId;
 
 - (NSDictionary *) toDict;
 + (LPMessageModel *) fromDict:(NSDictionary *) dict;
+- (NSComparisonResult)compare:(LPMessageModel *) other;
 
 @end

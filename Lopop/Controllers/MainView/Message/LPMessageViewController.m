@@ -8,7 +8,9 @@
 
 #import "LPMessageViewController.h"
 #import "LPMessageModel.h"
+#import "LPChatManager.h"
 #import <Parse/Parse.h>
+#import "LPUIHelper.h"
 
 
 
@@ -19,61 +21,52 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if(self.offerUser != nil){
+        self.chatModel = [[LPChatManager getInstance] getChatModel: self.offerUser[@"name"]];
+        if(self.chatModel == nil){
+            [[LPChatManager getInstance] newChatWithContactId:self.offerUser[@"name"]];
+        }
+    }
     self.navigationItem.title = self.offerUser[@"name"];
 
     self.tableView.allowsSelection=NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.inputField.delegate = self;
+
+    
+    self.messageArray = [[NSMutableArray alloc] init];
+    [self.messageArray addObjectsFromArray:[[LPChatManager getInstance] getChatMessagesWith:self.chatModel.contactId]];
+    [self observeMessageChangeNotification];
     
     [self.inputField setReturnKeyType:UIReturnKeySend];
     self.inputField.enablesReturnKeyAutomatically = YES;
-//    [self setupFirebase];
 }
 
-- (void) setupFirebase{
-    
-    self.messageArray = [[NSMutableArray alloc] init];
-    
-    Firebase *infoRef = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/info/"]];
-    
-    [infoRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        NSString *userId = [[PFUser currentUser] objectId];
-        if([snapshot.value [@"user1"] isEqualToString:userId]){
-            self.userNumber = USER1;
-        }else{
-            self.userNumber = USER2;
-        }
-    }];
-    
-    self.firebase = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@%@%@", FirebaseUrl, @"chats/", self.chatId, @"/messages/"]];
-    
-    // This allows us to check if these were messages already stored on the server
-    // when we booted up (YES) or if they are new messages since we've started the app.
-    // This is so that we can batch together the initial messages' reloadData for a perf gain.
-    __block BOOL initialAdds = YES;
-    
-    [self.firebase observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        [self.messageArray addObject:[LPMessageModel fromDict:snapshot.value]];
-        // Reload the table view so the new message will show up.
-        if (!initialAdds) {
-            [self.tableView reloadData];
-            [self moveToTheLastMessage];
-        }
-    }];
-
-    // Value event fires right after we get the events already stored in the Firebase repo.
-    // We've gotten the initial messages stored on the server, and we want to run reloadData on the batch.
-    // Also set initialAdds=NO so that we'll reload after each additional childAdded event.
-    [self.firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        // Reload the table view so that the intial messages show up
-        [self.tableView reloadData];
-        [self moveToTheLastMessage];
-        initialAdds = NO;
-    }];
-    
-    
+- (void) observeMessageChangeNotification {
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(reloadTableData:)
+     name:ChatManagerMessageViewUpdateNotification
+     object:nil];
 }
+
+- (void)reloadTableData:(NSNotification*)notification {
+    if([notification.object isKindOfClass:[LPMessageModel class]]){
+        [self.messageArray addObject:notification.object];
+    }else{
+        NSLog(@"Error in observer in messageViewController");
+    }
+
+    [self.tableView reloadData];
+    if(self.messageArray.count > 0){ //move to the latest message
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.messageArray.count - 1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+}
+
+
+
 
 - (void)moveToTheLastMessage{
     if(self.messageArray.count > 0){
@@ -95,6 +88,13 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     return [self.messageArray count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    LPMessageModel* message = [self.messageArray objectAtIndex:indexPath.row];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [LPUIHelper screenWidth], MAXFLOAT)];
+    return [LPUIHelper heightOfText: message.content forLabel:label] + 30.0f;
+
+}
+
 - (UITableViewCell*)tableView:(UITableView*)table cellForRowAtIndexPath:(NSIndexPath *)index
 {
     static NSString *CellIdentifier = @"MessageCell";
@@ -105,22 +105,23 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
         
     }
     
-    //cell.textLabel.backgroundColor = [UIColor redColor];
-    //cell textLabel sizeTo
     cell.textLabel.font = [UIFont systemFontOfSize:18];
     cell.textLabel.numberOfLines = 0;
     LPMessageModel *message = [self.messageArray objectAtIndex:index.row];
     
     cell.textLabel.text = message.content;
-    if(message.userNumber == self.userNumber){
-        cell.textLabel.textAlignment = NSTextAlignmentRight;
-    }else{
+    
+    if([message.senderId isEqualToString: self.chatModel.contactId]){
         cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    }else{
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
     }
     
     //cell.detailTextLabel.text = chatMessage[@"name"];
     return cell;
 }
+
+
 
 #pragma mark - send message
 // This method is called when the user enters text in the text field.
@@ -129,11 +130,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 {
     //[textField resignFirstResponder];
     
-    LPMessageModel* msg = [LPMessageModel alloc];
-    msg.content = textField.text;
-    msg.userNumber = self.userNumber;
-    [[self.firebase childByAutoId] setValue:[msg toDict]];
-
+    [[LPChatManager getInstance] sendMessage:textField.text to:self.chatModel];//TODO
     
     [textField setText:@""];
     return NO;
@@ -168,6 +165,9 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     
     [[NSNotificationCenter defaultCenter]
      removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name:ChatManagerMessageViewUpdateNotification object:nil];
 }
 
 // Slide the view containing the table view and

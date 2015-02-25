@@ -12,7 +12,8 @@
 
 @property NSString *contactId;
 @property NSNumber *contactStatus;
-@property Firebase *chatMessagesRef;
+@property Firebase *sendRef;
+@property Firebase *receiveRef;
 @property NSNumber *userStatus;
 @property Firebase *chatInfoRef;
 @property NSMutableArray *messageArray;

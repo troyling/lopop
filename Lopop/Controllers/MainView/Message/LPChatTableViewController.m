@@ -135,8 +135,7 @@ NSString * troyId = @"qXHdNj9Skh";
         LPMessageViewController * vc = [segue destinationViewController];
         if([sender isKindOfClass: [UITableViewCell class]]){
             NSInteger index = [self.tableView indexPathForCell:(UITableViewCell *) sender].row;
-            LPChatModel * cm = [self.chatArray objectAtIndex: index];
-            //vc.chatId = cm.chatId;
+            vc.chatModel = [self.chatArray objectAtIndex: index];
         }
     }
 }

@@ -15,17 +15,18 @@
 
 - (NSDictionary *)toDict{
     return @{@"content":self.content,
-             @"timeStamp":[NSNumber numberWithDouble: self.timeStamp],
-             @"userNumber":[NSNumber numberWithInt:self.userNumber]};
+             @"senderId":self.senderId};
 }
 
 + (LPMessageModel *)fromDict: (NSDictionary *) dict{
     LPMessageModel * msg = [[LPMessageModel alloc] init];
     msg.content = [dict objectForKey:@"content"];
-    msg.userNumber = [(NSNumber *)[dict objectForKey:@"userNumber"] intValue];
-    msg.timeStamp = [(NSNumber *)[dict objectForKey:@"timeStamp"] doubleValue];
+    msg.senderId = [dict objectForKey:@"senderId"];
     return msg;
 }
 
+- (NSComparisonResult)compare:(LPMessageModel *)other {
+    return [self.messageId compare:other.messageId];
+}
 
 @end

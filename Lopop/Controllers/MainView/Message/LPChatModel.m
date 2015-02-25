@@ -20,4 +20,6 @@
     chat.contactId = [dict objectForKey:@"contactId"];
 }*/
 
+
+
 @end

@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "Firebase/firebase.h"
 #import "LPMessageModel.h"
+#import "LPChatModel.h"
 #import "LPPop.h"
 
 @interface LPMessageViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
@@ -19,9 +20,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
-@property (retain, nonatomic) NSString * chatId;
+@property LPChatModel* chatModel;
 
-@property USER1OR2 userNumber;
 @property Firebase *firebase;
 @property (nonatomic, strong) NSMutableArray* messageArray;
 
