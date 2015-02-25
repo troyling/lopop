@@ -920,6 +920,41 @@
                                             </mask>
                                         </variation>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceb-Ky-UDt" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
+                                        <rect key="frame" x="306" y="19" width="61" height="30"/>
+                                        <color key="backgroundColor" red="0.99215686270000003" green="0.70196078429999997" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="OnL-Vu-KiS"/>
+                                            <constraint firstAttribute="width" constant="61" id="VZ5-Py-vtq"/>
+                                            <constraint firstAttribute="height" constant="30" id="lVO-cZ-SZI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <state key="normal" title="Done!">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="pop"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="force">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="curve" value="easeOut"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="VZ5-Py-vtq"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="finishMeetUp:" destination="oZp-VE-EyS" eventType="touchUpInside" id="mHH-8u-NpS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -928,10 +963,12 @@
                                     <constraint firstAttribute="bottom" secondItem="u3x-cA-nK2" secondAttribute="bottom" constant="8" id="3yZ-MQ-pqx"/>
                                     <constraint firstItem="WP6-Mc-TCH" firstAttribute="leading" secondItem="u3x-cA-nK2" secondAttribute="trailing" constant="8" id="68X-7V-bfG"/>
                                     <constraint firstItem="WP6-Mc-TCH" firstAttribute="top" secondItem="ESp-zA-hnI" secondAttribute="bottom" constant="3" id="6Zj-ka-0d6"/>
+                                    <constraint firstAttribute="centerY" secondItem="ceb-Ky-UDt" secondAttribute="centerY" constant="-0.5" id="8TP-Oo-b9q"/>
                                     <constraint firstItem="u3x-cA-nK2" firstAttribute="leading" secondItem="aTZ-hl-eYs" secondAttribute="leading" constant="8" id="9ZY-zI-T1Q"/>
                                     <constraint firstItem="f71-iQ-I4k" firstAttribute="leading" secondItem="ESp-zA-hnI" secondAttribute="trailing" constant="8" id="B5u-QE-T2H"/>
                                     <constraint firstAttribute="height" constant="67" id="Hrz-10-JJx"/>
                                     <constraint firstItem="ESp-zA-hnI" firstAttribute="top" secondItem="aTZ-hl-eYs" secondAttribute="top" constant="9" id="OCb-ab-xx3"/>
+                                    <constraint firstAttribute="trailing" secondItem="ceb-Ky-UDt" secondAttribute="trailing" constant="8" id="aA1-hP-nu6"/>
                                     <constraint firstAttribute="centerY" secondItem="f71-iQ-I4k" secondAttribute="centerY" id="bYa-mi-ttu"/>
                                     <constraint firstItem="f71-iQ-I4k" firstAttribute="leading" secondItem="WP6-Mc-TCH" secondAttribute="trailing" constant="8" id="c8Z-b0-dRz"/>
                                     <constraint firstItem="606-jY-JqS" firstAttribute="leading" secondItem="f71-iQ-I4k" secondAttribute="trailing" constant="8" id="e8l-cl-5fc"/>
@@ -1037,6 +1074,7 @@
                         <outlet property="closeBtn" destination="hpD-KD-SF3" id="0Lk-JH-HTQ"/>
                         <outlet property="contactUserBtn" destination="f71-iQ-I4k" id="ID0-d2-9OH"/>
                         <outlet property="eventLabel" destination="pls-Sn-el2" id="eyH-R8-7Ap"/>
+                        <outlet property="finishMeetUpBtn" destination="ceb-Ky-UDt" id="dS8-8l-s6I"/>
                         <outlet property="mapView" destination="fqW-Hl-Spu" id="87C-Kn-2M4"/>
                         <outlet property="meetUpTimeBtn" destination="Qym-dv-M5Q" id="khb-wm-NgT"/>
                         <outlet property="popDetailView" destination="N57-lG-f7F" id="Nnl-Il-lKY"/>

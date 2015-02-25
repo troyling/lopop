@@ -35,6 +35,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 @property MKPointAnnotation *meetUpLocationAnnotation;
 @property LPMeetUpMapViewMode displayMode;
 
+// UI components
+@property CGRect contactBtnFrame;
+@property CGRect contactBrnFrameWithOffset;
+
 @property BOOL isMyLocationInitialized;
 
 @end
@@ -55,6 +59,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.closeBtn.layer.zPosition = MAXFLOAT;
     self.meetUpTimeBtn.layer.zPosition = MAXFLOAT - 1.0f;
+
+    // button position
+    self.contactBtnFrame = self.contactUserBtn.frame;
+    self.contactBrnFrameWithOffset = CGRectMake(self.contactBtnFrame.origin.x + self.contactBtnFrame.size.width + 8.0f, self.contactBtnFrame.origin.y, self.contactBtnFrame.size.width, self.contactBtnFrame.size.height);
 
     // interaction
     [self.meetUpTimeBtn addTarget:self action:@selector(togglePopDetailView) forControlEvents:UIControlEventTouchUpInside];
@@ -267,7 +275,13 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
     // if user is in location
     BOOL metUp = [self userMetUp];
-    NSLog(metUp ? @"YES" : @"NO");
+    if (metUp) {
+        if (self.finishMeetUpBtn.hidden) {
+            [self showFinishBtnWithAnimation];
+        } else {
+            [self animateFinishBtn];
+        }
+    }
 
     [self showZoomBtnIfNeeded];
 }
@@ -365,8 +379,23 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     // UI Interaction
     [UIView animateWithDuration:0.3 animations:^{
         self.startMeetUpBtn.frame = CGRectMake(self.startMeetUpBtn.frame.origin.x + self.startMeetUpBtn.frame.size.width + 8.0f, self.startMeetUpBtn.frame.origin.y, self.startMeetUpBtn.frame.size.width, self.startMeetUpBtn.frame.size.height);
-        self.contactUserBtn.frame = CGRectMake(self.contactUserBtn.frame.origin.x + self.contactUserBtn.frame.size.width + 8.0f, self.contactUserBtn.frame.origin.y, self.contactUserBtn.frame.size.width, self.contactUserBtn.frame.size.height);
+        self.contactUserBtn.frame = self.contactBrnFrameWithOffset;
     }];
+}
+
+- (void)showFinishBtnWithAnimation {
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.contactUserBtn.frame = self.contactBtnFrame;
+    } completion:^(BOOL finished) {
+        self.finishMeetUpBtn.hidden = NO;
+        [self animateFinishBtn];
+    }];
+}
+
+- (void)animateFinishBtn {
+    self.finishMeetUpBtn.animation = @"pop";
+    self.finishMeetUpBtn.duration = 1.0f;
+    [self.finishMeetUpBtn animate];
 }
 
 #pragma mark Actions
@@ -390,6 +419,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     } else {
         [self zoomToFitAllAnnotation];
     }
+}
+
+- (IBAction)finishMeetUp:(id)sender {
+    NSLog(@"FINISH MEET UP");
 }
 
 #pragma mark AlertView
@@ -456,9 +489,15 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     [self.myFbRef removeValue];
     [[self.myFbRef childByAutoId] setValue:locationUpdate];
 
-    // if user is in location
+    // if user's met up
     BOOL metUp = [self userMetUp];
-    NSLog(metUp ? @"From update location YES" : @"From update location NO");
+    if (metUp) {
+        if (self.finishMeetUpBtn.hidden) {
+            [self showFinishBtnWithAnimation];
+        } else {
+            [self animateFinishBtn];
+        }
+    }
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {

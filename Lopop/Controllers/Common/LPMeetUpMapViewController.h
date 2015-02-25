@@ -36,9 +36,11 @@
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
 @property (weak, nonatomic) IBOutlet DesignableButton *contactUserBtn;
 @property (weak, nonatomic) IBOutlet DesignableButton *startMeetUpBtn;
+@property (weak, nonatomic) IBOutlet DesignableButton *finishMeetUpBtn;
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)contactUser:(id)sender;
 - (IBAction)zoomToFit:(id)sender;
+- (IBAction)finishMeetUp:(id)sender;
 
 @end
