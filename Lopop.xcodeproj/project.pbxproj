@@ -30,6 +30,7 @@
 		D623FDD91A9698A100D09C53 /* LPAssociatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDD81A9698A100D09C53 /* LPAssociatedButton.m */; };
 		D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */; };
 		D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */; };
+		D654D0BD1A9E2EE800154F85 /* LPLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D654D0BC1A9E2EE800154F85 /* LPLocationHelper.m */; };
 		D65C1D021A9BD1EA002B95C6 /* icon_location_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */; };
 		D65C1D081A9D1F6E002B95C6 /* icon_dropdown_line.png in Resources */ = {isa = PBXBuildFile; fileRef = D65C1D071A9D1F6E002B95C6 /* icon_dropdown_line.png */; };
 		D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D661F71C1A89A2AE00E938F8 /* LPSignInViewController.m */; };
@@ -198,6 +199,8 @@
 		D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingTableViewCell.m; path = Views/Common/LPUserRatingTableViewCell.m; sourceTree = "<group>"; };
 		D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPIncomingOfferTableViewController.h; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.h; sourceTree = "<group>"; };
 		D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPIncomingOfferTableViewController.m; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.m; sourceTree = "<group>"; };
+		D654D0BB1A9E2EE800154F85 /* LPLocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPLocationHelper.h; path = Helpers/Common/LPLocationHelper.h; sourceTree = "<group>"; };
+		D654D0BC1A9E2EE800154F85 /* LPLocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPLocationHelper.m; path = Helpers/Common/LPLocationHelper.m; sourceTree = "<group>"; };
 		D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_location_fill.png; path = Resources/Images/icons/icon_location_fill.png; sourceTree = "<group>"; };
 		D65C1D071A9D1F6E002B95C6 /* icon_dropdown_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_dropdown_line.png; path = Resources/Images/icons/icon_dropdown_line.png; sourceTree = "<group>"; };
 		D661F71B1A89A2AE00E938F8 /* LPSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignInViewController.h; path = Controllers/User/Login/LPSignInViewController.h; sourceTree = "<group>"; };
@@ -519,6 +522,15 @@
 			children = (
 				D623FDDC1A97A14700D09C53 /* LPUserRatingTableViewCell.h */,
 				D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		D654D0BA1A9E2EC800154F85 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D654D0BB1A9E2EE800154F85 /* LPLocationHelper.h */,
+				D654D0BC1A9E2EE800154F85 /* LPLocationHelper.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -904,6 +916,7 @@
 		D6E6EB0E1A6470A6008085F7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D654D0BA1A9E2EC800154F85 /* Common */,
 				D6CB771E1A92A48200629985 /* Pop */,
 				D609A5451A8E5B5E00800F3E /* Social */,
 				D6CAF27C1A7D658000F48E6E /* User */,
@@ -1124,6 +1137,7 @@
 				D6F5F8351A8514680005758B /* KeyboardLayoutConstraint.swift in Sources */,
 				D67FB5081A9B688500C52102 /* LPMeetUpMapViewController.m in Sources */,
 				D6F5F83E1A8514680005758B /* SpringTextField.swift in Sources */,
+				D654D0BD1A9E2EE800154F85 /* LPLocationHelper.m in Sources */,
 				D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */,
 				D6F5F82D1A8514680005758B /* DesignableImageView.swift in Sources */,
 				D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */,

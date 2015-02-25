@@ -10,11 +10,10 @@
 #import "MKAnnotationView+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import <Firebase/Firebase.h>
+#import "LPLocationHelper.h"
 #import "LPUIHelper.h"
 #import "RateView.h"
 #import "LPPop.h"
-
-#import "LPAlertViewHelper.h"
 
 typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     kMeetUpPreview,
@@ -163,15 +162,13 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
                 [self.mapView addAnnotation:self.meetUpUserLocationAnnotation];
                 self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
 
-                [LPAlertViewHelper fatalErrorAlert:[NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]];
+                NSLog(@"%@", [NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]);
                 [self zoomToFitAllAnnotation];
             }
 
-            // Location
-            CLLocationDistance distance = [self.offer.meetUpLocation distanceInMilesTo:[PFGeoPoint geoPointWithLocation:[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
-            NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
-            [formater setPositiveFormat:@"0.##"];
-            NSString *distanceStr = [formater stringFromNumber:[NSNumber numberWithDouble:distance]];
+            // update location distance
+            CLLocation *meetUpUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+            NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenLocations:self.meetUpLocation and:meetUpUserLocation withFormat:@"0.##"];
 
             self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
             self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
@@ -204,7 +201,11 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         self.meetUpLocationAnnotation = [[MKPointAnnotation alloc] init];
         self.meetUpLocationAnnotation.coordinate = self.meetUpLocation.coordinate;
         [self.mapView addAnnotation:self.meetUpLocationAnnotation];
-        [self updateAddress]; // FIXME change this to a helper function
+        [LPLocationHelper getAddressForLocation:self.meetUpLocation withBlock:^(NSString *address, NSError *error) {
+            if (!error) {
+                self.meetUpLocationAnnotation.title = address;
+            }
+        }];
 
         // display region in map
         [self zoomToMeetUpLocationAnimated:NO];
@@ -246,38 +247,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         rv.starBorderColor = [UIColor clearColor];
         [self.userRatingView addSubview:rv];
     }
-}
-
-// TODO change this to a helper function 
-- (void)updateAddress {
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if(placemarks && placemarks.count > 0) {
-            CLPlacemark *placemark= [placemarks objectAtIndex:0];
-
-            NSString *address = @"";
-            if ([placemark subThoroughfare]) {
-                address = [address stringByAppendingString:[placemark subThoroughfare]];
-            }
-
-            if ([placemark thoroughfare]) {
-                address = [address stringByAppendingString:[NSString stringWithFormat:@" %@", [placemark thoroughfare]]];
-            }
-
-            if ([placemark locality]) {
-                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark locality]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark locality]]];;
-            }
-
-            if ([placemark administrativeArea]) {
-                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];;
-            }
-
-            if ([placemark postalCode]) {
-                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark postalCode]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark postalCode]]];
-            }
-            self.meetUpLocationAnnotation.title = address;
-        }
-    }];
 }
 
 #pragma mark helpers
