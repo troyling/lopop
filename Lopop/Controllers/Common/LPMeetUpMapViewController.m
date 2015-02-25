@@ -156,7 +156,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
             double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
 
             CLLocation *meetUpUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-            [self updateMeetUpUserAnnotationWithLocaiton:meetUpUserLocation];
+            [self updateMapViewForMeetUpUserWithLocaiton:meetUpUserLocation];
         }
     }];
 }
@@ -232,7 +232,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
 }
 
-- (void)updateMeetUpUserAnnotationWithLocaiton:(CLLocation *)location {
+- (void)updateMapViewForMeetUpUserWithLocaiton:(CLLocation *)location {
     NSLog(@"UPDATE MEETUP USER");
     if (!self.meetUpUserLocationAnnotation) {
         self.meetUpUserLocationAnnotation = [[MKPointAnnotation alloc] init];
@@ -247,6 +247,20 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenLocations:self.meetUpLocation and:location withFormat:@"0.##"];
     self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
     self.meetUpUserLocationAnnotation.coordinate = location.coordinate;
+
+    // inform user when meetup user is approaching
+    CLLocationDistance distanceInMile = [distanceStr doubleValue];
+    NSLog(@"distance: %f", distanceInMile);
+    NSLog(@"OVERLAY NUM: %ld", self.mapView.overlays.count);
+    if (self.mapView.overlays.count == 0) {
+        if (distanceInMile <= 0.2f) {
+            // Meet up user is in 0.2 miles away
+            NSLog(@"user is approaching");
+            MKCircle *circle = [MKCircle circleWithCenterCoordinate:self.meetUpLocation.coordinate radius:200]; // overlay with 400 meters
+            [self.mapView addOverlay:circle];
+        }
+    }
+
     [self showZoomBtnIfNeeded];
 }
 
@@ -407,6 +421,17 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     // remove nodes
     [self.myFbRef removeValue];
     [[self.myFbRef childByAutoId] setValue:locationUpdate];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    MKCircleRenderer *renderer;
+    if ([overlay isKindOfClass:[MKCircle class]]) {
+        renderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
+        renderer.fillColor = [LPUIHelper lopopColorWithAlpha:0.1];
+        renderer.lineWidth = 1;
+        renderer.strokeColor = [LPUIHelper lopopColor];
+    }
+    return renderer;
 }
 
 @end
