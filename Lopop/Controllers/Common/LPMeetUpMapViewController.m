@@ -178,9 +178,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
             [self showZoomBtnIfNeeded];
         }
-
-        // remove nodes
-        [[self.meetUpUserFbRef childByAppendingPath:snapshot.key] removeValue];
     }];
 }
 
@@ -438,7 +435,8 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
                                      @"latitude" : [NSNumber numberWithDouble:userLocation.coordinate.latitude],
                                      @"longitude" : [NSNumber numberWithDouble:userLocation.coordinate.longitude]
                                      };
-//    [self.myFbRef removeValue];
+    // remove nodes
+    [self.myFbRef removeValue];
     [[self.myFbRef childByAutoId] setValue:locationUpdate];
 }
 
