@@ -973,11 +973,25 @@
                                     <segue destination="m85-gr-ic9" kind="unwind" unwindAction="prepareForUnwind:" id="L33-i9-i9X"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biL-3z-fgb">
+                                <rect key="frame" x="329" y="562" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="Orz-Vl-Kcr"/>
+                                    <constraint firstAttribute="height" constant="30" id="pWs-dl-kMU"/>
+                                </constraints>
+                                <state key="normal" image="icon_radar_fill">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zoomToFit:" destination="oZp-VE-EyS" eventType="touchUpInside" id="5KP-dM-olc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="N57-lG-f7F" secondAttribute="width" id="1kP-Kn-CJS"/>
                             <constraint firstItem="hpD-KD-SF3" firstAttribute="top" secondItem="XIC-fc-2n1" secondAttribute="bottom" id="AXv-ip-w3N"/>
+                            <constraint firstItem="aTZ-hl-eYs" firstAttribute="top" secondItem="biL-3z-fgb" secondAttribute="bottom" constant="8" id="IU7-0x-XWg"/>
                             <constraint firstAttribute="width" secondItem="fqW-Hl-Spu" secondAttribute="width" id="Kwl-sB-zF2"/>
                             <constraint firstItem="fqW-Hl-Spu" firstAttribute="top" secondItem="Qym-dv-M5Q" secondAttribute="bottom" id="Lm0-no-XPZ"/>
                             <constraint firstAttribute="centerY" secondItem="fqW-Hl-Spu" secondAttribute="centerY" constant="-38.5" id="PfI-Ku-YV9"/>
@@ -995,6 +1009,7 @@
                             <constraint firstAttribute="height" secondItem="fqW-Hl-Spu" secondAttribute="height" constant="77" id="qpk-nU-zVR"/>
                             <constraint firstAttribute="centerX" secondItem="N57-lG-f7F" secondAttribute="centerX" id="rMq-3a-FmQ"/>
                             <constraint firstItem="aTZ-hl-eYs" firstAttribute="top" secondItem="fqW-Hl-Spu" secondAttribute="bottom" id="uCx-nI-mA3"/>
+                            <constraint firstItem="biL-3z-fgb" firstAttribute="leading" secondItem="fqW-Hl-Spu" secondAttribute="trailing" constant="-46" id="v11-1l-KA4"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1018,6 +1033,7 @@
                         <outlet property="titleLabel" destination="wID-DY-YY3" id="XeV-8h-Ir5"/>
                         <outlet property="userRatingView" destination="WP6-Mc-TCH" id="c4H-52-hYC"/>
                         <outlet property="usernameLabel" destination="ESp-zA-hnI" id="0kg-yv-ity"/>
+                        <outlet property="zoomBtn" destination="biL-3z-fgb" id="2rg-lm-kNV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BoS-BV-jvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3116,6 +3132,7 @@
         <image name="icon_like.png" width="40" height="42"/>
         <image name="icon_location.png" width="34" height="48"/>
         <image name="icon_location_fill" width="34" height="48"/>
+        <image name="icon_radar_fill" width="48" height="48"/>
         <image name="signup_view.jpg" width="1080" height="1920"/>
         <image name="vertical_line" width="2" height="53"/>
     </resources>

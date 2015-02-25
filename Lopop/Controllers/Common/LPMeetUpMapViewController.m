@@ -206,7 +206,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         [self updateAddress]; // FIXME change this to a helper function
 
         // display region in map
-        [self zoomToMeetUpLocation];
+        [self zoomToMeetUpLocationAnimated:NO];
     }
 }
 
@@ -281,12 +281,12 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
 #pragma mark Map - Zooming
 
-- (void)zoomToMeetUpLocation {
+- (void)zoomToMeetUpLocationAnimated:(BOOL)animated {
     MKCoordinateRegion region;
     region.center = self.meetUpLocation.coordinate;
     region.span.latitudeDelta = 0.009f;
     region.span.longitudeDelta = 0.009f;
-    [self.mapView setRegion:region animated:NO];
+    [self.mapView setRegion:region animated:animated];
 }
 
 - (void)zoomToFitAllAnnotation {
@@ -344,6 +344,16 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     NSLog(@"Contact user");
 }
 
+- (IBAction)zoomToFit:(id)sender {
+    self.zoomBtn.hidden = YES;
+
+    if (self.mapView.annotations.count == 1) {
+        [self zoomToMeetUpLocationAnimated:YES];
+    } else {
+        [self zoomToFitAllAnnotation];
+    }
+}
+
 #pragma mark AlertView
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -384,6 +394,18 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         [view setCanShowCallout:YES];
     }
     return view;
+}
+
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    // check if all annotations are on display
+    MKMapRect visibleMapRect = self.mapView.visibleMapRect;
+    NSSet *visibleAnnotations = [self.mapView annotationsInMapRect:visibleMapRect];
+    if (visibleAnnotations.count != self.mapView.annotations.count) {
+        self.zoomBtn.hidden = NO;
+    } else {
+        self.zoomBtn.hidden = YES;
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {

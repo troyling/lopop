@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *zoomBtn;
 // user view
 @property (weak, nonatomic) IBOutlet UIImageView *profileImgView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -35,5 +36,6 @@
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)contactUser:(id)sender;
+- (IBAction)zoomToFit:(id)sender;
 
 @end
