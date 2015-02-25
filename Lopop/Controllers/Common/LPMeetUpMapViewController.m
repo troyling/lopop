@@ -30,9 +30,10 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 @property (strong, nonatomic) Firebase *meetUpUserFbRef;
 @property (strong, nonatomic) Firebase *myFbRef;
 @property MKPointAnnotation *meetUpUserLocationPin;
+@property MKPointAnnotation *meetUpLocationAnnotation;
 @property LPMeetUpMapViewMode displayMode;
 
-@property BOOL isMapViewInitialized;
+@property BOOL isMyLocationInitialized;
 
 @end
 
@@ -185,12 +186,13 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
 - (void)loadMapView {
     if (self.meetUpLocation) {
-        self.isMapViewInitialized = NO;
+        self.isMyLocationInitialized = NO;
 
         // add annotation
-        MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-        point.coordinate = self.meetUpLocation.coordinate;
-        [self.mapView addAnnotation:point];
+        self.meetUpLocationAnnotation = [[MKPointAnnotation alloc] init];
+        self.meetUpLocationAnnotation.coordinate = self.meetUpLocation.coordinate;
+        [self.mapView addAnnotation:self.meetUpLocationAnnotation];
+        [self updateAddress]; // FIXME change this to a helper function
 
         // display region in map
         [self zoomToMeetUpLocation];
@@ -236,6 +238,37 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         rv.starBorderColor = [UIColor clearColor];
         [self.userRatingView addSubview:rv];
     }
+}
+
+- (void)updateAddress {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if(placemarks && placemarks.count > 0) {
+            CLPlacemark *placemark= [placemarks objectAtIndex:0];
+
+            NSString *address = @"";
+            if ([placemark subThoroughfare]) {
+                address = [address stringByAppendingString:[placemark subThoroughfare]];
+            }
+
+            if ([placemark thoroughfare]) {
+                address = [address stringByAppendingString:[NSString stringWithFormat:@" %@", [placemark thoroughfare]]];
+            }
+
+            if ([placemark locality]) {
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark locality]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark locality]]];;
+            }
+
+            if ([placemark administrativeArea]) {
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];;
+            }
+
+            if ([placemark postalCode]) {
+                address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark postalCode]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark postalCode]]];
+            }
+            self.meetUpLocationAnnotation.title = address;
+        }
+    }];
 }
 
 #pragma mark Map - Zooming
@@ -301,14 +334,14 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
     MKAnnotationView *view;
     if (annotation == self.meetUpUserLocationPin) {
-        // meetup user
+        // TODO change icon for the user
         view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"meetUpUser"];
         [view setImage:[UIImage imageNamed:@"icon_like_fill.png"]];
         [view setCanShowCallout:YES];
     } else {
         view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
         [view setImage:[UIImage imageNamed:@"icon_location_fill.png"]];
-        [view setCanShowCallout:NO];
+        [view setCanShowCallout:YES];
     }
     return view;
 }
@@ -317,8 +350,8 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     NSLog(@"Location updated");
-    if (!self.isMapViewInitialized) {
-        self.isMapViewInitialized = YES;
+    if (!self.isMyLocationInitialized) {
+        self.isMyLocationInitialized = YES;
         [self zoomToFitAllAnnotation];
     }
 
