@@ -154,26 +154,9 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         if (snapshot.value[@"latitude"] != nil && snapshot.value[@"longitude"] != nil) {
             double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
             double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
-            NSLog(@"Latitude: %f, Longitude: %f", latitude, longitude);
 
-            // update UI
-            if (!self.meetUpUserLocationAnnotation) {
-                self.meetUpUserLocationAnnotation = [[MKPointAnnotation alloc] init];
-                [self.mapView addAnnotation:self.meetUpUserLocationAnnotation];
-                self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-
-                NSLog(@"%@", [NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]);
-                [self zoomToFitAllAnnotation];
-            }
-
-            // update location distance
             CLLocation *meetUpUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-            NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenLocations:self.meetUpLocation and:meetUpUserLocation withFormat:@"0.##"];
-
-            self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
-            self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-
-            [self showZoomBtnIfNeeded];
+            [self updateMeetUpUserAnnotationWithLocaiton:meetUpUserLocation];
         }
     }];
 }
@@ -247,6 +230,24 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         rv.starBorderColor = [UIColor clearColor];
         [self.userRatingView addSubview:rv];
     }
+}
+
+- (void)updateMeetUpUserAnnotationWithLocaiton:(CLLocation *)location {
+    NSLog(@"UPDATE MEETUP USER");
+    if (!self.meetUpUserLocationAnnotation) {
+        self.meetUpUserLocationAnnotation = [[MKPointAnnotation alloc] init];
+        [self.mapView addAnnotation:self.meetUpUserLocationAnnotation];
+        self.meetUpUserLocationAnnotation.coordinate = location.coordinate;
+
+        NSLog(@"%@", [NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]);
+        [self zoomToFitAllAnnotation];
+    }
+
+    // update location distance
+    NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenLocations:self.meetUpLocation and:location withFormat:@"0.##"];
+    self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
+    self.meetUpUserLocationAnnotation.coordinate = location.coordinate;
+    [self showZoomBtnIfNeeded];
 }
 
 #pragma mark helpers
@@ -384,7 +385,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     }
     return view;
 }
-
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     [self showZoomBtnIfNeeded];
