@@ -14,6 +14,8 @@
 #import "RateView.h"
 #import "LPPop.h"
 
+#import "LPAlertViewHelper.h"
+
 typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     kMeetUpPreview,
     kMeetUpInAction,
@@ -29,7 +31,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) Firebase *meetUpUserFbRef;
 @property (strong, nonatomic) Firebase *myFbRef;
-@property MKPointAnnotation *meetUpUserLocationPin;
+@property MKPointAnnotation *meetUpUserLocationAnnotation;
 @property MKPointAnnotation *meetUpLocationAnnotation;
 @property LPMeetUpMapViewMode displayMode;
 
@@ -133,7 +135,7 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 }
 
 - (void)startMeetup {
-    // alertFirst
+    // TODO check if user disable warning
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sharing location" message:@"Your location will be shared to other user." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Okay", @"Okay and don't show this again", nil];
     [alert show];
 }
@@ -153,9 +155,24 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         if (snapshot.value[@"latitude"] != nil && snapshot.value[@"longitude"] != nil) {
             double latitude = [(NSString *)snapshot.value[@"latitude"] doubleValue];
             double longitude = [(NSString *)snapshot.value[@"longitude"] doubleValue];
-
+            NSLog(@"Latitude: %f, Longitude: %f", latitude, longitude);
             // update UI
-            self.meetUpUserLocationPin.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+            if (!self.meetUpUserLocationAnnotation) {
+                self.meetUpUserLocationAnnotation = [[MKPointAnnotation alloc] init];
+                [self.mapView addAnnotation:self.meetUpUserLocationAnnotation];
+                self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+
+                [LPAlertViewHelper fatalErrorAlert:[NSString stringWithFormat:@"%@ enters the the view!", self.meetUpUser[@"name"]]];
+                [self zoomToFitAllAnnotation];
+            }
+            CLLocationDistance distance = [self.offer.meetUpLocation distanceInMilesTo:[PFGeoPoint geoPointWithLocation:[[CLLocation alloc] initWithLatitude:latitude longitude:longitude]]];
+
+            // format
+            NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
+            [formater setPositiveFormat:@"0.##"];
+            NSString *distanceStr = [formater stringFromNumber:[NSNumber numberWithDouble:distance]];
+            self.meetUpUserLocationAnnotation.title = [NSString stringWithFormat:@"%@ mi to desinated location", distanceStr];
+            self.meetUpUserLocationAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
         }
 
         // remove nodes
@@ -190,10 +207,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
         // display region in map
         [self zoomToMeetUpLocation];
-
-        // FIXME add meetup user to map when his/her location becomes available
-//        self.meetUpUserLocationPin = [[MKPointAnnotation alloc] init];
-//        [self.mapView addAnnotation:self.meetUpUserLocationPin];
     }
 }
 
@@ -282,8 +295,6 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     [annotations addObject:self.mapView.userLocation];
 
     for (id <MKAnnotation> annotation in annotations) {
-//        if ([annotation isEqual:self.meetUpUserLocationPin]) continue; // skip annotation
-
         MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
@@ -323,10 +334,13 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 #pragma mark Actions
 
 - (IBAction)dismiss:(id)sender {
+    [self.myFbRef removeAllObservers];
+    [self.meetUpUserFbRef removeAllObservers];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)contactUser:(id)sender {
+    NSLog(@"num of annotations: %lu", (unsigned long)self.mapView.annotations.count);
     NSLog(@"Contact user");
 }
 
@@ -354,11 +368,13 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 #pragma mark MapView
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    NSLog(@"View added");
     if (annotation == self.mapView.userLocation) return nil; // my location
 
     MKAnnotationView *view;
-    if (annotation == self.meetUpUserLocationPin) {
+    if (annotation == self.meetUpUserLocationAnnotation) {
         // TODO change icon for the user
+        NSLog(@"Meetup user");
         view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"meetUpUser"];
         [view setImage:[UIImage imageNamed:@"icon_like_fill.png"]];
         [view setCanShowCallout:YES];
