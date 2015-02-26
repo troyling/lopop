@@ -520,8 +520,11 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[LPRateUserViewController class]]) {
+        // passing data
         LPRateUserViewController *vc = segue.destinationViewController;
         vc.user = self.meetUpUser;
+        vc.offer = self.offer;
+        vc.delegate = self;
     }
 }
 

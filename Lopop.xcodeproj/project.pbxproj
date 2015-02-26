@@ -123,6 +123,7 @@
 		D6E4A1CA1A9E98AE00892E44 /* smiley10.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1BF1A9E98AE00892E44 /* smiley10.png */; };
 		D6E4A1CB1A9E98AE00892E44 /* smiley11.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1C01A9E98AE00892E44 /* smiley11.png */; };
 		D6E4A1CF1A9EA4C900892E44 /* LPRateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4A1CE1A9EA4C900892E44 /* LPRateUserViewController.m */; };
+		D6E4A1D21A9EB22F00892E44 /* LPUserRating.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 		D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */; };
@@ -355,6 +356,8 @@
 		D6E4A1C01A9E98AE00892E44 /* smiley11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley11.png; path = Resources/Images/icons/smilies/smiley11.png; sourceTree = "<group>"; };
 		D6E4A1CD1A9EA4C900892E44 /* LPRateUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPRateUserViewController.h; path = Controllers/Common/LPRateUserViewController.h; sourceTree = "<group>"; };
 		D6E4A1CE1A9EA4C900892E44 /* LPRateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPRateUserViewController.m; path = Controllers/Common/LPRateUserViewController.m; sourceTree = "<group>"; };
+		D6E4A1D01A9EB22F00892E44 /* LPUserRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRating.h; path = Models/LPUserRating.h; sourceTree = "<group>"; };
+		D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRating.m; path = Models/LPUserRating.m; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
 		D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpTableViewController.m; path = Controllers/User/Login/LPSignUpTableViewController.m; sourceTree = "<group>"; };
 		D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "Helpers/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -702,6 +705,8 @@
 				718065A51A7D92F00052486D /* LPPopLike.m */,
 				D6B9E9641A8948FD00A62D9B /* LPOffer.h */,
 				D6B9E9651A8948FD00A62D9B /* LPOffer.m */,
+				D6E4A1D01A9EB22F00892E44 /* LPUserRating.h */,
+				D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1230,6 +1235,7 @@
 				D6CB77511A94055C00629985 /* UIImage+MultiFormat.m in Sources */,
 				D6AB469E1A7B21B8001BCCFC /* LPSettingsTableViewController.m in Sources */,
 				D6F5F82E1A8514680005758B /* DesignableLabel.swift in Sources */,
+				D6E4A1D21A9EB22F00892E44 /* LPUserRating.m in Sources */,
 				D6F5F8301A8514680005758B /* DesignableTextField.swift in Sources */,
 				D6CB774A1A94055C00629985 /* SDWebImageDecoder.m in Sources */,
 				D6F5F83D1A8514680005758B /* SpringLabel.swift in Sources */,

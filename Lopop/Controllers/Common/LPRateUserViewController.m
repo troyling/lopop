@@ -7,7 +7,9 @@
 //
 
 #import "LPRateUserViewController.h"
+#import "LPMeetUpMapViewController.h"
 #import "UIImageView+WebCache.h"
+#import "LPUserRating.h"
 #import "LPUIHelper.h"
 #import "RateView.h"
 
@@ -57,7 +59,20 @@
 }
 
 - (IBAction)finishMeetUpAndShare:(id)sender {
-    NSLog(@"Rating is %f", self.rv.rating);
+    LPUserRating *rate = [LPUserRating object];
+    rate.user = self.user;
+    rate.rater = [PFUser currentUser];
+    rate.rating = [NSNumber numberWithFloat:self.rv.rating];
+    rate.offer = self.offer;
+    // TODO implement this with UI later
+    // rate.comment = ...
+    [rate saveEventually];
+
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.delegate && [self.delegate isKindOfClass:[LPMeetUpMapViewController class]]) {
+            [self.delegate dismissViewControllerAnimated:YES completion:NULL];
+        }
+    }];
 }
 
 @end
