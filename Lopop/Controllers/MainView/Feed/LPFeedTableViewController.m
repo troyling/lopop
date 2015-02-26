@@ -16,6 +16,7 @@
 #import "LPPopLike.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
+#import "UIViewController+ScrollingNavbar.h"
 
 @interface LPFeedTableViewController ()
 
@@ -33,6 +34,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self followScrollView:self.tableView withDelay:3.0f];
     
     // delegate
     self.locationManager = [[CLLocationManager alloc] init];
@@ -59,6 +61,11 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     // set table background
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self showNavBarAnimated:NO];
 }
 
 - (void)getUserCurrentLocation {

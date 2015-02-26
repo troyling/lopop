@@ -15,6 +15,7 @@
 		33BD0A7C1A97FA7400FEC8B3 /* LPChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BD0A7B1A97FA7400FEC8B3 /* LPChatManager.m */; };
 		33BD0A7E1A99596700FEC8B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BD0A7D1A99596700FEC8B3 /* CoreData.framework */; };
 		33BD0A821A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33BD0A801A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld */; };
+		4C6FC720D5B8FEEE240805AF /* libPods-Lopop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D56FAA7C2132E2EB9DE7756B /* libPods-Lopop.a */; };
 		718065A61A7D92F00052486D /* LPPopLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 718065A51A7D92F00052486D /* LPPopLike.m */; };
 		D6008A201A6716D00057771A /* LPFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */; };
 		D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6008A231A67269F0057771A /* LPNewPopTableViewController.m */; };
@@ -191,6 +192,9 @@
 		33BD0A811A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LPMessageCoreData.xcdatamodel; sourceTree = "<group>"; };
 		718065A41A7D92F00052486D /* LPPopLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopLike.h; path = Models/LPPopLike.h; sourceTree = "<group>"; };
 		718065A51A7D92F00052486D /* LPPopLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopLike.m; path = Models/LPPopLike.m; sourceTree = "<group>"; };
+		7B8D9C2FA0B5599F4CDD1527 /* Pods-Lopop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lopop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lopop/Pods-Lopop.debug.xcconfig"; sourceTree = "<group>"; };
+		B0D0B2D34BC1BA7D7D5806C2 /* Pods-Lopop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lopop.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lopop/Pods-Lopop.release.xcconfig"; sourceTree = "<group>"; };
+		D56FAA7C2132E2EB9DE7756B /* libPods-Lopop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lopop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6008A1E1A6716D00057771A /* LPFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPFeedTableViewController.h; path = Controllers/MainView/Feed/LPFeedTableViewController.h; sourceTree = "<group>"; };
 		D6008A1F1A6716D00057771A /* LPFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFeedTableViewController.m; path = Controllers/MainView/Feed/LPFeedTableViewController.m; sourceTree = "<group>"; };
 		D6008A221A67269F0057771A /* LPNewPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewPopTableViewController.h; path = Controllers/MainView/Pop/LPNewPopTableViewController.h; sourceTree = "<group>"; };
@@ -448,6 +452,7 @@
 				D66CC8E01A60E6A6007B9992 /* AudioToolbox.framework in Frameworks */,
 				D6F63A4B1A6C390A008D08F5 /* FacebookSDK.framework in Frameworks */,
 				D601CA821A79B1C300344F0C /* Firebase.framework in Frameworks */,
+				4C6FC720D5B8FEEE240805AF /* libPods-Lopop.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +466,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FB05ACB44E7320FFA26DF64 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7B8D9C2FA0B5599F4CDD1527 /* Pods-Lopop.debug.xcconfig */,
+				B0D0B2D34BC1BA7D7D5806C2 /* Pods-Lopop.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		335FD8C21A7D72590020B7A3 /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +622,7 @@
 				D66CC8C91A60DD8C007B9992 /* LopopTests */,
 				D66CC8AE1A60DD8C007B9992 /* Products */,
 				D66CC8D61A60E152007B9992 /* Frameworks */,
+				1FB05ACB44E7320FFA26DF64 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -690,6 +705,7 @@
 				D66CC8E31A60E6B3007B9992 /* CoreGraphics.framework */,
 				D66CC8E11A60E6AC007B9992 /* CFNetwork.framework */,
 				D66CC8DF1A60E6A6007B9992 /* AudioToolbox.framework */,
+				D56FAA7C2132E2EB9DE7756B /* libPods-Lopop.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1075,9 +1091,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D66CC8D01A60DD8C007B9992 /* Build configuration list for PBXNativeTarget "Lopop" */;
 			buildPhases = (
+				2AAB29B68D3659023F14DBFA /* Check Pods Manifest.lock */,
 				D66CC8A91A60DD8C007B9992 /* Sources */,
 				D66CC8AA1A60DD8C007B9992 /* Frameworks */,
 				D66CC8AB1A60DD8C007B9992 /* Resources */,
+				C2170AD55CF286D925530A91 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1196,6 +1214,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2AAB29B68D3659023F14DBFA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C2170AD55CF286D925530A91 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lopop/Pods-Lopop-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D66CC8A91A60DD8C007B9992 /* Sources */ = {
@@ -1416,6 +1467,7 @@
 		};
 		D66CC8D11A60DD8C007B9992 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B8D9C2FA0B5599F4CDD1527 /* Pods-Lopop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1436,7 +1488,10 @@
 					"$(PROJECT_DIR)/Frameworks/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/Frameworks/libWeiboSDK",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1445,6 +1500,7 @@
 		};
 		D66CC8D21A60DD8C007B9992 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0D0B2D34BC1BA7D7D5806C2 /* Pods-Lopop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1465,7 +1521,10 @@
 					"$(PROJECT_DIR)/Frameworks/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/Frameworks/libWeiboSDK",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

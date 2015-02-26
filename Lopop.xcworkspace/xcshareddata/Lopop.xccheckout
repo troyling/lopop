@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9327A9D1-5FBF-4539-97FE-4BD260CA40BB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Lopop</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9A951DADCC13EFD15B30B1475377CE0469A73196</key>
+		<string>github.com:troyling/lopop.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Lopop.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9A951DADCC13EFD15B30B1475377CE0469A73196</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:troyling/lopop.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9A951DADCC13EFD15B30B1475377CE0469A73196</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9A951DADCC13EFD15B30B1475377CE0469A73196</string>
+			<key>IDESourceControlWCCName</key>
+			<string>lopop</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "LPListingDetailViewController.h"
 #import "LPMeetUpMapViewController.h"
+#import "UIViewController+ScrollingNavbar.h"
 
 @interface LPListingTableViewController ()
 
@@ -32,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self followScrollView:self.tableView];
 
     // configure table view
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -54,6 +56,11 @@
     if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
         [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self showNavBarAnimated:NO];
 }
 
 - (void)loadData {
