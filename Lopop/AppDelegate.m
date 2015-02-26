@@ -17,6 +17,8 @@
 #import "LPChatManager.h"
 #import <CoreData/CoreData.h>
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @interface AppDelegate ()
 
 
@@ -63,14 +65,13 @@
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
-    
+
     // detect if the user is cached
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UIViewController *vc = [PFUser currentUser] ? [storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"] : [storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
     self.window.rootViewController = vc;
     
-    // apply global tint
-    [[UITabBar appearance] setTintColor:[LPUIHelper lopopColor]];
+    [self initAppStyle];
     
     return YES;
 }
@@ -151,6 +152,26 @@
     }
 }
 
+#pragma mark init
+
+- (void)initAppStyle {
+    // apply global tint to tab bar
+    [[UITabBar appearance] setTintColor:[LPUIHelper lopopColor]];
+    
+    // set status bar color
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, [LPUIHelper screenWidth], 20)];
+        view.backgroundColor=[LPUIHelper lopopColor];
+        [self.window.rootViewController.view addSubview:view];
+    }
+    
+    // set nav bar color
+    [[UINavigationBar appearance] setBarTintColor:[LPUIHelper lopopColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+}
+
 #pragma mark - Core Data stack
 
 // Returns the managed object context for the application.
@@ -208,6 +229,5 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
-
 
 @end

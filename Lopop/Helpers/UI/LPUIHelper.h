@@ -12,6 +12,7 @@
 @interface LPUIHelper : NSObject
 
 + (UIColor *)lopopColor;
++ (UIColor *)lopopColorWithAlpha:(double)alpha;
 + (UIColor *)infoColor;
 + (UIColor *)ratingStarColor;
 + (UIImage *)convertViewToImage:(UIView *)view;

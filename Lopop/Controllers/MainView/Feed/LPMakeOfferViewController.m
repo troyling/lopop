@@ -38,9 +38,10 @@
     LPOffer *offer = [LPOffer object];
     offer.fromUser = [PFUser currentUser];
     offer.pop = self.pop;
+    offer.greeting = [self.greetingTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    offer.status = kOfferPending;
 
     // FIXME send the comment to the seller as a chat message
-
     [offer saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
             [self dismissViewControllerAnimated:YES completion:NULL];

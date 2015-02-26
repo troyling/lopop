@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UITextField *commentTextField;
+@property (weak, nonatomic) IBOutlet UITextField *greetingTextField;
 
 @property (assign, nonatomic) NSString *priceStr;
 @property (assign, nonatomic) NSString *nameStr;

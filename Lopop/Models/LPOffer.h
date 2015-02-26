@@ -10,9 +10,22 @@
 #import <Parse/Parse.h>
 #import "LPPop.h"
 
+typedef enum {
+    kOfferPending = 0,
+    kOfferMeetUpProposed,
+    kOfferAccepted,
+    kOfferNotAccepted,
+    kOfferDeclined,
+    kOfferCompleted
+} LPOfferStatus;
+
 @interface LPOffer : PFObject<PFSubclassing>
 
 @property LPPop *pop;
 @property PFUser *fromUser;
+@property NSString *greeting;
+@property PFGeoPoint *meetUpLocation;
+@property NSDate *meetUpTime; // UTC timezone
+@property LPOfferStatus status;
 
 @end

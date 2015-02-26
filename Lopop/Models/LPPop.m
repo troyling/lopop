@@ -17,9 +17,8 @@
 @dynamic seller;
 @dynamic images;
 @dynamic location;
-@dynamic isSold;
+@dynamic status;
 @dynamic price;
-
 
 + (void)load {
     [self registerSubclass];

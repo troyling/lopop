@@ -116,7 +116,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     newPop.images = self.imageFiles;
     newPop.location = [PFGeoPoint geoPointWithLocation:popLocation];
     newPop.price = [NSNumber numberWithDouble:[priceStr doubleValue]];
-    newPop.isSold = NO;
+    newPop.status = kPopCreated;
     [newPop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // Successfully posted

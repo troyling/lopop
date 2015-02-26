@@ -15,6 +15,7 @@
 #import <Parse/Parse.h>
 #import "LPPopLike.h"
 #import "UIImageView+WebCache.h"
+#import "LPLocationHelper.h"
 
 @interface LPFeedTableViewController ()
 
@@ -169,15 +170,11 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
     if (self.pops) {
         LPPop *pop = [self.pops objectAtIndex:indexPath.row];
-        CLLocationDistance distance = [pop.location distanceInMilesTo:[PFGeoPoint geoPointWithLocation:self.userLocation]];
-        
         cell.titleLabel.text = pop.title;
         cell.priceLabel.text = [pop publicPriceStr];
-        
-        // format distance
-        NSNumberFormatter *formater = [[NSNumberFormatter alloc] init];
-        [formater setPositiveFormat:@"0.##"];
-        NSString *distanceStr = [formater stringFromNumber:[NSNumber numberWithDouble:distance]];
+
+        // distance to pop
+        NSString *distanceStr = [LPLocationHelper stringOfDistanceInMilesBetweenGeoPoints:pop.location and:[PFGeoPoint geoPointWithLocation:self.userLocation] withFormat:@"0.##"];
         cell.distanceLabel.text = [[NSString alloc] initWithFormat:@"%@ mi", distanceStr];
         
         // load image
@@ -186,9 +183,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         cell.imgView.clipsToBounds = YES;
 
 //        cell.likeBtn.tag = indexPath.row;
-//        
 //        [cell.likeBtn addTarget:nil action:@selector(like_pop2:) forControlEvents:UIControlEventTouchUpInside];
-//        
 //        [self updateButton:cell.likeBtn with:pop];
 }
     

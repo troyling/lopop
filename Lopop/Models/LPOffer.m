@@ -13,6 +13,10 @@
 
 @dynamic pop;
 @dynamic fromUser;
+@dynamic greeting;
+@dynamic meetUpLocation;
+@dynamic meetUpTime;
+@dynamic status;
 
 + (void)load {
     [self registerSubclass];

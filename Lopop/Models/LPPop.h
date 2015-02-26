@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
+typedef enum {
+    kPopCreated = 0,
+    kPopOfferConfirmed,
+    kPopcompleted
+} LPPopStatus;
+
 @interface LPPop : PFObject<PFSubclassing>
 
 + (NSString *)parseClassName;
@@ -19,7 +25,7 @@
 @property PFUser *seller;
 @property NSMutableArray *images; //
 @property PFGeoPoint *location;
-@property BOOL isSold;
+@property LPPopStatus status;
 @property NSNumber *price;
 
 - (NSString *)publicLink;

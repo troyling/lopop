@@ -14,13 +14,15 @@
 #import "LPUIHelper.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
-#import "LPIncomingOfferTableViewController.h"
+#import "LPListingDetailViewController.h"
+#import "LPMeetUpMapViewController.h"
 
 @interface LPListingTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *listings;
 @property (strong, nonatomic) NSMutableArray *offerredPops;
 @property (strong, nonatomic) NSMutableDictionary *incomingOffers;
+@property (strong, nonatomic) NSMutableArray *myOffers;
 
 @property (assign) LPDisplayState displayState;
 
@@ -77,6 +79,7 @@
     [offerQuery orderByDescending:@"createdAt"];
     [offerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            self.myOffers = [[NSMutableArray alloc] initWithArray:objects];
             for(id o in objects) {
                 if ([o isKindOfClass:[LPOffer class]]) {
                     LPOffer *offer = o;
@@ -171,7 +174,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.displayState == LPListingDisplay) {
-        LPIncomingOfferTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"incomingOfferTableViewController"];
+        LPListingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"listingDetailViewController"];
         LPPop *pop = [self.listings objectAtIndex:indexPath.row];
         vc.pop = pop;
         [self.navigationController pushViewController:vc animated:YES];
@@ -232,6 +235,35 @@
             break;
         default:
             break;
+    }
+}
+
+# pragma mark Navigation Control
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[LPMeetUpMapViewController class]]) {
+        LPMeetUpMapViewController *vc = segue.destinationViewController;
+
+        if ([sender isKindOfClass:[LPPopListingTableViewCell class]]) {
+            LPPopListingTableViewCell *cell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
+            NSLog(@"%@", offer);
+            vc.offer = offer;
+        }
+
+        // engage user by hiding tabbar
+        if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+            LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+            [tb setTabBarVisible:NO animated:YES];
+        }
+    }
+}
+
+- (IBAction)prepareForUnwind:(UIStoryboardSegue *)unwindSegue {
+    // FIXME set enable will pop to the vc that hides the tab bar, instead of where it supoose to be
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
     }
 }
 

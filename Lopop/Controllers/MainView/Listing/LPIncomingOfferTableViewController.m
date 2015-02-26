@@ -9,9 +9,11 @@
 #import "LPIncomingOfferTableViewController.h"
 #import "LPUserProfileViewController.h"
 #import "LPUserRatingTableViewCell.h"
+#import "LPOfferChatViewController.h"
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPUIHelper.h"
+#import "LPPopHelper.h"
 #import "LPOffer.h"
 
 @interface LPIncomingOfferTableViewController ()
@@ -29,7 +31,6 @@
 
     [self loadData];
 }
-
 
 - (void)loadData {
     if (self.pop) {
@@ -107,12 +108,10 @@
         LPUserRatingTableViewCell *cell = (LPUserRatingTableViewCell *) [[sender superview] superview];
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
-        PFUser *offerUser = offer.fromUser;
 
         // push to chat view
-        LPMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"chatViewController"];
-        vc.pop = self.pop;
-        vc.offerUser = offerUser;
+        LPOfferChatViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"offerChatViewController"];
+        vc.offer = offer;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
