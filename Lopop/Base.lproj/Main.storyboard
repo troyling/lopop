@@ -671,10 +671,6 @@
                                     <segue destination="at5-Ul-UqV" kind="unwind" unwindAction="prepareForUnwindSegue:" id="Dm3-rA-K7E"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="waK-pk-Ikh">
-                                <rect key="frame" x="10" y="628" width="188" height="334"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="sUu-Hv-z5W">
                                 <rect key="frame" x="0.0" y="252" width="375" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="446246507.520217">
