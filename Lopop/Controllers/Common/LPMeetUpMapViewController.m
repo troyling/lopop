@@ -8,6 +8,7 @@
 
 #import "LPMeetUpMapViewController.h"
 #import "MKAnnotationView+WebCache.h"
+#import "LPRateUserViewController.h"
 #import "UIImageView+WebCache.h"
 #import <Firebase/Firebase.h>
 #import "LPLocationHelper.h"
@@ -513,6 +514,15 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
         renderer.strokeColor = [LPUIHelper lopopColor];
     }
     return renderer;
+}
+
+#pragma mark UIStoryboard
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[LPRateUserViewController class]]) {
+        LPRateUserViewController *vc = segue.destinationViewController;
+        vc.user = self.meetUpUser;
+    }
 }
 
 @end
