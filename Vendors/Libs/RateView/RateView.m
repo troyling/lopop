@@ -318,14 +318,10 @@
         // Check Rating Max / Min
         if(_rating > MaximumRating)
         {
-            RVLog(@"RateView : MaximumRating <= 5.0 \n"
-                  "You can't have rating more than 5.0, Making it 5.0 for now");
             _rating = MaximumRating;
         }
         else if(_rating < MinimumRating)
         {
-            RVLog(@"RateView : MinimumRating >= 0.0 \n"
-                  "You can't have rating less than 0.0, Making it 0.0 for now");
             _rating = MinimumRating;
         }
 
@@ -521,7 +517,6 @@
     if(_canRate)
     {
         CGPoint location = [[touches anyObject] locationInView:self];
-        RVLog(@"%@", NSStringFromCGPoint(location));
         // Compute location
         float x = location.x;
         if(x < 0.0f)
