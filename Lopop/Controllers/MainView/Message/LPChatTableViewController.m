@@ -30,7 +30,7 @@ NSString * troyId = @"qXHdNj9Skh";
     userRef = [[Firebase alloc] initWithUrl:
                 [FirebaseUrl1 stringByAppendingString: [@"users/" stringByAppendingString: userId]]];
     
-    self.chatArray = [[LPChatManager getInstance] getActiveChatArray];
+    self.chatArray = [[LPChatManager getInstance] getAllChatArray];
     [self observeChatManagerNotification];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -143,23 +143,7 @@ NSString * troyId = @"qXHdNj9Skh";
 
 
 - (IBAction)newChat:(id)sender {
-    /*
-    LPChatModel* aChatModel = [LPChatModel alloc];
-    aChatModel.contactId = troyId;
-    
-    //Generate a new chat in '/chats'
-    Firebase * aChatRef = [[[Firebase alloc] initWithUrl:[FirebaseUrl1 stringByAppendingString: @"chats"]] childByAutoId];
-    [aChatRef setValue: @{@"info": @{@"user1" : userId, @"user2" : troyId}}];
-    aChatModel.chatId = aChatRef.key;
-
-    //Add a chatInfo to the chat list of '/users/user-id'
-    [[userRef childByAutoId] setValue:[aChatModel toDict]];
-    
-    //Also add the chatInfo to contact's chat list
-    aChatModel.contactId = userId;
-    Firebase * contactRef = [[Firebase alloc] initWithUrl:
-                             [FirebaseUrl1 stringByAppendingString: [@"users/" stringByAppendingString: troyId]]];
-    [[contactRef childByAutoId] setValue:[aChatModel toDict]];*/
+    [[LPChatManager getInstance] newChatWithContactId:@"qXHdNj9Skh"];
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
