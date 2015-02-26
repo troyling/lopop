@@ -7,7 +7,6 @@
 //
 
 #import "LPMeetUpMapViewController.h"
-#import "MKAnnotationView+WebCache.h"
 #import "LPRateUserViewController.h"
 #import "UIImageView+WebCache.h"
 #import <Firebase/Firebase.h>
