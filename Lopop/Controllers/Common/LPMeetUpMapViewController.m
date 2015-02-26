@@ -295,6 +295,11 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     return myDistanceToUserInMile <= 0.01875; // within 30 meters
 }
 
+- (NSString *)nameOfAnnotationFile {
+    int i = arc4random_uniform(10) + 1;
+    return [NSString stringWithFormat:@"smiley%d", i];
+}
+
 - (void)promptMessage:(NSString *)message withDismissTimeInterval:(double)time {
     self.eventLabel.text = message;
     [UIView animateWithDuration:0.3 animations:^{
@@ -455,9 +460,8 @@ typedef NS_ENUM(NSInteger, LPMeetUpMapViewMode) {
     MKAnnotationView *view;
     if (annotation == self.meetUpUserLocationAnnotation) {
         // TODO change icon for the user
-        NSLog(@"Meetup user");
         view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"meetUpUser"];
-        [view setImage:[UIImage imageNamed:@"icon_like_fill.png"]];
+        [view setImage:[UIImage imageNamed:[self nameOfAnnotationFile]]];
         [view setCanShowCallout:YES];
     } else {
         view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"popLocaiton"];
