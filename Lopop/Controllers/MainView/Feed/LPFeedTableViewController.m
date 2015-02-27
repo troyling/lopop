@@ -129,12 +129,14 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
                      [self.pops addObjectsFromArray:objects];
                  }
 
+                 self.noContentLabel.hidden = YES;
                  [self.feedTableView reloadData];
                  // TODO stop the loading indicator
              }
              else {
                  // nothing to display
                  NSLog(@"That's all we have so far");
+                 self.noContentLabel.hidden = NO;
              }
          }
      }];

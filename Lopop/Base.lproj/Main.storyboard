@@ -1690,6 +1690,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Come back later for more pops around you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kea-Hu-HVp">
+                            <rect key="frame" x="0.0" y="384" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LPPopFeedTableViewCell" rowHeight="298" id="JS5-Do-pru" customClass="LPPopFeedTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1801,6 +1808,7 @@
                     <navigationItem key="navigationItem" title="Pops" id="Vcc-8B-1mk"/>
                     <connections>
                         <outlet property="feedTableView" destination="XaW-mL-wWn" id="xaJ-cx-7oR"/>
+                        <outlet property="noContentLabel" destination="kea-Hu-HVp" id="hwA-12-YrF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hft-qI-F7U" userLabel="First Responder" sceneMemberID="firstResponder"/>

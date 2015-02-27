@@ -12,5 +12,6 @@
 @interface LPFeedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
+@property (weak, nonatomic) IBOutlet UILabel *noContentLabel;
 
 @end
