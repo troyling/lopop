@@ -13,6 +13,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LPPop.h"
 #import "LPAlertViewHelper.h"
+#import "CRToast.h"
 
 @interface LPNewPopTableViewController ()
 
@@ -117,12 +118,50 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     newPop.location = [PFGeoPoint geoPointWithLocation:popLocation];
     newPop.price = [NSNumber numberWithDouble:[priceStr doubleValue]];
     newPop.status = kPopCreated;
-    [newPop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            // Successfully posted
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }   
+//    [newPop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            // Successfully posted
+//            [self dismissViewControllerAnimated:YES completion:NULL];
+//        }   
+//    }];
+    [newPop saveEventually:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // done
+            NSDictionary *options = @{
+                                      kCRToastTextKey : @"Pop created!",
+                                      kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                      kCRToastBackgroundColorKey : [UIColor greenColor],
+                                      kCRToastNotificationPresentationTypeKey : @(CRToastPresentationTypeCover),
+                                      kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
+                                      kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
+                                      kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                      kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                      kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                      };
+            [CRToastManager showNotificationWithOptions:options
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
+        } else {
+            // error. Unable to save
+            NSDictionary *options = @{
+                                      kCRToastTextKey : @"Unable to create pop. Please try again later",
+                                      kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                      kCRToastBackgroundColorKey : [UIColor redColor],
+                                      kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
+                                      kCRToastNotificationPresentationTypeKey : @(CRToastPresentationTypeCover),
+                                      kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
+                                      kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
+                                      kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                      kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                      };
+            [CRToastManager showNotificationWithOptions:options
+                                        completionBlock:^{
+                                            NSLog(@"Completed");
+                                        }];
+        }
     }];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)addPhoto:(id)sender {

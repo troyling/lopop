@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FDDBB7C244E7E70CEFF97D7B"
-               BuildableName = "libPods-Lopop-Spring.a"
-               BlueprintName = "Pods-Lopop-Spring"
+               BlueprintIdentifier = "4495CA34B5DB0F6B220B5BB0"
+               BuildableName = "libPods-Lopop-CRToast.a"
+               BlueprintName = "Pods-Lopop-CRToast"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

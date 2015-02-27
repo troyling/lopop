@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lopop-CRToast.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,37 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1AE8A6099B1714C35CAFEF45</key>
+		<key>4495CA34B5DB0F6B220B5BB0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3715BD296DC0FE5CD2BBF898</key>
+		<key>55642677A042021926147B84</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>71BBD78C896E0EC1AFC30BAB</key>
+		<key>A82B4E006B39652734E42309</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E9592052A1EFE978205DA1C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AE154C397CE8C64FC18CC8AA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C1F1C4E57720242155B454C5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E698240ED08798BF29CB475E</key>
+		<key>DFDF4E482EF0AE57FF0C857D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
