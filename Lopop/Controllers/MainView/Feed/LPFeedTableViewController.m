@@ -25,7 +25,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *userLocation;
 @property (assign, nonatomic) CGFloat lastContentOffsetY;
-@property (assign, nonatomic) NSDate *queryLastOjbectTimestamp;
+@property (strong, nonatomic) NSDate *queryLastOjbectTimestamp;
 
 @end
 
@@ -99,6 +99,10 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     popQuery.limit = QUERY_LIMIT;
     [popQuery orderByDescending:@"createdAt"];
 
+    if (!loadMore) {
+        self.queryLastOjbectTimestamp = [NSDate date];
+    }
+
     if (self.pops.count == 0) {
         popQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
@@ -112,15 +116,19 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
          if (!error) {
              if (objects.count > 0) {
                  if (self.pops.count > 0) {
-                     LPPop *lastPop = objects.lastObject;
-                     self.queryLastOjbectTimestamp = lastPop.createdAt;
+                     if ([objects.lastObject isKindOfClass:[LPPop class]]) {
+                         LPPop *lastPop = objects.lastObject;
+                         self.queryLastOjbectTimestamp = lastPop.createdAt;
+                     }
                  }
 
                  if (!loadMore) {
-                     [self.pops removeAllObjects];
+                     NSRange range = NSMakeRange(0, self.pops.count);
+                     [self.pops replaceObjectsInRange:range withObjectsFromArray:objects];
+                 } else {
+                     [self.pops addObjectsFromArray:objects];
                  }
 
-                 [self.pops addObjectsFromArray:objects];
                  [self.feedTableView reloadData];
                  // TODO stop the loading indicator
              }
