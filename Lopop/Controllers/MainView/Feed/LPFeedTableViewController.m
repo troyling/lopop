@@ -26,6 +26,8 @@
 @property (assign, nonatomic) CGFloat lastContentOffsetY;
 @property (strong, nonatomic) NSDate *queryLastOjbectTimestamp;
 
+@property (strong, nonatomic) UISearchController *searchController;
+
 @end
 
 @implementation LPFeedTableViewController
@@ -42,6 +44,8 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.locationManager.delegate = self;
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
+
+    [self initSearchController];
 
     // content offset used to calculate view position
     self.lastContentOffsetY = self.tableView.contentOffset.y;
@@ -158,6 +162,16 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     refreshControl.attributedTitle =
     [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     self.refreshControl = refreshControl;
+}
+
+- (void)initSearchController {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    [self.searchController.searchBar sizeToFit];
+    self.definesPresentationContext = YES;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
 }
 
 - (void)refreshPops {
@@ -401,6 +415,12 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         vc.priceText = cell.priceLabel.text;
         vc.distanceText = cell.distanceLabel.text;
     }
+}
+
+#pragma mark searchController
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSLog(@"Searching");
 }
 
 @end
