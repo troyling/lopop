@@ -12,7 +12,6 @@
 #import "LPPopDetailViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
-#import <Parse/Parse.h>
 #import "LPPopLike.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
@@ -125,7 +124,8 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
                  if (!loadMore) {
                      NSRange range = NSMakeRange(0, self.pops.count);
                      [self.pops replaceObjectsInRange:range withObjectsFromArray:objects];
-                 } else {
+                 }
+                 else {
                      [self.pops addObjectsFromArray:objects];
                  }
 
@@ -247,7 +247,20 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
         // load image
         PFFile *popImageFile = pop.images.firstObject;
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url]];
+
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url] placeholderImage:nil options:0 progress: ^(NSInteger receivedSize, NSInteger expectedSize) {
+            cell.progressView.hidden = NO;
+            if (receivedSize == 0) {
+                [cell.progressView setProgress:0 animated:NO];
+            }
+            else {
+                float progress = (float)receivedSize / (float)expectedSize;
+                [cell.progressView setProgress:progress animated:YES];
+            }
+        } completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            cell.progressView.hidden = YES;
+        }];
+
         cell.imgView.clipsToBounds = YES;
 
         //        cell.likeBtn.tag = indexPath.row;

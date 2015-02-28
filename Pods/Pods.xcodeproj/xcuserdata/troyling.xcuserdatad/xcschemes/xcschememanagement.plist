@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lopop-M13ProgressSuite.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4495CA34B5DB0F6B220B5BB0</key>
+		<key>285A971F711E5CE4C79B0AE5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55642677A042021926147B84</key>
+		<key>473BED5119DC1F58E78E1A26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A82B4E006B39652734E42309</key>
+		<key>8348D6BC93272593C1E9B90E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DFDF4E482EF0AE57FF0C857D</key>
+		<key>C96389E1E023B978275C2BD3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD4B29C84DA9A29DB7EBBEF8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

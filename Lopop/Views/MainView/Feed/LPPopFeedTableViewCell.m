@@ -7,6 +7,7 @@
 //
 
 #import "LPPopFeedTableViewCell.h"
+#import "LPUIHelper.h"
 
 @implementation LPPopFeedTableViewCell
 CGFloat const MARGIN_OFFSET = 10.0f;
@@ -21,9 +22,10 @@ CGFloat const MARGIN_OFFSET = 10.0f;
     [super setFrame:frame];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    // No selection when cell tapped
-    // [super setSelected:selected animated:animated];
+- (void)layoutSubviews {
+    self.progressView.primaryColor = [LPUIHelper lopopColor];
+    self.progressView.showPercentage = YES;
+    self.progressView.backgroundRingWidth = 0.0f;
 }
 
 @end

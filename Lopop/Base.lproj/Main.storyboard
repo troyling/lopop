@@ -1719,7 +1719,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-wm-rS0">
-                                            <rect key="frame" x="324" y="261" width="35" height="20"/>
+                                            <rect key="frame" x="324.5" y="261" width="34.5" height="20"/>
                                             <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="8Is-ay-9ux"/>
@@ -1729,7 +1729,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0C-fa-J6t">
-                                            <rect key="frame" x="36" y="261" width="53" height="20"/>
+                                            <rect key="frame" x="36" y="261" width="52.5" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="vyR-M9-UiF"/>
                                             </constraints>
@@ -1760,6 +1760,13 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPr-wi-vpZ" customClass="M13ProgressViewRing">
+                                            <rect key="frame" x="149.5" y="75.5" width="75" height="75"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="75" id="Jq4-IR-Ovp"/>
+                                                <constraint firstAttribute="height" constant="75" id="xrt-I6-O2t"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="p0C-fa-J6t" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" constant="8" id="16x-IR-G8x"/>
@@ -1776,13 +1783,19 @@
                                         <constraint firstItem="Eoz-G8-kjk" firstAttribute="trailing" secondItem="Tjg-Hs-eQb" secondAttribute="trailingMargin" constant="-8" id="TeT-u9-nub"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="sWU-k3-nnA" secondAttribute="trailing" constant="-8" id="UqD-kC-Ja3"/>
                                         <constraint firstItem="EWg-wm-rS0" firstAttribute="top" secondItem="Eoz-G8-kjk" secondAttribute="bottom" constant="8" id="YTh-sm-bhq"/>
+                                        <constraint firstItem="cPr-wi-vpZ" firstAttribute="centerX" secondItem="sWU-k3-nnA" secondAttribute="centerX" constant="-0.5" id="aQx-4D-XQD"/>
                                         <constraint firstItem="2Tl-KW-41d" firstAttribute="top" secondItem="Eoz-G8-kjk" secondAttribute="bottom" constant="8" id="cDh-9B-h9M"/>
                                         <constraint firstItem="HbF-jA-HLY" firstAttribute="top" secondItem="Eoz-G8-kjk" secondAttribute="bottom" constant="11" id="cFJ-ZU-hMc"/>
                                         <constraint firstItem="XAb-el-fzq" firstAttribute="top" secondItem="Eoz-G8-kjk" secondAttribute="bottom" constant="9" id="fXV-9R-403"/>
                                         <constraint firstItem="sWU-k3-nnA" firstAttribute="leading" secondItem="Tjg-Hs-eQb" secondAttribute="leadingMargin" constant="-8" id="hy8-hP-beD"/>
+                                        <constraint firstAttribute="centerY" secondItem="cPr-wi-vpZ" secondAttribute="centerY" id="iv4-cq-qgS"/>
+                                        <constraint firstAttribute="centerX" secondItem="cPr-wi-vpZ" secondAttribute="centerX" id="nbT-8o-Sat"/>
+                                        <constraint firstItem="cPr-wi-vpZ" firstAttribute="centerY" secondItem="sWU-k3-nnA" secondAttribute="centerY" constant="0.5" id="qp9-vs-eF7"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="iv4-cq-qgS"/>
+                                            <exclude reference="nbT-8o-Sat"/>
                                             <exclude reference="16x-IR-G8x"/>
                                             <exclude reference="5ZN-Bb-2gU"/>
                                         </mask>
@@ -1795,6 +1808,7 @@
                                     <outlet property="imgView" destination="sWU-k3-nnA" id="R4U-2t-Xlm"/>
                                     <outlet property="likeBtn" destination="2Tl-KW-41d" id="qEn-cv-pxl"/>
                                     <outlet property="priceLabel" destination="EWg-wm-rS0" id="vYQ-vV-ojj"/>
+                                    <outlet property="progressView" destination="cPr-wi-vpZ" id="Uej-Xg-Rdg"/>
                                     <outlet property="titleLabel" destination="Eoz-G8-kjk" id="pW8-xn-oKN"/>
                                     <segue destination="TTt-MV-RDu" kind="show" id="ltB-W3-iYB"/>
                                 </connections>
