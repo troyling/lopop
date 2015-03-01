@@ -18,5 +18,6 @@
 + (UIImage *)convertViewToImage:(UIView *)view;
 + (CGFloat)heightOfText:(NSString *)textStr forLabel:(UILabel *)label;
 + (CGFloat)screenWidth;
++ (CGFloat)screenHeight;
 
 @end

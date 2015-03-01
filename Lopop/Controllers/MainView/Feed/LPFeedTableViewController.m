@@ -13,6 +13,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import "LPPopLike.h"
+#import "LPUIHelper.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
 #import "UIViewController+ScrollingNavbar.h"
@@ -35,6 +36,7 @@ typedef enum {
 @property LPTableDisplayType displayType;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (retain, nonatomic) NSMutableArray *searchResults;
+@property (retain, nonatomic) UIVisualEffectView *blurView;
 
 @end
 
@@ -56,6 +58,13 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     // searching
     self.searchResults = [NSMutableArray array];
     [self initSearchController];
+
+    // blurview
+    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    self.blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
+    self.blurView.frame = CGRectMake(0, 0, [LPUIHelper screenWidth], [LPUIHelper screenHeight]);
+    self.blurView.hidden = YES;
+    [self.view addSubview:self.blurView];
 
     // content offset used to calculate view position
     self.lastContentOffsetY = self.tableView.contentOffset.y;
@@ -206,6 +215,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
+    self.searchController.delegate = self;
     [self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = YES;
     self.tableView.tableHeaderView = self.searchController.searchBar;
@@ -474,16 +484,30 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     NSLog(@"Searching");
 }
 
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    //TODO: refactor
+    self.tableView.scrollEnabled = NO;
+    self.blurView.hidden = NO;
+}
+
 #pragma mark searchBar
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSString *searchItem = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [self searchPopFor:searchItem];
+
+    // TODO refactor
+    self.tableView.scrollEnabled = YES;
+    self.blurView.hidden = YES;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.displayType = kFeed;
     [self.tableView reloadData];
+
+    // TODO refactor
+    self.tableView.scrollEnabled = YES;
+    self.blurView.hidden = YES;
 }
 
 @end

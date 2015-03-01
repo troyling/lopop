@@ -31,6 +31,11 @@
     return bounds.size.width;
 }
 
++ (CGFloat)screenHeight {
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    return bounds.size.height;
+}
+
 + (UIImage *)convertViewToImage:(UIView *)view {
     UIGraphicsBeginImageContext(view.bounds.size);
     [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
