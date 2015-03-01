@@ -1698,7 +1698,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LPPopFeedTableViewCell" rowHeight="298" id="JS5-Do-pru" customClass="LPPopFeedTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LPPopFeedTableViewCell" rowHeight="298" id="JS5-Do-pru" customClass="LPPopFeedTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JS5-Do-pru" id="Tjg-Hs-eQb">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1719,7 +1719,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWg-wm-rS0">
-                                            <rect key="frame" x="324.5" y="261" width="34.5" height="20"/>
+                                            <rect key="frame" x="325" y="261" width="35" height="20"/>
                                             <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="8Is-ay-9ux"/>
@@ -1729,7 +1729,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0C-fa-J6t">
-                                            <rect key="frame" x="36" y="261" width="52.5" height="20"/>
+                                            <rect key="frame" x="36" y="261" width="53" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="vyR-M9-UiF"/>
                                             </constraints>
@@ -1761,7 +1761,7 @@
                                             </state>
                                         </button>
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPr-wi-vpZ" customClass="M13ProgressViewRing">
-                                            <rect key="frame" x="149.5" y="75.5" width="75" height="75"/>
+                                            <rect key="frame" x="150" y="76" width="75" height="75"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="75" id="Jq4-IR-Ovp"/>
                                                 <constraint firstAttribute="height" constant="75" id="xrt-I6-O2t"/>
@@ -3296,7 +3296,7 @@
                     <navigationItem key="navigationItem" id="Rfu-BS-zAc">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Z2K-yk-1mk">
-                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <rect key="frame" x="113" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Listing"/>

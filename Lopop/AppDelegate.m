@@ -38,7 +38,7 @@
     
     [PFFacebookUtils initializeFacebook];
     
-    [LPChatManager getInstance];
+//    [LPChatManager getInstance];
 
     // Register notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
