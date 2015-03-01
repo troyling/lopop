@@ -2159,12 +2159,12 @@
                                 <rect key="frame" x="62" y="209" width="250" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Greeting" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cw5-bq-sQa">
-                                        <rect key="frame" x="33" y="205" width="184" height="30"/>
+                                        <rect key="frame" x="33" y="205.5" width="184" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJI-ch-l1l">
-                                        <rect key="frame" x="33" y="144" width="184" height="25"/>
+                                        <rect key="frame" x="33" y="144.5" width="184" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="Lnl-ak-rha"/>
                                         </constraints>
@@ -2173,7 +2173,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nZ-gc-895">
-                                        <rect key="frame" x="106" y="177" width="39" height="20"/>
+                                        <rect key="frame" x="106.5" y="177.5" width="38.5" height="20"/>
                                         <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ba8-ws-gel"/>
@@ -2183,14 +2183,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CRM-HA-dtt">
-                                        <rect key="frame" x="75" y="36" width="100" height="100"/>
+                                        <rect key="frame" x="75" y="36.5" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="ikT-IA-iwW"/>
                                             <constraint firstAttribute="height" constant="100" id="xuY-yG-x0h"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offering" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-IY-U6t">
-                                        <rect key="frame" x="52" y="8" width="146" height="21"/>
+                                        <rect key="frame" x="52" y="8" width="146" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -2265,9 +2265,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="9b6-tR-iFl" secondAttribute="trailing" id="3Hj-Op-szZ"/>
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="top" secondItem="2dH-Jy-mwW" secondAttribute="bottom" constant="299" id="4Ad-d5-lHn"/>
                             <constraint firstAttribute="centerX" secondItem="1QC-Lr-kow" secondAttribute="centerX" id="7Ub-1N-deN"/>
-                            <constraint firstItem="9b6-tR-iFl" firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" constant="0.5" id="BLM-ps-QhU"/>
+                            <constraint firstItem="9b6-tR-iFl" firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" id="BLM-ps-QhU"/>
                             <constraint firstAttribute="width" secondItem="w40-h5-oIV" secondAttribute="width" id="CvI-Yo-y5K"/>
-                            <constraint firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" constant="0.5" id="D3w-UA-H49"/>
+                            <constraint firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" id="D3w-UA-H49"/>
                             <constraint firstAttribute="height" secondItem="w40-h5-oIV" secondAttribute="height" id="OCj-Xr-h4v"/>
                             <constraint firstItem="dLL-dc-wUj" firstAttribute="top" secondItem="9b6-tR-iFl" secondAttribute="bottom" id="PAa-f3-5y7"/>
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="leading" secondItem="w40-h5-oIV" secondAttribute="leading" id="coh-Wq-jh4"/>
@@ -2285,8 +2285,11 @@
                     <navigationItem key="navigationItem" id="CIG-Qw-0Ca"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="confirmBtn" destination="1QC-Lr-kow" id="B62-Yh-w3i"/>
                         <outlet property="greetingTextField" destination="Cw5-bq-sQa" id="nnj-mG-8Ey"/>
                         <outlet property="nameLabel" destination="jJI-ch-l1l" id="nLe-Nh-ffW"/>
+                        <outlet property="offerView" destination="QSn-Jj-rI3" id="jCD-Mf-dFO"/>
+                        <outlet property="offerViewAlignmentY" destination="gAd-Xt-xxn" id="Pof-Ys-Y7u"/>
                         <outlet property="priceLabel" destination="4nZ-gc-895" id="qLO-lP-TOs"/>
                         <outlet property="profileImageView" destination="CRM-HA-dtt" id="Yoq-AE-Jp1"/>
                         <segue destination="mFs-ib-Aqv" kind="unwind" identifier="offerSent" unwindAction="unwindToViewController:" id="TnN-18-Wqc"/>

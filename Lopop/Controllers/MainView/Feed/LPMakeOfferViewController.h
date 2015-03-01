@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Lopop-Swift.h"
 #import "LPPop.h"
 
-@interface LPMakeOfferViewController : UIViewController
+@interface LPMakeOfferViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *greetingTextField;
+@property (weak, nonatomic) IBOutlet DesignableView *offerView;
+@property (weak, nonatomic) IBOutlet DesignableButton *confirmBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *offerViewAlignmentY;
 
 @property (assign, nonatomic) NSString *priceStr;
 @property (assign, nonatomic) NSString *nameStr;

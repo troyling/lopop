@@ -8,19 +8,19 @@
 
 #import "LPMakeOfferViewController.h"
 #import "LPPopDetailViewController.h"
+#import "LPUIHelper.h"
 #import "LPOffer.h"
 
 @interface LPMakeOfferViewController ()
-
 @end
 
 @implementation LPMakeOfferViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // TODO adjust for scroll view to avoid the keyboard from blocking the content
-    
+
+    self.greetingTextField.delegate = self;
+
     // load content
     self.profileImageView.image = self.profileImage;
     self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.size.height / 2.0;
@@ -57,6 +57,25 @@
         LPPopDetailViewController *vc = [segue destinationViewController];
         [vc setUIForOfferState:OfferSent];
     }
+}
+
+#pragma mark UITextField delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    CGFloat newConst = self.offerView.center.y - (self.offerView.frame.size.height / 2.0 + 55.0f); // shift view up
+    [self.offerViewAlignmentY setConstant:newConst];
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.offerViewAlignmentY setConstant:0];
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 @end
