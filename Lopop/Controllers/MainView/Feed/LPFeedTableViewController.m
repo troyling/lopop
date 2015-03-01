@@ -37,6 +37,7 @@ typedef enum {
 @property (strong, nonatomic) UISearchController *searchController;
 @property (retain, nonatomic) NSMutableArray *searchResults;
 @property (retain, nonatomic) UIVisualEffectView *blurView;
+@property (retain, nonatomic) UILabel *noMatchLabel;
 
 @end
 
@@ -65,6 +66,14 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.blurView.frame = CGRectMake(0, 0, [LPUIHelper screenWidth], [LPUIHelper screenHeight]);
     self.blurView.hidden = YES;
     [self.view addSubview:self.blurView];
+
+    // No found label
+    self.noMatchLabel = [[UILabel alloc] init];
+    self.noContentLabel.text = @"No match found";
+    self.noContentLabel.textAlignment = NSTextAlignmentCenter;
+    self.noContentLabel.hidden = YES;
+    self.noContentLabel.center = self.tableView.center;
+    [self.view addSubview:self.noContentLabel];
 
     // content offset used to calculate view position
     self.lastContentOffsetY = self.tableView.contentOffset.y;
@@ -183,16 +192,20 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[titleSearch, descriptionSearch]];
     [query orderByDescending:@"createdAt"];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [self.searchResults removeAllObjects];
 
             if (objects.count > 0) {
                 [self.searchResults addObjectsFromArray:objects];
-                self.displayType = kSearch;
+                [self searchBarActive:NO];
                 [self.tableView reloadData];
             } else {
                 // unable to find any match
+                self.noContentLabel.hidden = NO;
+                [self searchBarActive:NO];
+                [self.tableView reloadData];
             }
         } else {
             //TODO: error indictaing
@@ -212,7 +225,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 - (void)initSearchController {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
     self.searchController.delegate = self;
@@ -222,6 +234,11 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 }
 
 - (void)refreshPops {
+    if (self.displayType == kSearch) {
+        [self.refreshControl endRefreshing];
+        return;
+    }
+
     [self queryPopsForLoadMore:NO];
     // add last update
     if (self.refreshControl) {
@@ -454,14 +471,20 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.pops) {
         if (indexPath.row == (self.pops.count - 1)) {
-            NSLog(@"load more");
-            NSLog(@"Number of objects %ld", self.pops.count);
             [self queryPopsForLoadMore:YES];
         }
     }
 }
 
+#pragma mark helper
+
+- (void)searchBarActive:(BOOL)active {
+    self.tableView.scrollEnabled = !active;
+    self.blurView.hidden = !active;
+}
+
 #pragma mark segue
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue destinationViewController]
          isKindOfClass:[LPPopDetailViewController class]]) {
@@ -480,34 +503,22 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 #pragma mark searchController
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSLog(@"Searching");
-}
-
 - (void)willPresentSearchController:(UISearchController *)searchController {
-    //TODO: refactor
-    self.tableView.scrollEnabled = NO;
-    self.blurView.hidden = NO;
+    [self searchBarActive:YES];
 }
 
 #pragma mark searchBar
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSString *searchItem = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    self.displayType = kSearch;
     [self searchPopFor:searchItem];
-
-    // TODO refactor
-    self.tableView.scrollEnabled = YES;
-    self.blurView.hidden = YES;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.displayType = kFeed;
     [self.tableView reloadData];
-
-    // TODO refactor
-    self.tableView.scrollEnabled = YES;
-    self.blurView.hidden = YES;
+    [self searchBarActive:NO];
 }
 
 @end

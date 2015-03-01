@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface LPFeedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate, UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
+@interface LPFeedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate, UISearchBarDelegate, UISearchControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 @property (weak, nonatomic) IBOutlet UILabel *noContentLabel;
