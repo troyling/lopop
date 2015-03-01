@@ -68,12 +68,13 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [self.view addSubview:self.blurView];
 
     // No found label
-    self.noMatchLabel = [[UILabel alloc] init];
-    self.noContentLabel.text = @"No match found";
-    self.noContentLabel.textAlignment = NSTextAlignmentCenter;
-    self.noContentLabel.hidden = YES;
-    self.noContentLabel.center = self.tableView.center;
-    [self.view addSubview:self.noContentLabel];
+    self.noMatchLabel = [[UILabel alloc] initWithFrame:self.tableView.frame];
+    self.noMatchLabel.text = @"Sorry we couln'd find any match 😞";
+    self.noMatchLabel.textAlignment = NSTextAlignmentCenter;
+    self.noMatchLabel.hidden = YES;
+    self.noMatchLabel.layer.zPosition = MAXFLOAT;
+    self.noMatchLabel.center = self.tableView.center;
+    [self.view addSubview:self.noMatchLabel];
 
     // content offset used to calculate view position
     self.lastContentOffsetY = self.tableView.contentOffset.y;
@@ -203,7 +204,8 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
                 [self.tableView reloadData];
             } else {
                 // unable to find any match
-                self.noContentLabel.hidden = NO;
+                NSLog(@"NO found");
+                self.noMatchLabel.hidden = NO;
                 [self searchBarActive:NO];
                 [self.tableView reloadData];
             }
@@ -503,6 +505,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 #pragma mark searchBar
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.noMatchLabel.hidden = YES;
     [self searchBarActive:YES];
 }
 
@@ -513,6 +516,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.noMatchLabel.hidden = YES;
     self.displayType = kFeed;
     [self.tableView reloadData];
     [self searchBarActive:NO];
