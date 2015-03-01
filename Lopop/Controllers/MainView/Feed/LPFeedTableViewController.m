@@ -56,10 +56,29 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
 
-    // searching
+    // init property
+    self.pops = [NSMutableArray array];
     self.searchResults = [NSMutableArray array];
-    [self initSearchController];
+    self.queryLastOjbectTimestamp = [NSDate date];
 
+    [self initView];
+    [self initSearchController];
+    [self initRefreshControl];
+
+    // query data
+    self.displayType = kFeed;
+    [self queryPopsForLoadMore:NO];
+
+    // get user lcoation
+    [self getUserCurrentLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self showNavBarAnimated:NO];
+}
+
+- (void)initView {
     // blurview
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
@@ -79,31 +98,10 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     // content offset used to calculate view position
     self.lastContentOffsetY = self.tableView.contentOffset.y;
 
-    // init
-    self.displayType = kFeed;
-    CGRect bound = [[UIScreen mainScreen] bounds];
-    self.tableView.rowHeight =
-    bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO + ROW_HEIGHT_OFFSET;
-
-    // query data
-    self.pops = [[NSMutableArray alloc] init];
-    self.queryLastOjbectTimestamp = [NSDate date];
-    [self queryPopsForLoadMore:NO];
-
-    // configure pull to refresh
-    [self initRefreshControl];
-
-    // get user lcoation
-    [self getUserCurrentLocation];
-
-    // set table background
+    // tableview
+    self.tableView.rowHeight = [LPUIHelper screenWidth] * IMAGE_WIDTH_TO_HEIGHT_RATIO + ROW_HEIGHT_OFFSET;
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self showNavBarAnimated:NO];
 }
 
 - (void)getUserCurrentLocation {
@@ -169,7 +167,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
              }
              else {
                  // nothing to display
-                 NSLog(@"That's all we have so far");
                  self.noContentLabel.hidden = NO;
              }
          }
@@ -204,7 +201,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
                 [self.tableView reloadData];
             } else {
                 // unable to find any match
-                NSLog(@"NO found");
                 self.noMatchLabel.hidden = NO;
                 [self searchBarActive:NO];
                 [self.tableView reloadData];
@@ -505,6 +501,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 #pragma mark searchBar
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.noContentLabel.hidden = YES;
     self.noMatchLabel.hidden = YES;
     [self searchBarActive:YES];
 }
