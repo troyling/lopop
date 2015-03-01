@@ -460,9 +460,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
 
-        vc.pop = [self.pops objectAtIndex:indexPath.row];
+        vc.pop = self.displayType == kFeed ? [self.pops objectAtIndex:indexPath.row] : [self.searchResults objectAtIndex:indexPath.row];
 
-        // setup destination
+        //TODO: fetch data from model instead
         vc.priceText = cell.priceLabel.text;
         vc.distanceText = cell.distanceLabel.text;
     }
