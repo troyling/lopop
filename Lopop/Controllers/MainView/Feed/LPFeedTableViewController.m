@@ -227,7 +227,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
-    self.searchController.delegate = self;
     [self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = YES;
     self.tableView.tableHeaderView = self.searchController.searchBar;
@@ -501,13 +500,11 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     }
 }
 
-#pragma mark searchController
+#pragma mark searchBar
 
-- (void)willPresentSearchController:(UISearchController *)searchController {
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [self searchBarActive:YES];
 }
-
-#pragma mark searchBar
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSString *searchItem = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
