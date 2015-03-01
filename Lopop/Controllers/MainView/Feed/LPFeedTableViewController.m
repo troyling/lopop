@@ -17,6 +17,11 @@
 #import "LPLocationHelper.h"
 #import "UIViewController+ScrollingNavbar.h"
 
+typedef enum {
+    kFeed = 0,
+    kSearch,
+} LPTableDisplayType;
+
 @interface LPFeedTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *pops;
@@ -26,7 +31,10 @@
 @property (assign, nonatomic) CGFloat lastContentOffsetY;
 @property (strong, nonatomic) NSDate *queryLastOjbectTimestamp;
 
+// Searching
+@property LPTableDisplayType displayType;
 @property (strong, nonatomic) UISearchController *searchController;
+@property (retain, nonatomic) NSMutableArray *searchResults;
 
 @end
 
@@ -45,12 +53,15 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
 
+    // searching
+    self.searchResults = [NSMutableArray array];
     [self initSearchController];
 
     // content offset used to calculate view position
     self.lastContentOffsetY = self.tableView.contentOffset.y;
 
     // init
+    self.displayType = kFeed;
     CGRect bound = [[UIScreen mainScreen] bounds];
     self.tableView.rowHeight =
     bound.size.width * IMAGE_WIDTH_TO_HEIGHT_RATIO + ROW_HEIGHT_OFFSET;
@@ -154,6 +165,32 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
      }];
 }
 
+- (void)searchPopFor:(NSString *)searchItem {
+    PFQuery *titleSearch = [LPPop query];
+    [titleSearch whereKey:@"title" matchesRegex:searchItem modifiers:@"i"];
+
+    PFQuery *descriptionSearch = [LPPop query];
+    [descriptionSearch whereKey:@"popDescription" matchesRegex:searchItem modifiers:@"i"];
+
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[titleSearch, descriptionSearch]];
+    [query orderByDescending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [self.searchResults removeAllObjects];
+
+            if (objects.count > 0) {
+                [self.searchResults addObjectsFromArray:objects];
+                self.displayType = kSearch;
+                [self.tableView reloadData];
+            } else {
+                // unable to find any match
+            }
+        } else {
+            //TODO: error indictaing
+        }
+    }];
+}
+
 - (void)initRefreshControl {
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self
@@ -228,9 +265,15 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 - (NSInteger)   tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
     NSUInteger rows = 0;
-    if (self.pops) {
-        rows = self.pops.count;
+
+    if (self.displayType == kFeed) {
+        if (self.pops) {
+            rows = self.pops.count;
+        }
+    } else {
+        rows = self.searchResults.count;
     }
+
     return rows;
 }
 
@@ -246,44 +289,52 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         cell = [[LPPopFeedTableViewCell alloc] init];
     }
 
-    if (self.pops) {
-        LPPop *pop = [self.pops objectAtIndex:indexPath.row];
-        cell.titleLabel.text = pop.title;
-        cell.priceLabel.text = [pop publicPriceStr];
-
-        // distance to pop
-        NSString *distanceStr = [LPLocationHelper
-                                 stringOfDistanceInMilesBetweenGeoPoints:
-                                 pop.location                        and:[PFGeoPoint geoPointWithLocation:self.userLocation]
-                                 withFormat:@"0.##"];
-        cell.distanceLabel.text =
-        [[NSString alloc] initWithFormat:@"%@ mi", distanceStr];
-
-        // load image
-        PFFile *popImageFile = pop.images.firstObject;
-
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url] placeholderImage:nil options:0 progress: ^(NSInteger receivedSize, NSInteger expectedSize) {
-            cell.progressView.hidden = NO;
-            if (receivedSize == 0) {
-                [cell.progressView setProgress:0 animated:NO];
-            }
-            else {
-                float progress = (float)receivedSize / (float)expectedSize;
-                [cell.progressView setProgress:progress animated:YES];
-            }
-        } completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            cell.progressView.hidden = YES;
-        }];
-
-        cell.imgView.clipsToBounds = YES;
-
-        //        cell.likeBtn.tag = indexPath.row;
-        //        [cell.likeBtn addTarget:nil action:@selector(like_pop2:)
-        //        forControlEvents:UIControlEventTouchUpInside];
-        //        [self updateButton:cell.likeBtn with:pop];
+    LPPop *pop;
+    if (self.displayType == kFeed) {
+        pop = [self.pops objectAtIndex:indexPath.row];
+    } else {
+        pop = [self.searchResults objectAtIndex:indexPath.row];
     }
 
+    [self loadCell:cell withPop:pop];
+    //        cell.likeBtn.tag = indexPath.row;
+    //        [cell.likeBtn addTarget:nil action:@selector(like_pop2:)
+    //        forControlEvents:UIControlEventTouchUpInside];
+    //        [self updateButton:cell.likeBtn with:pop];
+
     return cell;
+}
+
+- (void)loadCell:(LPPopFeedTableViewCell *)cell withPop:(LPPop *)pop
+{
+    cell.titleLabel.text = pop.title;
+    cell.priceLabel.text = [pop publicPriceStr];
+
+    // distance to pop
+    NSString *distanceStr = [LPLocationHelper
+                             stringOfDistanceInMilesBetweenGeoPoints:
+                             pop.location                        and:[PFGeoPoint geoPointWithLocation:self.userLocation]
+                             withFormat:@"0.##"];
+    cell.distanceLabel.text =
+    [[NSString alloc] initWithFormat:@"%@ mi", distanceStr];
+
+    // load image
+    PFFile *popImageFile = pop.images.firstObject;
+
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url] placeholderImage:nil options:0 progress: ^(NSInteger receivedSize, NSInteger expectedSize) {
+        cell.progressView.hidden = NO;
+        if (receivedSize == 0) {
+            [cell.progressView setProgress:0 animated:NO];
+        }
+        else {
+            float progress = (float)receivedSize / (float)expectedSize;
+            [cell.progressView setProgress:progress animated:YES];
+        }
+    } completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        cell.progressView.hidden = YES;
+    }];
+
+    cell.imgView.clipsToBounds = YES;
 }
 
 - (void)updateButton:(UIButton *)updateButton with:(LPPop *)pop {
@@ -421,6 +472,18 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSLog(@"Searching");
+}
+
+#pragma mark searchBar
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSString *searchItem = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [self searchPopFor:searchItem];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.displayType = kFeed;
+    [self.tableView reloadData];
 }
 
 @end
