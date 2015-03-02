@@ -23,4 +23,8 @@
 @property Firebase *firebase;
 @property (nonatomic, strong) NSMutableArray* messageArray;
 
+// chat view componenets
+@property (strong, nonatomic) JSQMessagesBubbleImage *outgoinBubble;
+@property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubble;
+
 @end
