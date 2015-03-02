@@ -227,6 +227,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.placeholder = @"What are you looking for?";
     [self.searchController.searchBar sizeToFit];
     self.definesPresentationContext = YES;
     self.tableView.tableHeaderView = self.searchController.searchBar;
@@ -284,6 +285,24 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         }
         self.lastContentOffsetY = scrollView.contentOffset.y;
     }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    // adjust for the scroll bar
+    if ([scrollView isEqual:self.tableView]) {
+        NSLog(@"WTF");
+        NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    CGRect visibleRect = (CGRect){.origin = self.tableView.contentOffset, .size = self.tableView.bounds.size};
+    NSSet *paths = [NSSet setWithArray:[self.tableView indexPathsForRowsInRect:visibleRect]];
+    for (NSIndexPath *path in paths) {
+        if (path.row == 0) return NO; // prevent scrolling to search bar
+    }
+    return YES;
 }
 
 #pragma mark tableViewDelegateMethod
