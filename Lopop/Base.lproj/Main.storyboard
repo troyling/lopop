@@ -2171,6 +2171,21 @@
                                     <action selector="dismissViewController:" destination="qQ5-CJ-vxC" eventType="touchUpInside" id="0Eb-Dg-wGh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZ7-TR-bDN" userLabel="DismissBtn">
+                                <rect key="frame" x="0.0" y="20" width="49" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="C0N-ra-gvb"/>
+                                    <constraint firstAttribute="width" constant="49" id="E7Q-Ll-XQB"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                                <state key="normal" image="icon_close_white">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss:" destination="UYA-1N-Oo8" eventType="touchUpInside" id="xY2-2K-CXc"/>
+                                    <action selector="dismissViewController:" destination="qQ5-CJ-vxC" eventType="touchUpInside" id="5Wq-mQ-xfa"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSn-Jj-rI3" customClass="DesignableView" customModule="Lopop" customModuleProvider="target">
                                 <rect key="frame" x="62" y="209" width="250" height="250"/>
                                 <subviews>
@@ -2284,6 +2299,8 @@
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" id="BLM-ps-QhU"/>
                             <constraint firstAttribute="width" secondItem="w40-h5-oIV" secondAttribute="width" id="CvI-Yo-y5K"/>
                             <constraint firstAttribute="centerX" secondItem="QSn-Jj-rI3" secondAttribute="centerX" id="D3w-UA-H49"/>
+                            <constraint firstItem="vZ7-TR-bDN" firstAttribute="top" secondItem="2dH-Jy-mwW" secondAttribute="bottom" id="EQG-vN-ald"/>
+                            <constraint firstItem="vZ7-TR-bDN" firstAttribute="leading" secondItem="619-wA-xj6" secondAttribute="leadingMargin" constant="-16" id="Ho4-zs-vH4"/>
                             <constraint firstAttribute="height" secondItem="w40-h5-oIV" secondAttribute="height" id="OCj-Xr-h4v"/>
                             <constraint firstItem="dLL-dc-wUj" firstAttribute="top" secondItem="9b6-tR-iFl" secondAttribute="bottom" id="PAa-f3-5y7"/>
                             <constraint firstItem="9b6-tR-iFl" firstAttribute="leading" secondItem="w40-h5-oIV" secondAttribute="leading" id="coh-Wq-jh4"/>
