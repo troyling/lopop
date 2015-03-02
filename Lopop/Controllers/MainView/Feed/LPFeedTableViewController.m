@@ -112,6 +112,8 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [self.locationManager stopUpdatingLocation];
 }
 
+#pragma mark Backend
+
 - (void)queryPopsForLoadMore:(BOOL)loadMore {
     // start query
     PFQuery *popQuery = [LPPop query];
@@ -343,40 +345,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     return cell;
 }
 
-- (void)loadCell:(LPPopFeedTableViewCell *)cell withPop:(LPPop *)pop
-{
-    cell.titleLabel.text = pop.title;
-    cell.priceLabel.text = [pop publicPriceStr];
-
-    // distance to pop
-    NSString *distanceStr = [LPLocationHelper
-                             stringOfDistanceInMilesBetweenGeoPoints:
-                             pop.location                        and:[PFGeoPoint geoPointWithLocation:self.userLocation]
-                             withFormat:@"0.##"];
-    cell.distanceLabel.text =
-    [[NSString alloc] initWithFormat:@"%@ mi", distanceStr];
-
-    // load image
-    PFFile *popImageFile = pop.images.firstObject;
-
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url] placeholderImage:nil options:0 progress: ^(NSInteger receivedSize, NSInteger expectedSize) {
-        cell.progressView.hidden = NO;
-        if (receivedSize == 0) {
-            [cell.progressView setProgress:0 animated:NO];
-        }
-        else {
-            float progress = (float)receivedSize / (float)expectedSize;
-            [cell.progressView setProgress:progress animated:YES];
-        }
-    } completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        cell.progressView.hidden = YES;
-    }];
-
-    [cell.sellerProfileImgView sd_setImageWithURL:pop.seller[@"profilePictureUrl"]];
-
-    cell.imgView.clipsToBounds = YES;
-}
-
 - (void)updateButton:(UIButton *)updateButton with:(LPPop *)pop {
     PFQuery *likedQuery = [PFQuery queryWithClassName:[LPPopLike parseClassName]];
     // being followed by other users
@@ -494,6 +462,40 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 - (void)searchBarActive:(BOOL)active {
     self.tableView.scrollEnabled = !active;
     self.blurView.hidden = !active;
+}
+
+- (void)loadCell:(LPPopFeedTableViewCell *)cell withPop:(LPPop *)pop
+{
+    cell.titleLabel.text = pop.title;
+    cell.priceLabel.text = [pop publicPriceStr];
+
+    // distance to pop
+    NSString *distanceStr = [LPLocationHelper
+                             stringOfDistanceInMilesBetweenGeoPoints:
+                             pop.location                        and:[PFGeoPoint geoPointWithLocation:self.userLocation]
+                             withFormat:@"0.##"];
+    cell.distanceLabel.text =
+    [[NSString alloc] initWithFormat:@"%@ mi", distanceStr];
+
+    // load image
+    PFFile *popImageFile = pop.images.firstObject;
+
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:popImageFile.url] placeholderImage:nil options:0 progress: ^(NSInteger receivedSize, NSInteger expectedSize) {
+        cell.progressView.hidden = NO;
+        if (receivedSize == 0) {
+            [cell.progressView setProgress:0 animated:NO];
+        }
+        else {
+            float progress = (float)receivedSize / (float)expectedSize;
+            [cell.progressView setProgress:progress animated:YES];
+        }
+    } completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        cell.progressView.hidden = YES;
+    }];
+
+    [cell.sellerProfileImgView sd_setImageWithURL:pop.seller[@"profilePictureUrl"]];
+
+    cell.imgView.clipsToBounds = YES;
 }
 
 #pragma mark segue
