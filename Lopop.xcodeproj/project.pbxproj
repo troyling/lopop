@@ -1054,6 +1054,7 @@
 					};
 					D66CC8C51A60DD8C007B9992 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = YXU7589MR8;
 						TestTargetID = D66CC8AC1A60DD8C007B9992;
 					};
 				};

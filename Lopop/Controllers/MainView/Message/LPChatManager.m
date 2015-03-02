@@ -22,10 +22,9 @@
 @implementation LPChatManager
 static LPChatManager * instance = nil;
 NSMutableArray* allChatArray = nil;
-NSMutableArray* activeChatArray = nil;
+NSMutableArray* visibleChatArray = nil;
 
 NSString* userId;
-NSNumber* activeChat;
 Firebase* userRef;
 NSString* AUTH_TOKEN = @"pVNcW9P2yNe90ycNe2DN8sNysdaR12Q2TS8Jm9fn";
 
@@ -70,110 +69,69 @@ const NSInteger CONTACTDELETED = 3;
     userId =[[PFUser currentUser] objectId];
         
     allChatArray = [[NSMutableArray alloc] init];
-    activeChatArray = [[NSMutableArray alloc] init];
+    visibleChatArray = [[NSMutableArray alloc] init];
+    
+    //Retrieve from db
+    NSMutableArray* storedChatArray = [self loadChatsFromDB];
+    for(LPChatModel* chatModel in storedChatArray){
+        [self setUpChatModel:chatModel];
+        if(chatModel.visible){
+            [visibleChatArray addObject:chatModel];
+        }
+    }
+    [allChatArray addObjectsFromArray:storedChatArray];
+    
+    //Retrieve from firebase
     userRef = [[Firebase alloc] initWithUrl:
-               [NSString stringWithFormat:@"%@%@%@", firebaseUrl, @"users/", userId]];
+               [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", userId, @"/newChats"]];
     [userRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         LPChatModel* chatModel = [LPChatModel alloc];
-        chatModel.contactId = snapshot.value[@"contactId"];
-        [self setUpChatModel:chatModel];
-        [allChatArray addObject:chatModel];
-    }];
-    [self loadChatsFromDB];
-}
-
-
-/*
-- (void)initalChatArray {
-    if ([PFUser currentUser]) {
-        userId =[[PFUser currentUser] objectId];
+        chatModel.contactId = snapshot.value;
+        chatModel.visible = NO;
         
-        allChatArray = [[NSMutableArray alloc] init];
-        activeChatArray = [[NSMutableArray alloc] init];
-        userRef = [[Firebase alloc] initWithUrl:
-                   [NSString stringWithFormat:@"%@%@%@", firebaseUrl, @"users/", userId]];
-        
-        [userRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *userSnapshot) {
-            NSString* chatId = [LPChatManager composeChatIdWithContac1: userId withContact2:userSnapshot.key];
-            Firebase* chatRef = [[Firebase alloc]initWithUrl:[NSString stringWithFormat:@"%@%@%@", firebaseUrl, @"chats/", chatId
-                                                              ]];
-            Firebase* chatInfoRef = [chatRef childByAppendingPath:@"info"];
-            //Firebase* chatMessageRef = [chatRef childByAppendingPath:@"messages"];
-            NSString* contactId = userSnapshot.key;
-            [chatInfoRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *chatInfoSnapShot) {
-                [chatInfoRef removeAllObservers];
-                NSDictionary *chatInfoDict = chatInfoSnapShot.value;
-                LPChatModel* chatModel = [LPChatModel alloc];
-                
-                chatModel.chatInfoRef = chatInfoRef;
-                //Set up observer for chat info (trigger when chat status changed)
-                [chatModel.chatInfoRef observeEventType: FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-                    if([snapshot.key isEqualToString:userId]){
-                        chatModel.userStatus = snapshot.value[@"status"];
-                    }else{
-                        chatModel.contactStatus = snapshot.value[@"status"];
-                    }
-                }];
-                
-                chatModel.messageArray = [[NSMutableArray alloc] init];
-                [chatRef childByAppendingPath:[@"messages" stringByAppendingString: contactId]];
-                chatModel.sendRef = [[chatRef childByAppendingPath:@"messages"] childByAppendingPath:contactId];
-                chatModel.receiveRef = [[chatRef childByAppendingPath:@"messages"] childByAppendingPath:userId];
-                
-                //Set up observer for chat messages (trigger when new message came)
-                [chatModel.receiveRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-                    LPMessageModel* messageModel = [LPMessageModel fromDict:snapshot.value];
-                    messageModel.messageId = snapshot.key;
-                    
-                    [self saveMessageFrom:messageModel];
-                    [self messageViewUpdateNotifyWithMessage: messageModel];
-                    
-                    [chatModel.receiveRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData) {
-                        [[chatModel.receiveRef childByAppendingPath:snapshot.key] removeValue];
-                    }];
-                    //[chatModel.messageArray addObject:messageModel];
-                }];
-                
-                chatModel.contactId = contactId;
-                chatModel.userStatus = chatInfoDict[userId][@"status"];
-                chatModel.contactStatus = chatInfoDict[contactId][@"status"];
-
-                if([chatModel.userStatus isEqualToNumber: @1]){
-                    NSLog(@"One active chat starts");
-                    NSLog(@"%@", chatModel.contactId);
-                    [activeChatArray addObject:chatModel];
-                    [self chatViewUpdateNotify];
-                }
-                
-                [allChatArray addObject:chatModel];
-            }];
-            
-        }];
-        
-        [userRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *userSnapshot) {
-            NSString* contactId = userSnapshot.key;
-            
-            for(LPChatModel *chatModel in allChatArray){
-                if([chatModel.contactId isEqualToString:contactId]){
-                    [allChatArray removeObject:chatModel];
-                    if([activeChatArray containsObject:chatModel]){
-                        NSLog(@"One active chat ends");
-                        [chatModel.chatInfoRef removeAllObservers];
-                        [activeChatArray removeObject:chatModel];
-                        [self chatViewUpdateNotify];
-                    }
-                }
+        bool exist = false;
+        for(LPChatModel* existingChatModel in allChatArray){
+            if([existingChatModel.contactId isEqualToString:chatModel.contactId]){
+                exist = true;
+                break;
             }
-        }];
+        }
         
-    }
+        NSLog(@"%@",snapshot.key);
+        if(!exist){
+            [self setUpChatModel:chatModel];
+            [self saveChatToDB:chatModel];
+            [allChatArray addObject:chatModel];
+        }
+        
+        [[userRef childByAppendingPath:snapshot.key] removeValue];
+    }];
 }
- */
 
 - (void) setUpChatModel: (LPChatModel *) chatModel{
     Firebase* chatRef = [[Firebase alloc]initWithUrl:[NSString stringWithFormat:@"%@%@%@", firebaseUrl, @"chats/",
                                                       [LPChatManager composeChatIdWithContact1: userId withContact2:chatModel.contactId]]];
     chatModel.sendRef = [[chatRef childByAppendingPath:@"messages"] childByAppendingPath: chatModel.contactId];
+    
+    //Initalize chat Status
+    [chatModel.chatInfoRef observeEventType: FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if(snapshot.value == [NSNull null]){
+            //removeChatModel from DB.
+        }else{
+            chatModel.userStatus = snapshot.value[userId][@"status"];
+            chatModel.contactStatus = snapshot.value[chatModel.contactId][@"status"];
+        }
+    }];
+    
+    //Set up observer for chat info (trigger when chat status changed)
+    chatModel.chatInfoRef = [chatRef childByAppendingPath:@"info"];
+    [chatModel.chatInfoRef observeEventType: FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        if([snapshot.key isEqualToString:chatModel.contactId]){
+            chatModel.contactStatus = snapshot.value[@"status"];
+        }else{
+            NSLog(@"something goes wrong in setUpChatModel/chatInfoRef listener.");
+        }
+    }];
     
     //Set up observer for chat messages (trigger when new message came)
     chatModel.receiveRef = [[chatRef childByAppendingPath:@"messages"] childByAppendingPath: userId];
@@ -184,36 +142,24 @@ const NSInteger CONTACTDELETED = 3;
         [self saveMessageFrom:messageModel];
         [self messageViewUpdateNotifyWithMessage: messageModel];
         
-        [chatModel.receiveRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData) {
+        if(!chatModel.visible){ //make it visible.
+            chatModel.visible = YES;
+            [self updateChatFromDB:chatModel];
+            [visibleChatArray addObject: chatModel];
+            [self chatViewUpdateNotify];
+        }
+        [chatModel.receiveRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData){
             [[chatModel.receiveRef childByAppendingPath:snapshot.key] removeValue];
         }];
     }];
-    
-    //Set up observer for chat info (trigger when chat status changed)
-    /*
-    chatModel.chatInfoRef = [chatRef childByAppendingPath:@"info"];
-    [chatModel.chatInfoRef observeEventType: FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        if([snapshot.key isEqualToString:userId]){
-            chatModel.userStatus = snapshot.value[@"status"];
-        }else{
-            chatModel.contactStatus = snapshot.value[@"status"];
-        }
-    }];*/
-    
-    //Initalize chat Status
-    /*
-    [chatModel.chatInfoRef observeEventType: FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        //chatModel.userStatus = snapshot.value[userId][@"status"];
-        chatModel.contactStatus = snapshot.value[chatModel.contactId][@"status"];
-    }];*/
 }
 
 - (NSMutableArray *) getAllChatArray{
     return allChatArray;
 }
 
-- (NSMutableArray *) getActiveChatArray{
-    return activeChatArray;
+- (NSMutableArray *) getVisibleChatArray{
+    return visibleChatArray;
 }
 
 + (NSString*) composeChatIdWithContact1:(NSString*) id1 withContact2:(NSString *) id2{
@@ -236,21 +182,39 @@ const NSInteger CONTACTDELETED = 3;
 
 
 /**
- 
  chatId/info/id/status
- 0 the chat exists on user[id] side, but it's not active
- 1 the chat exists on user[id] side, and it's active
- 2 the chat has been deleted from user[id] side
- 
+ 0 the chat does not exist on user[id] side,
+ 1 the chat exists on user[id] side
  **/
-- (void)newChatWithContactId:(NSString*) contactId {
+- (LPChatModel*) startChatWithContactId:(NSString*) contactId {
+    NSLog(@"%@", userId);
+    for(LPChatModel* existingChat in allChatArray){
+        if([existingChat.contactId isEqualToString:contactId]){
+            if(existingChat.contactStatus == 0){ // Contact doesn't have the listener
+                Firebase* pendingAddRef = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@", firebaseUrl, @"pending/add"]];
+                [pendingAddRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData) {
+                    [[pendingAddRef childByAutoId] setValue:@{@"fromUser": userId, @"toUser": contactId}];
+                }];
+            }
+            return existingChat;
+        }
+    }
+    
+    
     Firebase* pendingAddRef = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@", firebaseUrl, @"pending/add"]];
     [pendingAddRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData) {
-        [[pendingAddRef childByAutoId] setValue:@{@"fromeUser": userId, @"toUser": contactId}];
+        [[pendingAddRef childByAutoId] setValue:@{@"fromUser": userId, @"toUser": contactId}];
     }];
+    
     LPChatModel* chatModel = [[LPChatModel alloc] init];
     chatModel.contactId = contactId;
+    chatModel.visible = YES;
+    [self setUpChatModel:chatModel];
     [self saveChatToDB: chatModel];
+    [allChatArray addObject:chatModel];
+    [visibleChatArray addObject:chatModel];
+    [self chatViewUpdateNotify];
+    return chatModel;
 }
 
 
@@ -274,25 +238,7 @@ const NSInteger CONTACTDELETED = 3;
         [self messageViewUpdateNotifyWithMessage:messageModel];
     }];
 }
-/*
-- (void) sendMessage:(NSString *) content to:(NSString*) contactId{
-    LPMessageModel* messageModel = [[LPMessageModel alloc]init];
-    messageModel.content = content;
-    messageModel.senderId = userId;
-    
 
-    for(LPChatModel* chatModel in allChatArray){
-        if([chatModel.contactId isEqualToString: contactId]){
-            [chatModel.sendRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData) {
-                Firebase* messageRef = [[chatModel.sendRef childByAppendingPath:contactId]childByAutoId];
-                [messageRef setValue:[messageModel toDict]];
-                messageModel.messageId = messageRef.key;
-                [self saveMessageTo:messageModel];
-            }];
-        }
-    }
-    [self newChatWithContactId: contactId];
-}*/
 - (void) saveChatToDB: (LPChatModel*) chatModel{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -300,6 +246,7 @@ const NSInteger CONTACTDELETED = 3;
     NSManagedObject *newContact;
     newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Chat" inManagedObjectContext:context];
     [newContact setValue: chatModel.contactId forKey:@"contactId"];
+    [newContact setValue: [NSNumber numberWithBool: chatModel.visible] forKey:@"visible"];
     NSError *error;
     [context save:&error];
     if(error){
@@ -307,7 +254,7 @@ const NSInteger CONTACTDELETED = 3;
     }
 }
 
-- (void) loadChatsFromDB{
+- (NSMutableArray*) loadChatsFromDB{
      AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
      NSManagedObjectContext *context = [appDelegate managedObjectContext];
      NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Chat" inManagedObjectContext:context];
@@ -330,10 +277,37 @@ const NSInteger CONTACTDELETED = 3;
          {
              chatModel = [[LPChatModel alloc] init];
              chatModel.contactId = [objects[i] valueForKey:@"contactId"];
-             [self setUpChatModel:chatModel];
-             [allChatArray addObject:chatModel];
+             chatModel.visible = [objects[i] valueForKey:@"visible"];
+             [chatArray addObject:chatModel];
          }
      }
+    return chatArray;
+}
+
+- (void) updateChatFromDB: (LPChatModel*) chatModel{
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Chat" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(contactId == %@)", chatModel.contactId];
+    [request setPredicate:pred];
+
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request
+                                              error:&error];
+    if ([objects count] != 1)
+    {
+        NSLog(@"Error in updateChatFromDB in chatManager");
+    }
+    else
+    {
+        NSManagedObject* obj = [objects objectAtIndex:0];
+        [obj setValue:[NSNumber numberWithBool:chatModel.visible] forKey:@"visible"];
+    }
+    [context save:&error];
 }
 
 

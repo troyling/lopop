@@ -12,14 +12,15 @@
 
 @interface LPChatManager : NSObject
 + (LPChatManager *) getInstance;
-- (NSMutableArray *) getActiveChatArray;
-- (NSMutableArray *) getAllChatArray;
-- (void) newChatWithContactId:(NSString*) contactId withMessage: (NSString *) content;
-- (void) newChatWithContactId:(NSString*) contactId;
-- (void) deleteChatWithContactId:(NSString *) contactId;
+//- (NSMutableArray *) getActiveChatArray;
+- (NSMutableArray *) getVisibleChatArray;
+- (LPChatModel*) startChatWithContactId:(NSString*) contactId;
+//- (void) deleteChatWithContactId:(NSString *) contactId;
 - (NSArray*) getChatMessagesWith: (NSString *) contactId;
 - (void) sendMessage:(NSString *) content to:(LPChatModel*) chatModel;
 - (LPChatModel*) getChatModel: (NSString *) contactId;
+
+
 
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 

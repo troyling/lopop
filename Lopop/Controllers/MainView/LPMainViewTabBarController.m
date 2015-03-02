@@ -9,6 +9,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPNewPopTableViewController.h"
 #import "LPUIHelper.h"
+#import "LPChatManager.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -32,6 +33,9 @@ float const NUM_TABS = 5.0;
         view.backgroundColor=[LPUIHelper lopopColor];
         [self.view addSubview:view];
     }
+
+    [LPChatManager getInstance];
+
 }
 
 #pragma mark Custom Button

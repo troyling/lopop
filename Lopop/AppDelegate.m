@@ -31,8 +31,6 @@
                   clientKey:@"TPOPIODRPCUvPxoguXUPcUNffAN56uLN3PGWZ4Fl"];
     
     [PFFacebookUtils initializeFacebook];
-    
-//    [LPChatManager getInstance];
 
     // Register notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
