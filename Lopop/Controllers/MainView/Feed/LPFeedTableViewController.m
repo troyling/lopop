@@ -287,20 +287,13 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     }
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    // adjust for the scroll bar
-    if ([scrollView isEqual:self.tableView]) {
-        NSLog(@"WTF");
-        NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    }
-}
-
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    CGRect visibleRect = (CGRect){.origin = self.tableView.contentOffset, .size = self.tableView.bounds.size};
-    NSSet *paths = [NSSet setWithArray:[self.tableView indexPathsForRowsInRect:visibleRect]];
-    for (NSIndexPath *path in paths) {
-        if (path.row == 0) return NO; // prevent scrolling to search bar
+    if (self.pops.count > 0) {
+        if ([scrollView isEqual:self.tableView]) {
+            NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+        return NO;
     }
     return YES;
 }
