@@ -4,7 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Unknown constraint types" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Sign Up View Controller-->
@@ -191,37 +190,11 @@
                     <view key="view" contentMode="scaleToFill" id="SPW-Jr-cPq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="562"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="skb-eL-0rW">
-                                <rect key="frame" x="1" y="480" width="357" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Opn-IY-AoF" customClass="LPMessageTableView">
-                                <rect key="frame" x="-16" y="0.0" width="391" height="472"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Opn-IY-AoF" secondAttribute="trailing" constant="-16" id="2sm-Um-l4r"/>
-                            <constraint firstItem="skb-eL-0rW" firstAttribute="top" secondItem="Opn-IY-AoF" secondAttribute="bottom" constant="8" id="5rv-Th-lDk"/>
-                            <constraint firstItem="oj9-us-cIf" firstAttribute="top" secondItem="skb-eL-0rW" secondAttribute="bottom" constant="8" id="84D-Lz-XIZ"/>
-                            <constraint firstAttribute="centerX" secondItem="skb-eL-0rW" secondAttribute="centerX" id="JvD-L5-8T3"/>
-                            <constraint firstItem="skb-eL-0rW" firstAttribute="leading" secondAttribute="leadingMargin" constant="1" id="WeB-a3-WlY"/>
-                            <constraint firstItem="Opn-IY-AoF" firstAttribute="leading" secondAttribute="leadingMargin" constant="-16" id="f6h-9Q-My4"/>
-                            <constraint firstAttribute="centerX" secondItem="Opn-IY-AoF" secondAttribute="centerX" id="gCj-BM-UCc"/>
-                            <constraint firstItem="Opn-IY-AoF" firstAttribute="top" secondItem="yBh-D8-2Ts" secondAttribute="bottom" id="rCo-rj-5SD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="skb-eL-0rW" secondAttribute="trailing" constant="1" id="scU-PX-wID"/>
-                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="8ji-fo-Y7L"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="inputField" destination="skb-eL-0rW" id="9oM-Ao-V4O"/>
-                        <outlet property="tableView" destination="Opn-IY-AoF" id="DaB-xx-uOj"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1VF-nu-ikx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

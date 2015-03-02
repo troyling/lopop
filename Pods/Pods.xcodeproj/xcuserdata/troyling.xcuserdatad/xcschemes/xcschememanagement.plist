@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lopop-JSQMessagesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Lopop-JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop-M13ProgressSuite.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>285A971F711E5CE4C79B0AE5</key>
+		<key>25D550CCA4DAE89EBABCA621</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>473BED5119DC1F58E78E1A26</key>
+		<key>2FD031DC641C2EB877FDBD80</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8348D6BC93272593C1E9B90E</key>
+		<key>38CF3DA0DC92ADD057A249AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C96389E1E023B978275C2BD3</key>
+		<key>39E53CFBC2E2E3A5441752C9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD4B29C84DA9A29DB7EBBEF8</key>
+		<key>576E12E475D1B7C45C3FFCAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D7B19081841AF32A2D3BD233</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EAF9E842941FAEF5BAFA90BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

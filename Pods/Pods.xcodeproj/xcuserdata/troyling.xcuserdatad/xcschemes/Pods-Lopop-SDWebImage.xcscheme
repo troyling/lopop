@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8348D6BC93272593C1E9B90E"
+               BlueprintIdentifier = "D7B19081841AF32A2D3BD233"
                BuildableName = "libPods-Lopop-SDWebImage.a"
                BlueprintName = "Pods-Lopop-SDWebImage"
                ReferencedContainer = "container:Pods.xcodeproj">

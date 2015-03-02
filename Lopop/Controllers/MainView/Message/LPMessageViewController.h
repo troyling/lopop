@@ -8,20 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "JSQMessages.h"
 #import "Firebase/firebase.h"
 #import "LPMessageModel.h"
 #import "LPChatModel.h"
 #import "LPPop.h"
 
-@interface LPMessageViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface LPMessageViewController : JSQMessagesViewController
 
 @property (retain, nonatomic) LPPop *pop;
 @property (retain, nonatomic) PFUser *offerUser;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *inputField;
 @property LPChatModel* chatModel;
-
 @property Firebase *firebase;
 @property (nonatomic, strong) NSMutableArray* messageArray;
 
