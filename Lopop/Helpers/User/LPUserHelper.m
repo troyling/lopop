@@ -8,6 +8,7 @@
 
 #import "LPUserHelper.h"
 #import "LPUserRelationship.h"
+#import "LPUserInfo.h"
 #import "LPAlertViewHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -27,7 +28,6 @@
                 NSString *facebookID = userData[@"id"];
                 NSString *email = userData[@"email"];
                 NSString *name = userData[@"name"];
-                NSString *gender = userData[@"gender"];
                 
                 if (facebookID) {
                     currentUser[@"facebookID"] = facebookID;
@@ -40,15 +40,17 @@
                 if (name) {
                     currentUser[@"name"] = name;
                 }
-                
-                if (gender) {
-                    currentUser[@"gender"] = gender;
-                }
-                
+
                 // image urls
                 currentUser[@"thumbnailUrl"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1&height=50&width=50", facebookID];
                 currentUser[@"profilePictureUrl"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1&height=150&width=150", facebookID];
-                NSLog(@"DONE");
+
+                LPUserInfo *info = [LPUserInfo object];
+                info.user = currentUser;
+                info.locale = userData[@"locale"];
+                info.gender = userData[@"gender"];
+
+                [info saveEventually];
                 [currentUser saveEventually];
             } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"OAuthException"]) {
                 NSLog(@"Session error");

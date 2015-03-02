@@ -10,6 +10,7 @@
 #import "LPSignUpTableViewController.h"
 #import "LPUserProfileViewController.h"
 #import "LPUIHelper.h"
+#import "LPUserInfo.h"
 #import "LPAlertViewHelper.h"
 #import <Parse/Parse.h>
 
@@ -45,6 +46,12 @@
         
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
+
+                // init user info
+                LPUserInfo *info = [LPUserInfo object];
+                info.user = newUser;
+                [info saveEventually];
+
                 LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
                 [self presentViewController:vc animated:YES completion:nil];
             } else {
