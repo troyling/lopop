@@ -166,6 +166,10 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
                  self.noContentLabel.hidden = YES;
                  [self.feedTableView reloadData];
+
+                 if (!loadMore) {
+                     [self scrollToTableViewTop];
+                 }
                  // TODO stop the loading indicator
              }
              else {
@@ -290,13 +294,11 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    if (self.pops.count > 0) {
         if ([scrollView isEqual:self.tableView]) {
-            NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.tableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self scrollToTableViewTop];
         }
         return NO;
-    }
+
     return YES;
 }
 
@@ -496,6 +498,18 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [cell.sellerProfileImgView sd_setImageWithURL:pop.seller[@"profilePictureUrl"]];
 
     cell.imgView.clipsToBounds = YES;
+}
+
+/**
+ *  Scroll to the first row of the table. Do nothing if no cell present in the tableview
+ */
+- (void) scrollToTableViewTop {
+    NSLog(@"WTF");
+    if ((self.displayType == kFeed && self.pops.count > 0) ||
+        (self.displayType == kSearch && self.searchResults.count > 0)) {
+        NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 #pragma mark segue
