@@ -129,6 +129,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
     popQuery.limit = QUERY_LIMIT;
     [popQuery orderByDescending:@"createdAt"];
+    [popQuery includeKey:@"seller"];
 
     if (!loadMore) {
         self.queryLastOjbectTimestamp = [NSDate date];
@@ -190,6 +191,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[titleSearch, descriptionSearch]];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"seller"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -357,6 +359,8 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     } completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         cell.progressView.hidden = YES;
     }];
+
+    [cell.sellerProfileImgView sd_setImageWithURL:pop.seller[@"profilePictureUrl"]];
 
     cell.imgView.clipsToBounds = YES;
 }

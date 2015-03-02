@@ -26,6 +26,10 @@ CGFloat const MARGIN_OFFSET = 10.0f;
     self.progressView.primaryColor = [LPUIHelper lopopColor];
     self.progressView.showPercentage = YES;
     self.progressView.backgroundRingWidth = 0.0f;
+
+    // seller profile
+    self.sellerProfileImgView.layer.cornerRadius = self.sellerProfileImgView.frame.size.width / 2.0f;
+    self.sellerProfileImgView.clipsToBounds = YES;
 }
 
 @end
