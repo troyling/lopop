@@ -9,6 +9,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPNewPopTableViewController.h"
 #import "LPUIHelper.h"
+#import "LPChatManager.h"
 
 @interface LPMainViewTabBarController ()
 
@@ -24,6 +25,7 @@ float const NUM_TABS = 5.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self displayPopButton];
+    [LPChatManager getInstance];
 }
 
 #pragma mark Custom Button

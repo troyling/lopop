@@ -143,7 +143,7 @@ NSString * troyId = @"qXHdNj9Skh";
 
 
 - (IBAction)newChat:(id)sender {
-    [[LPChatManager getInstance] startChatWithContactId:@"qXHdNj9Skh"];
+    [[LPChatManager getInstance] startChatWithContactId:@"pSxj8YdXrp"];
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -12,6 +12,7 @@
 #import "LPLocationPickerViewController.h"
 #import "LPTimePickerViewController.h"
 #import "LPMeetUpMapViewController.h"
+#import "LPChatManager.h"
 
 @interface LPOfferChatViewController ()
 
@@ -143,6 +144,7 @@
         LPMessageViewController *vc = segue.destinationViewController;
         vc.pop = self.pop;
         vc.offerUser = self.offer.fromUser;
+        vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.offer.fromUser.objectId];
     } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = segue.destinationViewController;
         vc.location = self.meetUpLocation;
