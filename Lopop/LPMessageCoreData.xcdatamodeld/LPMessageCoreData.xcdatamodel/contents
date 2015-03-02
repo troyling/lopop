@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Chat" syncable="YES">
         <attribute name="contactId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="visible" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <entity name="MessageReceived" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,8 +15,8 @@
         <attribute name="toUser" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Chat" positionX="-45" positionY="36" width="128" height="87"/>
         <element name="MessageReceived" positionX="-54" positionY="-18" width="128" height="114"/>
         <element name="MessageSent" positionX="-36" positionY="18" width="128" height="114"/>
-        <element name="Chat" positionX="-45" positionY="36" width="128" height="87"/>
     </elements>
 </model>

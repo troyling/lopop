@@ -38,6 +38,7 @@
     
     [PFFacebookUtils initializeFacebook];
     
+    //[LPChatManager getInstance];
     [LPChatManager getInstance];
 
     // Register notification

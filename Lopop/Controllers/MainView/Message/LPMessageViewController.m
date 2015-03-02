@@ -22,10 +22,7 @@ NSString * const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     [super viewDidLoad];
 
     if(self.offerUser != nil){
-        self.chatModel = [[LPChatManager getInstance] getChatModel: self.offerUser[@"name"]];
-        if(self.chatModel == nil){
-            [[LPChatManager getInstance] newChatWithContactId:self.offerUser[@"name"]];
-        }
+        self.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.offerUser[@"name"]];
     }
     self.navigationItem.title = self.offerUser[@"name"];
 
