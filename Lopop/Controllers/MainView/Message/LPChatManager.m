@@ -87,6 +87,7 @@ const NSInteger CONTACTDELETED = 3;
     [userRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         LPChatModel* chatModel = [LPChatModel alloc];
         chatModel.contactId = snapshot.value;
+        chatModel.visible = NO;
         
         bool exist = false;
         for(LPChatModel* existingChatModel in allChatArray){
@@ -96,6 +97,7 @@ const NSInteger CONTACTDELETED = 3;
             }
         }
         
+        NSLog(@"%@",snapshot.key);
         if(!exist){
             [self setUpChatModel:chatModel];
             [self saveChatToDB:chatModel];
@@ -143,8 +145,8 @@ const NSInteger CONTACTDELETED = 3;
         if(!chatModel.visible){ //make it visible.
             chatModel.visible = YES;
             [self updateChatFromDB:chatModel];
-            [self chatViewUpdateNotify];
             [visibleChatArray addObject: chatModel];
+            [self chatViewUpdateNotify];
         }
         [chatModel.receiveRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData){
             [[chatModel.receiveRef childByAppendingPath:snapshot.key] removeValue];
@@ -201,7 +203,7 @@ const NSInteger CONTACTDELETED = 3;
     
     Firebase* pendingAddRef = [[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@%@", firebaseUrl, @"pending/add"]];
     [pendingAddRef authWithCustomToken:AUTH_TOKEN withCompletionBlock:^(NSError *error, FAuthData *authData) {
-        [[pendingAddRef childByAutoId] setValue:@{@"fromeUser": userId, @"toUser": contactId}];
+        [[pendingAddRef childByAutoId] setValue:@{@"fromUser": userId, @"toUser": contactId}];
     }];
     
     LPChatModel* chatModel = [[LPChatModel alloc] init];
