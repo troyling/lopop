@@ -70,11 +70,6 @@
     }
 }
 
-- (IBAction)logout:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-    [alert show];
-}
-
 - (IBAction)followUser:(id)sender {
     if (self.isFollowingTargetUser) {
         [LPUserHelper unfollowUserInBackground:self.targetUser withBlock:^(BOOL succeeded, NSError *error) {
@@ -120,6 +115,7 @@
 }
 
 #pragma mark follower/following system
+
 - (void)loadUserStats {
     PFQuery *followedQuery = [PFQuery queryWithClassName:[LPUserRelationship parseClassName]];
     
@@ -149,18 +145,8 @@
     }
 }
 
-#pragma mark alertView Delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:@"Yes"]) {
-        [PFUser logOut];
-        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
-        [self presentViewController:vc animated:NO completion:nil];
-    }
-}
-
 #pragma mark segue
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[LPFollowerTableViewController class]]) {
         

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LPSettingsTableViewController : UITableViewController
+@interface LPSettingsTableViewController : UITableViewController <UITableViewDelegate, UIAlertViewDelegate>
 
 @end

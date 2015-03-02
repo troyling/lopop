@@ -2574,6 +2574,24 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="" id="5CI-Xf-TKg">
+                                <cells>
+                                    <tableViewCell tag="999" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="AuW-JJ-mWH" style="IBUITableViewCellStyleDefault" id="bat-Ut-vDF">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="bat-Ut-vDF" id="U3o-Lu-grH">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Log out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AuW-JJ-mWH">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.92156862750000001" green="0.098039215690000001" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="5v2-R6-Rud" id="m5x-Md-ZHZ"/>
@@ -2633,21 +2651,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCV-24-vsL">
-                                <rect key="frame" x="31" y="558" width="313" height="40"/>
-                                <color key="backgroundColor" red="0.89019607840000003" green="0.14117647059999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="EmV-0A-cQo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <state key="normal" title="Log out">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="logout:" destination="Cg3-tZ-sYk" eventType="touchUpInside" id="pmk-4e-eDC"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vertical_line" translatesAutoresizingMaskIntoConstraints="NO" id="Tkb-lu-6PN">
                                 <rect key="frame" x="187" y="285" width="2" height="15"/>
                                 <constraints>
@@ -2708,7 +2711,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="mCV-24-vsL" secondAttribute="trailing" constant="15" id="5f6-cM-6ln"/>
                             <constraint firstItem="Tkb-lu-6PN" firstAttribute="top" secondItem="g4f-OX-DQn" secondAttribute="bottom" constant="10" id="6CD-Bn-u0w"/>
                             <constraint firstItem="gc2-f5-iiI" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leadingMargin" constant="15" id="71i-Do-umy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g4f-OX-DQn" secondAttribute="trailing" constant="-16" id="8GJ-WW-Tbq"/>
@@ -2728,12 +2730,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="gc2-f5-iiI" secondAttribute="trailing" constant="15" id="hb8-gs-EYs"/>
                             <constraint firstItem="vhx-UU-ni0" firstAttribute="top" secondItem="hZi-cB-M4K" secondAttribute="bottom" constant="8" id="hbY-xc-FUJ"/>
                             <constraint firstItem="Tkb-lu-6PN" firstAttribute="leading" secondItem="hZi-cB-M4K" secondAttribute="trailing" constant="16" id="lEP-1N-9ne"/>
-                            <constraint firstItem="RBM-6m-LxC" firstAttribute="top" secondItem="mCV-24-vsL" secondAttribute="bottom" constant="20" id="lz5-fd-ZTu"/>
                             <constraint firstItem="hZi-cB-M4K" firstAttribute="top" secondItem="g4f-OX-DQn" secondAttribute="bottom" constant="8" id="nHK-Jb-NCA"/>
                             <constraint firstItem="gc2-f5-iiI" firstAttribute="top" secondItem="7eo-Yw-vX3" secondAttribute="bottom" constant="8" id="riA-UW-BU1"/>
                             <constraint firstAttribute="trailing" secondItem="7eo-Yw-vX3" secondAttribute="trailing" constant="15" id="xMp-kJ-W91"/>
                             <constraint firstAttribute="centerX" secondItem="Li2-Np-Vw7" secondAttribute="centerX" id="xst-Ib-VO3"/>
-                            <constraint firstItem="mCV-24-vsL" firstAttribute="leading" secondItem="Rx1-RW-M72" secondAttribute="leadingMargin" constant="15" id="zqI-wd-mDZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MpA-Ql-YgP"/>

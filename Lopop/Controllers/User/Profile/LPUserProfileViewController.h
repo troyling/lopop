@@ -23,6 +23,5 @@
 
 - (IBAction)followUser:(id)sender;
 - (IBAction)profileFinishedEdit:(id)sender;
-- (IBAction)logout:(id)sender;
 
 @end
