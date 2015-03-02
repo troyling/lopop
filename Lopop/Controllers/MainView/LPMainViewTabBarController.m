@@ -10,6 +10,8 @@
 #import "LPNewPopTableViewController.h"
 #import "LPUIHelper.h"
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @interface LPMainViewTabBarController ()
 
 @property (strong, nonatomic) UIButton *popButton;
@@ -20,10 +22,16 @@
 
 float const NUM_TABS = 5.0;
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self displayPopButton];
+
+    // set status bar color
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, [LPUIHelper screenWidth], 20)];
+        view.backgroundColor=[LPUIHelper lopopColor];
+        [self.view addSubview:view];
+    }
 }
 
 #pragma mark Custom Button

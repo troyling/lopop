@@ -17,19 +17,13 @@
 #import "LPChatManager.h"
 #import <CoreData/CoreData.h>
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
 @interface AppDelegate ()
-
-
 @end
-
 
 @implementation AppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Parse.
@@ -157,13 +151,6 @@
 - (void)initAppStyle {
     // apply global tint to tab bar
     [[UITabBar appearance] setTintColor:[LPUIHelper lopopColor]];
-    
-    // set status bar color
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, [LPUIHelper screenWidth], 20)];
-        view.backgroundColor=[LPUIHelper lopopColor];
-        [self.window.rootViewController.view addSubview:view];
-    }
     
     // set nav bar color
     [[UINavigationBar appearance] setBarTintColor:[LPUIHelper lopopColor]];

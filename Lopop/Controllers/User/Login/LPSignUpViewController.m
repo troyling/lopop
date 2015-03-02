@@ -35,15 +35,6 @@
     self.activityIndicator.hidden = YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 #pragma mark FB SDK
 
 - (IBAction)connectWithFacebook:(id)sender {
