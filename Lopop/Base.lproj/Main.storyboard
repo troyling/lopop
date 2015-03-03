@@ -188,7 +188,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oj9-us-cIf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SPW-Jr-cPq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="562"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="283"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1018,7 +1018,7 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="al4-aJ-mjq" userLabel="messageView">
                                         <rect key="frame" x="0.0" y="67" width="375" height="283"/>
                                         <connections>
-                                            <segue destination="PhZ-EF-xaN" kind="embed" id="E69-Re-2Pc"/>
+                                            <segue destination="PhZ-EF-xaN" kind="embed" identifier="embedMessageViewController" id="rPk-Qo-ZRZ"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
@@ -3420,8 +3420,8 @@
         <image name="vertical_line" width="2" height="53"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CbO-hf-X98"/>
         <segue reference="1Um-WY-9va"/>
+        <segue reference="rPk-Qo-ZRZ"/>
         <segue reference="gMv-U1-NxR"/>
         <segue reference="Pcl-ba-3aj"/>
     </inferredMetricsTieBreakers>

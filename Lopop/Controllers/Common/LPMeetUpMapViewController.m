@@ -8,9 +8,11 @@
 
 #import "LPMeetUpMapViewController.h"
 #import "LPRateUserViewController.h"
+#import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import <Firebase/Firebase.h>
 #import "LPLocationHelper.h"
+#import "LPChatManager.h"
 #import "LPUIHelper.h"
 #import "RateView.h"
 #import "LPPop.h"
@@ -84,6 +86,8 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 - (void)loadData {
 	self.meetUpUser = [self.offer.fromUser.objectId isEqualToString:[PFUser currentUser].objectId] ? self.pop.seller : self.offer.fromUser;
+    [self performSegueWithIdentifier:@"embedMessageViewController" sender:self];
+
 	self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
 	self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
 
@@ -535,7 +539,20 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 		vc.user = self.meetUpUser;
 		vc.offer = self.offer;
 		vc.delegate = self;
-	}
+    } else if ([segue.destinationViewController isKindOfClass:[LPMessageViewController class]]) {
+        if (self.meetUpUser.objectId) {
+            LPMessageViewController *vc = segue.destinationViewController;
+            vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.meetUpUser.objectId];
+        }
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"embedMessageViewController"]) {
+        if (!self.meetUpUser.objectId)
+            return NO;
+    }
+    return YES;
 }
 
 @end
