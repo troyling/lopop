@@ -13,20 +13,36 @@
 #import "LPUIHelper.h"
 #import "LPMainViewTabBarController.h"
 
-
-
 @implementation LPMessageViewController
 
 NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 
 - (void)viewDidLoad {
+    //TODO: add time to message
     [super viewDidLoad];
+    [self loadContactData];
+    [self initMessageController];
 
-    // TODO get user
-    self.navigationItem.title = self.offerUser[@"name"];
+    self.messageArray = [[NSMutableArray alloc] init];
+    [self.messageArray addObjectsFromArray:[[LPChatManager getInstance] getChatMessagesWith:self.chatModel.contactId]];
+    [self observeMessageChangeNotification];
+}
 
+- (void)loadContactData {
+    PFQuery *query = [PFUser query];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    [query whereKey:@"objectId" equalTo:self.chatModel.contactId];
+    [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
+        if (!error && objects.count == 1) {
+            self.navigationItem.title = objects.firstObject[@"name"];
+        }
+    }];
+}
+
+- (void)initMessageController {
     self.inputToolbar.contentView.leftBarButtonItem = nil; // disable accessory item
 
+    // style
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoinBubble = [bubbleFactory outgoingMessagesBubbleImageWithColor:[LPUIHelper lopopColor]];
     self.incomingBubble = [bubbleFactory incomingMessagesBubbleImageWithColor:[LPUIHelper infoColor]];
@@ -36,24 +52,6 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     // sender
     self.senderId = [PFUser currentUser].objectId;
     self.senderDisplayName = [PFUser currentUser][@"name"];
-
-    self.messageArray = [[NSMutableArray alloc] init];
-    [self.messageArray addObjectsFromArray:[[LPChatManager getInstance] getChatMessagesWith:self.chatModel.contactId]];
-    [self observeMessageChangeNotification];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
-        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:NO animated:YES];
-    }
-}
-
-// Unsubscribe from keyboard show/hide notifications.
-- (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self name:ChatManagerMessageViewUpdateNotification object:nil];
 }
 
 - (void)observeMessageChangeNotification {
@@ -64,8 +62,12 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
      object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self name:ChatManagerMessageViewUpdateNotification object:nil];
+}
+
 - (void)reloadTableData:(NSNotification *)notification {
-    NSLog(@"HI");
     if ([notification.object isKindOfClass:[LPMessageModel class]]) {
         [self.messageArray addObject:notification.object];
     }
@@ -98,12 +100,7 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
-    /**
-     *  This logic should be consistent with what you return from `heightForCellTopLabelAtIndexPath:`
-     *  The other label text delegate methods should follow a similar pattern.
-     *
-     *  Show a timestamp for every 3rd message
-     */
+    // This logic should be consistent with what you return from `heightForCellTopLabelAtIndexPath:
     if (indexPath.item % 10 == 0) {
         JSQMessage *message = [self adaptMessage:[self.messageArray objectAtIndex:indexPath.item]];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
@@ -123,7 +120,7 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     JSQMessage *msg = [self adaptMessage:[self.messageArray objectAtIndex:indexPath.item]];
     if (!msg.isMediaMessage) {
         if ([msg.senderId isEqualToString:self.senderId]) {
-            cell.textView.textColor = [UIColor blackColor];
+            cell.textView.textColor = [UIColor whiteColor];
         }
         else {
             cell.textView.textColor = [UIColor whiteColor];
@@ -140,16 +137,7 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
-    /**
-     *  Each label in a cell has a `height` delegate method that corresponds to its text dataSource method
-     */
-
-    /**
-     *  This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
-     *  The other label height delegate methods should follow similarly
-     *
-     *  Show a timestamp for every 3rd message
-     */
+    // This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
     if (indexPath.item % 10 == 0) {
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
@@ -215,8 +203,7 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     return [JSQMessage messageWithSenderId:msg.senderId displayName:@"Change my name" text:msg.content];
 }
 
-- (void)scrollToBottomAnimated:(BOOL)animated
-{
+- (void)scrollToBottomAnimated:(BOOL)animated {
     if ([self.collectionView numberOfSections] == 0) {
         return;
     }
@@ -231,17 +218,11 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     BOOL isContentTooSmall = (collectionViewContentHeight < CGRectGetHeight(self.collectionView.bounds));
 
     if (isContentTooSmall) {
-        //  workaround for the first few messages not scrolling
-        //  when the collection view content size is too small, `scrollToItemAtIndexPath:` doesn't work properly
-        //  this seems to be a UIKit bug, see #256 on GitHub
         [self.collectionView scrollRectToVisible:CGRectMake(0.0, collectionViewContentHeight - 1.0f, 1.0f, 1.0f)
                                         animated:animated];
         return;
     }
 
-    //  workaround for really long messages not scrolling
-    //  if last message is too long, use scroll position bottom for better appearance, else use top
-    //  possibly a UIKit bug, see #480 on GitHub
     NSUInteger finalRow = MAX(0, [self.collectionView numberOfItemsInSection:0] - 1);
     NSIndexPath *finalIndexPath = [NSIndexPath indexPathForItem:finalRow inSection:0];
     CGSize finalCellSize = [self.collectionView.collectionViewLayout sizeForItemAtIndexPath:finalIndexPath];

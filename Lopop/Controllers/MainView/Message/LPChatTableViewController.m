@@ -11,17 +11,17 @@
 #import "LPMessageViewController.h"
 #import "LPChatModel.h"
 #import "LPChatManager.h"
+#import "LPMainViewTabBarController.h"
+
 @interface LPChatTableViewController ()
 
 @end
-
 
 @implementation LPChatTableViewController
 Firebase * userRef;
 NSString * FirebaseUrl1 = @"https://vivid-heat-6123.firebaseio.com/";
 NSString * userId;
 NSString * troyId = @"qXHdNj9Skh";
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,6 +37,20 @@ NSString * troyId = @"qXHdNj9Skh";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:NO animated:YES];
+    }
 }
 
 - (void) observeChatManagerNotification {
