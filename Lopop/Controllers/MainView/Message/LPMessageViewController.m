@@ -30,6 +30,8 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoinBubble = [bubbleFactory outgoingMessagesBubbleImageWithColor:[LPUIHelper lopopColor]];
     self.incomingBubble = [bubbleFactory incomingMessagesBubbleImageWithColor:[LPUIHelper infoColor]];
+    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
+    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
 
     // sender
     self.senderId = [PFUser currentUser].objectId;
@@ -63,13 +65,17 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 }
 
 - (void)reloadTableData:(NSNotification *)notification {
+    NSLog(@"HI");
     if ([notification.object isKindOfClass:[LPMessageModel class]]) {
         [self.messageArray addObject:notification.object];
     }
     else {
         NSLog(@"Error in observer in messageViewController");
     }
-    // TODO rewrite this
+
+    // update table
+    [self.collectionView reloadData];
+    [self scrollToBottomAnimated:YES];
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
@@ -88,27 +94,6 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 }
 
 - (id <JSQMessageAvatarImageDataSource> )collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
-    /**
-     *  Return `nil` here if you do not want avatars.
-     *  If you do return `nil`, be sure to do the following in `viewDidLoad`:
-     *
-     *  self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-     *  self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-     *
-     *  It is possible to have only outgoing avatars or only incoming avatars, too.
-     */
-
-    /**
-     *  Return your previously created avatar image data objects.
-     *
-     *  Note: these the avatars will be sized according to these values:
-     *
-     *  self.collectionView.collectionViewLayout.incomingAvatarViewSize
-     *  self.collectionView.collectionViewLayout.outgoingAvatarViewSize
-     *
-     *  Override the defaults in `viewDidLoad`
-     */
-
     return nil;
 }
 
@@ -227,7 +212,47 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
 
 - (JSQMessage *)adaptMessage:(LPMessageModel *)msg {
     //TODO: add method to look up name
-    return [JSQMessage messageWithSenderId:msg.senderId displayName:self.offerUser[@"name"] text:msg.content];
+    return [JSQMessage messageWithSenderId:msg.senderId displayName:@"Change my name" text:msg.content];
+}
+
+- (void)scrollToBottomAnimated:(BOOL)animated
+{
+    if ([self.collectionView numberOfSections] == 0) {
+        return;
+    }
+
+    NSInteger items = [self.collectionView numberOfItemsInSection:0];
+
+    if (items == 0) {
+        return;
+    }
+
+    CGFloat collectionViewContentHeight = [self.collectionView.collectionViewLayout collectionViewContentSize].height;
+    BOOL isContentTooSmall = (collectionViewContentHeight < CGRectGetHeight(self.collectionView.bounds));
+
+    if (isContentTooSmall) {
+        //  workaround for the first few messages not scrolling
+        //  when the collection view content size is too small, `scrollToItemAtIndexPath:` doesn't work properly
+        //  this seems to be a UIKit bug, see #256 on GitHub
+        [self.collectionView scrollRectToVisible:CGRectMake(0.0, collectionViewContentHeight - 1.0f, 1.0f, 1.0f)
+                                        animated:animated];
+        return;
+    }
+
+    //  workaround for really long messages not scrolling
+    //  if last message is too long, use scroll position bottom for better appearance, else use top
+    //  possibly a UIKit bug, see #480 on GitHub
+    NSUInteger finalRow = MAX(0, [self.collectionView numberOfItemsInSection:0] - 1);
+    NSIndexPath *finalIndexPath = [NSIndexPath indexPathForItem:finalRow inSection:0];
+    CGSize finalCellSize = [self.collectionView.collectionViewLayout sizeForItemAtIndexPath:finalIndexPath];
+
+    CGFloat maxHeightForVisibleMessage = CGRectGetHeight(self.collectionView.bounds) - self.collectionView.contentInset.top - CGRectGetHeight(self.inputToolbar.bounds);
+
+    UICollectionViewScrollPosition scrollPosition = (finalCellSize.height > maxHeightForVisibleMessage) ? UICollectionViewScrollPositionBottom : UICollectionViewScrollPositionTop;
+
+    [self.collectionView scrollToItemAtIndexPath:finalIndexPath
+                                atScrollPosition:scrollPosition
+                                        animated:animated];
 }
 
 @end
