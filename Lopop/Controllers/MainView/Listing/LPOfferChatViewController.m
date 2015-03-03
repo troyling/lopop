@@ -144,7 +144,6 @@
         LPMessageViewController *vc = segue.destinationViewController;
         vc.pop = self.pop;
         vc.offerUser = self.offer.fromUser;
-        NSLog(@"HHHHHH%@", self.offer.fromUser.objectId);
         vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.offer.fromUser.objectId];
     } else if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
         LPLocationPickerViewController *vc = segue.destinationViewController;
