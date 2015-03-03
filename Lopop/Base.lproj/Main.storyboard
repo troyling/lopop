@@ -323,6 +323,7 @@
                             <constraint firstItem="nFZ-S5-gi1" firstAttribute="top" secondItem="6ZO-Ph-PHj" secondAttribute="bottom" constant="-49" id="Pr3-Im-lC4"/>
                             <constraint firstAttribute="centerX" secondItem="REN-NU-hVd" secondAttribute="centerX" id="RtP-gR-2qO"/>
                             <constraint firstItem="6ZO-Ph-PHj" firstAttribute="top" secondItem="REN-NU-hVd" secondAttribute="bottom" id="TIt-rb-5Nc"/>
+                            <constraint firstAttribute="width" secondItem="6ZO-Ph-PHj" secondAttribute="width" id="U7B-an-h0c"/>
                             <constraint firstItem="6ZO-Ph-PHj" firstAttribute="top" secondItem="REN-NU-hVd" secondAttribute="bottom" id="ULy-DB-Rxj"/>
                             <constraint firstAttribute="centerX" secondItem="6ZO-Ph-PHj" secondAttribute="centerX" id="Ujp-Rg-Jjn"/>
                             <constraint firstItem="REN-NU-hVd" firstAttribute="height" secondItem="xho-9L-plW" secondAttribute="height" id="bXN-Pk-RZ4"/>
@@ -337,6 +338,8 @@
                                 <exclude reference="bXN-Pk-RZ4"/>
                                 <exclude reference="sAh-r8-s5d"/>
                                 <exclude reference="xuB-iF-p5q"/>
+                                <exclude reference="Gmv-mx-rft"/>
+                                <exclude reference="L71-pg-U6A"/>
                                 <exclude reference="ULy-DB-Rxj"/>
                                 <exclude reference="ORD-GN-gdf"/>
                                 <exclude reference="vPx-Ph-wkM"/>
@@ -586,6 +589,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="19Y-gO-KPq"/>
+                                <exclude reference="7Ps-GM-TA1"/>
                                 <exclude reference="NnB-tl-hdl"/>
                                 <exclude reference="12A-7c-iD7"/>
                                 <exclude reference="54Q-Wh-Ufe"/>
@@ -3305,7 +3309,7 @@
                     <navigationItem key="navigationItem" id="Rfu-BS-zAc">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Z2K-yk-1mk">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Listing"/>
