@@ -143,11 +143,25 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 - (void)dragMessageView:(UIPanGestureRecognizer *)panGesture {
     CGPoint point = [panGesture translationInView:self.view];
+    CGPoint v = [panGesture velocityInView:self.view];
     CGFloat deltaY = (point.y - self.lastTransitionY); // calibrate transition
+
     self.lastTransitionY = point.y;
-    [self.messageViewController dismissKeyboard];
+    [self.messageViewController dismissKeyboardIfNeeded];
 
     if (panGesture.state == UIGestureRecognizerStateEnded) {
+        // carry on the action based on the velocity
+        if (v.y < -200) {
+            // expand
+            [self chatViewExpanded];
+            self.lastTransitionY = 0.0f; // reset
+            return;
+        } else if (v.y > 200) {
+            [self chatViewStickToBottom];
+            self.lastTransitionY = [LPUIHelper screenHeight]; // sync up
+            return;
+        }
+
         // snap the message view to bottom or top based on location
         if (panGesture.view.superview.frame.origin.y < [LPUIHelper screenHeight] / 2.0) {
             // snap to top
@@ -166,9 +180,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
               initialSpringVelocity:0.5
                             options:0
                          animations: ^{
-                             //Animation code
-                             //                             panGesture.view.superview.frame = CGRectMake(0, panGesture.view.superview.frame.origin.y + deltaY, panGesture.view.superview.frame.size.width, panGesture.view.superview.frame.size.height);
-                             if ((self.chatViewTopLayoutConstraint.constant + deltaY > 0) && (self.chatViewTopLayoutConstraint.constant + deltaY < [LPUIHelper screenHeight])) {
+                             if ((self.chatViewTopLayoutConstraint.constant + deltaY > 0) && (self.chatViewTopLayoutConstraint.constant + self.userInfoView.frame.size.height + deltaY < [LPUIHelper screenHeight])) {
                                  [self.chatViewTopLayoutConstraint setConstant:self.chatViewTopLayoutConstraint.constant + deltaY];
                              }
                          } completion:nil];
@@ -178,11 +190,16 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 - (void)chatViewStickToBottom {
     [self.chatViewTopLayoutConstraint setConstant:self.kTopLayoutChatViewBottom];
     [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:0.3 animations: ^{
-        [self.view layoutIfNeeded];
-    }];
+    [UIView animateWithDuration:0.4
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0.0
+                        options:0
+                     animations: ^{
+                         [self.view layoutIfNeeded];
+                     } completion:nil];
 
-    [self.messageViewController dismissKeyboard];
+    [self.messageViewController dismissKeyboardIfNeeded];
 }
 
 - (void)chatViewHybrid {
@@ -194,9 +211,14 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
     [self.chatViewTopLayoutConstraint setConstant:0];
     [self.messageViewController setInputToolbarVerticalOffset:self.userInfoView.frame.size.height + 20]; // status bar offset
     [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:0.3 animations: ^{
-        [self.view layoutIfNeeded];
-    }];
+    [UIView animateWithDuration:0.4
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0.0
+                        options:0
+                     animations: ^{
+                         [self.view layoutIfNeeded];
+                     } completion:nil];
 }
 
 - (void)setupMode {

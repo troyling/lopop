@@ -251,7 +251,7 @@
     [self scrollToBottomAnimated:YES];
 }
 
-- (void)dismissKeyboard {
+- (void)dismissKeyboardIfNeeded {
     if (!self.inputToolbar.contentView.textView.isFirstResponder) return;
     [self.inputToolbar.contentView.textView resignFirstResponder];
     self.inputToolbar.hidden = YES;

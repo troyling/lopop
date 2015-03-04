@@ -28,6 +28,6 @@
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubble;
 
 - (void)setInputToolbarVerticalOffset:(CGFloat)verticalOffset;
-- (void)dismissKeyboard;
+- (void)dismissKeyboardIfNeeded;
 
 @end
