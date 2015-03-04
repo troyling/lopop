@@ -145,7 +145,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
     CGPoint point = [panGesture translationInView:self.view];
     CGFloat deltaY = (point.y - self.lastTransitionY); // calibrate transition
     self.lastTransitionY = point.y;
-    //    [self.messageViewController dismissKeyboard];
+    [self.messageViewController dismissKeyboard];
 
     if (panGesture.state == UIGestureRecognizerStateEnded) {
         // snap the message view to bottom or top based on location

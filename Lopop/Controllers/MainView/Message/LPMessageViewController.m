@@ -248,11 +248,11 @@
     // stick to bottom
     self.inputToolbar.frame = CGRectMake(0, [LPUIHelper screenHeight] - verticalOffset - self.inputToolbar.frame.size.height, self.inputToolbar.frame.size.width, self.inputToolbar.frame.size.height);
     self.inputToolbar.hidden = NO;
-    [self.collectionView reloadData];
-    [self.inputToolbar.contentView.textView becomeFirstResponder];
+    [self scrollToBottomAnimated:YES];
 }
 
 - (void)dismissKeyboard {
+    if (!self.inputToolbar.contentView.textView.isFirstResponder) return;
     [self.inputToolbar.contentView.textView resignFirstResponder];
     self.inputToolbar.hidden = YES;
     [self.collectionView reloadData];
