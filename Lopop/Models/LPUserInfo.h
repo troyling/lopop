@@ -13,7 +13,8 @@
 + (NSString *)parseClassName;
 
 @property PFUser *user;
-@property NSNumber *rating;
+@property NSNumber *totalRating;
+@property NSNumber *numRating;
 @property NSString *gender;
 @property NSString *locale;
 @property PFGeoPoint *location;

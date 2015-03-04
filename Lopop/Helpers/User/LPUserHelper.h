@@ -13,6 +13,8 @@
 
 + (void)mapCurrentUserFBData;
 
++ (void)initUserInfoWithGender:(NSString *)gender Locale:(NSString *)locale;
+
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser;
 
 + (void)followUserInBackground:(PFUser *)targetUser

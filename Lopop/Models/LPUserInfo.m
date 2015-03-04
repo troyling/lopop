@@ -11,7 +11,8 @@
 @implementation LPUserInfo
 
 @dynamic user;
-@dynamic rating;
+@dynamic totalRating;
+@dynamic numRating;
 @dynamic gender;
 @dynamic locale;
 @dynamic location;

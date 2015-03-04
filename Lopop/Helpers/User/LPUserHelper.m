@@ -45,12 +45,9 @@
                 currentUser[@"thumbnailUrl"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1&height=50&width=50", facebookID];
                 currentUser[@"profilePictureUrl"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square&return_ssl_resources=1&height=150&width=150", facebookID];
 
-                LPUserInfo *info = [LPUserInfo object];
-                info.user = currentUser;
-                info.locale = userData[@"locale"];
-                info.gender = userData[@"gender"];
+                // init user info for current user
+                [self initUserInfoWithGender:userData[@"gender"] Locale:userData[@"locale"]];
 
-                [info saveEventually];
                 [currentUser saveEventually];
             } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"OAuthException"]) {
                 NSLog(@"Session error");
@@ -72,6 +69,16 @@
     NSInteger count = [query countObjects];
     
     return count != 0 ? YES : NO;
+}
+
++ (void)initUserInfoWithGender:(NSString *)gender Locale:(NSString *)locale {
+    LPUserInfo *userInfo = [LPUserInfo object];
+    userInfo.user = [PFUser currentUser];
+    userInfo.gender = gender;
+    userInfo.locale = locale;
+    userInfo.numRating = 0;
+    userInfo.totalRating = 0;
+    [userInfo saveEventually];
 }
 
 + (void)followUserInBackground:(PFUser *)targetUser withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock {

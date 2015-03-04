@@ -10,7 +10,7 @@
 #import "LPSignUpTableViewController.h"
 #import "LPUserProfileViewController.h"
 #import "LPUIHelper.h"
-#import "LPUserInfo.h"
+#import "LPUserHelper.h"
 #import "LPAlertViewHelper.h"
 #import <Parse/Parse.h>
 
@@ -43,18 +43,16 @@
         newUser.email = [self.signUpTableViewController.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         newUser.username = newUser.email;
         newUser.password = [self.signUpTableViewController.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
 
+        [newUser signUpInBackgroundWithBlock: ^(BOOL succeeded, NSError *error) {
+            if (!error) {
                 // init user info
-                LPUserInfo *info = [LPUserInfo object];
-                info.user = newUser;
-                [info saveEventually];
+                [LPUserHelper initUserInfoWithGender:nil Locale:nil];
 
                 LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
                 [self presentViewController:vc animated:YES completion:nil];
-            } else {
+            }
+            else {
                 NSString *errorString = [error userInfo][@"error"];
                 [LPAlertViewHelper fatalErrorAlert:errorString];
             }
@@ -65,13 +63,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"signUpViewEmbedSegue"] &&
         [[segue destinationViewController] isKindOfClass:[LPSignUpTableViewController class]]) {
-        // TODO add this to global text
-        CGColorRef lopopGreen = [LPUIHelper lopopColor].CGColor;
         // setup container view
         self.signUpTableViewController = [segue destinationViewController];
         self.signUpTableViewController.view.layer.cornerRadius = 8.0f;
         self.signUpTableViewController.view.layer.borderWidth = 2.0f;
-        self.signUpTableViewController.view.layer.borderColor = lopopGreen;
+        self.signUpTableViewController.view.layer.borderColor = [LPUIHelper lopopColor].CGColor;
         self.signUpTableViewController.detailViewController = self;
     }
 }
