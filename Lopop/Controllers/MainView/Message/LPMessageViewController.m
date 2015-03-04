@@ -59,6 +59,13 @@
 	    selector:@selector(reloadTableData:)
      name:ChatManagerMessageViewUpdateNotification
      object:nil];
+
+    // keyboard
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardShow) name:UIKeyboardDidShowNotification object:nil];
+}
+
+- (void)onKeyboardShow {
+    [self scrollToBottomAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
