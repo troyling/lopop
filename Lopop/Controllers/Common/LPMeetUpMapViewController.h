@@ -38,6 +38,12 @@
 @property (weak, nonatomic) IBOutlet DesignableButton *startMeetUpBtn;
 @property (weak, nonatomic) IBOutlet DesignableButton *finishMeetUpBtn;
 
+@property (weak, nonatomic) IBOutlet UIView *chatView;
+@property (weak, nonatomic) IBOutlet UIView *userInfoView;
+
+@property (weak, nonatomic) IBOutlet UIView *messageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatViewTopLayoutConstraint;
+
 - (IBAction)dismiss:(id)sender;
 - (IBAction)contactUser:(id)sender;
 - (IBAction)zoomToFit:(id)sender;

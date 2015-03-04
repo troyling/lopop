@@ -15,8 +15,6 @@
 
 @implementation LPMessageViewController
 
-NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
-
 - (void)viewDidLoad {
     //TODO: add time to message
     [super viewDidLoad];
@@ -38,6 +36,7 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
         }
     }];
 }
+
 
 - (void)initMessageController {
     self.inputToolbar.contentView.leftBarButtonItem = nil; // disable accessory item
@@ -234,6 +233,19 @@ NSString *const FirebaseUrl = @"https://vivid-heat-6123.firebaseio.com/";
     [self.collectionView scrollToItemAtIndexPath:finalIndexPath
                                 atScrollPosition:scrollPosition
                                         animated:animated];
+}
+
+#pragma mark methods
+
+- (void)setInputToolbarVerticalOffset:(CGFloat)verticalOffset {
+    // stick to bottom
+    self.inputToolbar.frame = CGRectMake(0, [LPUIHelper screenHeight] - verticalOffset - self.inputToolbar.frame.size.height, self.inputToolbar.frame.size.width, self.inputToolbar.frame.size.height);
+    self.inputToolbar.hidden = NO;
+}
+
+- (void)dismissKeyboard {
+    [self.inputToolbar.contentView.textView resignFirstResponder];
+    self.inputToolbar.hidden = YES;
 }
 
 @end

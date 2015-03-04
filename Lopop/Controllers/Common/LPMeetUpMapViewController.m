@@ -29,19 +29,27 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 @property (strong, nonatomic) PFUser *meetUpUser;
 @property (strong, nonatomic) NSDate *meetUpTime;
 @property (strong, nonatomic) CLLocation *meetUpLocation;
+
+// dynamic location meetup
 @property (strong, nonatomic) CLLocation *meetUpUserLocation;
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) Firebase *meetUpUserFbRef;
 @property (strong, nonatomic) Firebase *myFbRef;
+
+// map view
 @property MKPointAnnotation *meetUpUserLocationAnnotation;
 @property MKPointAnnotation *meetUpLocationAnnotation;
 @property LPMeetUpMapViewMode displayMode;
+@property BOOL isMyLocationInitialized;
 
 // UI components
 @property CGRect contactBtnFrame;
 @property CGRect contactBrnFrameWithOffset;
 
-@property BOOL isMyLocationInitialized;
+// message view
+@property CGFloat lastTransitionY;
+@property CGFloat kTopLayoutMessageViewBottom;
+@property (strong, nonatomic) LPMessageViewController *messageViewController;
 
 @end
 
@@ -59,8 +67,14 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 	// UI
 	[self.navigationController setNavigationBarHidden:YES animated:YES];
-	self.closeBtn.layer.zPosition = MAXFLOAT;
-	self.meetUpTimeBtn.layer.zPosition = MAXFLOAT - 1.0f;
+	self.closeBtn.layer.zPosition = MAXFLOAT - 1.0f;
+	self.meetUpTimeBtn.layer.zPosition = MAXFLOAT - 2.0f;
+    self.chatView.layer.zPosition = MAXFLOAT;
+    self.lastTransitionY = 0.0f;
+
+    // chat view UI
+    self.kTopLayoutMessageViewBottom = [LPUIHelper screenHeight] - 87;
+    [self.chatViewTopLayoutConstraint setConstant:[LPUIHelper screenHeight] - 87];
 
 	// button position
 	self.contactBtnFrame = self.contactUserBtn.frame;
@@ -86,7 +100,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 - (void)loadData {
 	self.meetUpUser = [self.offer.fromUser.objectId isEqualToString:[PFUser currentUser].objectId] ? self.pop.seller : self.offer.fromUser;
-    [self performSegueWithIdentifier:@"embedMessageViewController" sender:self];
+    [self loadMessageView];
 
 	self.meetUpTime = self.offer.meetUpTime; //meetup time in UTC
 	self.meetUpLocation = [[CLLocation alloc] initWithLatitude:self.offer.meetUpLocation.latitude longitude:self.offer.meetUpLocation.longitude];
@@ -112,6 +126,71 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 	        [self loadMeetUpUserInfo];
 		}
 	}];
+}
+
+- (void)loadMessageView {
+    [self performSegueWithIdentifier:@"embedMessageViewController" sender:self];
+
+    // add pan gesture to message view
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragMessageView:)];
+    self.userInfoView.userInteractionEnabled = YES;
+    [self.userInfoView addGestureRecognizer:pan];
+}
+
+#pragma mark chatview UI interaction
+
+- (void)dragMessageView:(UIPanGestureRecognizer *)panGesture {
+    CGPoint point = [panGesture translationInView:self.view];
+    CGFloat deltaY = (point.y - self.lastTransitionY) * 0.2; // calibrate transition
+    self.lastTransitionY = point.y;
+
+    CGPoint velocity = [panGesture translationInView:self.view];
+    NSLog(@"transition %f, %f", point.x, point.y);
+    NSLog(@"Delta y: %f", deltaY);
+
+//    if (([LPUIHelper screenHeight] - (self.chatView.frame.origin.y + deltaY) < self.chatView.frame.size.height && deltaY < 0) ||
+//        (deltaY > 0 && [LPUIHelper screenHeight] - (self.chatView.frame.origin.y + deltaY) > self.userInfoView.frame.origin.y)) {
+//        self.chatView.frame = CGRectMake(self.chatView.frame.origin.x, self.chatView.frame.origin.y + point.y, self.chatView.frame.size.width, self.chatView.frame.size.height);
+//        self.mapView.frame = CGRectMake(self.mapView.frame.origin.x, self.mapView.frame.origin.y, self.mapView.frame.size.width, self.mapView.frame.size.height + point.y);
+//    }
+
+    if (deltaY < 0) {
+        [self chatViewExpanded];
+    } else if (deltaY > 0) {
+        [self chatViewStickToBottom];
+    }
+
+    NSLog(@"v: %f, %f", velocity.x, velocity.y);
+}
+
+- (void)chatViewStickToBottom {
+    [self.chatViewTopLayoutConstraint setConstant:self.kTopLayoutMessageViewBottom];
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+
+    [self.messageViewController dismissKeyboard];
+}
+
+- (void)chatViewHybrid {
+//    self.chatView.frame = self.chatViewRectHybrid;
+    [self.view layoutIfNeeded];
+}
+
+- (void)chatViewExpanded {
+    [self.chatViewTopLayoutConstraint setConstant:0];
+    [self.messageViewController setInputToolbarVerticalOffset:self.userInfoView.frame.size.height + 20]; // status bar offset
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+//    self.messageView.frame = CGRectMake(self.messageView.frame.origin.x, self.messageView.frame.origin.y, self.messageView.frame.size.width, [LPUIHelper screenHeight] - self.userInfoView.frame.size.height - 20);
+}
+
+// TODO debug
+- (void)printFrame:(UIView *)view withName:(NSString *)name {
+    NSLog(@"%@: %f, %f, %f, %f", name, view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
 }
 
 - (void)setupMode {
@@ -342,6 +421,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 - (void)showZoomBtnIfNeeded {
 	BOOL needed = (self.displayMode == kMeetUpInAction) ? ![self allAnnotationsVisible] : ![self isMeetUpLocationCenterAtMapView];
+    NSLog(needed ? @"YES" : @"NO");
 	self.zoomBtn.hidden = needed ? NO : YES;
 }
 
@@ -541,8 +621,8 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 		vc.delegate = self;
     } else if ([segue.destinationViewController isKindOfClass:[LPMessageViewController class]]) {
         if (self.meetUpUser.objectId) {
-            LPMessageViewController *vc = segue.destinationViewController;
-            vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.meetUpUser.objectId];
+            self.messageViewController = segue.destinationViewController;
+            self.messageViewController.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.meetUpUser.objectId];
         }
     }
 }
