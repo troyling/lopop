@@ -48,7 +48,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 // message view
 @property CGFloat lastTransitionY;
-@property CGFloat kTopLayoutMessageViewBottom;
+@property CGFloat kTopLayoutChatViewBottom;
 @property (strong, nonatomic) LPMessageViewController *messageViewController;
 
 @end
@@ -73,7 +73,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
     self.lastTransitionY = 0.0f;
 
     // chat view UI
-    self.kTopLayoutMessageViewBottom = [LPUIHelper screenHeight] - 87;
+    self.kTopLayoutChatViewBottom = [LPUIHelper screenHeight] - 87;
     [self.chatViewTopLayoutConstraint setConstant:[LPUIHelper screenHeight] - 87];
 
 	// button position
@@ -164,7 +164,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 }
 
 - (void)chatViewStickToBottom {
-    [self.chatViewTopLayoutConstraint setConstant:self.kTopLayoutMessageViewBottom];
+    [self.chatViewTopLayoutConstraint setConstant:self.kTopLayoutChatViewBottom];
     [self.view setNeedsUpdateConstraints];
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
