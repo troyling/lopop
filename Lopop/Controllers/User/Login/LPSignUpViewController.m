@@ -25,13 +25,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     // Bypass login view if the user is already logged in
-    if  ([PFUser currentUser] &&
-         [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+    if ([PFUser currentUser] &&
+        [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [self presentUserProfileViewControllerAnimated:NO];
     }
-    
+
     self.activityIndicator.hidden = YES;
 }
 
@@ -41,19 +41,20 @@
     NSArray *permissions = @[@"public_profile",
                              @"user_friends",
                              @"email"];
-    
-    [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
+
+    [PFFacebookUtils logInWithPermissions:permissions block: ^(PFUser *user, NSError *error) {
         [self dismissActivityIndicator];
         if (!user) {
             [LPAlertViewHelper fatalErrorAlert:@"Error occurred when connecting with Facebook. Please try again."];
-        } else {
+        }
+        else {
             if (user.isNew) {
                 [LPUserHelper mapCurrentUserFBData];
             }
             [self presentUserProfileViewControllerAnimated:NO];
         }
     }];
-    
+
     [self showActivityIndicator];
 }
 
@@ -88,5 +89,3 @@
 }
 
 @end
-
-

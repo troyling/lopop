@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "LPOffer.h"
+#import "Lopop-Swift.h"
 
-@interface LPRateUserViewController : UIViewController
+@interface LPRateUserViewController : UIViewController <UITextViewDelegate>
 
 @property (assign, nonatomic) id delegate;
 
@@ -19,9 +20,15 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImgView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UIView *ratingView;
+@property (weak, nonatomic) IBOutlet DesignableView *ratingView;
+@property (weak, nonatomic) IBOutlet UIView *starRatingView;
+@property (weak, nonatomic) IBOutlet DesignableTextView *commentTextView;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rateViewAlignmentY;
 
 - (IBAction)dismiss:(id)sender;
 - (IBAction)finishMeetUpAndShare:(id)sender;
+- (IBAction)addComment:(id)sender;
+- (IBAction)dismissKeyboard:(id)sender;
 
 @end
