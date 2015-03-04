@@ -50,6 +50,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 @property CGFloat lastTransitionY;
 @property CGFloat kTopLayoutChatViewBottom;
 @property (strong, nonatomic) LPMessageViewController *messageViewController;
+@property (strong, nonatomic) UIDynamicAnimator *animator;
 
 @end
 
@@ -75,6 +76,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
     // chat view UI
     self.kTopLayoutChatViewBottom = [LPUIHelper screenHeight] - 87;
     [self.chatViewTopLayoutConstraint setConstant:[LPUIHelper screenHeight] - 87];
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 
     // button position
     self.contactBtnFrame = self.contactUserBtn.frame;
@@ -141,27 +143,36 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
 
 - (void)dragMessageView:(UIPanGestureRecognizer *)panGesture {
     CGPoint point = [panGesture translationInView:self.view];
-    CGFloat deltaY = (point.y - self.lastTransitionY) * 0.2; // calibrate transition
+    CGFloat deltaY = (point.y - self.lastTransitionY); // calibrate transition
     self.lastTransitionY = point.y;
+    //    [self.messageViewController dismissKeyboard];
 
-    CGPoint velocity = [panGesture translationInView:self.view];
-    NSLog(@"transition %f, %f", point.x, point.y);
-    NSLog(@"Delta y: %f", deltaY);
-
-    //    if (([LPUIHelper screenHeight] - (self.chatView.frame.origin.y + deltaY) < self.chatView.frame.size.height && deltaY < 0) ||
-    //        (deltaY > 0 && [LPUIHelper screenHeight] - (self.chatView.frame.origin.y + deltaY) > self.userInfoView.frame.origin.y)) {
-    //        self.chatView.frame = CGRectMake(self.chatView.frame.origin.x, self.chatView.frame.origin.y + point.y, self.chatView.frame.size.width, self.chatView.frame.size.height);
-    //        self.mapView.frame = CGRectMake(self.mapView.frame.origin.x, self.mapView.frame.origin.y, self.mapView.frame.size.width, self.mapView.frame.size.height + point.y);
-    //    }
-
-    if (deltaY < 0) {
-        [self chatViewExpanded];
+    if (panGesture.state == UIGestureRecognizerStateEnded) {
+        // snap the message view to bottom or top based on location
+        if (panGesture.view.superview.frame.origin.y < [LPUIHelper screenHeight] / 2.0) {
+            // snap to top
+            [self chatViewExpanded];
+            self.lastTransitionY = 0.0f; // reset
+        }
+        else {
+            [self chatViewStickToBottom];
+            self.lastTransitionY = [LPUIHelper screenHeight]; // sync up
+        }
     }
-    else if (deltaY > 0) {
-        [self chatViewStickToBottom];
+    else {
+        [UIView animateWithDuration:0.4
+                              delay:0
+             usingSpringWithDamping:0.5
+              initialSpringVelocity:0.5
+                            options:0
+                         animations: ^{
+                             //Animation code
+                             //                             panGesture.view.superview.frame = CGRectMake(0, panGesture.view.superview.frame.origin.y + deltaY, panGesture.view.superview.frame.size.width, panGesture.view.superview.frame.size.height);
+                             if ((self.chatViewTopLayoutConstraint.constant + deltaY > 0) && (self.chatViewTopLayoutConstraint.constant + deltaY < [LPUIHelper screenHeight])) {
+                                 [self.chatViewTopLayoutConstraint setConstant:self.chatViewTopLayoutConstraint.constant + deltaY];
+                             }
+                         } completion:nil];
     }
-
-    NSLog(@"v: %f, %f", velocity.x, velocity.y);
 }
 
 - (void)chatViewStickToBottom {
