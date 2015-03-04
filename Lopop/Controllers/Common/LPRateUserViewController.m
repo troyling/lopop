@@ -80,9 +80,11 @@
     rate.comment = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [rate saveEventually];
 
+    // TODO update Pop here
+
     [self dismissViewControllerAnimated:YES completion: ^{
         if (self.delegate && [self.delegate isKindOfClass:[LPMeetUpMapViewController class]]) {
-            [self.delegate dismissViewControllerAnimated:YES completion:NULL];
+            [self.delegate dismiss:self.delegate];
         }
     }];
 }
