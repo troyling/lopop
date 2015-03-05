@@ -39,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lopop-JazzHands.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop-M13ProgressSuite.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,57 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A952BC398EB91CE1DBD7991</key>
+		<key>0249B618C53DD66801FAF74C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>10A6332DA066A65EA2A383BB</key>
+		<key>0F303675AD60B70063FACBE7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>31D02E717E51CFD5D2EAB5E0</key>
+		<key>26B1B0EC2396A4A194BFA3CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>689045341F7FDB9D813732B0</key>
+		<key>2F3BFCCB42B00090460C2DFB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>77F9ED0337AB4378E23FD406</key>
+		<key>6069575C30E8C73B2F5D11EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8977904A32E265921E874F4C</key>
+		<key>6F195B13A010BB3119073522</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8FD99129DD8C2FC931A1692</key>
+		<key>8DE1AD137159CCDFA5B787AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D11B5546273E95A7DAF2DA92</key>
+		<key>94306AE6EAEF9DF9CC82AD62</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E275317E0EE8A5B8AC1DB295</key>
+		<key>CFC8047A6646A3C95C971CBF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E34D3F6482E55D968E763916</key>
+		<key>DD6694E6C6D9E97D98B78093</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E894ABC359F886E24D155783</key>
+		<key>E6A2DAA6266A6A5D31BD1C7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E82EF9053FD821B01C8C10DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

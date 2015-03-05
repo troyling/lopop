@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B8FD99129DD8C2FC931A1692"
+               BlueprintIdentifier = "E82EF9053FD821B01C8C10DA"
                BuildableName = "libPods-Lopop-JSQMessagesViewController.a"
                BlueprintName = "Pods-Lopop-JSQMessagesViewController"
                ReferencedContainer = "container:Pods.xcodeproj">

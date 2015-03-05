@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E894ABC359F886E24D155783"
+               BlueprintIdentifier = "2F3BFCCB42B00090460C2DFB"
                BuildableName = "libPods-Lopop-JSQSystemSoundPlayer.a"
                BlueprintName = "Pods-Lopop-JSQSystemSoundPlayer"
                ReferencedContainer = "container:Pods.xcodeproj">

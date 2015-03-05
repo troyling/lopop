@@ -27,6 +27,7 @@ PODS:
     - AFNetworking
     - DACircularProgress
     - pop
+  - JazzHands (0.2.0)
   - JSQMessagesViewController (6.1.3):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -40,9 +41,14 @@ DEPENDENCIES:
   - AMScrollingNavbar
   - CRToast (~> 0.0.7)
   - IDMPhotoBrowser
+  - JazzHands (from `./JazzHands.podspec`)
   - JSQMessagesViewController
   - M13ProgressSuite
   - SDWebImage (~> 3.6)
+
+EXTERNAL SOURCES:
+  JazzHands:
+    :path: ./JazzHands.podspec
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
@@ -50,6 +56,7 @@ SPEC CHECKSUMS:
   CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
   DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
   IDMPhotoBrowser: 9639f7c57bdf942dc4e214ff9d8108e08ebd3f27
+  JazzHands: 450d625801c19914c248b0932e707466b5242e5c
   JSQMessagesViewController: e93a288a9662d4519c95a28a8c0eec10beae1bfc
   JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
   M13ProgressSuite: 931cde7e91d474c04edb4b34517d75ca6d88ccf2
