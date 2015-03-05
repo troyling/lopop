@@ -8,7 +8,6 @@
 
 #import "LPUserHelper.h"
 #import "LPUserRelationship.h"
-#import "LPUserInfo.h"
 #import "LPAlertViewHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -126,6 +125,25 @@
             }
         } else {
             completionBlock(NO, error);
+        }
+    }];
+}
+
++ (void)findUserInfoInBackground:(PFUser *)targetUser withBlock:(void (^)(LPUserInfo *userInfo, BOOL succeeded, NSError *error))completionBlock {
+    PFQuery *query = [LPUserInfo query];
+    [query whereKey:@"user" equalTo:targetUser];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            completionBlock(nil, NO, error);
+        } else {
+            if (objects.count == 1) {
+                completionBlock(objects.firstObject, YES, nil);
+            } else {
+                NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                [details setValue:@"Couldn't find user info" forKey: NSLocalizedDescriptionKey];
+                NSError *customError = [[NSError alloc] initWithDomain:[LPUserRelationship parseClassName] code:200 userInfo:details];
+                completionBlock(nil, NO, customError);
+            }
         }
     }];
 }

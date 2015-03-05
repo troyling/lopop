@@ -18,6 +18,7 @@
 #import "LPUIHelper.h"
 #import "LPOffer.h"
 #import "UIImageView+WebCache.h"
+#import "LPUserHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -126,19 +127,28 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     [seller fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
-            
-            // FIXME implement review and change it to reflect the actual rating
-            RateView *rv = [RateView rateViewWithRating:4.4f];
-            rv.starFillColor = [LPUIHelper ratingStarColor];
-            rv.starSize = 15.0f;
-            rv.starNormalColor = [UIColor lightGrayColor];
-            [self.userRatingView.userRateView addSubview:rv];
+            NSLog(@"WTF");
+            [LPUserHelper findUserInfoInBackground:seller withBlock:^(LPUserInfo *userInfo, BOOL succeeded, NSError *error) {
+                if (!error) {
+                    float avgRating = [userInfo userAvgRating];
+                    RateView *rv = [RateView rateViewWithRating:avgRating];
+                    rv.starFillColor = [LPUIHelper ratingStarColor];
+                    rv.starBorderColor = [UIColor clearColor];
+                    rv.starSize = 15.0f;
+                    rv.starNormalColor = [UIColor lightGrayColor];
+                    [self.userRatingView.userRateView addSubview:rv];
+
+                    // this might need more work
+                    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 60, 12)];
+                    l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
+                    l.textAlignment = NSTextAlignmentLeft;
+                    l.textColor = [UIColor lightGrayColor];
+                    [self.userRatingView.userRateView addSubview:l];
+                }
+            }];
 
             // Profile picture
-            // FIXME move UI code back to view class
             [self.userRatingView.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.pop.seller[@"profilePictureUrl"]]];
-            self.userRatingView.profileImageView.layer.cornerRadius = 25.0f;
-            self.userRatingView.profileImageView.clipsToBounds = YES;
         }
     }];
 }

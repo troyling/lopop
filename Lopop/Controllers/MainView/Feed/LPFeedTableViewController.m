@@ -88,7 +88,7 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
 
     // No found label
     self.noMatchLabel = [[UILabel alloc] initWithFrame:self.tableView.frame];
-    self.noMatchLabel.text = @"Sorry we couln'd find any match 😞";
+    self.noMatchLabel.text = @"Sorry we couldn't find any match 😞";
     self.noMatchLabel.textAlignment = NSTextAlignmentCenter;
     self.noMatchLabel.hidden = YES;
     self.noMatchLabel.layer.zPosition = MAXFLOAT;

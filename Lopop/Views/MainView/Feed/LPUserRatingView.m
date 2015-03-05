@@ -12,6 +12,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+
+    self.profileImageView.layer.cornerRadius = self.profileImageView.layer.frame.size.width / 2.0f;
+    self.profileImageView.clipsToBounds = YES;
 }
 
 @end

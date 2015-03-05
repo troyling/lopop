@@ -19,4 +19,6 @@
 @property NSString *locale;
 @property PFGeoPoint *location;
 
+- (float)userAvgRating;
+
 @end

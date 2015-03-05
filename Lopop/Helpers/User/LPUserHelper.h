@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "LPUserInfo.h"
 
 @interface LPUserHelper : NSObject
 
@@ -22,5 +23,7 @@
 
 + (void)unfollowUserInBackground:(PFUser *)targetUser
                        withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock;
+
++ (void)findUserInfoInBackground:(PFUser *)targetUser withBlock:(void (^)(LPUserInfo *userInfo, BOOL succeeded, NSError *error))completionBlock;
 
 @end

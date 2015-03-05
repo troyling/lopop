@@ -25,4 +25,14 @@
     return @"UserInfo";
 }
 
+- (float)userAvgRating {
+    if (!(self.numRating && self.totalRating)) [self fetch];
+
+    float avgRating = 0.0f;
+    if (!(self.numRating == 0 || self.totalRating == 0)) {
+        avgRating = [self.totalRating floatValue] / [self.numRating floatValue];
+    }
+    return avgRating;
+}
+
 @end
