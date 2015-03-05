@@ -19,6 +19,7 @@
 #import "LPOffer.h"
 #import "UIImageView+WebCache.h"
 #import "LPUserHelper.h"
+#import "IDMPhotoBrowser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -127,7 +128,6 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     [seller fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
-            NSLog(@"WTF");
             [LPUserHelper findUserInfoInBackground:seller withBlock:^(LPUserInfo *userInfo, BOOL succeeded, NSError *error) {
                 if (!error) {
                     float avgRating = [userInfo userAvgRating];
@@ -267,14 +267,38 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
 }
 
 - (void)viewImageInDetail {
-    LPImageShowcaseViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"imageShowcase"];
-    
-    // TODO Configure this
+    // show images
     CGFloat width = self.imageScrollView.frame.size.width;
-    NSInteger page = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width + 1;
-    vc.index = page - 1;
-    vc.images = self.images;
-    [self.navigationController presentViewController:vc animated:NO completion:NULL];
+    NSInteger index = (self.imageScrollView.contentOffset.x + (0.5f * width)) / width;
+
+    NSMutableArray *imgUrls = [NSMutableArray array];
+    for (PFFile *f in self.pop.images) {
+        [imgUrls addObject:[NSURL URLWithString:f.url]];
+    }
+
+
+    NSArray *photos = [IDMPhoto photosWithImages:self.images];
+    IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:self.imageScrollView];
+    [browser setInitialPageIndex:index];
+    browser.scaleImage = [self.images objectAtIndex:index];
+    browser.displayActionButton = NO;
+    browser.displayArrowButton = NO;
+    browser.displayCounterLabel = NO;
+    browser.displayDoneButton = YES;
+    browser.displayToolbar = NO;
+    browser.usePopAnimation = YES;
+//    browser.doneButtonImage = [UIImage imageNamed:@"icon_close_white"];
+
+    [self presentViewController:browser animated:YES completion:nil];
+
+
+//    LPImageShowcaseViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"imageShowcase"];
+//    
+//    // TODO Configure this
+
+//    vc.index = page - 1;
+//    vc.images = self.images;
+//    [self.navigationController presentViewController:vc animated:NO completion:NULL];
 }
 
 #pragma mark segue

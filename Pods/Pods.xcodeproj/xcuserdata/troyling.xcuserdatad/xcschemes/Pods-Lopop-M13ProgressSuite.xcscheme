@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3EF6D23280F39E7656437B54"
+               BlueprintIdentifier = "E34D3F6482E55D968E763916"
                BuildableName = "libPods-Lopop-M13ProgressSuite.a"
                BlueprintName = "Pods-Lopop-M13ProgressSuite"
                ReferencedContainer = "container:Pods.xcodeproj">

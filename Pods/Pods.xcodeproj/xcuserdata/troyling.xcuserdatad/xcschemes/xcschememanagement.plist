@@ -4,12 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-Lopop-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop-AMScrollingNavbar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-Lopop-CRToast.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Lopop-DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Lopop-IDMPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -34,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lopop-pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,37 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>044DCC051EBCD7955937F023</key>
+		<key>0A952BC398EB91CE1DBD7991</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1389565E5ABC6D38D82B8F24</key>
+		<key>10A6332DA066A65EA2A383BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3EF6D23280F39E7656437B54</key>
+		<key>31D02E717E51CFD5D2EAB5E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69F77F9C4FE09A0A2DCD3C53</key>
+		<key>689045341F7FDB9D813732B0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A96E185A3AA309753BECC613</key>
+		<key>77F9ED0337AB4378E23FD406</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BBA5817C130DEF8DF5091978</key>
+		<key>8977904A32E265921E874F4C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D0AEAC85A119F9AC408925E2</key>
+		<key>B8FD99129DD8C2FC931A1692</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D11B5546273E95A7DAF2DA92</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E275317E0EE8A5B8AC1DB295</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E34D3F6482E55D968E763916</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E894ABC359F886E24D155783</key>
 		<dict>
 			<key>primary</key>
 			<true/>

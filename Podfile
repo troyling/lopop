@@ -8,6 +8,7 @@ pod 'SDWebImage', '~>3.6'
 pod 'CRToast', '~> 0.0.7'
 pod 'M13ProgressSuite'
 pod 'JSQMessagesViewController'
+pod 'IDMPhotoBrowser'
 
 end
 
