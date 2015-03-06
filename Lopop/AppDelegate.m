@@ -10,6 +10,7 @@
 #import "WeiboSDK.h"
 #import "LPSignUpViewController.h"
 #import "LPMainViewTabBarController.h"
+#import "LPIntroViewController.h"
 #import "LPUIHelper.h"
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
@@ -62,7 +63,15 @@
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     UIViewController *vc = [PFUser currentUser] ? [storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"] : [storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
     self.window.rootViewController = vc;
-    
+
+    // FIXME add first time app launching check here
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [LPIntroViewController new];
+    self.window.backgroundColor = [UIColor whiteColor];
+
+    [self.window makeKeyAndVisible];
+
+
     [self initAppStyle];
     
     return YES;

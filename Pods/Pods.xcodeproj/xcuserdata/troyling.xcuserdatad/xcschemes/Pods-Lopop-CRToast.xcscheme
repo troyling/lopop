@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8DE1AD137159CCDFA5B787AC"
+               BlueprintIdentifier = "0348EBDFBD01FDE7C393B7C1"
                BuildableName = "libPods-Lopop-CRToast.a"
                BlueprintName = "Pods-Lopop-CRToast"
                ReferencedContainer = "container:Pods.xcodeproj">
