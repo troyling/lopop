@@ -30,7 +30,7 @@
     // Initialize Parse.
     [Parse setApplicationId:@"9Of1MI65pusWlQ4qXlXOzQSjsqFDLQbpxe6DepXk"
                   clientKey:@"TPOPIODRPCUvPxoguXUPcUNffAN56uLN3PGWZ4Fl"];
-    
+
     [PFFacebookUtils initializeFacebook];
 
     // Register notification
@@ -48,7 +48,7 @@
     // Register Weibo
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:@"3279676740"];
-    
+
     // [Optional] Track statistics around application opens.
     if (application.applicationState != UIApplicationStateBackground) {
         BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
@@ -59,21 +59,24 @@
         }
     }
 
-    // detect if the user is cached
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
-    UIViewController *vc = [PFUser currentUser] ? [storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"] : [storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
-    self.window.rootViewController = vc;
 
-    // FIXME add first time app launching check here
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [LPIntroViewController new];
-    self.window.backgroundColor = [UIColor whiteColor];
+    // check for first launch
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
+        // app already launched
+        UIViewController *vc = [PFUser currentUser] ? [storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"] : [storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
+        self.window.rootViewController = vc;
+    } else {
+        // first launch
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        // show intro
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"introViewController"];
+        self.window.rootViewController = vc;
+    }
 
     [self.window makeKeyAndVisible];
-
-
     [self initAppStyle];
-    
     return YES;
 }
 
@@ -158,7 +161,7 @@
 - (void)initAppStyle {
     // apply global tint to tab bar
     [[UITabBar appearance] setTintColor:[LPUIHelper lopopColor]];
-    
+
     // set nav bar color
     [[UINavigationBar appearance] setBarTintColor:[LPUIHelper lopopColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -175,7 +178,7 @@
     if (_managedObjectContext != nil) {
         return _managedObjectContext;
     }
-    
+
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
@@ -203,16 +206,16 @@
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
-    
+
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Model.sqlite"];
-    
+
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    
+
     return _persistentStoreCoordinator;
 }
 

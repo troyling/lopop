@@ -10,6 +10,8 @@
 #import "LPUIHelper.h"
 #import "Lopop-Swift.h"
 #import "RateView.h"
+#import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 #define NUMBER_OF_PAGES 5
 #define timeForPage(page) (NSInteger)(self.view.frame.size.width * (page - 1))
@@ -362,7 +364,10 @@
 }
 
 - (void)startUsingApp {
-    NSLog(@"Start using our app.");
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIStoryboard *storyboard = window.rootViewController.storyboard;
+    UIViewController *vc = [PFUser currentUser] ? [storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"] : [storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - LocationManager Delegation
@@ -384,16 +389,6 @@
 
 - (void)openLocationSettings {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-}
-
-#pragma mark - IFTTTAnimatedScrollViewControllerDelegate
-
-- (void)animatedScrollViewControllerDidScrollToEnd:(IFTTTAnimatedScrollViewController *)animatedScrollViewController {
-    NSLog(@"Scrolled to end of scrollview!");
-}
-
-- (void)animatedScrollViewControllerDidEndDraggingAtEnd:(IFTTTAnimatedScrollViewController *)animatedScrollViewController {
-    NSLog(@"Ended dragging at end of scrollview!");
 }
 
 @end
