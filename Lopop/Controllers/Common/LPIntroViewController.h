@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
+
+#import <CoreLocation/CoreLocation.h>
 #import "IFTTTJazzHands.h"
 
-@interface LPIntroViewController : IFTTTAnimatedScrollViewController <IFTTTAnimatedScrollViewControllerDelegate>
+@interface LPIntroViewController : IFTTTAnimatedScrollViewController <IFTTTAnimatedScrollViewControllerDelegate, CLLocationManagerDelegate>
 
 @end

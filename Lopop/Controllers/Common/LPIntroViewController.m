@@ -27,17 +27,23 @@
 @interface LPIntroViewController ()
 
 @property (retain, nonatomic) UIPageControl *pageControl;
+@property (retain, nonatomic) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) UILabel *browseLabel;
 @property (strong, nonatomic) UILabel *offerLabel;
 @property (strong, nonatomic) UILabel *meetupLabel;
 @property (strong, nonatomic) UILabel *rateLabel;
 
+@property (strong, nonatomic) UILabel *permissionDescLabel;
+
 @property (strong, nonatomic) UIImageView *browseImageView;
 @property (strong, nonatomic) UIImageView *offerImageView;
 @property (strong, nonatomic) UIImageView *meetupImageView;
 @property (strong, nonatomic) UIImageView *rateImageView;
 @property (strong, nonatomic) UIImageView *profImageView;
+
+@property (strong, nonatomic) UIButton *locationBtn;
+@property (strong, nonatomic) UIButton *startBtn;
 
 @property (strong, nonatomic) DesignableView *starView;
 
@@ -53,6 +59,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
 
     self.scrollView.layer.backgroundColor = [LPUIHelper lopopColor].CGColor;
     self.scrollView.contentSize = CGSizeMake(NUMBER_OF_PAGES * CGRectGetWidth(self.view.frame),
@@ -162,6 +171,15 @@
     rateTitle.frame = CGRectOffset(rateTitle.frame, timeForPage(4), 0);
     [self.scrollView addSubview:rateTitle];
 
+    UILabel *permissionTitle = [[UILabel alloc] init];
+    permissionTitle.text = @"One more thing";
+    [permissionTitle setFont:[UIFont systemFontOfSize:TITLE_SIZE]];
+    permissionTitle.textColor = [UIColor whiteColor];
+    [permissionTitle sizeToFit];
+    permissionTitle.center = TITLE_CENTER;
+    permissionTitle.frame = CGRectOffset(permissionTitle.frame, timeForPage(5), 0);
+    [self.scrollView addSubview:permissionTitle];
+
     // descriptions
     UILabel *browseDescLabel = [[UILabel alloc] init];
     browseDescLabel.text = @"Browse for items around you, or around the world.";
@@ -209,6 +227,37 @@
     rateDescLabel.frame = CGRectOffset(rateDescLabel.frame, timeForPage(4), 0);
     rateDescLabel.textAlignment = NSTextAlignmentCenter;
     [self.scrollView addSubview:rateDescLabel];
+
+    self.permissionDescLabel = [[UILabel alloc] init];
+    self.permissionDescLabel.text = @"We need the above permissions to deliver our experience.";
+    [self.permissionDescLabel setFont:[UIFont systemFontOfSize:DESC_SIZE]];
+    self.permissionDescLabel.textColor = [UIColor whiteColor];
+    [self.permissionDescLabel sizeToFit];
+    self.permissionDescLabel.numberOfLines = 0;
+    self.permissionDescLabel.bounds = CGRectMake(0, 0, [LPUIHelper screenWidth] - 70, 50);
+    self.permissionDescLabel.center = DESC_CENTER;
+    self.permissionDescLabel.frame = CGRectOffset(self.permissionDescLabel.frame, timeForPage(5), 0);
+    self.permissionDescLabel.textAlignment = NSTextAlignmentCenter;
+    [self.scrollView addSubview:self.permissionDescLabel];
+
+    // location service permission button
+    self.locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SLIDE_VIEW_WIDTH, 40)];
+    [self.locationBtn setTitle:@"Location service" forState:UIControlStateNormal];
+    self.locationBtn.backgroundColor = [LPUIHelper alertColor];
+    self.locationBtn.center = self.view.center;
+    self.locationBtn.frame = CGRectOffset(self.locationBtn.frame, timeForPage(5), 0);
+    [self.locationBtn addTarget:self action:@selector(requestLocationServicePermission) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:self.locationBtn];
+
+    // start button
+    self.startBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SLIDE_VIEW_WIDTH, 40)];
+    [self.startBtn setTitle:@"Get started" forState:UIControlStateNormal];
+    self.startBtn.backgroundColor = [LPUIHelper infoColor];
+    self.startBtn.center = DESC_CENTER;
+    self.startBtn.frame = CGRectOffset(self.startBtn.frame, timeForPage(5), 0);
+    [self.startBtn addTarget:self action:@selector(startUsingApp) forControlEvents:UIControlEventTouchUpInside];
+    self.startBtn.hidden = YES;
+    [self.scrollView addSubview:self.startBtn];
 
     // rate view
     RateView *rv = [RateView rateViewWithRating:5.0];
@@ -298,6 +347,37 @@
     self.starView.curve = @"easeIn";
     self.starView.duration = 0.5f;
     [self.starView animate];
+}
+
+#pragma mark - Permission
+
+- (void)requestLocationServicePermission {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusNotDetermined) {
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+    }
+}
+
+- (void)startUsingApp {
+    NSLog(@"Start using our app.");
+}
+
+#pragma mark - LocationManager Delegation
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status != kCLAuthorizationStatusNotDetermined) {
+        if (status != kCLAuthorizationStatusDenied) {
+            NSLog(@"Finished");
+            [self.locationBtn setTitle:@"Granted" forState:UIControlStateNormal];
+            self.locationBtn.backgroundColor = [LPUIHelper infoColor];
+            self.permissionDescLabel.hidden = YES;
+            self.startBtn.hidden = NO;
+        } else {
+            NSLog(@"Unable to user your location");
+        }
+    }
 }
 
 #pragma mark - IFTTTAnimatedScrollViewControllerDelegate
