@@ -229,7 +229,7 @@
     [self.scrollView addSubview:rateDescLabel];
 
     self.permissionDescLabel = [[UILabel alloc] init];
-    self.permissionDescLabel.text = @"We need the above permissions to deliver our experience.";
+    self.permissionDescLabel.text = @"Location access is required for customized experience.";
     [self.permissionDescLabel setFont:[UIFont systemFontOfSize:DESC_SIZE]];
     self.permissionDescLabel.textColor = [UIColor whiteColor];
     [self.permissionDescLabel sizeToFit];
@@ -242,7 +242,7 @@
 
     // location service permission button
     self.locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SLIDE_VIEW_WIDTH, 40)];
-    [self.locationBtn setTitle:@"Location service" forState:UIControlStateNormal];
+    [self.locationBtn setTitle:@"Grant Location Access" forState:UIControlStateNormal];
     self.locationBtn.backgroundColor = [LPUIHelper alertColor];
     self.locationBtn.center = self.view.center;
     self.locationBtn.frame = CGRectOffset(self.locationBtn.frame, timeForPage(5), 0);
@@ -250,9 +250,10 @@
     [self.scrollView addSubview:self.locationBtn];
 
     // start button
-    self.startBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SLIDE_VIEW_WIDTH, 40)];
-    [self.startBtn setTitle:@"Get started" forState:UIControlStateNormal];
-    self.startBtn.backgroundColor = [LPUIHelper infoColor];
+    self.startBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SLIDE_VIEW_WIDTH * 0.5, 40)];
+    [self.startBtn setTitle:@"Get started!" forState:UIControlStateNormal];
+    self.startBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.startBtn.layer.borderWidth = 1.0f;
     self.startBtn.center = DESC_CENTER;
     self.startBtn.frame = CGRectOffset(self.startBtn.frame, timeForPage(5), 0);
     [self.startBtn addTarget:self action:@selector(startUsingApp) forControlEvents:UIControlEventTouchUpInside];
@@ -369,15 +370,20 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (status != kCLAuthorizationStatusNotDetermined) {
         if (status != kCLAuthorizationStatusDenied) {
-            NSLog(@"Finished");
-            [self.locationBtn setTitle:@"Granted" forState:UIControlStateNormal];
+            [self.locationBtn removeTarget:self action:@selector(openLocationSettings) forControlEvents:UIControlEventTouchUpInside];
+            [self.locationBtn setTitle:@"Access Granted" forState:UIControlStateNormal];
             self.locationBtn.backgroundColor = [LPUIHelper infoColor];
             self.permissionDescLabel.hidden = YES;
             self.startBtn.hidden = NO;
         } else {
-            NSLog(@"Unable to user your location");
+            [self.locationBtn setTitle:@"Not Granted :(" forState:UIControlStateNormal];
+            [self.locationBtn addTarget:self action:@selector(openLocationSettings) forControlEvents:UIControlEventTouchUpInside];
         }
     }
+}
+
+- (void)openLocationSettings {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 #pragma mark - IFTTTAnimatedScrollViewControllerDelegate
