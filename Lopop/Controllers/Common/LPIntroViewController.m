@@ -18,6 +18,9 @@
 #define DESC_CENTER CGPointMake(self.view.center.x, [LPUIHelper screenHeight] - 100)
 #define DESC_SIZE 18
 
+#define SLIDE_VIEW_WIDTH 275.0f
+#define SLIDE_VIEW_HEIGHT 220.0f
+
 @interface LPIntroViewController ()
 
 @property (retain, nonatomic) UIPageControl *pageControl;
@@ -37,6 +40,7 @@
 //@property (strong, nonatomic) UILabel *offerDescLabel;
 //@property (strong, nonatomic) UILabel *meetupDescLabel;
 //@property (strong, nonatomic) UILabel *rateDescLabel;
+
 @end
 
 @implementation LPIntroViewController
@@ -158,18 +162,17 @@
     [self.scrollView addSubview:rateDescLabel];
 
     // images
-    CGFloat browseImageViewWidth = [LPUIHelper screenWidth] - 100;
-    CGFloat browseImageViewHeight = browseImageViewWidth / 1.25;
+
 
     self.browseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_browse"]];
-    self.browseImageView.bounds = CGRectMake(0, 0, browseImageViewWidth, browseImageViewHeight);
+    self.browseImageView.bounds = CGRectMake(0, 0, SLIDE_VIEW_WIDTH, SLIDE_VIEW_HEIGHT);
     self.browseImageView.center = self.view.center;
-    self.browseImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.browseImageView.contentMode = UIViewContentModeScaleToFill;
     self.browseImageView.frame = CGRectOffset(self.browseImageView.frame, 0, 0);
     [self.scrollView addSubview:self.browseImageView];
 
     self.offerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_offer"]];
-    self.offerImageView.bounds = CGRectMake(0, 0, browseImageViewWidth * 0.8, browseImageViewWidth * 0.8);
+    self.offerImageView.bounds = CGRectMake(0, 0, SLIDE_VIEW_WIDTH * 0.8, SLIDE_VIEW_WIDTH * 0.8);
     self.offerImageView.center = self.view.center;
     self.offerImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.offerImageView.frame = CGRectOffset(self.offerImageView.frame, timeForPage(2), 0);
@@ -177,25 +180,25 @@
     [self.scrollView addSubview:self.offerImageView];
 
     self.meetupImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_meetup"]];
-    self.meetupImageView.bounds = CGRectMake(0, 0, browseImageViewWidth * 0.8, browseImageViewWidth * 0.8);
+    self.meetupImageView.bounds = CGRectMake(0, 0, SLIDE_VIEW_WIDTH * 0.8, SLIDE_VIEW_WIDTH);
     self.meetupImageView.center = self.view.center;
     self.meetupImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.meetupImageView.frame = CGRectOffset(self.meetupImageView.frame, timeForPage(3), 0);
     [self.scrollView addSubview:self.meetupImageView];
 
     self.rateImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_rate"]];
-    self.rateImageView.bounds = CGRectMake(0, 0, browseImageViewWidth * 0.8, browseImageViewWidth * 0.8);
+    self.rateImageView.bounds = CGRectMake(0, 0, SLIDE_VIEW_WIDTH * 0.8, SLIDE_VIEW_WIDTH * 0.9);
     self.rateImageView.center = self.view.center;
     self.rateImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.rateImageView.frame = CGRectOffset(self.rateImageView.frame, timeForPage(4), 0);
     [self.scrollView addSubview:self.rateImageView];
 
     self.profImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_icon.jpg"]];
-    self.profImageView.bounds = CGRectMake(0, 0, 50, 50);
+    self.profImageView.bounds = CGRectMake(0, 0, 38, 38);
     self.profImageView.layer.cornerRadius = self.profImageView.frame.size.width / 2.0f;
     self.profImageView.clipsToBounds = YES;
     self.profImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.profImageView.center = self.view.center;
+    self.profImageView.center = CGPointMake(self.view.center.x + SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5, self.view.center.y + SLIDE_VIEW_HEIGHT * 0.25 + 5);
     self.profImageView.layer.zPosition = MAXFLOAT;
     [self.scrollView addSubview:self.profImageView];
 }
@@ -239,11 +242,11 @@
     IFTTTFrameAnimation *profImageViewFrameAnimation = [IFTTTFrameAnimation animationWithView:self.profImageView];
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1) andFrame:self.profImageView.frame]];
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2)
-                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -25, -25), timeForPage(2), -50)]];
+                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -25, -25), timeForPage(2) - (SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5), -90)]];
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3)
-                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, 5, 5), timeForPage(3), 40)]];
+                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, 3, 3), timeForPage(3) - SLIDE_VIEW_WIDTH * 0.75 + 3, 57)]];
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4)
-                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -15, -15), timeForPage(4), -40)]];
+                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -10, -10), timeForPage(4) -(SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5), -85)]];
     [self.animator addAnimation:profImageViewFrameAnimation];
 }
 
