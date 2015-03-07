@@ -10,8 +10,6 @@
 #import "LPUIHelper.h"
 
 #define NUMBER_OF_PAGES 5
-
-
 #define timeForPage(page) (NSInteger)(self.view.frame.size.width * (page - 1))
 #define TITLE_CENTER CGPointMake(self.view.center.x, self.offerImageView.frame.origin.y * 0.5)
 #define TITLE_SIZE 26
@@ -81,11 +79,15 @@
 
 - (void)placeViews {
     // images
+    CGColorRef borderColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1].CGColor;
+
     self.browseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_browse"]];
     self.browseImageView.bounds = CGRectMake(0, 0, SLIDE_VIEW_WIDTH, SLIDE_VIEW_HEIGHT);
     self.browseImageView.center = self.view.center;
     self.browseImageView.contentMode = UIViewContentModeScaleToFill;
     self.browseImageView.frame = CGRectOffset(self.browseImageView.frame, 0, 0);
+    self.browseImageView.layer.borderWidth = 3.0f;
+    self.browseImageView.layer.borderColor = borderColor;
     [self.scrollView addSubview:self.browseImageView];
 
     self.offerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_offer"]];
@@ -94,13 +96,17 @@
     self.offerImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.offerImageView.frame = CGRectOffset(self.offerImageView.frame, timeForPage(2), 0);
     self.offerImageView.alpha = 0.0f;
+    self.offerImageView.layer.borderWidth = 3.0f;
+    self.offerImageView.layer.borderColor = borderColor;
     [self.scrollView addSubview:self.offerImageView];
 
     self.meetupImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_meetup"]];
     self.meetupImageView.bounds = CGRectMake(0, 0, SLIDE_VIEW_WIDTH * 0.8, SLIDE_VIEW_WIDTH);
     self.meetupImageView.center = self.view.center;
-    self.meetupImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.meetupImageView.contentMode = UIViewContentModeScaleToFill;
     self.meetupImageView.frame = CGRectOffset(self.meetupImageView.frame, timeForPage(3), 0);
+    self.meetupImageView.layer.borderWidth = 3.0f;
+    self.meetupImageView.layer.borderColor = borderColor;
     [self.scrollView addSubview:self.meetupImageView];
 
     self.rateImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_rate"]];
@@ -108,6 +114,8 @@
     self.rateImageView.center = self.view.center;
     self.rateImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.rateImageView.frame = CGRectOffset(self.rateImageView.frame, timeForPage(4), 0);
+    self.rateImageView.layer.borderWidth = 3.0f;
+    self.rateImageView.layer.borderColor = borderColor;
     [self.scrollView addSubview:self.rateImageView];
 
     self.profImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intro_icon.jpg"]];
@@ -245,9 +253,9 @@
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2)
                                                                              andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -25, -25), timeForPage(2) - (SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5), -90)]];
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3)
-                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, 3, 3), timeForPage(3) - SLIDE_VIEW_WIDTH * 0.75 + 3, 57)]];
+                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, 3, 3), timeForPage(3) - SLIDE_VIEW_WIDTH * 0.75 + 8, 57)]];
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4)
-                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -10, -10), timeForPage(4) -(SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5), -85)]];
+                                                                             andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -10, -10), timeForPage(4) - (SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5), -85)]];
     [self.animator addAnimation:profImageViewFrameAnimation];
 }
 
