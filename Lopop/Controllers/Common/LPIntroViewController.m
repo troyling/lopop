@@ -8,6 +8,8 @@
 
 #import "LPIntroViewController.h"
 #import "LPUIHelper.h"
+#import "Lopop-Swift.h"
+#import "RateView.h"
 
 #define NUMBER_OF_PAGES 5
 #define timeForPage(page) (NSInteger)(self.view.frame.size.width * (page - 1))
@@ -37,10 +39,7 @@
 @property (strong, nonatomic) UIImageView *rateImageView;
 @property (strong, nonatomic) UIImageView *profImageView;
 
-//@property (strong, nonatomic) UILabel *browseDescLabel;
-//@property (strong, nonatomic) UILabel *offerDescLabel;
-//@property (strong, nonatomic) UILabel *meetupDescLabel;
-//@property (strong, nonatomic) UILabel *rateDescLabel;
+@property (strong, nonatomic) DesignableView *starView;
 
 @end
 
@@ -210,6 +209,22 @@
     rateDescLabel.frame = CGRectOffset(rateDescLabel.frame, timeForPage(4), 0);
     rateDescLabel.textAlignment = NSTextAlignmentCenter;
     [self.scrollView addSubview:rateDescLabel];
+
+    // rate view
+    RateView *rv = [RateView rateViewWithRating:5.0];
+    rv.starFillColor = [LPUIHelper ratingStarColor];
+    rv.starBorderColor = [UIColor clearColor];
+    rv.starSize = 23.0f;
+    rv.starNormalColor = [UIColor lightGrayColor];
+
+    self.starView = [[DesignableView alloc] init];
+    [self.starView sizeToFit];
+    self.starView.center = self.view.center;
+    self.starView.frame = rv.frame;
+    self.starView.frame = CGRectOffset(self.starView.frame, timeForPage(4) + self.view.center.x - self.starView.frame.size.width / 2.0f, self.view.center.y + 46);
+    [self.starView addSubview:rv];
+    [self.scrollView addSubview:self.starView];
+    self.starView.hidden = YES; // for pop animation
 }
 
 - (void)configureAnimation {
@@ -257,6 +272,7 @@
     [profImageViewFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4)
                                                                              andFrame:CGRectOffset(CGRectInset(self.profImageView.frame, -10, -10), timeForPage(4) - (SLIDE_VIEW_WIDTH * 0.5 * 0.75 + 5), -85)]];
     [self.animator addAnimation:profImageViewFrameAnimation];
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -265,8 +281,23 @@
     NSInteger page = lround(fractionalPage);
     self.pageControl.currentPage = page;
 
+    if (page == 3) {
+        // pop rate view
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(showStarView) userInfo:nil repeats:NO];
+    } else {
+        self.starView.hidden = YES;
+    }
+
     self.profImageView.layer.cornerRadius = self.profImageView.frame.size.width / 2.0f;
     [super scrollViewDidScroll:scrollView]; // maintain IFTTT animation
+}
+
+- (void)showStarView {
+    self.starView.hidden = NO;
+    self.starView.animation = @"pop";
+    self.starView.curve = @"easeIn";
+    self.starView.duration = 0.5f;
+    [self.starView animate];
 }
 
 #pragma mark - IFTTTAnimatedScrollViewControllerDelegate
