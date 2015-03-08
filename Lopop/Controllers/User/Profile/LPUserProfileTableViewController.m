@@ -24,6 +24,11 @@
 @property (retain, nonatomic) NSMutableArray *following;
 @property (retain, nonatomic) NSMutableArray *followers;
 
+@property (assign, nonatomic) NSInteger numCurrentPops;
+@property (assign, nonatomic) NSInteger numPastPops;
+@property (assign, nonatomic) NSInteger numFollowing;
+@property (assign, nonatomic) NSInteger numFollowers;
+
 @property (retain, nonatomic) HMSegmentedControl *segmentedControl;
 @property (retain, nonatomic) UIButton *clickedBtn;
 
@@ -93,6 +98,65 @@
     self.segmentedControl.selectedTitleTextAttributes = @{ NSFontAttributeName : [UIFont boldSystemFontOfSize:16],
                                                            NSForegroundColorAttributeName : [UIColor whiteColor] };
     [self.segmentedControlView addSubview:self.segmentedControl];
+
+    [self loadUserStats];
+}
+
+- (void)loadUserStats {
+    // query for numbers
+    PFQuery *numCurrentPopQuery = [LPPop query];
+    numCurrentPopQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [numCurrentPopQuery whereKey:@"seller" equalTo:self.user];
+    [numCurrentPopQuery whereKey:@"status" notEqualTo:[NSNumber numberWithInteger:kPopcompleted]];
+    [numCurrentPopQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            self.numCurrentPops = number;
+            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
+            [titles replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%ld\nPops", (long)self.numCurrentPops]];
+            [self.segmentedControl setSectionTitles:titles];
+            [self.segmentedControl setNeedsDisplay];
+        }
+    }];
+
+    PFQuery *numPastPopsQuery = [LPPop query];
+    numPastPopsQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [numPastPopsQuery whereKey:@"seller" equalTo:self.user];
+    [numPastPopsQuery whereKey:@"status" equalTo:[NSNumber numberWithInteger:kPopcompleted]];
+    [numPastPopsQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            self.numPastPops = number;
+            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
+            [titles replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%ld\nCompleted", (long)self.numPastPops]];
+            [self.segmentedControl setSectionTitles:titles];
+            [self.segmentedControl setNeedsDisplay];
+        }
+    }];
+
+    PFQuery *numFollowingQuery = [LPUserRelationship query];
+    numFollowingQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [numFollowingQuery whereKey:@"follower" equalTo:self.user];
+    [numFollowingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            self.numFollowing = number;
+            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
+            [titles replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%ld\nFollowing", (long)self.numFollowing]];
+            [self.segmentedControl setSectionTitles:titles];
+            [self.segmentedControl setNeedsDisplay];
+        }
+    }];
+
+    PFQuery *numFollowersQuery = [LPUserRelationship query];
+    numFollowersQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [numFollowersQuery whereKey:@"followedUser" equalTo:self.user];
+    [numFollowersQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            self.numFollowers = number;
+            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
+            [titles replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"%ld\nFollowers", (long)self.numFollowers]];
+            [self.segmentedControl setSectionTitles:titles];
+            [self.segmentedControl setNeedsDisplay];
+        }
+    }];
 }
 
 #pragma mark segmentedControl
@@ -123,6 +187,8 @@
 - (void)queryForPops {
     PFQuery *query = [LPPop query];
     [query orderByDescending:@"createdAt"];
+    [query whereKey:@"seller" equalTo:self.user];
+    [query whereKey:@"status" notEqualTo:[NSNumber numberWithInteger:kPopcompleted]];
     [query setLimit:40];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -135,6 +201,7 @@
 - (void)queryForPastPops {
     PFQuery *query = [LPPop query];
     [query orderByAscending:@"updatedAt"];
+    [query whereKey:@"seller" equalTo:self.user];
     query.limit = 40;
     [query whereKey:@"status" equalTo:[NSNumber numberWithInteger:kPopcompleted]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
