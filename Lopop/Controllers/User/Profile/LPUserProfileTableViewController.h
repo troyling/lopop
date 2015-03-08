@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface LPUserProfileTableViewController : UITableViewController
+@interface LPUserProfileTableViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (retain, nonatomic) PFUser *user;
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *profBkgImageView;
+@property (weak, nonatomic) IBOutlet UIView *segmentedControlView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

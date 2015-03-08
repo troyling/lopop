@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0FFEDAA619C929A8CA044B4D"
-               BuildableName = "libPods-Lopop-AFNetworking.a"
-               BlueprintName = "Pods-Lopop-AFNetworking"
+               BlueprintIdentifier = "E8699D6B7B99CCAB2A28E24F"
+               BuildableName = "libPods-Lopop-HMSegmentedControl.a"
+               BlueprintName = "Pods-Lopop-HMSegmentedControl"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

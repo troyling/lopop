@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lopop-HMSegmentedControl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lopop-IDMPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,62 +72,67 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0348EBDFBD01FDE7C393B7C1</key>
+		<key>0FFEDAA619C929A8CA044B4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>097CB22205A25CB85BD1535A</key>
+		<key>1AEC8BBCCA6977FD30AA2A27</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>151BDB629922659AAB7B1373</key>
+		<key>23691E042D9F8FFBD8CE77ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49EB5264D79D966E632A76F5</key>
+		<key>594E5FA4F8039E6D6D64C68F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4CE3215FE3083FEF980A01C1</key>
+		<key>62C8DBEEB09C0A11A59CCA43</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55534E08FBE555676D8596B1</key>
+		<key>93F30F1A5EBA21D6FA9D3478</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5B9DA8A1402CCFD5C25F0545</key>
+		<key>A854D171DD6935515A32F3E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>668CC2B66B4010338474E228</key>
+		<key>E204EA41156B7A66CC234FF5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79764748C207FE90DA9A3358</key>
+		<key>E29288EB724FA9A5769D817D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>970932EFBA5FFF351B084593</key>
+		<key>E81BF37C5AA82DF3442F0991</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C86D3BAEA6D94B2FE775CFF0</key>
+		<key>E8699D6B7B99CCAB2A28E24F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DEF8BE32F7AF4BC95782E57E</key>
+		<key>EE241169CC1315858038D227</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD97976234C25E600CD06503</key>
 		<dict>
 			<key>primary</key>
 			<true/>

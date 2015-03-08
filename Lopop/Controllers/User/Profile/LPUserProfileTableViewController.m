@@ -9,9 +9,22 @@
 #import "LPUserProfileTableViewController.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+ImageEffects.h"
-
+#import "HMSegmentedControl.h"
+#import "LPUIHelper.h"
+#import "LPPop.h"
+#import "LPUserRelationship.h"
+#import "LPFollowerTableViewCell.h"
+#import "LPUserHelper.h"
 
 @interface LPUserProfileTableViewController ()
+
+@property (retain, nonatomic) NSMutableArray *currentPops;
+@property (retain, nonatomic) NSMutableArray *pastPops;
+@property (retain, nonatomic) NSMutableArray *following;
+@property (retain, nonatomic) NSMutableArray *followers;
+
+@property (retain, nonatomic) HMSegmentedControl *segmentedControl;
+@property (retain, nonatomic) UIButton *clickedBtn;
 
 @end
 
@@ -21,11 +34,19 @@
     [super viewDidLoad];
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self loadSegmentedControl];
+
+    // init
+    self.currentPops = [NSMutableArray array];
+    self.pastPops = [NSMutableArray array];
+    self.following = [NSMutableArray array];
+    self.followers = [NSMutableArray array];
 
     if ([self.user isDataAvailable]) {
         [self loadUserInfo];
-    } else {
-        [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    }
+    else {
+        [self.user fetchInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
             if (!error) {
                 [self loadUserInfo];
             }
@@ -36,20 +57,115 @@
 - (void)loadUserInfo {
     self.nameLabel.text = self.user[@"name"];
 
-    [self.profileImageView sd_setImageWithURL:self.user[@"profilePictureUrl"]];
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
     self.profileImageView.clipsToBounds = YES;
+    [self.profileImageView sd_setImageWithURL:self.user[@"profilePictureUrl"] placeholderImage:nil completed: ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!error) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                //Background Thread
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    UIImage *bkgImg = [self.profileImageView.image applyBlurWithRadius:20
+                                                                             tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                                                                 saturationDeltaFactor:1.3
+                                                                             maskImage:nil];
+                    self.profBkgImageView.image = bkgImg;
+                });
+            });
+        }
+    }];
+}
 
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        //Background Thread
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            UIImage *bkgImg = [self.profileImageView.image applyBlurWithRadius:20
-                                                                     tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
-                                                         saturationDeltaFactor:1.3
-                                                                     maskImage:nil];
-            self.profBkgImageView.image = bkgImg;
-        });
-    });
+- (void)loadSegmentedControl {
+    self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Selling", @"Sold", @"Following", @"Followers"]];
+    self.segmentedControl.frame = self.segmentedControlView.bounds;
+    [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleArrow;
+    self.segmentedControl.backgroundColor = [LPUIHelper lopopColorWithAlpha:0.8];
+    self.segmentedControl.selectionIndicatorColor = [UIColor whiteColor];
+    self.segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    self.segmentedControl.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
+    self.segmentedControl.titleTextAttributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:14],
+                                                   NSForegroundColorAttributeName : [UIColor whiteColor] };
+    self.segmentedControl.selectedTitleTextAttributes = @{ NSFontAttributeName : [UIFont boldSystemFontOfSize:16],
+                                                           NSForegroundColorAttributeName : [UIColor whiteColor] };
+    [self.segmentedControlView addSubview:self.segmentedControl];
+}
+
+
+#pragma mark segmentedControl
+
+- (IBAction)segmentedControlChangedValue:(id)sender {
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 1:
+            NSLog(@"sold");
+            break;
+
+        case 2:
+            NSLog(@"following");
+            [self queryForFollowing];
+            break;
+
+        case 3:
+            // follower
+            NSLog(@"followers");
+            [self queryForFollowers];
+            break;
+
+        default:
+            // current pops
+            NSLog(@"pops");
+            break;
+    }
+}
+
+#pragma mark Parse
+
+- (void)queryForPops {
+    PFQuery *query = [LPPop query];
+    [query orderByDescending:@"createdAt"];
+    [query setLimit:40];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [self.currentPops addObjectsFromArray:objects];
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)queryForPastPops {
+
+}
+
+- (void)queryForFollowing {
+    PFQuery *query = [LPUserRelationship query];
+    [query orderByDescending:@"createdAt"];
+    [query whereKey:@"follower" equalTo:self.user];
+    [query includeKey:@"followedUser"];
+    query.limit = 40;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (LPUserRelationship *relationship in objects) {
+                [self.following addObject:relationship.followedUser];
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)queryForFollowers {
+    PFQuery *query = [LPUserRelationship query];
+    [query orderByAscending:@"createdAt"];
+    [query whereKey:@"followedUser" equalTo:self.user];
+    [query includeKey:@"follower"];
+    query.limit = 40;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (LPUserRelationship *relationship in objects) {
+                [self.followers addObject:relationship.follower];
+            }
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -59,61 +175,178 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    NSInteger rows = 0;
+
+    switch(self.segmentedControl.selectedSegmentIndex) {
+        case 1:
+            //past
+            rows = self.pastPops.count;
+            break;
+        case 2:
+            //following
+            rows = self.following.count;
+            break;
+        case 3:
+            //followers
+            rows = self.followers.count;
+            break;
+        default:
+            rows = self.currentPops.count;
+            break;
+    }
+    return rows;
 }
 
-/*
+#pragma mark - TableView Delegate
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
+    if (self.segmentedControl.selectedSegmentIndex == 2 || self.segmentedControl.selectedSegmentIndex == 3) {
+        LPFollowerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LPFollowerCell" forIndexPath:indexPath];
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+        if (!cell) {
+            cell = [[LPFollowerTableViewCell alloc] init];
+        }
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+        PFUser *user = (self.segmentedControl.selectedSegmentIndex == 2) ? [self.following objectAtIndex:indexPath.row] : [self.followers objectAtIndex:indexPath.row];
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+        NSLog(@"user: %@", user);
+        [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
+        cell.nameLabel.text = user[@"name"];
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+        // move inset line
+        cell.separatorInset = UIEdgeInsetsMake(0.0f, cell.profileImageView.bounds.size.width + 15.0f, 0.0f, 0.0f);
 
-/*
+        // configure follow button
+        if (![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+            // other user
+            if ([LPUserHelper isCurrentUserFollowingUser:user]) {
+                [self setUnfollowLayoutForButton:cell.followBtn];
+            } else {
+                [self setFollowLayoutForButton:cell.followBtn];
+            }
+            cell.followBtn.hidden = NO;
+        }
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"popsCell" forIndexPath:indexPath];
+        return cell;
+    }
+}
+
+#pragma mark UIActionsheet
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Unfollow"]) {
+        if (self.clickedBtn) {
+            PFUser *userToUnfollow = [self tableViewItemForButton:self.clickedBtn];
+            // unfollow the user
+            [LPUserHelper unfollowUserInBackground:userToUnfollow withBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    // remove and attach new action
+                    [self.clickedBtn removeTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+
+                    [self setFollowLayoutForButton:self.clickedBtn];
+
+                    // remove reference
+                    self.clickedBtn = nil;
+                }
+            }];
+        }
+    }
+}
+
+#pragma mark Helper
+
+- (void)setUnfollowLayoutForButton:(UIButton *)button {
+    [button setTitle:@"Following" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[LPUIHelper lopopColor]];
+
+    button.layer.borderWidth = 0.0f;
+    [button addTarget:self action:@selector(attemptUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setFollowLayoutForButton:(UIButton *)button {
+    [button setTitle:@"+ Follow" forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    button.layer.borderWidth = 1.0f;
+    button.layer.borderColor = [UIColor blackColor].CGColor;
+
+    // add follow action
+    [button addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (IBAction)attemptUnfollowUser:(id)sender {
+    PFUser *user;
+    NSString *sheetTitle;
+
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *btn = sender;
+        user = [self tableViewItemForButton:btn];
+    }
+
+    if (user) {
+        sheetTitle = [NSString stringWithFormat:@"Unfollow %@?", user[@"name"]];
+        self.clickedBtn = sender;
+    }
+
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Unfollow" otherButtonTitles:nil, nil];
+    [as showInView:self.view];
+}
+
+- (IBAction)followUser:(id)sender {
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *btn = sender;
+        PFUser *userToFollow = [self tableViewItemForButton:btn];
+        [LPUserHelper followUserInBackground:userToFollow withBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [btn removeTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+                [self setUnfollowLayoutForButton:btn];
+            }
+        }];
+    }
+}
+
+- (id)tableViewItemForButton:(UIButton *)button {
+    PFUser *user;
+    if ([button.superview.superview isKindOfClass:[LPFollowerTableViewCell class]]) {
+
+        LPFollowerTableViewCell *cell = (LPFollowerTableViewCell *) button.superview.superview;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        user = (self.segmentedControl.selectedSegmentIndex == 2) ? [self.following objectAtIndex:indexPath.row] : [self.followers objectAtIndex:indexPath.row];
+    }
+    return user;
+}
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    //    if ([segue.destinationViewController isKindOfClass:[LPUserProfileTableViewController class]]) {
+    //        if ([sender isKindOfClass:[LPFollowerTableViewCell class]]) {
+    //            LPUserProfileTableViewController *vc = segue.destinationViewController;
+    //            LPFollowerTableViewCell *cell = sender;
+    //            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+
+
+    //            if (indexPath.row < self.userRelationships.count) {
+    //                LPUserRelationship *relationship = [self.userRelationships objectAtIndex:indexPath.row];
+    //
+    //                if (self.contentType == FOLLOWER) {
+    //                    vc.targetUser = relationship.follower;
+    //                } else {
+    //                    vc.targetUser = relationship.followedUser;
+    //                }
+    //            } else {
+    //                NSLog(@"error");
+    //            }
+    //}
+    //}
 }
-*/
 
 @end
