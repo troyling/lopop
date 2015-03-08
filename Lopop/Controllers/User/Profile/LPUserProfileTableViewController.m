@@ -111,10 +111,7 @@
     [numCurrentPopQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             self.numCurrentPops = number;
-            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
-            [titles replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%ld\nPops", (long)self.numCurrentPops]];
-            [self.segmentedControl setSectionTitles:titles];
-            [self.segmentedControl setNeedsDisplay];
+            [self replaceSegmentedControlTitleAtIndex:0 withString:[NSString stringWithFormat:@"%ld\nPops", (long)self.numCurrentPops]];
         }
     }];
 
@@ -125,10 +122,7 @@
     [numPastPopsQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             self.numPastPops = number;
-            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
-            [titles replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%ld\nCompleted", (long)self.numPastPops]];
-            [self.segmentedControl setSectionTitles:titles];
-            [self.segmentedControl setNeedsDisplay];
+            [self replaceSegmentedControlTitleAtIndex:1 withString:[NSString stringWithFormat:@"%ld\nCompleted", (long)self.numPastPops]];
         }
     }];
 
@@ -138,10 +132,7 @@
     [numFollowingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             self.numFollowing = number;
-            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
-            [titles replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%ld\nFollowing", (long)self.numFollowing]];
-            [self.segmentedControl setSectionTitles:titles];
-            [self.segmentedControl setNeedsDisplay];
+            [self replaceSegmentedControlTitleAtIndex:2 withString:[NSString stringWithFormat:@"%ld\nFollowing", (long)self.numFollowing]];
         }
     }];
 
@@ -151,10 +142,7 @@
     [numFollowersQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             self.numFollowers = number;
-            NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
-            [titles replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"%ld\nFollowers", (long)self.numFollowers]];
-            [self.segmentedControl setSectionTitles:titles];
-            [self.segmentedControl setNeedsDisplay];
+            [self replaceSegmentedControlTitleAtIndex:3 withString:[NSString stringWithFormat:@"%ld\nFollowers", (long)self.numFollowers]];
         }
     }];
 }
@@ -418,6 +406,14 @@
         user = (self.segmentedControl.selectedSegmentIndex == 2) ? [self.following objectAtIndex:indexPath.row] : [self.followers objectAtIndex:indexPath.row];
     }
     return user;
+}
+
+- (void)replaceSegmentedControlTitleAtIndex:(NSInteger)index withString:(NSString *)title {
+    NSMutableArray *titles = [NSMutableArray arrayWithArray:self.segmentedControl.sectionTitles];
+    [titles replaceObjectAtIndex:index withObject:title];
+    [self.segmentedControl setSectionTitles:titles];
+    [self.segmentedControl setNeedsDisplay];
+
 }
 
 #pragma mark - Navigation
