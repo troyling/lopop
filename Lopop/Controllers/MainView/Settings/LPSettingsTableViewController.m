@@ -7,7 +7,7 @@
 //
 
 #import "LPSettingsTableViewController.h"
-#import "LPUserProfileViewController.h"
+#import "LPUserProfileTableViewController.h"
 #import "LPMainViewTabBarController.h"
 
 @interface LPSettingsTableViewController ()
@@ -34,10 +34,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"LPDisplayCurrentUserProfile"]) {
-        if ([segue.destinationViewController isKindOfClass:[LPUserProfileViewController class]]) {
-            LPUserProfileViewController *vc = segue.destinationViewController;
-            vc.targetUser = [PFUser currentUser];
+    if ([segue.identifier isEqualToString:@"currentUserProfile"]) {
+        if ([segue.destinationViewController isKindOfClass:[LPUserProfileTableViewController class]]) {
+            LPUserProfileTableViewController *vc = segue.destinationViewController;
+            vc.user = [PFUser currentUser];
         }
     }
 }

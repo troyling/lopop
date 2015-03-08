@@ -72,6 +72,7 @@
 		D683F2A71A6FFD3B00117D36 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D683F2A61A6FFD3B00117D36 /* MapKit.framework */; };
 		D683F2B31A70438C00117D36 /* plus-32.png in Resources */ = {isa = PBXBuildFile; fileRef = D683F2B21A70438C00117D36 /* plus-32.png */; };
 		D68CD1B31AA3EBE20023E311 /* LPUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D68CD1B21AA3EBE20023E311 /* LPUserInfo.m */; };
+		D6934F101AAC0B6D0080DB7E /* LPUserProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6934F0F1AAC0B6D0080DB7E /* LPUserProfileTableViewController.m */; };
 		D6A5D7BF1A80087700A631CD /* RateView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A5D7BE1A80087700A631CD /* RateView.m */; };
 		D6A5D7C41A80090A00A631CD /* LPUserRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A5D7C31A80090A00A631CD /* LPUserRatingView.m */; };
 		D6A5D7DA1A8153C700A631CD /* Oval 1.png in Resources */ = {isa = PBXBuildFile; fileRef = D6A5D7D71A8153C700A631CD /* Oval 1.png */; };
@@ -268,6 +269,8 @@
 		D683F2B21A70438C00117D36 /* plus-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-32.png"; path = "Resources/Images/TabBarIcons/plus-32.png"; sourceTree = "<group>"; };
 		D68CD1B11AA3EBE20023E311 /* LPUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserInfo.h; path = Models/LPUserInfo.h; sourceTree = "<group>"; };
 		D68CD1B21AA3EBE20023E311 /* LPUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserInfo.m; path = Models/LPUserInfo.m; sourceTree = "<group>"; };
+		D6934F0E1AAC0B6D0080DB7E /* LPUserProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserProfileTableViewController.h; path = Controllers/User/Profile/LPUserProfileTableViewController.h; sourceTree = "<group>"; };
+		D6934F0F1AAC0B6D0080DB7E /* LPUserProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserProfileTableViewController.m; path = Controllers/User/Profile/LPUserProfileTableViewController.m; sourceTree = "<group>"; };
 		D6A5D7BD1A80087700A631CD /* RateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RateView.h; path = Vendors/Libs/RateView/RateView.h; sourceTree = "<group>"; };
 		D6A5D7BE1A80087700A631CD /* RateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RateView.m; path = Vendors/Libs/RateView/RateView.m; sourceTree = "<group>"; };
 		D6A5D7C21A80090A00A631CD /* LPUserRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingView.h; path = Views/MainView/Feed/LPUserRatingView.h; sourceTree = "<group>"; };
@@ -762,6 +765,8 @@
 				D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */,
 				D6AB46A21A7C01A9001BCCFC /* LPFollowerTableViewController.h */,
 				D6AB46A31A7C01A9001BCCFC /* LPFollowerTableViewController.m */,
+				D6934F0E1AAC0B6D0080DB7E /* LPUserProfileTableViewController.h */,
+				D6934F0F1AAC0B6D0080DB7E /* LPUserProfileTableViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -1268,6 +1273,7 @@
 				D66CC8B61A60DD8C007B9992 /* AppDelegate.m in Sources */,
 				D6F5F8381A8514680005758B /* Misc.swift in Sources */,
 				D6F5F83B1A8514680005758B /* SpringButton.swift in Sources */,
+				D6934F101AAC0B6D0080DB7E /* LPUserProfileTableViewController.m in Sources */,
 				D6008A241A67269F0057771A /* LPNewPopTableViewController.m in Sources */,
 				D6ED53F21A997D8500B5155D /* LPTimePickerViewController.m in Sources */,
 				D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */,
