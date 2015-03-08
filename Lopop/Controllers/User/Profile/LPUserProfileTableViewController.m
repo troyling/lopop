@@ -17,6 +17,8 @@
 #import "LPPopListingTableViewCell.h"
 #import "LPUserHelper.h"
 
+#define QUERY_LIMIT 40
+
 @interface LPUserProfileTableViewController ()
 
 @property (retain, nonatomic) NSMutableArray *currentPops;
@@ -41,7 +43,7 @@
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self loadSegmentedControl];
-    [self queryForPops];
+    [self queryForPops:NO];
 
     // init
     self.currentPops = [NSMutableArray array];
@@ -153,80 +155,119 @@
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 1:
             // past pops
-            [self queryForPastPops];
+            [self queryForPastPops:NO];
             break;
         case 2:
             // following
-            [self queryForFollowing];
+            [self queryForFollowing:NO];
             break;
         case 3:
             // follower
-            [self queryForFollowers];
+            [self queryForFollowers:NO];
             break;
         default:
             // current pops
-            [self queryForPops];
+            [self queryForPops:NO];
             break;
     }
 }
 
 #pragma mark Parse
 
-- (void)queryForPops {
+- (void)queryForPops:(BOOL)loadMore {
     PFQuery *query = [LPPop query];
+    query.limit = QUERY_LIMIT;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query orderByDescending:@"createdAt"];
     [query whereKey:@"seller" equalTo:self.user];
     [query whereKey:@"status" notEqualTo:[NSNumber numberWithInteger:kPopcompleted]];
-    [query setLimit:40];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            [self.currentPops addObjectsFromArray:objects];
-            [self.tableView reloadData];
-        }
-    }];
-}
-
-- (void)queryForPastPops {
-    PFQuery *query = [LPPop query];
-    [query orderByAscending:@"updatedAt"];
-    [query whereKey:@"seller" equalTo:self.user];
-    query.limit = 40;
-    [query whereKey:@"status" equalTo:[NSNumber numberWithInteger:kPopcompleted]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            NSLog(@"@number of past pops: %lu", (unsigned long)objects.count);
-            [self.pastPops addObjectsFromArray:objects];
-            [self.tableView reloadData];
-        }
-    }];
-}
-
-- (void)queryForFollowing {
-    PFQuery *query = [LPUserRelationship query];
-    [query orderByDescending:@"createdAt"];
-    [query whereKey:@"follower" equalTo:self.user];
-    [query includeKey:@"followedUser"];
-    query.limit = 40;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            for (LPUserRelationship *relationship in objects) {
-                [self.following addObject:relationship.followedUser];
+            if (objects.count != 0) {
+                if (loadMore) {
+                    [self.currentPops addObjectsFromArray:objects];
+                } else {
+                    NSRange range = NSMakeRange(0, self.currentPops.count);
+                    [self.currentPops replaceObjectsInRange:range withObjectsFromArray:objects];
+                }
+            } else {
+                // TODO show end
+                NSLog(@"that's all");
             }
             [self.tableView reloadData];
         }
     }];
 }
 
-- (void)queryForFollowers {
+- (void)queryForPastPops:(BOOL)loadMore {
+    PFQuery *query = [LPPop query];
+    query.limit = QUERY_LIMIT;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [query orderByAscending:@"updatedAt"];
+    [query whereKey:@"seller" equalTo:self.user];
+    [query whereKey:@"status" equalTo:[NSNumber numberWithInteger:kPopcompleted]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count != 0) {
+                if (loadMore) {
+                    [self.pastPops addObjectsFromArray:objects];
+                } else {
+                    NSRange range = NSMakeRange(0, self.pastPops.count);
+                    [self.pastPops replaceObjectsInRange:range withObjectsFromArray:objects];
+                }
+            } else {
+                // TODO show end
+                NSLog(@"END2");
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)queryForFollowing:(BOOL)loadMore {
     PFQuery *query = [LPUserRelationship query];
+    query.limit = QUERY_LIMIT;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [query orderByDescending:@"createdAt"];
+    [query whereKey:@"follower" equalTo:self.user];
+    [query includeKey:@"followedUser"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count != 0) {
+                if (!loadMore) {
+                    [self.following removeAllObjects];
+                }
+                for (LPUserRelationship *relationship in objects) {
+                    [self.following addObject:relationship.followedUser];
+                }
+            } else {
+                // TODO show end
+                NSLog(@"END3");
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)queryForFollowers:(BOOL)loadMore {
+    PFQuery *query = [LPUserRelationship query];
+    query.limit = QUERY_LIMIT;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query orderByAscending:@"createdAt"];
     [query whereKey:@"followedUser" equalTo:self.user];
     [query includeKey:@"follower"];
-    query.limit = 40;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            for (LPUserRelationship *relationship in objects) {
-                [self.followers addObject:relationship.follower];
+            if (objects.count != 0) {
+                if (!loadMore) {
+                    [self.followers removeAllObjects];
+                }
+                for (LPUserRelationship *relationship in objects) {
+                    [self.followers addObject:relationship.follower];
+                }
+            } else {
+                // TODO show end
+                NSLog(@"END 4");
             }
             [self.tableView reloadData];
         }
@@ -291,12 +332,16 @@
         // configure follow button
         if (![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
             // other user
-            if ([LPUserHelper isCurrentUserFollowingUser:user]) {
-                [self setUnfollowLayoutForButton:cell.followBtn];
-            } else {
-                [self setFollowLayoutForButton:cell.followBtn];
-            }
-            cell.followBtn.hidden = NO;
+            [LPUserHelper isCurrentUserFollowingUserInBackground:user withBlock:^(BOOL isFollowing, NSError *error) {
+                if (!error) {
+                    if (isFollowing) {
+                        [self setUnfollowLayoutForButton:cell.followBtn];
+                    } else {
+                        [self setFollowLayoutForButton:cell.followBtn];
+                    }
+                    cell.followBtn.hidden = NO;
+                }
+            }];
         }
         return cell;
     } else {

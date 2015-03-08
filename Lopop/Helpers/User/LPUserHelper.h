@@ -17,6 +17,7 @@
 + (void)initUserInfoWithGender:(NSString *)gender Locale:(NSString *)locale;
 
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser;
++ (void)isCurrentUserFollowingUserInBackground:(PFUser *)user withBlock:(void (^)(BOOL isFollowing, NSError *error))completionBlock;
 
 + (void)followUserInBackground:(PFUser *)targetUser
                      withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock;
