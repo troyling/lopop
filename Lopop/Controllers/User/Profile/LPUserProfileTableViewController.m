@@ -36,6 +36,7 @@
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self loadSegmentedControl];
+    [self queryForPops];
 
     // init
     self.currentPops = [NSMutableArray array];
@@ -79,7 +80,7 @@
 }
 
 - (void)loadSegmentedControl {
-    self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Selling", @"Sold", @"Following", @"Followers"]];
+    self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Pops", @"Completed", @"Following", @"Followers"]];
     self.segmentedControl.frame = self.segmentedControlView.bounds;
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleArrow;
@@ -94,7 +95,6 @@
     [self.segmentedControlView addSubview:self.segmentedControl];
 }
 
-
 #pragma mark segmentedControl
 
 - (IBAction)segmentedControlChangedValue:(id)sender {
@@ -103,17 +103,14 @@
             // past pops
             [self queryForPastPops];
             break;
-
         case 2:
             // following
             [self queryForFollowing];
             break;
-
         case 3:
             // follower
             [self queryForFollowers];
             break;
-
         default:
             // current pops
             [self queryForPops];
@@ -211,6 +208,14 @@
 }
 
 #pragma mark - TableView Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = 56.0f;
+    if (self.segmentedControl.selectedSegmentIndex == 0 || self.segmentedControl.selectedSegmentIndex == 1) {
+        height = 90.0f;
+    }
+    return height;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.segmentedControl.selectedSegmentIndex == 2 || self.segmentedControl.selectedSegmentIndex == 3) {

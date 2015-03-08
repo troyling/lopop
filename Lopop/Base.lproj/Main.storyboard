@@ -2899,16 +2899,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bq7-Ol-To3">
-                                            <rect key="frame" x="135" y="36" width="35" height="20"/>
+                                            <rect key="frame" x="134" y="36" width="232" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Ijx-hS-eDP"/>
-                                                <constraint firstAttribute="width" constant="35" id="zmY-19-sNo"/>
+                                                <constraint firstAttribute="width" constant="232" id="zmY-19-sNo"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="15"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVC-eC-iYa">
-                                            <rect key="frame" x="135" y="8" width="217" height="20"/>
+                                            <rect key="frame" x="134" y="8" width="217.5" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="GZl-do-f5x"/>
                                                 <constraint firstAttribute="height" constant="20" id="pgx-fZ-suq"/>
@@ -2923,7 +2923,7 @@
                                             </variation>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-8F-1TC">
-                                            <rect key="frame" x="0.0" y="0.0" width="120" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="119" height="89.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="EZm-8F-1TC" secondAttribute="height" multiplier="4:3" id="eN0-6j-ZRT"/>
                                                 <constraint firstAttribute="width" secondItem="EZm-8F-1TC" secondAttribute="height" multiplier="1:1" id="frx-PR-MSQ"/>
@@ -2934,17 +2934,6 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdb-3O-ROx">
-                                            <rect key="frame" x="327" y="25" width="40" height="40"/>
-                                            <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="5Ip-5V-Q9a"/>
-                                                <constraint firstAttribute="width" secondItem="wdb-3O-ROx" secondAttribute="height" multiplier="1:1" id="HQs-KC-ofj"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="DVC-eC-iYa" firstAttribute="leading" secondItem="EZm-8F-1TC" secondAttribute="trailing" constant="15" id="4di-hj-eJD"/>
@@ -2953,12 +2942,10 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="EZm-8F-1TC" secondAttribute="bottom" constant="-8" id="Cz9-nT-hSq"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="DVC-eC-iYa" secondAttribute="trailing" constant="15" id="En7-KP-83M"/>
                                         <constraint firstItem="EZm-8F-1TC" firstAttribute="top" secondItem="lsT-1P-pvH" secondAttribute="topMargin" constant="-7.5" id="HPT-4K-CRl"/>
-                                        <constraint firstItem="wdb-3O-ROx" firstAttribute="top" secondItem="bq7-Ol-To3" secondAttribute="bottom" constant="-31" id="JST-zb-CUH"/>
-                                        <constraint firstItem="bq7-Ol-To3" firstAttribute="leading" secondItem="EZm-8F-1TC" secondAttribute="trailing" constant="15" placeholder="YES" id="aLv-9S-t17"/>
+                                        <constraint firstItem="bq7-Ol-To3" firstAttribute="leading" secondItem="EZm-8F-1TC" secondAttribute="trailing" constant="15" id="aLv-9S-t17"/>
                                         <constraint firstItem="EZm-8F-1TC" firstAttribute="leading" secondItem="lsT-1P-pvH" secondAttribute="leadingMargin" constant="-8" id="ctU-iU-lLv"/>
                                         <constraint firstItem="EZm-8F-1TC" firstAttribute="top" secondItem="lsT-1P-pvH" secondAttribute="topMargin" constant="-8" id="dNZ-dn-Nfw"/>
                                         <constraint firstItem="EZm-8F-1TC" firstAttribute="width" secondItem="EZm-8F-1TC" secondAttribute="height" multiplier="1:1" id="hkp-ET-SNP"/>
-                                        <constraint firstItem="wdb-3O-ROx" firstAttribute="leading" secondItem="EZm-8F-1TC" secondAttribute="trailing" constant="207" id="jvq-54-trx"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -2969,7 +2956,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imgView" destination="EZm-8F-1TC" id="aQy-Of-24e"/>
-                                    <outlet property="numOfferLabel" destination="wdb-3O-ROx" id="JYD-J3-vds"/>
                                     <outlet property="priceLabel" destination="bq7-Ol-To3" id="S0Y-k6-Lgf"/>
                                     <outlet property="titleLabel" destination="DVC-eC-iYa" id="KMo-d4-eRG"/>
                                 </connections>
