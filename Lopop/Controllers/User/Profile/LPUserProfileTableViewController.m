@@ -14,6 +14,7 @@
 #import "LPPop.h"
 #import "LPUserRelationship.h"
 #import "LPFollowerTableViewCell.h"
+#import "LPPopListingTableViewCell.h"
 #import "LPUserHelper.h"
 
 @interface LPUserProfileTableViewController ()
@@ -53,6 +54,8 @@
         }];
     }
 }
+
+#pragma mark - InitSetup
 
 - (void)loadUserInfo {
     self.nameLabel.text = self.user[@"name"];
@@ -97,23 +100,23 @@
 - (IBAction)segmentedControlChangedValue:(id)sender {
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 1:
-            NSLog(@"sold");
+            // past pops
+            [self queryForPastPops];
             break;
 
         case 2:
-            NSLog(@"following");
+            // following
             [self queryForFollowing];
             break;
 
         case 3:
             // follower
-            NSLog(@"followers");
             [self queryForFollowers];
             break;
 
         default:
             // current pops
-            NSLog(@"pops");
+            [self queryForPops];
             break;
     }
 }
@@ -133,7 +136,17 @@
 }
 
 - (void)queryForPastPops {
-
+    PFQuery *query = [LPPop query];
+    [query orderByAscending:@"updatedAt"];
+    query.limit = 40;
+    [query whereKey:@"status" equalTo:[NSNumber numberWithInteger:kPopcompleted]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"@number of past pops: %lu", (unsigned long)objects.count);
+            [self.pastPops addObjectsFromArray:objects];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)queryForFollowing {
@@ -209,7 +222,6 @@
 
         PFUser *user = (self.segmentedControl.selectedSegmentIndex == 2) ? [self.following objectAtIndex:indexPath.row] : [self.followers objectAtIndex:indexPath.row];
 
-        NSLog(@"user: %@", user);
         [cell.profileImageView sd_setImageWithURL:user[@"profilePictureUrl"]];
         cell.nameLabel.text = user[@"name"];
 
@@ -228,7 +240,22 @@
         }
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"popsCell" forIndexPath:indexPath];
+        NSString *cellIdentifier = @"popsCell";
+
+        LPPopListingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+
+        if (!cell) {
+            cell = [[LPPopListingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+
+        LPPop *pop = self.segmentedControl.selectedSegmentIndex == 0 ? [self.currentPops objectAtIndex:indexPath.row] : [self.pastPops objectAtIndex:indexPath.row];
+
+        // load cell
+        cell.titleLabel.text = pop.title;
+        cell.priceLabel.text = [pop publicPriceStr];
+        PFFile *file = pop.images.firstObject;
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:file.url]];
+
         return cell;
     }
 }
