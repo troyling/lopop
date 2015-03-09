@@ -15,6 +15,7 @@
 #import "LPUserRelationship.h"
 #import "LPFollowerTableViewCell.h"
 #import "LPPopListingTableViewCell.h"
+#import "LPPopDetailViewController.h"
 #import "LPUserHelper.h"
 
 #define QUERY_LIMIT 40
@@ -365,6 +366,20 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.segmentedControl.selectedSegmentIndex == 2 || self.segmentedControl.selectedSegmentIndex == 3) {
+        LPUserProfileTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"userProfile"];
+        PFUser *user = self.segmentedControl.selectedSegmentIndex == 2 ? [self.following objectAtIndex:indexPath.row] : [self.followers objectAtIndex:indexPath.row];
+        vc.user = user;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (self.segmentedControl.selectedSegmentIndex == 0 || self.segmentedControl.selectedSegmentIndex == 1) {
+        LPPopDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"detailView"];
+        LPPop *pop = self.segmentedControl.selectedSegmentIndex == 0 ? [self.currentPops objectAtIndex:indexPath.row] : [self.pastPops objectAtIndex:indexPath.row];
+        vc.pop = pop;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 #pragma mark UIActionsheet
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -459,34 +474,6 @@
     [self.segmentedControl setSectionTitles:titles];
     [self.segmentedControl setNeedsDisplay];
 
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    //    if ([segue.destinationViewController isKindOfClass:[LPUserProfileTableViewController class]]) {
-    //        if ([sender isKindOfClass:[LPFollowerTableViewCell class]]) {
-    //            LPUserProfileTableViewController *vc = segue.destinationViewController;
-    //            LPFollowerTableViewCell *cell = sender;
-    //            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-
-
-
-    //            if (indexPath.row < self.userRelationships.count) {
-    //                LPUserRelationship *relationship = [self.userRelationships objectAtIndex:indexPath.row];
-    //
-    //                if (self.contentType == FOLLOWER) {
-    //                    vc.targetUser = relationship.follower;
-    //                } else {
-    //                    vc.targetUser = relationship.followedUser;
-    //                }
-    //            } else {
-    //                NSLog(@"error");
-    //            }
-    //}
-    //}
 }
 
 @end
