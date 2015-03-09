@@ -18,4 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIView *segmentedControlView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UIView *userRatingView;
+
 @end

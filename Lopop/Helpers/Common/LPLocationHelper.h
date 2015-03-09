@@ -16,6 +16,9 @@
 + (void)getAddressForLocation:(CLLocation *)location withBlock:(void (^)(NSString *address, NSError *error))completionBlock;
 + (void)getAddressForGeoPoint:(PFGeoPoint *)geoPoint withBlock:(void (^)(NSString *address, NSError *error))completionBlock;
 
++ (void)getRegionForLocation:(CLLocation *)location withBlock:(void (^)(NSString *region, NSError *error))completionBlock;
++ (void)getRegionForGeoPoint:(PFGeoPoint *)geoPoint withBlock:(void (^)(NSString *region, NSError *error))completionBlock;
+
 + (NSString *)stringOfDistanceInMilesBetweenLocations:(CLLocation *)fromLocaiton and:(CLLocation *)toLocation withFormat:(NSString *)format;
 + (NSString *)stringOfDistanceInMilesBetweenGeoPoints:(PFGeoPoint *)fromPoint and:(PFGeoPoint *)toPoint withFormat:(NSString *)format;
 

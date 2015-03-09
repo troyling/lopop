@@ -17,6 +17,7 @@
 #import "LPPopListingTableViewCell.h"
 #import "LPPopDetailViewController.h"
 #import "LPUserHelper.h"
+#import "LPLocationHelper.h"
 
 #define QUERY_LIMIT 40
 
@@ -45,6 +46,7 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self loadSegmentedControl];
     [self queryForPops:NO];
+    [self loadUserInfo];
 
     // init
     self.currentPops = [NSMutableArray array];
@@ -53,12 +55,12 @@
     self.followers = [NSMutableArray array];
 
     if ([self.user isDataAvailable]) {
-        [self loadUserInfo];
+        [self loadUserProfile];
     }
     else {
         [self.user fetchInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
             if (!error) {
-                [self loadUserInfo];
+                [self loadUserProfile];
             }
         }];
     }
@@ -66,7 +68,7 @@
 
 #pragma mark - InitSetup
 
-- (void)loadUserInfo {
+- (void)loadUserProfile {
     self.nameLabel.text = self.user[@"name"];
 
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
@@ -83,6 +85,35 @@
                     self.profBkgImageView.image = bkgImg;
                 });
             });
+        }
+    }];
+}
+
+- (void)loadUserInfo {
+    [LPUserHelper findUserInfoInBackground:self.user withBlock:^(LPUserInfo *userInfo, BOOL succeeded, NSError *error) {
+        if (!error) {
+            // rating
+            float avgRating = [userInfo userAvgRating];
+            RateView *rv = [RateView rateViewWithRating:avgRating];
+            rv.starFillColor = [LPUIHelper ratingStarColor];
+            rv.starBorderColor = [UIColor clearColor];
+            rv.starSize = 15.0f;
+            rv.starNormalColor = [UIColor lightGrayColor];
+            [self.userRatingView addSubview:rv];
+
+            // this might need more work
+            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 100, 12)];
+            l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
+            l.textAlignment = NSTextAlignmentLeft;
+            l.textColor = [UIColor lightGrayColor];
+            [self.userRatingView addSubview:l];
+
+            // location
+            [LPLocationHelper getRegionForGeoPoint:userInfo.location withBlock:^(NSString *address, NSError *error) {
+                if (!error) {
+                    self.locationLabel.text = address;
+                }
+            }];
         }
     }];
 }

@@ -15,6 +15,7 @@
 + (void)mapCurrentUserFBData;
 
 + (void)initUserInfoWithGender:(NSString *)gender Locale:(NSString *)locale;
++ (void)updateUserInfoWithLocationEventually:(CLLocation *)location;
 
 + (BOOL)isCurrentUserFollowingUser:(PFUser *)targetUser;
 + (void)isCurrentUserFollowingUserInBackground:(PFUser *)user withBlock:(void (^)(BOOL isFollowing, NSError *error))completionBlock;

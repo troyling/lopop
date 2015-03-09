@@ -103,6 +103,19 @@
     [userInfo saveEventually];
 }
 
++ (void)updateUserInfoWithLocationEventually:(CLLocation *)location {
+    PFQuery *query = [LPUserInfo query];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count == 1) {
+            LPUserInfo *info = objects.firstObject;
+            info.location = [PFGeoPoint geoPointWithLocation:location];
+            [info saveEventually];
+        }
+    }];
+}
+
 + (void)followUserInBackground:(PFUser *)targetUser withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock {
     if ([targetUser.objectId isEqualToString:[[PFUser currentUser] objectId]]) {
         NSMutableDictionary* details = [NSMutableDictionary dictionary];
