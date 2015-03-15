@@ -120,7 +120,8 @@
 
 - (void)loadSegmentedControl {
     self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Pops", @"Completed", @"Following", @"Followers"]];
-    self.segmentedControl.frame = self.segmentedControlView.bounds;
+    self.segmentedControl.frame = CGRectMake(0, 0, [LPUIHelper screenWidth], 60);
+    self.segmentedControl.userDraggable = NO;
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleArrow;
     self.segmentedControl.backgroundColor = [LPUIHelper lopopColorWithAlpha:0.8];
