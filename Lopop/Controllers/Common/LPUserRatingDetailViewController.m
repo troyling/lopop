@@ -24,12 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // delegate
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
+    // tableview UI
     self.tableView.estimatedRowHeight = 100.0f;
     self.tableView.rowHeight= UITableViewAutomaticDimension;
-
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.backgroundColor = [UIColor clearColor];
 
@@ -64,6 +65,7 @@
 
     [cell.profileImageView sd_setImageWithURL:rating.rater[@"profilePictureUrl"]];
     cell.nameLabel.text = rating.rater[@"name"];
+    cell.commentLabel.text = rating.comment;
 
     // time
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
@@ -71,8 +73,6 @@
     [outputDateFormatter setTimeZone:timeZoneLocal];
     [outputDateFormatter setDateFormat:@"MMM d, yyyy"];
     cell.timeLabel.text = [outputDateFormatter stringFromDate:rating.createdAt];
-
-    cell.commentLabel.text = rating.comment;
 
     // rateview
     RateView *rv = [RateView rateViewWithRating:[rating.rating floatValue]];

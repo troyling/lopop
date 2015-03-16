@@ -18,6 +18,7 @@
 #import "LPUIHelper.h"
 #import "LPOffer.h"
 #import "UIImageView+WebCache.h"
+#import "LPUserProfileTableViewController.h"
 #import "LPUserHelper.h"
 #import "IDMPhotoBrowser.h"
 #import <QuartzCore/QuartzCore.h>
@@ -254,9 +255,8 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
 #pragma mark View Controller Transition
 
 - (void)viewSellerProfile {
-    LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
-    // TODO check if the seller is the currentUser
-    vc.targetUser = self.pop.seller;
+    LPUserProfileTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"userProfile"];
+    vc.user = self.pop.seller;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -276,7 +276,6 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
         [imgUrls addObject:[NSURL URLWithString:f.url]];
     }
 
-
     NSArray *photos = [IDMPhoto photosWithImages:self.images];
     IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos animatedFromView:self.imageScrollView];
     [browser setInitialPageIndex:index];
@@ -287,18 +286,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
     browser.displayDoneButton = YES;
     browser.displayToolbar = NO;
     browser.usePopAnimation = YES;
-//    browser.doneButtonImage = [UIImage imageNamed:@"icon_close_white"];
-
     [self presentViewController:browser animated:YES completion:nil];
-
-
-//    LPImageShowcaseViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"imageShowcase"];
-//    
-//    // TODO Configure this
-
-//    vc.index = page - 1;
-//    vc.images = self.images;
-//    [self.navigationController presentViewController:vc animated:NO completion:NULL];
 }
 
 #pragma mark segue
