@@ -7,21 +7,21 @@
 //
 
 #import "LPUserProfileTableViewController.h"
-#import "UIImageView+WebCache.h"
-#import "UIImage+ImageEffects.h"
-#import "HMSegmentedControl.h"
-#import "LPUIHelper.h"
-#import "LPPop.h"
-#import "LPUserRelationship.h"
-#import "LPFollowerTableViewCell.h"
-#import "LPPopListingTableViewCell.h"
-#import "LPPopDetailViewController.h"
 #import "LPUserRatingDetailViewController.h"
 #import "LPMainViewTabBarController.h"
+#import "LPPopListingTableViewCell.h"
+#import "LPPopDetailViewController.h"
+#import "LPFollowerTableViewCell.h"
 #import "LPPermissionValidator.h"
-#import "LPUserHelper.h"
-#import "LPLocationHelper.h"
+#import "UIImageView+WebCache.h"
+#import "UIImage+ImageEffects.h"
+#import "LPUserRelationship.h"
+#import "HMSegmentedControl.h"
 #import "LPAlertViewHelper.h"
+#import "LPLocationHelper.h"
+#import "LPUserHelper.h"
+#import "LPUIHelper.h"
+#import "LPPop.h"
 
 #define QUERY_LIMIT 40
 
@@ -592,7 +592,6 @@
 - (id)tableViewItemForButton:(UIButton *)button {
     PFUser *user;
     if ([button.superview.superview isKindOfClass:[LPFollowerTableViewCell class]]) {
-
         LPFollowerTableViewCell *cell = (LPFollowerTableViewCell *) button.superview.superview;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         user = (self.segmentedControl.selectedSegmentIndex == 2) ? [self.following objectAtIndex:indexPath.row] : [self.followers objectAtIndex:indexPath.row];

@@ -10,6 +10,7 @@
 #import "LPNewPopTableViewController.h"
 #import "LPUIHelper.h"
 #import "LPChatManager.h"
+#import <Parse/Parse.h>
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -34,6 +35,8 @@ float const NUM_TABS = 5.0;
         [self.view addSubview:view];
     }
 
+    // fetching data
+    [[PFUser currentUser] fetchInBackground];
     [LPChatManager getInstance];
 
 }
