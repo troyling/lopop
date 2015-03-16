@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profBkgImageView;
 @property (weak, nonatomic) IBOutlet UIView *segmentedControlView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *followBtn;
 
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;

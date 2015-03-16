@@ -3097,7 +3097,7 @@
                                     </variation>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQK-U8-Mjj" userLabel="rating">
-                                    <rect key="frame" x="112" y="173" width="150" height="20"/>
+                                    <rect key="frame" x="112" y="175" width="150" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="EcE-pl-tQ5"/>
                                         <constraint firstAttribute="height" constant="40" id="aBh-4O-mzW"/>
@@ -3109,6 +3109,23 @@
                                         </mask>
                                     </variation>
                                 </view>
+                                <button hidden="YES" opaque="NO" tag="999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWB-zP-LTJ" userLabel="followBtn" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
+                                    <rect key="frame" x="277" y="165" width="80" height="30"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="80" id="CAb-T7-fm5"/>
+                                        <constraint firstAttribute="height" constant="30" id="euL-3V-1gH"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -3116,13 +3133,16 @@
                                 <constraint firstItem="IjM-XW-2Pf" firstAttribute="top" secondItem="qnJ-Nb-JZM" secondAttribute="bottom" constant="8" id="4dZ-48-mSe"/>
                                 <constraint firstItem="0ro-Wc-lrN" firstAttribute="top" secondItem="se6-WV-Bwc" secondAttribute="top" id="4eL-zw-gln"/>
                                 <constraint firstAttribute="trailing" secondItem="CQK-U8-Mjj" secondAttribute="trailing" id="5I7-JC-xah"/>
+                                <constraint firstItem="dWB-zP-LTJ" firstAttribute="top" secondItem="IjM-XW-2Pf" secondAttribute="bottom" id="5gp-qf-fjh"/>
                                 <constraint firstItem="IjM-XW-2Pf" firstAttribute="centerX" secondItem="qnJ-Nb-JZM" secondAttribute="centerX" id="6se-uO-L2k"/>
                                 <constraint firstItem="CQK-U8-Mjj" firstAttribute="centerX" secondItem="IjM-XW-2Pf" secondAttribute="centerX" id="DpH-cU-P6x"/>
+                                <constraint firstItem="dWB-zP-LTJ" firstAttribute="leading" secondItem="CQK-U8-Mjj" secondAttribute="trailing" constant="15" id="HHt-qW-qm8"/>
                                 <constraint firstItem="0ro-Wc-lrN" firstAttribute="centerX" secondItem="wPy-qK-S7E" secondAttribute="centerX" id="Ig8-jb-Si3"/>
                                 <constraint firstItem="CQK-U8-Mjj" firstAttribute="leading" secondItem="IjM-XW-2Pf" secondAttribute="trailing" id="JKK-aX-Zak"/>
                                 <constraint firstItem="0ro-Wc-lrN" firstAttribute="leading" secondItem="se6-WV-Bwc" secondAttribute="leading" id="Sau-7e-d3Z"/>
                                 <constraint firstAttribute="centerX" secondItem="0ro-Wc-lrN" secondAttribute="centerX" id="Tn7-YZ-8ib"/>
                                 <constraint firstItem="IjM-XW-2Pf" firstAttribute="width" secondItem="qnJ-Nb-JZM" secondAttribute="width" multiplier="0.5" id="XMY-kz-doF"/>
+                                <constraint firstItem="CQK-U8-Mjj" firstAttribute="leading" secondItem="dWB-zP-LTJ" secondAttribute="trailing" constant="8" id="XOp-3Y-n9C"/>
                                 <constraint firstItem="CQK-U8-Mjj" firstAttribute="leading" secondItem="IjM-XW-2Pf" secondAttribute="trailing" constant="70" id="XfQ-YZ-SIp"/>
                                 <constraint firstItem="cZ2-Ud-rz5" firstAttribute="width" secondItem="0ro-Wc-lrN" secondAttribute="width" id="YL5-NI-SVz"/>
                                 <constraint firstItem="0ro-Wc-lrN" firstAttribute="top" secondItem="wPy-qK-S7E" secondAttribute="top" constant="-8" id="ZC0-3W-Q4n"/>
@@ -3138,7 +3158,7 @@
                                 <constraint firstItem="CQK-U8-Mjj" firstAttribute="top" secondItem="qnJ-Nb-JZM" secondAttribute="bottom" constant="8" id="iGi-jd-Jqz"/>
                                 <constraint firstItem="0ro-Wc-lrN" firstAttribute="top" secondItem="wPy-qK-S7E" secondAttribute="top" constant="-8" id="iJL-pF-yOs"/>
                                 <constraint firstItem="IjM-XW-2Pf" firstAttribute="top" secondItem="CQK-U8-Mjj" secondAttribute="bottom" id="lS7-oP-76t"/>
-                                <constraint firstItem="CQK-U8-Mjj" firstAttribute="top" secondItem="IjM-XW-2Pf" secondAttribute="bottom" constant="8" id="prX-3h-7ge"/>
+                                <constraint firstItem="CQK-U8-Mjj" firstAttribute="top" secondItem="IjM-XW-2Pf" secondAttribute="bottom" constant="10" id="prX-3h-7ge"/>
                                 <constraint firstItem="0ro-Wc-lrN" firstAttribute="width" secondItem="qnJ-Nb-JZM" secondAttribute="width" id="ulH-AI-Cag"/>
                                 <constraint firstItem="cZ2-Ud-rz5" firstAttribute="top" secondItem="0ro-Wc-lrN" secondAttribute="bottom" id="ymn-hw-5X5"/>
                                 <constraint firstItem="IjM-XW-2Pf" firstAttribute="width" secondItem="qnJ-Nb-JZM" secondAttribute="width" id="yoL-7B-l9O"/>
@@ -3152,13 +3172,14 @@
                                     <exclude reference="aQu-rG-rQV"/>
                                     <exclude reference="goF-4M-fjo"/>
                                     <exclude reference="lS7-oP-76t"/>
+                                    <exclude reference="ymn-hw-5X5"/>
                                     <exclude reference="5I7-JC-xah"/>
                                     <exclude reference="JKK-aX-Zak"/>
+                                    <exclude reference="XOp-3Y-n9C"/>
                                     <exclude reference="XfQ-YZ-SIp"/>
                                     <exclude reference="cUA-x3-dgU"/>
                                     <exclude reference="iAG-F4-WDm"/>
                                     <exclude reference="iGi-jd-Jqz"/>
-                                    <exclude reference="ymn-hw-5X5"/>
                                 </mask>
                             </variation>
                         </view>
@@ -3296,6 +3317,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="followBtn" destination="dWB-zP-LTJ" id="9lX-CB-0RS"/>
                         <outlet property="locationLabel" destination="IjM-XW-2Pf" id="P4W-8o-YXB"/>
                         <outlet property="nameLabel" destination="qnJ-Nb-JZM" id="Qoz-Is-gdo"/>
                         <outlet property="profBkgImageView" destination="0ro-Wc-lrN" id="c3w-Yb-JZ3"/>

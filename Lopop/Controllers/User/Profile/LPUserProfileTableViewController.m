@@ -24,6 +24,7 @@
 #import "LPPop.h"
 
 #define QUERY_LIMIT 40
+#define PROFILE_FOLLOW_BUTTON_TAG 999
 
 @interface LPUserProfileTableViewController ()
 
@@ -100,10 +101,26 @@
         }
     }];
 
+    // profile image
     if ([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(udpateProfileImage:)];
         self.profileImageView.userInteractionEnabled = YES;
         [self.profileImageView addGestureRecognizer:tap];
+    }
+
+    // follow button
+    if (![self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        // other user
+        [LPUserHelper isCurrentUserFollowingUserInBackground:self.user withBlock:^(BOOL isFollowing, NSError *error) {
+            if (!error) {
+                if (isFollowing) {
+                    [self setUnfollowLayoutForButton:self.followBtn];
+                } else {
+                    [self setFollowLayoutForButton:self.followBtn];
+                }
+                self.followBtn.hidden = NO;
+            }
+        }];
     }
 }
 
@@ -442,7 +459,7 @@
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([title isEqualToString:@"Unfollow"]) {
         if (self.clickedBtn) {
-            PFUser *userToUnfollow = [self tableViewItemForButton:self.clickedBtn];
+            PFUser *userToUnfollow = self.clickedBtn.tag == 999 ? self.user : [self tableViewItemForButton:self.clickedBtn];
             // unfollow the user
             [LPUserHelper unfollowUserInBackground:userToUnfollow withBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
@@ -549,7 +566,7 @@
 
 - (void)setFollowLayoutForButton:(UIButton *)button {
     [button setTitle:@"+ Follow" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor whiteColor]];
+    [button setBackgroundColor:[UIColor clearColor]];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
     button.layer.borderWidth = 1.0f;
@@ -565,10 +582,7 @@
 
     if ([sender isKindOfClass:[UIButton class]]) {
         UIButton *btn = sender;
-        user = [self tableViewItemForButton:btn];
-    }
-
-    if (user) {
+        user = btn.tag == 999 ? self.user : [self tableViewItemForButton:btn];
         sheetTitle = [NSString stringWithFormat:@"Unfollow %@?", user[@"name"]];
         self.clickedBtn = sender;
     }
@@ -580,7 +594,9 @@
 - (IBAction)followUser:(id)sender {
     if ([sender isKindOfClass:[UIButton class]]) {
         UIButton *btn = sender;
-        PFUser *userToFollow = [self tableViewItemForButton:btn];
+
+        // check if the button is the one in profile
+        PFUser *userToFollow = btn.tag == PROFILE_FOLLOW_BUTTON_TAG ? self.user : [self tableViewItemForButton:btn];
         [LPUserHelper followUserInBackground:userToFollow withBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 [btn removeTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
