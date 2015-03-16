@@ -16,6 +16,7 @@
 #import "LPFollowerTableViewCell.h"
 #import "LPPopListingTableViewCell.h"
 #import "LPPopDetailViewController.h"
+#import "LPUserRatingDetailViewController.h"
 #import "LPUserHelper.h"
 #import "LPLocationHelper.h"
 
@@ -114,6 +115,11 @@
                     self.locationLabel.text = address;
                 }
             }];
+
+            // add action listener to rateview
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAllUserRating:)];
+            self.userRatingView.userInteractionEnabled = YES;
+            [self.userRatingView addGestureRecognizer:tap];
         }
     }];
 }
@@ -436,6 +442,13 @@
 }
 
 #pragma mark Helper
+
+- (IBAction)showAllUserRating:(id)sender {
+    LPUserRatingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"userRatingDetail"];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.user = self.user;
+    [self presentViewController:vc animated:YES completion:NULL];
+}
 
 - (void)setUnfollowLayoutForButton:(UIButton *)button {
     [button setTitle:@"Following" forState:UIControlStateNormal];

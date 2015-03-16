@@ -34,6 +34,8 @@
 		D623FDD91A9698A100D09C53 /* LPAssociatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDD81A9698A100D09C53 /* LPAssociatedButton.m */; };
 		D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */; };
 		D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */; };
+		D63AB4E61AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D63AB4E51AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m */; };
+		D63AB4E91AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D63AB4E81AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m */; };
 		D64859EF1AA8C669007003F9 /* LPIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D64859EE1AA8C669007003F9 /* LPIntroViewController.m */; };
 		D64859F71AA9564D007003F9 /* intro_browse.png in Resources */ = {isa = PBXBuildFile; fileRef = D64859F31AA9564D007003F9 /* intro_browse.png */; };
 		D64859F81AA9564D007003F9 /* intro_meetup.png in Resources */ = {isa = PBXBuildFile; fileRef = D64859F41AA9564D007003F9 /* intro_meetup.png */; };
@@ -215,6 +217,10 @@
 		D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingTableViewCell.m; path = Views/Common/LPUserRatingTableViewCell.m; sourceTree = "<group>"; };
 		D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPIncomingOfferTableViewController.h; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.h; sourceTree = "<group>"; };
 		D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPIncomingOfferTableViewController.m; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.m; sourceTree = "<group>"; };
+		D63AB4E41AB5526E00ACDEC5 /* LPUserRatingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingDetailViewController.h; path = Controllers/Common/LPUserRatingDetailViewController.h; sourceTree = "<group>"; };
+		D63AB4E51AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingDetailViewController.m; path = Controllers/Common/LPUserRatingDetailViewController.m; sourceTree = "<group>"; };
+		D63AB4E71AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingDetailTableViewCell.h; path = Views/Common/LPUserRatingDetailTableViewCell.h; sourceTree = "<group>"; };
+		D63AB4E81AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingDetailTableViewCell.m; path = Views/Common/LPUserRatingDetailTableViewCell.m; sourceTree = "<group>"; };
 		D64859ED1AA8C669007003F9 /* LPIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPIntroViewController.h; path = Controllers/Common/LPIntroViewController.h; sourceTree = "<group>"; };
 		D64859EE1AA8C669007003F9 /* LPIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPIntroViewController.m; path = Controllers/Common/LPIntroViewController.m; sourceTree = "<group>"; };
 		D64859F01AA8C780007003F9 /* libPods-Lopop-JazzHands.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Lopop-JazzHands.a"; path = "Pods/build/Debug-iphoneos/libPods-Lopop-JazzHands.a"; sourceTree = "<group>"; };
@@ -554,6 +560,8 @@
 			children = (
 				D623FDDC1A97A14700D09C53 /* LPUserRatingTableViewCell.h */,
 				D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */,
+				D63AB4E71AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.h */,
+				D63AB4E81AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -594,6 +602,8 @@
 				D6E4A1CE1A9EA4C900892E44 /* LPRateUserViewController.m */,
 				D64859ED1AA8C669007003F9 /* LPIntroViewController.h */,
 				D64859EE1AA8C669007003F9 /* LPIntroViewController.m */,
+				D63AB4E41AB5526E00ACDEC5 /* LPUserRatingDetailViewController.h */,
+				D63AB4E51AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -720,6 +730,7 @@
 			children = (
 				D6CB77581A95769500629985 /* User */,
 				D6DBD6F41A7418FF009F6FFE /* MainView */,
+				D623FDDA1A97A0FF00D09C53 /* Common */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -914,7 +925,6 @@
 		D6DBD6F41A7418FF009F6FFE /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				D623FDDA1A97A0FF00D09C53 /* Common */,
 				D6BFF5411A926A6F004D4897 /* Listing */,
 				D6DBD6F51A74190C009F6FFE /* Feed */,
 			);
@@ -1259,12 +1269,14 @@
 				D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				335FD8C51A7D740B0020B7A3 /* LPMessageViewController.m in Sources */,
+				D63AB4E91AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m in Sources */,
 				332F4B131A814D3700B186C9 /* LPChatTableViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				332F4B161A818AFE00B186C9 /* LPChatModel.m in Sources */,
 				D6ED53E31A98352D00B5155D /* LPListingDetailViewController.m in Sources */,
 				D6A5D7DF1A8157CF00A631CD /* LPPopLocationViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
+				D63AB4E61AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m in Sources */,
 				D6F5F83A1A8514680005758B /* SpringAnimation.swift in Sources */,
 				D6ED53E61A99266500B5155D /* LPOfferChatViewController.m in Sources */,
 				D6AB469A1A7B0004001BCCFC /* LPUserRelationship.m in Sources */,
