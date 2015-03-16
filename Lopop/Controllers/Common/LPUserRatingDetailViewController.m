@@ -64,9 +64,17 @@
 
     [cell.profileImageView sd_setImageWithURL:rating.rater[@"profilePictureUrl"]];
     cell.nameLabel.text = rating.rater[@"name"];
-    cell.timeLabel.text = @"TBD";
+
+    // time
+    NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+    [outputDateFormatter setTimeZone:timeZoneLocal];
+    [outputDateFormatter setDateFormat:@"MMM d, yyyy"];
+    cell.timeLabel.text = [outputDateFormatter stringFromDate:rating.createdAt];
+
     cell.commentLabel.text = rating.comment;
 
+    // rateview
     RateView *rv = [RateView rateViewWithRating:[rating.rating floatValue]];
     rv.starFillColor = [LPUIHelper ratingStarColor];
     rv.starBorderColor = [UIColor clearColor];
