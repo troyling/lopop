@@ -18,8 +18,10 @@
 #import "LPPopDetailViewController.h"
 #import "LPUserRatingDetailViewController.h"
 #import "LPMainViewTabBarController.h"
+#import "LPPermissionValidator.h"
 #import "LPUserHelper.h"
 #import "LPLocationHelper.h"
+#import "LPAlertViewHelper.h"
 
 #define QUERY_LIMIT 40
 
@@ -97,6 +99,12 @@
             });
         }
     }];
+
+    if ([[PFUser currentUser].objectId isEqualToString:self.user.objectId]) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(udpateProfileImage:)];
+        self.profileImageView.userInteractionEnabled = YES;
+        [self.profileImageView addGestureRecognizer:tap];
+    }
 }
 
 - (void)loadUserInfo {
@@ -447,10 +455,79 @@
                 }
             }];
         }
+    } else if ([title isEqualToString:@"Take photo"]) {
+        [self takePicture];
+
+    } else if ([title isEqualToString:@"Choose from library"]) {
+        [self chooseImages];
     }
 }
 
+#pragma mark imagePickerController
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    if (!image) {
+        image = info[UIImagePickerControllerOriginalImage];
+    }
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5); // 50% compression
+    PFFile *parseImageFile = [PFFile fileWithData:imageData]; // PFFile has 10MB of size limit
+    [parseImageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [PFUser currentUser][@"profilePictureUrl"] = parseImageFile.url;
+            [[PFUser currentUser] saveEventually];
+            [[PFUser currentUser] fetchInBackground];
+
+            // update current view
+            [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:parseImageFile.url]];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                //Background Thread
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    UIImage *bkgImg = [image applyBlurWithRadius:20
+                                                       tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                                           saturationDeltaFactor:1.3
+                                                       maskImage:nil];
+                    self.profBkgImageView.image = bkgImg;
+                });
+            });
+        }
+    }];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 #pragma mark Helper
+
+- (IBAction)udpateProfileImage:(id)sender {
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change your profile picture" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo", @"Choose from library", nil];
+    [as showInView:self.view];
+}
+
+- (void)takePicture {
+    if ([LPPermissionValidator isCameraAccessible]) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        imagePicker.allowsEditing = YES;
+        [self presentViewController:imagePicker animated:YES completion:NULL];
+    } else {
+        // TODO changed it to add a button to access the system settings
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to take picture. Please allow camera permission in settings"];
+    }
+}
+
+- (void)chooseImages {
+    if ([LPPermissionValidator isPhotoLibraryAccessible]) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        imagePicker.allowsEditing = YES;
+        [self presentViewController:imagePicker animated:YES completion:NULL];
+    } else {
+        [LPAlertViewHelper fatalErrorAlert:@"Unable to choose picture. Please allow photo library access permission in settings"];
+    }
+}
 
 - (IBAction)showAllUserRating:(id)sender {
     LPUserRatingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"userRatingDetail"];

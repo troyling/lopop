@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface LPUserProfileTableViewController : UITableViewController <UIActionSheetDelegate>
+@interface LPUserProfileTableViewController : UITableViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (retain, nonatomic) PFUser *user;
 
