@@ -17,6 +17,7 @@
 #import "LPPopListingTableViewCell.h"
 #import "LPPopDetailViewController.h"
 #import "LPUserRatingDetailViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "LPUserHelper.h"
 #import "LPLocationHelper.h"
 
@@ -64,6 +65,14 @@
                 [self loadUserProfile];
             }
         }];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:NO animated:YES];
     }
 }
 
