@@ -29,4 +29,11 @@
 
 }
 
+- (void)setFrame:(CGRect)frame {
+    NSInteger inset = 15;
+    frame.origin.x += inset;
+    frame.size.width -= 2 * inset;
+    [super setFrame:frame];
+}
+
 @end

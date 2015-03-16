@@ -23,10 +23,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"user: %@", self.user);
-    // Do any additional setup after loading the view.
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+
+    self.tableView.estimatedRowHeight = 100.0f;
+    self.tableView.rowHeight= UITableViewAutomaticDimension;
+
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.backgroundColor = [UIColor clearColor];
+
     self.ratings = [NSMutableArray array];
 
     PFQuery *query = [LPUserRating query];
