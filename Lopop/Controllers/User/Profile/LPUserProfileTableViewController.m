@@ -147,7 +147,7 @@
     self.segmentedControl.userDraggable = NO;
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleArrow;
-    self.segmentedControl.backgroundColor = [LPUIHelper lopopColorWithAlpha:0.8];
+    self.segmentedControl.backgroundColor = [UIColor clearColor];
     self.segmentedControl.selectionIndicatorColor = [UIColor whiteColor];
     self.segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     self.segmentedControl.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
@@ -156,6 +156,7 @@
     self.segmentedControl.selectedTitleTextAttributes = @{ NSFontAttributeName : [UIFont boldSystemFontOfSize:16],
                                                            NSForegroundColorAttributeName : [UIColor whiteColor] };
     [self.segmentedControlView addSubview:self.segmentedControl];
+    self.segmentedControlView.layer.zPosition = MAXFLOAT; // bring it to front
 
     [self loadUserStats];
 }
