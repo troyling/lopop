@@ -138,10 +138,21 @@
 
             // this might need more work
             UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 100, 12)];
-            l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
             l.textAlignment = NSTextAlignmentLeft;
-            l.textColor = [UIColor lightGrayColor];
+            l.textColor = [UIColor whiteColor];
+            l.font = [UIFont systemFontOfSize:12];
+            l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
             [self.userRatingView addSubview:l];
+
+            // dynamic size
+            float labelOffsetX = [l.text boundingRectWithSize:l.frame.size
+                                                      options:NSStringDrawingUsesLineFragmentOrigin
+                                                   attributes:@{ NSFontAttributeName:l.font }
+                                                      context:nil].size.width;
+
+            float adjustedWidth = rv.frame.size.width + labelOffsetX;
+            self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
+            self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
 
             // location
             [LPLocationHelper getRegionForGeoPoint:userInfo.location withBlock:^(NSString *address, NSError *error) {
