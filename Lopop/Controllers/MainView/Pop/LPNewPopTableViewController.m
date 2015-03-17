@@ -65,8 +65,12 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 }
 
 - (IBAction)cancelNewPop:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Discard the pop?" delegate:self cancelButtonTitle:BTN_TITLE_CANCEL otherButtonTitles:BTN_TITLE_CONFIRMATION, nil];
-    [alert show];
+    if ([self isAllFieldEmpty]) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Discard the pop?" delegate:self cancelButtonTitle:BTN_TITLE_CANCEL otherButtonTitles:BTN_TITLE_CONFIRMATION, nil];
+        [alert show];
+    }
 }
 
 - (IBAction)createPop:(id)sender {
@@ -286,7 +290,20 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     }
 }
 
-#pragma mark actionSheet
+- (BOOL)isAllFieldEmpty {
+    NSString *title = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *category = self.categoryLabel.text;
+    NSString *description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *priceStr = [self.priceTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    return title.length == 0 &&
+        category.length == 0 &&
+        ([description isEqualToString:UITEXTVIEW_DESCRIPTION_PLACEHOLDER] || description.length == 0) &&
+        priceStr.length == 0 &&
+        self.imageFiles.count == 0;
+}
+
+#pragma mark - ActionSheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.destructiveButtonIndex) {
         [self.clearImageBtn setBackgroundImage:nil forState:UIControlStateNormal];
@@ -304,7 +321,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     }
 }
 
-#pragma mark imagePickerController Delegate
+#pragma mark - ImagePickerController Delegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerEditedImage];
@@ -318,14 +335,16 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark alertView Delegate
+#pragma mark - AlertView Delegate
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:BTN_TITLE_CONFIRMATION]) {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
-#pragma mark UITextview
+#pragma mark - UITextview Delegate
+
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([textView.text isEqualToString:UITEXTVIEW_DESCRIPTION_PLACEHOLDER]) {
         textView.text = @"";
@@ -342,7 +361,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     [textView resignFirstResponder];
 }
 
-#pragma mark segue
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LPPopCategorySegue"]) {
         if ([segue.destinationViewController isKindOfClass:[LPPopCategoryTableViewController class]]) {
