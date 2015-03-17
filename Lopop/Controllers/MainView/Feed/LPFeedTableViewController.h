@@ -13,5 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 @property (weak, nonatomic) IBOutlet UILabel *noContentLabel;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end

@@ -74,6 +74,10 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     // query data
     self.displayType = kFeed;
     [self queryPopsForLoadMore:NO];
+
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicatorView.center = self.tableView.tableFooterView.center;
+    [self.tableView.tableFooterView addSubview:self.activityIndicatorView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
