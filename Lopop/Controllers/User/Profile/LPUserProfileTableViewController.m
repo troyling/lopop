@@ -127,44 +127,78 @@
 - (void)loadUserInfo {
     [LPUserHelper findUserInfoInBackground:self.user withBlock:^(LPUserInfo *userInfo, BOOL succeeded, NSError *error) {
         if (!error) {
+            NSLog(@"HI");
             // rating
-            float avgRating = [userInfo userAvgRating];
-            RateView *rv = [RateView rateViewWithRating:avgRating];
-            rv.starFillColor = [LPUIHelper ratingStarColor];
-            rv.starBorderColor = [UIColor clearColor];
-            rv.starSize = 15.0f;
-            rv.starNormalColor = [UIColor lightGrayColor];
-            [self.userRatingView addSubview:rv];
+            if (userInfo.numRating != 0) {
+                float avgRating = [userInfo userAvgRating];
+                RateView *rv = [RateView rateViewWithRating:avgRating];
+                rv.starFillColor = [LPUIHelper ratingStarColor];
+                rv.starBorderColor = [UIColor clearColor];
+                rv.starSize = 15.0f;
+                rv.starNormalColor = [UIColor lightGrayColor];
+                [self.userRatingView addSubview:rv];
 
-            // this might need more work
-            UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 100, 12)];
-            l.textAlignment = NSTextAlignmentLeft;
-            l.textColor = [UIColor whiteColor];
-            l.font = [UIFont systemFontOfSize:12];
-            l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
-            [self.userRatingView addSubview:l];
+                // this might need more work
+                UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 100, 12)];
+                l.textAlignment = NSTextAlignmentLeft;
+                l.textColor = [UIColor whiteColor];
+                l.font = [UIFont systemFontOfSize:12];
+                l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
+                [self.userRatingView addSubview:l];
 
-            // dynamic size
-            float labelOffsetX = [l.text boundingRectWithSize:l.frame.size
-                                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                                   attributes:@{ NSFontAttributeName:l.font }
-                                                      context:nil].size.width;
+                // dynamic size
+                float labelOffsetX = [l.text boundingRectWithSize:l.frame.size
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:@{ NSFontAttributeName:l.font }
+                                                          context:nil].size.width;
 
-            float adjustedWidth = rv.frame.size.width + labelOffsetX;
-            self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
-            self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
+                float adjustedWidth = rv.frame.size.width + labelOffsetX;
+                self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
+                self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
+            } else {
+                UILabel *l = [[UILabel alloc] init];
+                l.text = @"No review yet";
+                l.font = [UIFont italicSystemFontOfSize:12.0f];
+                l.textColor = [UIColor lightGrayColor];
+                [l sizeToFit];
+                l.center = self.userRatingView.center;
+                [self.userRatingView addSubview:l];
+            }
 
             // location
-            [LPLocationHelper getRegionForGeoPoint:userInfo.location withBlock:^(NSString *address, NSError *error) {
-                if (!error) {
-                    self.locationLabel.text = address;
-                }
-            }];
+            if (userInfo.location != nil) {
+                [LPLocationHelper getRegionForGeoPoint:userInfo.location withBlock:^(NSString *address, NSError *error) {
+                    if (!error) {
+                        self.locationLabel.text = address;
+                    }
+                }];
+            } else {
+                self.locationLabel.text = @"Unspecified";
+                self.locationLabel.font = [UIFont italicSystemFontOfSize:12.0f];
+                self.locationLabel.textColor = [UIColor darkGrayColor];
+            }
 
             // add action listener to rateview
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAllUserRating:)];
             self.userRatingView.userInteractionEnabled = YES;
             [self.userRatingView addGestureRecognizer:tap];
+        } else {
+            self.locationLabel.text = @"Unspecified";
+            self.locationLabel.font = [UIFont italicSystemFontOfSize:12.0f];
+            self.locationLabel.textColor = [UIColor darkGrayColor];
+
+            UILabel *l = [[UILabel alloc] init];
+            l.text = @"No review yet";
+            l.font = [UIFont italicSystemFontOfSize:12.0f];
+            l.textColor = [UIColor darkGrayColor];
+            [l sizeToFit];
+            [self.userRatingView addSubview:l];
+            float adjustedWidth = [l.text boundingRectWithSize:l.frame.size
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{ NSFontAttributeName:l.font }
+                                                       context:nil].size.width;
+            self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
+            self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
         }
     }];
 }
