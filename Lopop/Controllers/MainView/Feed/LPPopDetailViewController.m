@@ -144,6 +144,7 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
                         UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 60, 12)];
                         l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
                         l.textAlignment = NSTextAlignmentLeft;
+                        l.font = [UIFont systemFontOfSize:12];
                         l.textColor = [UIColor lightGrayColor];
                         [self.userRatingView.userRateView addSubview:l];
                     } else {

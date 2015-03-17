@@ -127,7 +127,6 @@
 - (void)loadUserInfo {
     [LPUserHelper findUserInfoInBackground:self.user withBlock:^(LPUserInfo *userInfo, BOOL succeeded, NSError *error) {
         if (!error) {
-            NSLog(@"HI");
             // rating
             if (userInfo.numRating != 0) {
                 float avgRating = [userInfo userAvgRating];
@@ -156,13 +155,7 @@
                 self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
                 self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
             } else {
-                UILabel *l = [[UILabel alloc] init];
-                l.text = @"No review yet";
-                l.font = [UIFont italicSystemFontOfSize:12.0f];
-                l.textColor = [UIColor lightGrayColor];
-                [l sizeToFit];
-                l.center = self.userRatingView.center;
-                [self.userRatingView addSubview:l];
+                [self showNoCommentMsg];
             }
 
             // location
@@ -173,9 +166,7 @@
                     }
                 }];
             } else {
-                self.locationLabel.text = @"Unspecified";
-                self.locationLabel.font = [UIFont italicSystemFontOfSize:12.0f];
-                self.locationLabel.textColor = [UIColor darkGrayColor];
+                [self showUnspecifiedLocationMsg];
             }
 
             // add action listener to rateview
@@ -183,24 +174,33 @@
             self.userRatingView.userInteractionEnabled = YES;
             [self.userRatingView addGestureRecognizer:tap];
         } else {
-            self.locationLabel.text = @"Unspecified";
-            self.locationLabel.font = [UIFont italicSystemFontOfSize:12.0f];
-            self.locationLabel.textColor = [UIColor darkGrayColor];
-
-            UILabel *l = [[UILabel alloc] init];
-            l.text = @"No review yet";
-            l.font = [UIFont italicSystemFontOfSize:12.0f];
-            l.textColor = [UIColor darkGrayColor];
-            [l sizeToFit];
-            [self.userRatingView addSubview:l];
-            float adjustedWidth = [l.text boundingRectWithSize:l.frame.size
-                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                    attributes:@{ NSFontAttributeName:l.font }
-                                                       context:nil].size.width;
-            self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
-            self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
+            [self showUnspecifiedLocationMsg];
+            [self showNoCommentMsg];
         }
     }];
+}
+
+- (void)showNoCommentMsg {
+    UILabel *l = [[UILabel alloc] init];
+    l.text = @"No review yet";
+    l.font = [UIFont boldSystemFontOfSize:12.0f];
+    l.textColor = [UIColor lightGrayColor];
+    [l sizeToFit];
+    [self.userRatingView addSubview:l];
+
+    // adjust width
+    float adjustedWidth = [l.text boundingRectWithSize:l.frame.size
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{ NSFontAttributeName:l.font }
+                                               context:nil].size.width;
+    self.userRatingView.frame = CGRectMake(self.userRatingView.frame.origin.x, self.userRatingView.frame.origin.y, adjustedWidth, 20);
+    self.userRatingView.center = CGPointMake([LPUIHelper screenWidth] * 0.5, self.userRatingView.center.y);
+}
+
+- (void)showUnspecifiedLocationMsg {
+    self.locationLabel.text = @"Unspecified";
+    self.locationLabel.font = [UIFont boldSystemFontOfSize:12.0f];
+    self.locationLabel.textColor = [UIColor lightGrayColor];
 }
 
 - (void)loadSegmentedControl {
