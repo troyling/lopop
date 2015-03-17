@@ -131,20 +131,26 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             self.userRatingView.nameLabel.text = self.pop.seller[@"name"];
             [LPUserHelper findUserInfoInBackground:seller withBlock:^(LPUserInfo *userInfo, BOOL succeeded, NSError *error) {
                 if (!error) {
-                    float avgRating = [userInfo userAvgRating];
-                    RateView *rv = [RateView rateViewWithRating:avgRating];
-                    rv.starFillColor = [LPUIHelper ratingStarColor];
-                    rv.starBorderColor = [UIColor clearColor];
-                    rv.starSize = 15.0f;
-                    rv.starNormalColor = [UIColor lightGrayColor];
-                    [self.userRatingView.userRateView addSubview:rv];
+                    if (userInfo.numRating != 0) {
+                        float avgRating = [userInfo userAvgRating];
+                        RateView *rv = [RateView rateViewWithRating:avgRating];
+                        rv.starFillColor = [LPUIHelper ratingStarColor];
+                        rv.starBorderColor = [UIColor clearColor];
+                        rv.starSize = 15.0f;
+                        rv.starNormalColor = [UIColor lightGrayColor];
+                        [self.userRatingView.userRateView addSubview:rv];
 
-                    // this might need more work
-                    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 60, 12)];
-                    l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
-                    l.textAlignment = NSTextAlignmentLeft;
-                    l.textColor = [UIColor lightGrayColor];
-                    [self.userRatingView.userRateView addSubview:l];
+                        // this might need more work
+                        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(rv.frame.size.width + 4, rv.frame.origin.y + 2, 60, 12)];
+                        l.text = [NSString stringWithFormat:@"· %@", userInfo.numRating];
+                        l.textAlignment = NSTextAlignmentLeft;
+                        l.textColor = [UIColor lightGrayColor];
+                        [self.userRatingView.userRateView addSubview:l];
+                    } else {
+                        [self showNoComment];
+                    }
+                } else {
+                    [self showNoComment];
                 }
             }];
 
@@ -306,6 +312,17 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             vc.pop = self.pop;
         }
     }
+}
+
+#pragma mark - Helper
+
+- (void)showNoComment {
+    UILabel *l = [[UILabel alloc] init];
+    l.text = @"No review yet";
+    l.font = [UIFont systemFontOfSize:12.0f];
+    l.textColor = [UIColor lightGrayColor];
+    [l sizeToFit];
+    [self.userRatingView.userRateView addSubview:l];
 }
 
 @end
