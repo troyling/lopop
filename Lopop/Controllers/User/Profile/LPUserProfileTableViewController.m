@@ -561,7 +561,7 @@
 #pragma mark Helper
 
 - (IBAction)udpateProfileImage:(id)sender {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change your profile picture" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo", @"Choose from library", nil];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change profile picture" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo", @"Choose from library", nil];
     [as showInView:self.view];
 }
 
