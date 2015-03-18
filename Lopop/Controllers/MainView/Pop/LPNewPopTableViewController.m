@@ -58,7 +58,11 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     // setup mapview
     self.mapview.showsUserLocation = NO;
     self.mapview.userInteractionEnabled = YES;
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(mapDrag:)];
+    pan.delegate = self;
+    [self.mapview addGestureRecognizer:pan];
 
+    // delegate
     self.titleTextField.delegate = self;
     self.priceTextField.delegate = self;
     self.descriptionTextView.delegate = self;
@@ -83,7 +87,6 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 }
 
 - (void)zoomInToMyLocation {
-    NSLog(@"zoom to my lcoation");
     MKCoordinateRegion region;
     region.center.latitude = self.locationManager.location.coordinate.latitude;
     region.center.longitude = self.locationManager.location.coordinate.longitude;
@@ -187,9 +190,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
                               kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
                               };
     [CRToastManager showNotificationWithOptions:options
-                                completionBlock: ^{
-                                    NSLog(@"Completed");
-                                }];
+                                completionBlock:NULL];
 }
 
 - (void)showCreatePopError {
@@ -205,9 +206,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
                               kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
                               };
     [CRToastManager showNotificationWithOptions:options
-                                completionBlock: ^{
-                                    NSLog(@"Completed");
-                                }];
+                                completionBlock:NULL];
 }
 
 - (IBAction)addPhoto:(id)sender {
@@ -291,6 +290,12 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
         ([description isEqualToString:UITEXTVIEW_DESCRIPTION_PLACEHOLDER] || description.length == 0) &&
         priceStr.length == 0 &&
         self.imageFiles.count == 0;
+}
+
+- (IBAction)mapDrag:(UIPanGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        self.mapBlurView.hidden = YES;
+    }
 }
 
 #pragma mark - ActionSheet Delegate
@@ -397,6 +402,12 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
         }
         return NO;
     }
+    return YES;
+}
+
+#pragma mark - UIGestureRecognizer Delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
 

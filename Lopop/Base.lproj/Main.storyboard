@@ -1687,14 +1687,38 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atL-n0-QJ2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FOc-tV-xsK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move to set location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljx-Zm-yBJ">
+                                                                <rect key="frame" x="121.5" y="16" width="131.5" height="17"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="centerY" secondItem="ljx-Zm-yBJ" secondAttribute="centerY" id="UpL-lL-GL5"/>
+                                                            <constraint firstAttribute="centerX" secondItem="ljx-Zm-yBJ" secondAttribute="centerX" id="uGr-rP-F9u"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <blurEffect style="light"/>
+                                                </visualEffectView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="LKo-mr-gCL" firstAttribute="centerX" secondItem="yPf-CO-jIz" secondAttribute="centerX" id="1iF-uF-fw2"/>
+                                                <constraint firstItem="atL-n0-QJ2" firstAttribute="centerX" secondItem="yPf-CO-jIz" secondAttribute="centerX" id="BlH-fz-Ud9"/>
                                                 <constraint firstAttribute="trailing" secondItem="yPf-CO-jIz" secondAttribute="trailing" id="FYM-3t-S02"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="RCO-Mv-3ao" secondAttribute="top" id="Ph3-g6-e51"/>
                                                 <constraint firstItem="LKo-mr-gCL" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" id="S7n-6E-Eqf"/>
+                                                <constraint firstItem="atL-n0-QJ2" firstAttribute="width" secondItem="yPf-CO-jIz" secondAttribute="width" id="Zss-NW-u0s"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="leading" secondItem="RCO-Mv-3ao" secondAttribute="leading" id="jiZ-iV-1Hs"/>
+                                                <constraint firstItem="atL-n0-QJ2" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" constant="-50.5" id="moc-Hz-6aU"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yPf-CO-jIz" secondAttribute="bottom" constant="-8.5" id="wlU-Mn-ZOQ"/>
+                                                <constraint firstItem="atL-n0-QJ2" firstAttribute="height" secondItem="yPf-CO-jIz" secondAttribute="height" constant="-101" id="x7B-kC-sak"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1725,6 +1749,7 @@
                         <outlet property="imageBtn2" destination="Bvq-16-dn1" id="54c-jw-6YD"/>
                         <outlet property="imageBtn3" destination="1gf-KS-Vxl" id="0qT-2L-y6n"/>
                         <outlet property="imageBtn4" destination="IIa-MX-YmX" id="hmt-dk-e0b"/>
+                        <outlet property="mapBlurView" destination="atL-n0-QJ2" id="VpG-sS-hIb"/>
                         <outlet property="mapview" destination="yPf-CO-jIz" id="sBZ-Uv-Xd7"/>
                         <outlet property="priceTextField" destination="wKO-NA-fKP" id="VT4-lx-R36"/>
                         <outlet property="titleTextField" destination="0C0-ze-QRY" id="Zg2-8x-mtJ"/>
