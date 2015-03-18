@@ -59,6 +59,10 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     self.mapview.showsUserLocation = NO;
     self.mapview.userInteractionEnabled = YES;
 
+    self.titleTextField.delegate = self;
+    self.priceTextField.delegate = self;
+    self.descriptionTextView.delegate = self;
+
     self.savedImages = 0;
 }
 
@@ -372,6 +376,28 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30.0f;
+}
+
+#pragma mark - UItextfield Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.tag == 1) {
+        [self performSegueWithIdentifier:@"LPPopCategorySegue" sender:self];
+        [self.descriptionTextView becomeFirstResponder];
+    } else {
+        [textField resignFirstResponder];
+    }
+    return false;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        if (textView.tag == 2) {
+            [self.priceTextField becomeFirstResponder];
+        }
+        return NO;
+    }
+    return YES;
 }
 
 @end

@@ -1447,7 +1447,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Used textbook, jacket, etc..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0C0-ze-QRY">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Used textbook, jacket, etc..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0C0-ze-QRY">
                                                     <rect key="frame" x="118" y="8" width="249" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="VJw-I7-27J"/>
@@ -1515,7 +1515,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gBv-B7-nJO" id="Rcs-IH-7cF">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description" translatesAutoresizingMaskIntoConstraints="NO" id="rSd-NE-bJB">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" text="Description" translatesAutoresizingMaskIntoConstraints="NO" id="rSd-NE-bJB">
                                                     <rect key="frame" x="112" y="7" width="255" height="75"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1559,7 +1559,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="100" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wKO-NA-fKP">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="100" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wKO-NA-fKP">
                                                     <rect key="frame" x="118" y="8" width="248" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="hKv-pY-IAI"/>
