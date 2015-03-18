@@ -37,12 +37,13 @@
     self.ratings = [NSMutableArray array];
 
     PFQuery *query = [LPUserRating query];
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"user" equalTo:self.user];
     [query includeKey:@"rater"];
     [query orderByDescending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count != 0) {
-            [self.ratings addObjectsFromArray:objects];
+            [self.ratings replaceObjectsInRange:NSMakeRange(0, self.ratings.count) withObjectsFromArray:objects];
             self.numCommentLabel.text = [NSString stringWithFormat:@"%lu Reviews", (unsigned long)self.ratings.count];
             [self.tableView reloadData];
         }
