@@ -1657,7 +1657,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Location" id="eHH-VY-uTZ">
                                 <cells>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="Epq-nd-iRB">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="Epq-nd-iRB">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Epq-nd-iRB" id="RCO-Mv-3ao">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1665,10 +1665,19 @@
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yPf-CO-jIz">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                                 </mapView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_location_fill" translatesAutoresizingMaskIntoConstraints="NO" id="LKo-mr-gCL">
+                                                    <rect key="frame" x="179" y="38" width="17" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="apE-Yl-Nt6"/>
+                                                        <constraint firstAttribute="width" constant="17" id="kWK-f7-KT3"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="LKo-mr-gCL" firstAttribute="centerX" secondItem="yPf-CO-jIz" secondAttribute="centerX" id="1iF-uF-fw2"/>
                                                 <constraint firstAttribute="trailing" secondItem="yPf-CO-jIz" secondAttribute="trailing" id="FYM-3t-S02"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="RCO-Mv-3ao" secondAttribute="top" id="Ph3-g6-e51"/>
+                                                <constraint firstItem="LKo-mr-gCL" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" id="S7n-6E-Eqf"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="leading" secondItem="RCO-Mv-3ao" secondAttribute="leading" id="jiZ-iV-1Hs"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yPf-CO-jIz" secondAttribute="bottom" constant="-8.5" id="wlU-Mn-ZOQ"/>
                                             </constraints>

@@ -7,13 +7,12 @@
 //
 
 #import "LPNewPopTableViewController.h"
-#import "LPPermissionValidator.h"
-#import "LPUIHelper.h"
 #import "LPPopCategoryTableViewController.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "LPPop.h"
+#import "LPPermissionValidator.h"
 #import "LPAlertViewHelper.h"
+#import "LPUIHelper.h"
 #import "CRToast.h"
+#import "LPPop.h"
 
 @interface LPNewPopTableViewController ()
 
@@ -56,12 +55,37 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
 
+    // setup mapview
+    self.mapview.showsUserLocation = NO;
+    self.mapview.userInteractionEnabled = YES;
+
     self.savedImages = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setupLocationForPop];
+}
+
+- (void)setupLocationForPop {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+
+    if (status == kCLAuthorizationStatusDenied) {
+        [LPAlertViewHelper fatalErrorAlert:@"Please allow location permission in app Settings to create a Pop"];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    } else {
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
+- (void)zoomInToMyLocation {
+    NSLog(@"zoom to my lcoation");
+    MKCoordinateRegion region;
+    region.center.latitude = self.locationManager.location.coordinate.latitude;
+    region.center.longitude = self.locationManager.location.coordinate.longitude;
+    region.span.longitudeDelta = MAP_ZOO_IN_DEGREE;
+    region.span.latitudeDelta = MAP_ZOO_IN_DEGREE;
+    [self.mapview setRegion:region animated:NO];
 }
 
 - (IBAction)cancelNewPop:(id)sender {
@@ -78,7 +102,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     NSString *category = self.categoryLabel.text;
     NSString *description = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *priceStr = [self.priceTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    CLLocation *popLocation = self.locationManager.location;
+    CLLocation *popLocation = [[CLLocation alloc] initWithLatitude:self.mapview.centerCoordinate.latitude longitude:self.mapview.centerCoordinate.longitude];
 
     if (title.length == 0) {
         [LPAlertViewHelper fatalErrorAlert:@"Please enter the title of your Pop"];
@@ -196,44 +220,6 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     [actionSheet showInView:self.view];
 }
 
-- (void)setupLocationForPop {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-
-    if ([CLLocationManager locationServicesEnabled]) {
-        if (status == kCLAuthorizationStatusNotDetermined) {
-            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                [self.locationManager requestAlwaysAuthorization];
-            }
-        }
-
-        if (status == kCLAuthorizationStatusDenied) {
-            [LPAlertViewHelper fatalErrorAlert:@"Please allow location permission in app Settings to create a Pop"];
-            [self dismissViewControllerAnimated:YES completion:NULL];
-        }
-        [self.locationManager startUpdatingLocation];
-    }
-    else {
-        [LPAlertViewHelper fatalErrorAlert:@"Location service is required to create a Pop"];
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    }
-
-    if (self.locationManager.location) {
-        self.mapview.showsUserLocation = YES;
-        [self.locationManager stopUpdatingLocation];
-        [self zoomInToMyLocation];
-    }
-}
-
-- (void)zoomInToMyLocation {
-    MKCoordinateRegion region;
-    region.center.latitude = self.locationManager.location.coordinate.latitude;
-    region.center.longitude = self.locationManager.location.coordinate.longitude;
-    region.span.longitudeDelta = MAP_ZOO_IN_DEGREE;
-    region.span.latitudeDelta = MAP_ZOO_IN_DEGREE;
-    [self.mapview setRegion:region animated:NO];
-    [self.locationManager stopUpdatingLocation];
-}
-
 - (void)takePicture {
     if ([LPPermissionValidator isCameraAccessible]) {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -304,6 +290,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 }
 
 #pragma mark - ActionSheet Delegate
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.destructiveButtonIndex) {
         [self.clearImageBtn setBackgroundImage:nil forState:UIControlStateNormal];
@@ -362,12 +349,22 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 }
 
 #pragma mark - Segue
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LPPopCategorySegue"]) {
         if ([segue.destinationViewController isKindOfClass:[LPPopCategoryTableViewController class]]) {
             LPPopCategoryTableViewController *tvc = segue.destinationViewController;
             tvc.vc = self;
         }
+    }
+}
+
+#pragma mark - CLLocationManager Delegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    if (locations != nil && locations.count > 0) {
+        [self zoomInToMyLocation];
+        [self.locationManager stopUpdatingLocation];
     }
 }
 
