@@ -92,7 +92,7 @@
                 //Background Thread
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     UIImage *bkgImg = [self.profileImageView.image applyBlurWithRadius:20
-                                                                             tintColor:[UIColor colorWithWhite:1.0 alpha:0.2]
+                                                                             tintColor:[UIColor colorWithWhite:0.0 alpha:0.2]
                                                                  saturationDeltaFactor:1.3
                                                                              maskImage:nil];
                     self.profBkgImageView.image = bkgImg;

@@ -2939,7 +2939,7 @@
                                         <constraint firstAttribute="height" constant="21.5" id="bf2-wW-4kb"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZ2-Ud-rz5" userLabel="segmentedControl">
@@ -2957,7 +2957,7 @@
                                         <constraint firstAttribute="height" constant="40" id="ZWG-og-RuD"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
                                         <mask key="constraints">
