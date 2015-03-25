@@ -31,18 +31,22 @@
 
 @implementation LPListingTableViewController
 
+CGFloat const LISTING_CELL_HEIGHT = 260.0f;
+CGFloat const OFFER_CELL_HEIGHT = 90.0f;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self followScrollView:self.tableView];
 
     // configure table view
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.rowHeight = 90.0f;
+    self.displayState = LPListingDisplay;
 
     // cache the offer
     self.incomingOffers = [[NSMutableDictionary alloc] init];
 
-    self.displayState = LPListingDisplay;
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -140,10 +144,6 @@
 
     if (self.displayState == LPListingDisplay) {
         pop = [self.listings objectAtIndex:indexPath.row];
-
-        cell.numOfferLabel.layer.cornerRadius = cell.numOfferLabel.bounds.size.width / 2.0f; // make label circle
-        cell.numOfferLabel.layer.masksToBounds = YES;
-
         // asynchronously load number of offers, if needed
         id item = [self.incomingOffers objectForKey:pop.objectId];
 
@@ -154,13 +154,13 @@
                 count = [(NSNumber *)item intValue];
             }
 
-            cell.numOfferLabel.text = count == 0 ? @"No yet" : [NSString stringWithFormat:@"%d", count];
+            cell.numOfferLabel.text = [NSString stringWithFormat:@"%d offers", count];
             cell.numOfferLabel.hidden = NO;
         } else {
             [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
                     [self.incomingOffers setObject:[NSNumber numberWithInt:count] forKey:pop.objectId];
-                    cell.numOfferLabel.text = count == 0 ? @"No yet" : [NSString stringWithFormat:@"%d", count];
+                    cell.numOfferLabel.text = [NSString stringWithFormat:@"%d offers", count];
                     cell.numOfferLabel.hidden = NO;
                 }
             }];
@@ -186,6 +186,10 @@
         vc.pop = pop;
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.displayState == LPListingDisplay ? LISTING_CELL_HEIGHT : OFFER_CELL_HEIGHT;
 }
 
 /*
