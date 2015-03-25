@@ -22,8 +22,11 @@
 - (void)setAttributesForUser:(PFUser *)user following:(NSArray *)following;
 - (void)setAttributesForUser:(PFUser *)user followers:(NSArray *)followers;
 
+// Current user
 - (void)synchronizeFollowingForCurrentUserInBackground;
 - (void)synchronizeFollowingForCurrentUserInBackgroundIfNecessary;
+- (void)followUser:(PFUser *)user;
+- (void)unfollowUser:(PFUser *)user;
 - (BOOL)isCurrentUserFollowingUser:(PFUser *)user;
 
 - (NSArray *)popsForUser:(PFUser *)user;

@@ -58,6 +58,8 @@ static LPCache * instance;
 //    [self setAttributes:attributes ForUser:user];
 //}
 
+#pragma mark - Attributes Setter
+
 - (void)setAttributesForUser:(PFUser *)user pops:(NSArray *)pops {
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithDictionary:[self attributesForUser:user]];
     [attributes setObject:pops forKey:kPopsKey];
@@ -86,6 +88,8 @@ static LPCache * instance;
     [self setAttributes:attributes ForUser:user];
 }
 
+#pragma mark - Current User
+
 - (void)synchronizeFollowingForCurrentUserInBackground {
     PFQuery *query = [LPUserRelationship query];
     [query whereKey:@"follower" equalTo:[PFUser currentUser]];
@@ -108,6 +112,23 @@ static LPCache * instance;
     }
 }
 
+- (void)followUser:(PFUser *)user {
+    NSMutableArray *following = [NSMutableArray arrayWithArray:[self followingForUser:[PFUser currentUser]]];
+    [following addObject:user];
+    [self setAttributesForUser:[PFUser currentUser] following:following];
+}
+
+- (void)unfollowUser:(PFUser *)user {
+    NSArray *prevFollowing = [self followingForUser:[PFUser currentUser]];
+    NSMutableArray *following = [NSMutableArray array];
+    for (PFUser *u in prevFollowing) {
+        if (![u.objectId isEqualToString:user.objectId]) {
+            [following addObject:u];
+        }
+    }
+    [self setAttributesForUser:[PFUser currentUser] following:following];
+}
+
 - (BOOL)isCurrentUserFollowingUser:(PFUser *)user {
     NSArray *currentUserFollowing = [self followingForUser:[PFUser currentUser]];
     for (PFUser *u in currentUserFollowing) {
@@ -116,6 +137,8 @@ static LPCache * instance;
     }
     return NO;
 }
+
+#pragma mark - User
 
 - (NSArray *)popsForUser:(PFUser *)user {
     NSDictionary *attributes = [self attributesForUser:user];

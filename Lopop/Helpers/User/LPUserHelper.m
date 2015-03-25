@@ -7,6 +7,7 @@
 //
 
 #import "LPUserHelper.h"
+#import "LPCache.h"
 #import "LPUserRelationship.h"
 #import "LPAlertViewHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
@@ -130,6 +131,9 @@
     follow.followedUser = targetUser;
     [follow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
+            // update cache
+            [[LPCache getInstance] followUser:targetUser];
+
             if (completionBlock) {
                 completionBlock(YES, nil);
             }
@@ -154,6 +158,9 @@
                     }
                 }
             }
+
+            // remove from cache
+            [[LPCache getInstance] unfollowUser:targetUser];
             
             // execute callback
             if (completionBlock) {
