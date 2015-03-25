@@ -1688,13 +1688,13 @@
                                                     </variation>
                                                 </imageView>
                                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atL-n0-QJ2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FOc-tV-xsK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move to set location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljx-Zm-yBJ">
-                                                                <rect key="frame" x="121.5" y="16" width="131.5" height="17"/>
+                                                                <rect key="frame" x="121.5" y="9" width="131.5" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1705,6 +1705,9 @@
                                                             <constraint firstAttribute="centerX" secondItem="ljx-Zm-yBJ" secondAttribute="centerX" id="uGr-rP-F9u"/>
                                                         </constraints>
                                                     </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="bgh-OL-eMm"/>
+                                                    </constraints>
                                                     <blurEffect style="light"/>
                                                 </visualEffectView>
                                             </subviews>
@@ -1714,12 +1717,25 @@
                                                 <constraint firstAttribute="trailing" secondItem="yPf-CO-jIz" secondAttribute="trailing" id="FYM-3t-S02"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="RCO-Mv-3ao" secondAttribute="top" id="Ph3-g6-e51"/>
                                                 <constraint firstItem="LKo-mr-gCL" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" id="S7n-6E-Eqf"/>
+                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="bottom" constant="-49" id="S7x-V7-PTs"/>
+                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="bottom" constant="-49" id="USA-Yx-c00"/>
                                                 <constraint firstItem="atL-n0-QJ2" firstAttribute="width" secondItem="yPf-CO-jIz" secondAttribute="width" id="Zss-NW-u0s"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="leading" secondItem="RCO-Mv-3ao" secondAttribute="leading" id="jiZ-iV-1Hs"/>
                                                 <constraint firstItem="atL-n0-QJ2" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" constant="-50.5" id="moc-Hz-6aU"/>
+                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="top" id="sUS-If-Vf7"/>
+                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="bottom" constant="-49" id="ubl-rD-uvr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yPf-CO-jIz" secondAttribute="bottom" constant="-8.5" id="wlU-Mn-ZOQ"/>
                                                 <constraint firstItem="atL-n0-QJ2" firstAttribute="height" secondItem="yPf-CO-jIz" secondAttribute="height" constant="-101" id="x7B-kC-sak"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="moc-Hz-6aU"/>
+                                                    <exclude reference="x7B-kC-sak"/>
+                                                    <exclude reference="S7x-V7-PTs"/>
+                                                    <exclude reference="USA-Yx-c00"/>
+                                                    <exclude reference="ubl-rD-uvr"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -1743,6 +1759,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addressLabel" destination="ljx-Zm-yBJ" id="6Hb-uO-ggF"/>
                         <outlet property="categoryLabel" destination="sSo-V8-1po" id="pkM-l4-6ny"/>
                         <outlet property="descriptionTextView" destination="rSd-NE-bJB" id="Fkr-6l-PpA"/>
                         <outlet property="imageBtn1" destination="Wgn-aV-HvY" id="ETe-Qb-pce"/>
