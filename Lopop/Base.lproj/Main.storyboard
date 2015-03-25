@@ -1425,7 +1425,7 @@
         <scene sceneID="ul8-Ax-XSt">
             <objects>
                 <tableViewController id="FCB-Zz-3YY" customClass="LPNewPopTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="Mgp-JR-4wz">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="Mgp-JR-4wz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
@@ -1440,7 +1440,6 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ik4-2E-zCd">
                                                     <rect key="frame" x="16" y="8" width="94" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="Yn9-h4-5Fe"/>
                                                         <constraint firstAttribute="width" constant="94" id="fU6-y4-CNM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1486,12 +1485,14 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="QvE-wd-36z"/>
+                                                        </mask>
+                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSo-V8-1po">
                                                     <rect key="frame" x="118" y="8" width="216" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="xmQ-4G-HlJ"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1504,6 +1505,7 @@
                                                 <constraint firstItem="9BD-Dl-3xg" firstAttribute="top" secondItem="7Br-YN-fBP" secondAttribute="topMargin" id="il5-wa-hJv"/>
                                                 <constraint firstItem="sSo-V8-1po" firstAttribute="top" secondItem="7Br-YN-fBP" secondAttribute="topMargin" id="l0t-rr-j0l"/>
                                                 <constraint firstItem="9BD-Dl-3xg" firstAttribute="leading" secondItem="7Br-YN-fBP" secondAttribute="leadingMargin" constant="8" id="qU4-Cx-hci"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sSo-V8-1po" secondAttribute="bottom" id="xsf-8Y-m1o"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1717,25 +1719,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="yPf-CO-jIz" secondAttribute="trailing" id="FYM-3t-S02"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="RCO-Mv-3ao" secondAttribute="top" id="Ph3-g6-e51"/>
                                                 <constraint firstItem="LKo-mr-gCL" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" id="S7n-6E-Eqf"/>
-                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="bottom" constant="-49" id="S7x-V7-PTs"/>
-                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="bottom" constant="-49" id="USA-Yx-c00"/>
                                                 <constraint firstItem="atL-n0-QJ2" firstAttribute="width" secondItem="yPf-CO-jIz" secondAttribute="width" id="Zss-NW-u0s"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="leading" secondItem="RCO-Mv-3ao" secondAttribute="leading" id="jiZ-iV-1Hs"/>
-                                                <constraint firstItem="atL-n0-QJ2" firstAttribute="centerY" secondItem="yPf-CO-jIz" secondAttribute="centerY" constant="-50.5" id="moc-Hz-6aU"/>
                                                 <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="top" id="sUS-If-Vf7"/>
-                                                <constraint firstItem="yPf-CO-jIz" firstAttribute="top" secondItem="atL-n0-QJ2" secondAttribute="bottom" constant="-49" id="ubl-rD-uvr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yPf-CO-jIz" secondAttribute="bottom" constant="-8.5" id="wlU-Mn-ZOQ"/>
-                                                <constraint firstItem="atL-n0-QJ2" firstAttribute="height" secondItem="yPf-CO-jIz" secondAttribute="height" constant="-101" id="x7B-kC-sak"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="moc-Hz-6aU"/>
-                                                    <exclude reference="x7B-kC-sak"/>
-                                                    <exclude reference="S7x-V7-PTs"/>
-                                                    <exclude reference="USA-Yx-c00"/>
-                                                    <exclude reference="ubl-rD-uvr"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
