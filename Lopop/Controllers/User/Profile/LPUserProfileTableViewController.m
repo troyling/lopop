@@ -112,17 +112,12 @@
     // follow button
     if (![self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         // other user
-        // TODO change this is use cache
-        [LPUserHelper isCurrentUserFollowingUserInBackground:self.user withBlock:^(BOOL isFollowing, NSError *error) {
-            if (!error) {
-                if (isFollowing) {
-                    [self setUnfollowLayoutForButton:self.followBtn];
-                } else {
-                    [self setFollowLayoutForButton:self.followBtn];
-                }
-                self.followBtn.hidden = NO;
-            }
-        }];
+        if ([[LPCache getInstance] isCurrentUserFollowingUser:self.user]) {
+            [self setUnfollowLayoutForButton:self.followBtn];
+        } else {
+            [self setFollowLayoutForButton:self.followBtn];
+        }
+        self.followBtn.hidden = NO;
     }
 }
 
