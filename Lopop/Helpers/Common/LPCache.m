@@ -184,6 +184,10 @@ static LPCache * instance;
     return numFollowers == nil ? [NSNumber numberWithInt:0] : numFollowers;
 }
 
+- (void)clear {
+    [self.cache removeAllObjects];
+}
+
 #pragma mark - Helpers
 
 - (void)setAttributes:(NSDictionary *)attributes ForUser:(PFUser *)user {

@@ -39,6 +39,8 @@
 - (NSNumber *)numFollowersForUser:(PFUser *)user;
 - (NSNumber *)numFollowingForUser:(PFUser *)user;
 
+- (void)clear;
+
 //- (void)incrementPopsForUser:(PFUser *)user;
 //- (void)decrementPopsForUser:(PFUser *)user;
 //
