@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
 
+#import "LPUserRelationship.h"
 #import "LPCache.h"
 
 @interface LPCache ()
@@ -83,6 +84,28 @@ static LPCache * instance;
     [attributes setObject:followers forKey:kFollowersKey];
     [attributes setObject:[NSNumber numberWithUnsignedLong:followers.count] forKey:kNumFollowersKey];
     [self setAttributes:attributes ForUser:user];
+}
+
+- (void)synchronizeFollowingForCurrentUserInBackground {
+    PFQuery *query = [LPUserRelationship query];
+    [query whereKey:@"follower" equalTo:[PFUser currentUser]];
+    [query includeKey:@"followedUser"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSMutableArray *following = [NSMutableArray array];
+            for (LPUserRelationship *relationship in objects) {
+                [following addObject:relationship.followedUser];
+            }
+            [self setAttributesForUser:[PFUser currentUser] following:following];
+        }
+    }];
+}
+
+- (void)synchronizeFollowingForCurrentUserInBackgroundIfNecessary {
+    NSArray *currentUserFolloing = [[LPCache getInstance] followingForUser:[PFUser currentUser]];
+    if (currentUserFolloing == nil) {
+        [self synchronizeFollowingForCurrentUserInBackground];
+    }
 }
 
 - (BOOL)isCurrentUserFollowingUser:(PFUser *)user {

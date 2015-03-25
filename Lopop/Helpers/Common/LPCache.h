@@ -7,7 +7,7 @@
 //
 
 /**
- *  This is a singleton used to cache information locally for pop, follower, counting, and etc.
+ *  This is a singleton used to cache information IN MEMORY
  */
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
@@ -22,6 +22,8 @@
 - (void)setAttributesForUser:(PFUser *)user following:(NSArray *)following;
 - (void)setAttributesForUser:(PFUser *)user followers:(NSArray *)followers;
 
+- (void)synchronizeFollowingForCurrentUserInBackground;
+- (void)synchronizeFollowingForCurrentUserInBackgroundIfNecessary;
 - (BOOL)isCurrentUserFollowingUser:(PFUser *)user;
 
 - (NSArray *)popsForUser:(PFUser *)user;
@@ -45,8 +47,5 @@
 //
 //- (void)incrementFollowingForUser:(PFUser *)user;
 //- (void)decrementFollowingForUser:(PFUser *)user;
-
-
-
 
 @end

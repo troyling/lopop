@@ -127,6 +127,7 @@
 		D6ED53E61A99266500B5155D /* LPOfferChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53E51A99266500B5155D /* LPOfferChatViewController.m */; };
 		D6ED53EC1A9938DC00B5155D /* LPLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */; };
 		D6ED53F21A997D8500B5155D /* LPTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ED53F11A997D8500B5155D /* LPTimePickerViewController.m */; };
+		D6F2E6001AC1D6AF00201CBC /* LPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F2E5FF1AC1D6AF00201CBC /* LPCache.m */; };
 		D6F5B03F1A8D648900914A3F /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F5B0341A8D648900914A3F /* libWeiboSDK.a */; };
 		D6F5B0401A8D648900914A3F /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D6F5B03C1A8D648900914A3F /* WeiboSDK.bundle */; };
 		D6F5B0421A8D702000914A3F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F5B0411A8D702000914A3F /* ImageIO.framework */; };
@@ -355,6 +356,8 @@
 		D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPLocationPickerViewController.m; path = Controllers/MainView/Listing/LPLocationPickerViewController.m; sourceTree = "<group>"; };
 		D6ED53F01A997D8500B5155D /* LPTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPTimePickerViewController.h; path = Controllers/Common/LPTimePickerViewController.h; sourceTree = "<group>"; };
 		D6ED53F11A997D8500B5155D /* LPTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPTimePickerViewController.m; path = Controllers/Common/LPTimePickerViewController.m; sourceTree = "<group>"; };
+		D6F2E5FE1AC1D6AF00201CBC /* LPCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPCache.h; path = Helpers/Common/LPCache.h; sourceTree = "<group>"; };
+		D6F2E5FF1AC1D6AF00201CBC /* LPCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPCache.m; path = Helpers/Common/LPCache.m; sourceTree = "<group>"; };
 		D6F5B0341A8D648900914A3F /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = Frameworks/libWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		D6F5B0351A8D648900914A3F /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = Frameworks/libWeiboSDK/WBHttpRequest.h; sourceTree = "<group>"; };
 		D6F5B0361A8D648900914A3F /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "Frameworks/libWeiboSDK/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
@@ -583,6 +586,8 @@
 			children = (
 				D654D0BB1A9E2EE800154F85 /* LPLocationHelper.h */,
 				D654D0BC1A9E2EE800154F85 /* LPLocationHelper.m */,
+				D6F2E5FE1AC1D6AF00201CBC /* LPCache.h */,
+				D6F2E5FF1AC1D6AF00201CBC /* LPCache.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1269,6 +1274,7 @@
 				D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */,
 				D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */,
 				335FD8C51A7D740B0020B7A3 /* LPMessageViewController.m in Sources */,
+				D6F2E6001AC1D6AF00201CBC /* LPCache.m in Sources */,
 				D63AB4E91AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m in Sources */,
 				332F4B131A814D3700B186C9 /* LPChatTableViewController.m in Sources */,
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,

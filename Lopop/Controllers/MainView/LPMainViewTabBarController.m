@@ -9,6 +9,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPNewPopTableViewController.h"
 #import "LPUIHelper.h"
+#import "LPCache.h"
 #import "LPChatManager.h"
 #import <Parse/Parse.h>
 
@@ -37,6 +38,7 @@ float const NUM_TABS = 5.0;
 
     // fetching data
     [[PFUser currentUser] fetchInBackground];
+    [[LPCache getInstance] synchronizeFollowingForCurrentUserInBackground];
     [LPChatManager getInstance];
 
 }
