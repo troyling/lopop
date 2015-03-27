@@ -14,7 +14,7 @@
 #import "LPUIHelper.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
-#import "LPListingDetailViewController.h"
+#import "LPIncomingOfferTableViewController.h"
 #import "LPMeetUpMapViewController.h"
 #import "UIViewController+ScrollingNavbar.h"
 
@@ -181,7 +181,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.displayState == LPListingDisplay) {
-        LPListingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"listingDetailViewController"];
+        LPIncomingOfferTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"incomingOfferTableView"];
         LPPop *pop = [self.listings objectAtIndex:indexPath.row];
         vc.pop = pop;
         [self.navigationController pushViewController:vc animated:YES];

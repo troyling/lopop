@@ -8,6 +8,7 @@
 
 #import "LPIncomingOfferTableViewController.h"
 #import "LPUserProfileViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "LPUserRatingTableViewCell.h"
 #import "LPOfferChatViewController.h"
 #import "LPMessageViewController.h"
@@ -27,9 +28,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    if ([self.pop isDataAvailable]) {
+        [self loadHeaderView];
+    } else {
+        [self.pop fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (!error) {
+                [self loadHeaderView];
+            }
+        }];
+    }
     [self loadData];
+
+    // UI
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+
+    self.navigationItem.title = @"Offers";
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [((LPMainViewTabBarController *) self.tabBarController) setTabBarVisible:NO animated:YES];
+    }
+}
+
+- (void)loadHeaderView {
+    self.titleLabel.text = self.pop.title;
+//    self.numViewLabel.text
+
+    [LPPopHelper countOffersToPop:self.pop inBackgroundWithBlock:^(int count, NSError *error) {
+        if (!error) {
+            self.numOfferLabel.text = [NSString stringWithFormat:@"%d offers", count];
+            self.numOfferLabel.hidden = NO;
+        }
+    }];
+
+    PFFile *file = self.pop.images.firstObject;
+    [self.popImgView sd_setImageWithURL:[NSURL URLWithString:file.url]];
 }
 
 - (void)loadData {
