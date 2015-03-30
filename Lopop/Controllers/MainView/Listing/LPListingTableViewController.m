@@ -31,7 +31,7 @@
 
 @implementation LPListingTableViewController
 
-CGFloat const LISTING_CELL_HEIGHT = 260.0f;
+CGFloat const LISTING_CELL_HEIGHT = 275.0f;
 CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 
 - (void)viewDidLoad {

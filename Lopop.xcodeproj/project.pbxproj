@@ -34,6 +34,7 @@
 		D623FDD91A9698A100D09C53 /* LPAssociatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDD81A9698A100D09C53 /* LPAssociatedButton.m */; };
 		D623FDDE1A97A14700D09C53 /* LPUserRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */; };
 		D623FDE11A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */; };
+		D63609F51AC9A62A00BDD3BD /* LPPopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D63609F41AC9A62A00BDD3BD /* LPPopInfo.m */; };
 		D63AB4E61AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D63AB4E51AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m */; };
 		D63AB4E91AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D63AB4E81AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m */; };
 		D64859EF1AA8C669007003F9 /* LPIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D64859EE1AA8C669007003F9 /* LPIntroViewController.m */; };
@@ -218,6 +219,8 @@
 		D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingTableViewCell.m; path = Views/Common/LPUserRatingTableViewCell.m; sourceTree = "<group>"; };
 		D623FDDF1A97AC3C00D09C53 /* LPIncomingOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPIncomingOfferTableViewController.h; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.h; sourceTree = "<group>"; };
 		D623FDE01A97AC3C00D09C53 /* LPIncomingOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPIncomingOfferTableViewController.m; path = Controllers/MainView/Listing/LPIncomingOfferTableViewController.m; sourceTree = "<group>"; };
+		D63609F31AC9A62A00BDD3BD /* LPPopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopInfo.h; path = Models/LPPopInfo.h; sourceTree = "<group>"; };
+		D63609F41AC9A62A00BDD3BD /* LPPopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopInfo.m; path = Models/LPPopInfo.m; sourceTree = "<group>"; };
 		D63AB4E41AB5526E00ACDEC5 /* LPUserRatingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingDetailViewController.h; path = Controllers/Common/LPUserRatingDetailViewController.h; sourceTree = "<group>"; };
 		D63AB4E51AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRatingDetailViewController.m; path = Controllers/Common/LPUserRatingDetailViewController.m; sourceTree = "<group>"; };
 		D63AB4E71AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRatingDetailTableViewCell.h; path = Views/Common/LPUserRatingDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -726,6 +729,8 @@
 				D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */,
 				D68CD1B11AA3EBE20023E311 /* LPUserInfo.h */,
 				D68CD1B21AA3EBE20023E311 /* LPUserInfo.m */,
+				D63609F31AC9A62A00BDD3BD /* LPPopInfo.h */,
+				D63609F41AC9A62A00BDD3BD /* LPPopInfo.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1233,6 +1238,7 @@
 				D6F5F8401A8514680005758B /* SpringView.swift in Sources */,
 				D6ED53EC1A9938DC00B5155D /* LPLocationPickerViewController.m in Sources */,
 				D623FDD91A9698A100D09C53 /* LPAssociatedButton.m in Sources */,
+				D63609F51AC9A62A00BDD3BD /* LPPopInfo.m in Sources */,
 				D6F5F8391A8514680005758B /* Spring.swift in Sources */,
 				D6F5F8361A8514680005758B /* LoadingView.swift in Sources */,
 				D6F5F8351A8514680005758B /* KeyboardLayoutConstraint.swift in Sources */,

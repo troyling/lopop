@@ -12,5 +12,6 @@
 @interface LPPopHelper : NSObject
 
 + (void)countOffersToPop:(LPPop *)pop inBackgroundWithBlock:(void (^)(int count, NSError *error))completionBlock;
++ (void)incrementNumViewsInBackgroundForPop:(LPPop *)pop; // acynchrounously increment the number of views for a pop in the server
 
 @end
