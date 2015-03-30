@@ -11,6 +11,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import "LPOffer.h"
+#import "LPPopInfo.h"
 #import "LPUIHelper.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
@@ -171,6 +172,18 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 
     cell.titleLabel.text = pop.title;
     cell.priceLabel.text = [pop publicPriceStr];
+
+    // query number of views
+    PFQuery *query = [LPPopInfo query];
+    [query whereKey:@"pop" equalTo:pop];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count == 1) {
+            LPPopInfo *popInfo = objects.firstObject;
+            cell.numViewLabel.text = [NSString stringWithFormat:@"%@ views", popInfo.numViews];
+        } else {
+            cell.numViewLabel.text = @"0 view";
+        }
+    }];
 
     PFFile *file = pop.images.firstObject;
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:file.url]];

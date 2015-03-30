@@ -3955,6 +3955,7 @@
                                 <connections>
                                     <outlet property="imgView" destination="y34-hl-0YV" id="Q7g-JK-g7s"/>
                                     <outlet property="numOfferLabel" destination="V7d-Rm-kFH" id="Cg0-zf-IeK"/>
+                                    <outlet property="numViewLabel" destination="0U1-70-nA7" id="lgC-kT-EFB"/>
                                     <outlet property="titleLabel" destination="soi-oM-z8j" id="co0-zm-KLA"/>
                                 </connections>
                             </tableViewCell>
