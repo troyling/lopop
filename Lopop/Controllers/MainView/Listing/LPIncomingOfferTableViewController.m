@@ -13,15 +13,16 @@
 #import "LPOfferChatViewController.h"
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
-#import "LPUIHelper.h"
+#import "LPChatManager.h"
 #import "LPPopHelper.h"
+#import "LPUIHelper.h"
 #import "LPOffer.h"
 
 @interface LPIncomingOfferTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *incomingOffers;
-
 @property (strong, nonatomic) NSMutableArray *expandedCellIndexPaths;
+@property (retain, nonatomic) LPOffer *transitOffer;
 
 @end
 
@@ -61,7 +62,6 @@
 
 - (void)loadHeaderView {
     self.titleLabel.text = self.pop.title;
-//    self.numViewLabel.text
 
     [LPPopHelper countOffersToPop:self.pop inBackgroundWithBlock:^(int count, NSError *error) {
         if (!error) {
@@ -78,6 +78,7 @@
     if (self.pop) {
         PFQuery *query = [LPOffer query];
         [query whereKey:@"pop" equalTo:self.pop];
+        [query includeKey:@"fromUser"];
         [query orderByDescending:@"createdAt"];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
@@ -145,29 +146,9 @@
     cell.profileImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewOfferUserProfile:)];
     [cell.profileImageView addGestureRecognizer:tap];
-
-    [cell.actionBtn addTarget:self action:@selector(contactOfferUser:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.expandBtn addTarget:self action:@selector(expandCell:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 # pragma mark - Actions
-
-- (IBAction)contactOfferUser:(id)sender {
-    if ([[[sender superview] superview] isKindOfClass:[LPUserRatingTableViewCell class]]) {
-        LPUserRatingTableViewCell *cell = (LPUserRatingTableViewCell *) [[sender superview] superview];
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
-
-        // push to chat view
-        LPOfferChatViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"offerChatViewController"];
-        vc.offer = offer;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-}
-
-- (IBAction)expandCell:(id)sender {
-    NSLog(@"Expand cell");
-}
 
 - (IBAction)viewOfferUserProfile:(id)sender {
     if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -182,6 +163,29 @@
         vc.user = offerUser;
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+#pragma mark - UINavigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // TODO This is buggy
+    if ([segue.destinationViewController isKindOfClass:[LPMessageViewController class]]) {
+        LPMessageViewController *vc = segue.destinationViewController;
+
+        if ([[[sender superview] superview] isKindOfClass:[LPUserRatingTableViewCell class]]) {
+            LPUserRatingTableViewCell *cell = (LPUserRatingTableViewCell *) [[sender superview] superview];
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
+            vc.pop = self.pop;
+            vc.offerUser = offer.fromUser;
+            vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:offer.fromUser.objectId];
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // present meet up view
+
 }
 
 /*
