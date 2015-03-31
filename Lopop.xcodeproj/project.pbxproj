@@ -43,6 +43,7 @@
 		D64859F91AA9564D007003F9 /* intro_offer.png in Resources */ = {isa = PBXBuildFile; fileRef = D64859F51AA9564D007003F9 /* intro_offer.png */; };
 		D64859FA1AA9564D007003F9 /* intro_rate.png in Resources */ = {isa = PBXBuildFile; fileRef = D64859F61AA9564D007003F9 /* intro_rate.png */; };
 		D64859FC1AAA0783007003F9 /* intro_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D64859FB1AAA0783007003F9 /* intro_icon.jpg */; };
+		D64EC1101ACB294A0010271C /* LPNewMeetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D64EC10F1ACB294A0010271C /* LPNewMeetupViewController.m */; };
 		D654D0BD1A9E2EE800154F85 /* LPLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D654D0BC1A9E2EE800154F85 /* LPLocationHelper.m */; };
 		D65C1D021A9BD1EA002B95C6 /* icon_location_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */; };
 		D65C1D081A9D1F6E002B95C6 /* icon_dropdown_line.png in Resources */ = {isa = PBXBuildFile; fileRef = D65C1D071A9D1F6E002B95C6 /* icon_dropdown_line.png */; };
@@ -233,6 +234,8 @@
 		D64859F51AA9564D007003F9 /* intro_offer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro_offer.png; path = Resources/Images/intro/intro_offer.png; sourceTree = "<group>"; };
 		D64859F61AA9564D007003F9 /* intro_rate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro_rate.png; path = Resources/Images/intro/intro_rate.png; sourceTree = "<group>"; };
 		D64859FB1AAA0783007003F9 /* intro_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = intro_icon.jpg; path = Resources/Images/intro/intro_icon.jpg; sourceTree = "<group>"; };
+		D64EC10E1ACB294A0010271C /* LPNewMeetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPNewMeetupViewController.h; path = Controllers/MainView/Listing/LPNewMeetupViewController.h; sourceTree = "<group>"; };
+		D64EC10F1ACB294A0010271C /* LPNewMeetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPNewMeetupViewController.m; path = Controllers/MainView/Listing/LPNewMeetupViewController.m; sourceTree = "<group>"; };
 		D654D0BB1A9E2EE800154F85 /* LPLocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPLocationHelper.h; path = Helpers/Common/LPLocationHelper.h; sourceTree = "<group>"; };
 		D654D0BC1A9E2EE800154F85 /* LPLocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPLocationHelper.m; path = Helpers/Common/LPLocationHelper.m; sourceTree = "<group>"; };
 		D65C1D011A9BD1EA002B95C6 /* icon_location_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_location_fill.png; path = Resources/Images/icons/icon_location_fill.png; sourceTree = "<group>"; };
@@ -928,6 +931,8 @@
 				D6ED53E51A99266500B5155D /* LPOfferChatViewController.m */,
 				D6ED53EA1A9938DC00B5155D /* LPLocationPickerViewController.h */,
 				D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */,
+				D64EC10E1ACB294A0010271C /* LPNewMeetupViewController.h */,
+				D64EC10F1ACB294A0010271C /* LPNewMeetupViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1290,6 +1295,7 @@
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D63AB4E61AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m in Sources */,
 				D6F5F83A1A8514680005758B /* SpringAnimation.swift in Sources */,
+				D64EC1101ACB294A0010271C /* LPNewMeetupViewController.m in Sources */,
 				D6ED53E61A99266500B5155D /* LPOfferChatViewController.m in Sources */,
 				D6AB469A1A7B0004001BCCFC /* LPUserRelationship.m in Sources */,
 				D6F5F8471A8531740005758B /* LPMakeOfferViewController.m in Sources */,

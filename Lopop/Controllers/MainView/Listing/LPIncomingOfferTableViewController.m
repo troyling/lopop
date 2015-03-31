@@ -11,6 +11,7 @@
 #import "LPMainViewTabBarController.h"
 #import "LPUserRatingTableViewCell.h"
 #import "LPOfferChatViewController.h"
+#import "LPNewMeetupViewController.h"
 #import "LPMessageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPChatManager.h"
@@ -168,7 +169,7 @@
 #pragma mark - UINavigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // TODO This is buggy
+    // FIXME Message view controller crashes after slide back
     if ([segue.destinationViewController isKindOfClass:[LPMessageViewController class]]) {
         LPMessageViewController *vc = segue.destinationViewController;
 
@@ -179,6 +180,16 @@
             vc.pop = self.pop;
             vc.offerUser = offer.fromUser;
             vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:offer.fromUser.objectId];
+        }
+    } else if ([segue.identifier isEqualToString:@"scheduleMeetupSegue"]) {
+        LPNewMeetupViewController *vc = segue.destinationViewController;
+
+        if ([sender isKindOfClass:[LPUserRatingTableViewCell class]]) {
+            LPUserRatingTableViewCell *cell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
+            vc.offer = offer;
+            vc.pop = self.pop;
         }
     }
 }
