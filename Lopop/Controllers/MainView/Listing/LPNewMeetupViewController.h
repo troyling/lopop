@@ -23,8 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *pickLocationBtn;
 @property (weak, nonatomic) IBOutlet DesignableButton *confirmBtn;
 
-- (IBAction)selectTime:(id)sender;
-- (IBAction)pickLocatino:(id)sender;
 - (IBAction)confirmMeetup:(id)sender;
 
 - (IBAction)dismiss:(id)sender;

@@ -7,10 +7,14 @@
 //
 
 #import "LPNewMeetupViewController.h"
+#import "LPLocationPickerViewController.h"
+#import "LPTimePickerViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
 
 @interface LPNewMeetupViewController ()
+@property (retain, nonatomic) PFGeoPoint *meetUpLocation;
+@property (retain, nonatomic) NSDate *meetUpTime;
 
 @end
 
@@ -22,6 +26,8 @@
 }
 
 - (void)loadMeetupView {
+    self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
+
     self.nameLabel.text = self.offer.fromUser[@"name"];
     self.profileImgView.layer.cornerRadius = self.profileImgView.frame.size.height / 2.0f;
     self.profileImgView.clipsToBounds = YES;
@@ -36,35 +42,28 @@
         [self.pickTimeBtn setTitle:outputString forState:UIControlStateNormal];
     }
 
-    if (self.offer.meetUpLocation) {
-        [LPLocationHelper getAddressForGeoPoint:self.offer.meetUpLocation withBlock:^(NSString *address, NSError *error) {
-            if (!error) {
-                [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
-            }
-        }];
-    } else {
-        [LPLocationHelper getAddressForGeoPoint:self.pop.location withBlock:^(NSString *address, NSError *error) {
-            if (!error) {
-                [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
-            }
-        }];
-    }
+    [LPLocationHelper getAddressForGeoPoint:self.meetUpLocation withBlock: ^(NSString *address, NSError *error) {
+        if (!error) {
+            [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
+        }
+    }];
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)selectTime:(id)sender {
-}
-
-- (IBAction)pickLocatino:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[LPLocationPickerViewController class]]) {
+        LPLocationPickerViewController *vc = segue.destinationViewController;
+        CLLocation *loc = [[CLLocation alloc] initWithLatitude:self.meetUpLocation.latitude longitude:self.meetUpLocation.longitude];
+        vc.location = loc;
+    }
+    else if ([segue.destinationViewController isKindOfClass:[LPTimePickerViewController class]]) {
+        LPTimePickerViewController *vc = segue.destinationViewController;
+        vc.date = self.meetUpTime;
+    }
 }
 
 - (IBAction)confirmMeetup:(id)sender {

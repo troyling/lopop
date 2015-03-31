@@ -189,7 +189,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oj9-us-cIf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SPW-Jr-cPq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="562"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="580"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -456,7 +456,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="selectTime:" destination="bYc-zL-ZNA" eventType="touchUpInside" id="sI2-tA-hVi"/>
+                                            <segue destination="sec-wm-FtH" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="t6L-Jt-ynV"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMN-6a-AAP">
@@ -466,7 +466,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="pickLocatino:" destination="bYc-zL-ZNA" eventType="touchUpInside" id="yRj-Y9-vj0"/>
+                                            <segue destination="UYA-1N-Oo8" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="wW4-nT-3G4"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6N9-3X-09H">
@@ -615,167 +615,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4QB-Op-TdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3316.5" y="-1310.5"/>
-        </scene>
-        <!--Offer Chat View Controller-->
-        <scene sceneID="ZgM-qS-zXE">
-            <objects>
-                <viewController storyboardIdentifier="offerChatViewController" id="7zp-A2-BKu" customClass="LPOfferChatViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="MoL-Ng-0Xp"/>
-                        <viewControllerLayoutGuide type="bottom" id="t8e-fT-Gyl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Bko-gI-iB8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k5t-4b-paO">
-                                <rect key="frame" x="0.0" y="64" width="375" height="90"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RLX-M6-IxV">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="90"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="RLX-M6-IxV" secondAttribute="height" multiplier="1:1" id="C2d-LU-eoi"/>
-                                            <constraint firstAttribute="width" constant="120" id="L6I-Sm-JE9"/>
-                                            <constraint firstAttribute="height" constant="90" id="V62-72-2W1"/>
-                                            <constraint firstAttribute="width" secondItem="RLX-M6-IxV" secondAttribute="height" multiplier="4:3" id="pzR-qc-e1v"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="C2d-LU-eoi"/>
-                                            </mask>
-                                        </variation>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4M-HU-qSg">
-                                        <rect key="frame" x="128" y="8" width="158" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="ikf-tE-AKg"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJ6-y6-b69">
-                                        <rect key="frame" x="294" y="8" width="73" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="kCg-xj-w8l"/>
-                                            <constraint firstAttribute="width" constant="73" id="xOt-3y-fA5"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-U1-XGv" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
-                                        <rect key="frame" x="128" y="36" width="239" height="20"/>
-                                        <state key="normal" title="Pick a time">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="sec-wm-FtH" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="8ZU-eE-3Jh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHt-GE-9ex" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
-                                        <rect key="frame" x="128" y="64" width="239" height="20"/>
-                                        <state key="normal" title="Change pick up location">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="UYA-1N-Oo8" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="CNn-uq-i0D"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="RLX-M6-IxV" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" id="830-hz-KKU"/>
-                                    <constraint firstItem="aJ6-y6-b69" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" constant="8" id="A7q-s8-KCB"/>
-                                    <constraint firstItem="aJ6-y6-b69" firstAttribute="leading" secondItem="q4M-HU-qSg" secondAttribute="trailing" constant="8" id="AUA-cG-O1a"/>
-                                    <constraint firstItem="aJ6-y6-b69" firstAttribute="top" secondItem="q4M-HU-qSg" secondAttribute="bottom" constant="8" id="IEu-Lq-2w2"/>
-                                    <constraint firstAttribute="height" constant="90" id="Ims-XL-Rlf"/>
-                                    <constraint firstItem="aJ6-y6-b69" firstAttribute="leading" secondItem="RLX-M6-IxV" secondAttribute="trailing" constant="8" id="PEw-hS-bgF"/>
-                                    <constraint firstAttribute="trailing" secondItem="aJ6-y6-b69" secondAttribute="trailing" constant="8" id="bjn-eb-eV6"/>
-                                    <constraint firstItem="q4M-HU-qSg" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" constant="8" id="dul-yM-rxT"/>
-                                    <constraint firstItem="RLX-M6-IxV" firstAttribute="leading" secondItem="k5t-4b-paO" secondAttribute="leading" id="jlz-r9-2fY"/>
-                                    <constraint firstItem="q4M-HU-qSg" firstAttribute="leading" secondItem="RLX-M6-IxV" secondAttribute="trailing" constant="8" id="nD3-Tc-rHx"/>
-                                    <constraint firstAttribute="trailing" secondItem="q4M-HU-qSg" secondAttribute="trailing" constant="99" id="qtD-Oa-hxg"/>
-                                    <constraint firstItem="RLX-M6-IxV" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="top" id="rBo-nf-B9Q"/>
-                                    <constraint firstItem="RLX-M6-IxV" firstAttribute="width" secondItem="RLX-M6-IxV" secondAttribute="height" multiplier="4:3" id="uLM-Sr-ZOx"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="830-hz-KKU"/>
-                                        <exclude reference="uLM-Sr-ZOx"/>
-                                        <exclude reference="qtD-Oa-hxg"/>
-                                        <exclude reference="IEu-Lq-2w2"/>
-                                        <exclude reference="PEw-hS-bgF"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gD-WC-ecf">
-                                <rect key="frame" x="0.0" y="154" width="375" height="562"/>
-                                <connections>
-                                    <segue destination="PhZ-EF-xaN" kind="embed" id="CbO-hf-X98"/>
-                                </connections>
-                            </containerView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OA8-0w-719" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="154" width="375" height="40"/>
-                                <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="CaG-Zv-gG1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <state key="normal" title="Propose Meetup">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="proposeMeetup:" destination="7zp-A2-BKu" eventType="touchUpInside" id="550-ae-eEi"/>
-                                    <segue destination="oZp-VE-EyS" kind="presentation" identifier="meetUpMapSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="1Um-WY-9va"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="3gD-WC-ecf" firstAttribute="leading" secondItem="Bko-gI-iB8" secondAttribute="leadingMargin" id="12A-7c-iD7"/>
-                            <constraint firstAttribute="width" secondItem="k5t-4b-paO" secondAttribute="height" multiplier="25:6" id="19Y-gO-KPq"/>
-                            <constraint firstItem="t8e-fT-Gyl" firstAttribute="top" secondItem="3gD-WC-ecf" secondAttribute="bottom" id="54Q-Wh-Ufe"/>
-                            <constraint firstItem="k5t-4b-paO" firstAttribute="leading" secondItem="Bko-gI-iB8" secondAttribute="leadingMargin" constant="-16" id="7Ps-GM-TA1"/>
-                            <constraint firstAttribute="width" secondItem="OA8-0w-719" secondAttribute="width" id="EUD-Z1-oN4"/>
-                            <constraint firstAttribute="centerX" secondItem="OA8-0w-719" secondAttribute="centerX" id="L6O-Ee-j2C"/>
-                            <constraint firstItem="k5t-4b-paO" firstAttribute="leading" secondItem="OA8-0w-719" secondAttribute="trailing" constant="-375" id="NnB-tl-hdl"/>
-                            <constraint firstItem="3gD-WC-ecf" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="bottom" id="Rj1-G0-Zru"/>
-                            <constraint firstItem="t8e-fT-Gyl" firstAttribute="top" secondItem="3gD-WC-ecf" secondAttribute="bottom" constant="-49" id="UJ0-vM-zYU"/>
-                            <constraint firstAttribute="width" secondItem="k5t-4b-paO" secondAttribute="width" id="ehr-WX-sm9"/>
-                            <constraint firstAttribute="centerX" secondItem="3gD-WC-ecf" secondAttribute="centerX" id="ri1-sL-9X5"/>
-                            <constraint firstItem="OA8-0w-719" firstAttribute="top" secondItem="k5t-4b-paO" secondAttribute="bottom" id="tY8-Q0-Aje"/>
-                            <constraint firstAttribute="centerX" secondItem="k5t-4b-paO" secondAttribute="centerX" id="wd4-bq-jIS"/>
-                            <constraint firstItem="k5t-4b-paO" firstAttribute="top" secondItem="MoL-Ng-0Xp" secondAttribute="bottom" id="wvb-CM-ML4"/>
-                            <constraint firstItem="3gD-WC-ecf" firstAttribute="width" secondItem="Bko-gI-iB8" secondAttribute="width" id="yII-CO-iDJ"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="19Y-gO-KPq"/>
-                                <exclude reference="7Ps-GM-TA1"/>
-                                <exclude reference="NnB-tl-hdl"/>
-                                <exclude reference="12A-7c-iD7"/>
-                                <exclude reference="54Q-Wh-Ufe"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="locationBtn" destination="YHt-GE-9ex" id="5yA-VA-jXB"/>
-                        <outlet property="meetupBtn" destination="OA8-0w-719" id="gB1-LT-6II"/>
-                        <outlet property="popImgView" destination="RLX-M6-IxV" id="TTc-zx-uS6"/>
-                        <outlet property="priceLabel" destination="aJ6-y6-b69" id="oZG-OQ-fFY"/>
-                        <outlet property="timeSelectorBtn" destination="eyN-U1-XGv" id="jqi-9G-hBe"/>
-                        <outlet property="titleLabel" destination="q4M-HU-qSg" id="iZD-4Q-B5M"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d5D-td-TN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3818.5" y="-1295.5"/>
+            <point key="canvasLocation" x="3390.5" y="-1310.5"/>
         </scene>
         <!--Time Picker View Controller-->
         <scene sceneID="drD-ln-C5O">
@@ -883,7 +723,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9dY-0Q-Bx5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="at5-Ul-UqV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4594.5" y="-1390.5"/>
+            <point key="canvasLocation" x="3920.5" y="-1688.5"/>
         </scene>
         <!--Meet Up Map View Controller-->
         <scene sceneID="ms5-xh-6aY">
@@ -1253,7 +1093,7 @@
                 <exit id="m85-gr-ic9" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BoS-BV-jvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4594.5" y="-655.5"/>
+            <point key="canvasLocation" x="4788.5" y="-381.5"/>
         </scene>
         <!--Rate User View Controller-->
         <scene sceneID="LVG-Cq-3RI">
@@ -1583,7 +1423,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghI-a0-JTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="LDQ-8a-SJu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4594.5" y="-2155.5"/>
+            <point key="canvasLocation" x="3920.5" y="-961.5"/>
         </scene>
         <!--New Pop-->
         <scene sceneID="ul8-Ax-XSt">
@@ -4124,8 +3964,7 @@
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1Um-WY-9va"/>
-        <segue reference="CbO-hf-X98"/>
+        <segue reference="rPk-Qo-ZRZ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
