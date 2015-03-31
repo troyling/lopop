@@ -7,7 +7,7 @@
 //
 
 #import "LPIncomingOfferTableViewController.h"
-#import "LPUserProfileViewController.h"
+#import "LPUserProfileTableViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPUserRatingTableViewCell.h"
 #import "LPOfferChatViewController.h"
@@ -20,6 +20,8 @@
 @interface LPIncomingOfferTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *incomingOffers;
+
+@property (strong, nonatomic) NSMutableArray *expandedCellIndexPaths;
 
 @end
 
@@ -38,6 +40,8 @@
         }];
     }
     [self loadData];
+
+    self.expandedCellIndexPaths = [NSMutableArray array];
 
     // UI
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -134,12 +138,19 @@
     [cell.userRateView addSubview:rv];
 
     // actions
+    [self loadActionsForCell:cell];
+}
+
+- (void)loadActionsForCell:(LPUserRatingTableViewCell *)cell {
     cell.profileImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewOfferUserProfile:)];
     [cell.profileImageView addGestureRecognizer:tap];
 
     [cell.actionBtn addTarget:self action:@selector(contactOfferUser:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.expandBtn addTarget:self action:@selector(expandCell:) forControlEvents:UIControlEventTouchUpInside];
 }
+
+# pragma mark - Actions
 
 - (IBAction)contactOfferUser:(id)sender {
     if ([[[sender superview] superview] isKindOfClass:[LPUserRatingTableViewCell class]]) {
@@ -154,6 +165,10 @@
     }
 }
 
+- (IBAction)expandCell:(id)sender {
+    NSLog(@"Expand cell");
+}
+
 - (IBAction)viewOfferUserProfile:(id)sender {
     if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
         UITapGestureRecognizer *tap = sender;
@@ -163,12 +178,11 @@
         LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
         PFUser *offerUser = offer.fromUser;
 
-        LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPUserProfileViewController"];
-        vc.targetUser = offerUser;
+        LPUserProfileTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"userProfile"];
+        vc.user = offerUser;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
 
 /*
 // Override to support conditional editing of the table view.
