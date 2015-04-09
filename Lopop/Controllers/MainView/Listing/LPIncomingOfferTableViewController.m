@@ -121,6 +121,10 @@
         }
     }
 
+//    UIView *mask = [[UIView alloc] initWithFrame:cell.bounds];
+//    [mask setBackgroundColor:[UIColor colorWithWhite:0.5 alpha:0.5]];
+//    [cell addSubview:mask];
+
     return cell;
 }
 

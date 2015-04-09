@@ -189,7 +189,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oj9-us-cIf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SPW-Jr-cPq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -389,6 +389,7 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="actionBtn" destination="LlK-pR-l1k" id="otE-gG-pCz"/>
                                     <outlet property="nameLabel" destination="J8o-cP-rPj" id="FAa-Vb-VUm"/>
@@ -430,6 +431,26 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Oyy-QX-rJ6">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can only move forward with one offer. You will not be able to cancel the meet up once it is finalized." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mL-mK-Frw">
+                                            <rect key="frame" x="62" y="74" width="250" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3mL-mK-Frw" firstAttribute="top" secondItem="Oyy-QX-rJ6" secondAttribute="top" constant="74" id="Agy-5u-BHH"/>
+                                        <constraint firstItem="3mL-mK-Frw" firstAttribute="leading" secondItem="Oyy-QX-rJ6" secondAttribute="leading" constant="45" id="EWk-Ob-7oH"/>
+                                        <constraint firstAttribute="trailing" secondItem="3mL-mK-Frw" secondAttribute="trailing" constant="45" id="i3X-QE-OWM"/>
+                                        <constraint firstAttribute="centerX" secondItem="3mL-mK-Frw" secondAttribute="centerX" id="wNs-Am-agB"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="EWk-Ob-7oH"/>
+                                            <exclude reference="i3X-QE-OWM"/>
+                                        </mask>
+                                    </variation>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -543,11 +564,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQf-OL-yLF" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
-                                <rect key="frame" x="95" y="467" width="184" height="35"/>
+                                <rect key="frame" x="-0.5" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="aUv-NQ-mYQ"/>
-                                    <constraint firstAttribute="height" constant="35" id="eA1-xP-Rr2"/>
+                                    <constraint firstAttribute="height" constant="49" id="eA1-xP-Rr2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Confirm">
@@ -564,6 +585,11 @@
                                         <real key="value" value="0.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="aUv-NQ-mYQ"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="confirmMeetup:" destination="bYc-zL-ZNA" eventType="touchUpInside" id="74h-ec-Eo8"/>
                                     <action selector="confirmOffer:" destination="qQ5-CJ-vxC" eventType="touchUpInside" id="ZFA-lr-BAd"/>
@@ -572,12 +598,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="3mL-mK-Frw" firstAttribute="width" secondItem="raz-cj-CPY" secondAttribute="width" id="3n7-uC-KIh"/>
                             <constraint firstItem="iEz-eo-fdN" firstAttribute="top" secondItem="JcQ-FP-EQW" secondAttribute="bottom" constant="20" id="CSY-BN-Na4"/>
                             <constraint firstAttribute="centerX" secondItem="neN-L4-3WK" secondAttribute="centerX" id="FLO-Cm-h9m"/>
                             <constraint firstItem="gQf-OL-yLF" firstAttribute="top" secondItem="raz-cj-CPY" secondAttribute="bottom" constant="8" id="FTd-M7-YZQ"/>
                             <constraint firstItem="iEz-eo-fdN" firstAttribute="top" secondItem="JcQ-FP-EQW" secondAttribute="bottom" constant="20" id="KbM-so-Iky"/>
                             <constraint firstAttribute="centerX" secondItem="raz-cj-CPY" secondAttribute="centerX" id="MML-3q-r6I"/>
                             <constraint firstAttribute="centerX" secondItem="gQf-OL-yLF" secondAttribute="centerX" id="PhX-oI-BT1"/>
+                            <constraint firstItem="vRY-bv-Xmy" firstAttribute="top" secondItem="gQf-OL-yLF" secondAttribute="bottom" id="Sr5-bZ-RcU"/>
                             <constraint firstAttribute="height" secondItem="neN-L4-3WK" secondAttribute="height" id="UG0-y1-Bv1"/>
                             <constraint firstAttribute="centerY" secondItem="neN-L4-3WK" secondAttribute="centerY" id="bHc-1Q-zvu"/>
                             <constraint firstItem="neN-L4-3WK" firstAttribute="leading" secondItem="JcQ-FP-EQW" secondAttribute="trailing" id="cxt-fi-K3N"/>
@@ -587,6 +615,7 @@
                             <constraint firstAttribute="centerY" secondItem="raz-cj-CPY" secondAttribute="centerY" id="rJS-V8-SGH"/>
                             <constraint firstItem="neN-L4-3WK" firstAttribute="top" secondItem="JcQ-FP-EQW" secondAttribute="bottom" id="vA0-Tm-g3m"/>
                             <constraint firstItem="iEz-eo-fdN" firstAttribute="top" secondItem="JcQ-FP-EQW" secondAttribute="bottom" constant="20" id="vMT-54-FYa"/>
+                            <constraint firstItem="gQf-OL-yLF" firstAttribute="width" secondItem="WFV-VP-tJN" secondAttribute="width" id="xFf-eC-5d4"/>
                             <constraint firstItem="JcQ-FP-EQW" firstAttribute="leading" secondItem="WFV-VP-tJN" secondAttribute="leadingMargin" constant="-16" id="xJ8-wb-3Pm"/>
                             <constraint firstAttribute="width" secondItem="neN-L4-3WK" secondAttribute="width" id="yJQ-uN-plW"/>
                         </constraints>
@@ -599,6 +628,7 @@
                                 <exclude reference="qC4-tU-lsq"/>
                                 <exclude reference="vMT-54-FYa"/>
                                 <exclude reference="hCn-78-ChK"/>
+                                <exclude reference="FTd-M7-YZQ"/>
                             </mask>
                         </variation>
                     </view>
@@ -649,7 +679,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismiss:" destination="sec-wm-FtH" eventType="touchUpInside" id="Atm-Wt-EwE"/>
                                     <segue destination="at5-Ul-UqV" kind="unwind" unwindAction="prepareForUnwindSegue:" id="Dm3-rA-K7E"/>
                                 </connections>
                             </button>
@@ -1340,7 +1369,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismiss:" destination="UYA-1N-Oo8" eventType="touchUpInside" id="r7a-nW-Duj"/>
                                     <segue destination="LDQ-8a-SJu" kind="unwind" unwindAction="prepareForUnwindSegue:" id="TR3-AR-hrP"/>
                                 </connections>
                             </button>
@@ -2154,7 +2182,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xb4-hM-aBi">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xb4-hM-aBi">
                                                 <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="sdn-3v-Dad"/>
@@ -2163,7 +2191,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUD-bQ-Rfu">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUD-bQ-Rfu">
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -3964,7 +3992,7 @@
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rPk-Qo-ZRZ"/>
+        <segue reference="edX-sg-OfM"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

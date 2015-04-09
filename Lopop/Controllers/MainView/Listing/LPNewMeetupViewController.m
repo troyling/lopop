@@ -47,6 +47,9 @@
             [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
         }
     }];
+
+    self.pickTimeBtn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.pickLocationBtn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
 }
 
 #pragma mark - Navigation
@@ -67,10 +70,31 @@
 }
 
 - (IBAction)confirmMeetup:(id)sender {
+    self.offer.status = kOfferMeetUpProposed;
+    self.offer.meetUpLocation = self.meetUpLocation;
+    self.offer.meetUpTime = self.meetUpTime;
+    [self.offer saveEventually];
 }
 
 - (IBAction)dismiss:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark Unwind segue
+
+- (IBAction)prepareForUnwindSegue:(UIStoryboardSegue *)unwindsegue {
+    if ([unwindsegue.sourceViewController isKindOfClass:[LPLocationPickerViewController class]]) {
+        LPLocationPickerViewController *vc = unwindsegue.sourceViewController;
+        self.meetUpLocation = [PFGeoPoint geoPointWithLocation:vc.location];
+        [self.pickLocationBtn setTitle:vc.addressLabel.text forState:UIControlStateNormal];
+        NSLog(@"hi");
+        //TODO: Change state of icon in the future
+    } else if ([unwindsegue.sourceViewController isKindOfClass:[LPTimePickerViewController class]]) {
+        LPTimePickerViewController *vc = unwindsegue.sourceViewController;
+        [self.pickTimeBtn setTitle:vc.timeLabel.text forState:UIControlStateNormal];
+        self.meetUpTime = vc.datePicker.date;
+        //TODO change state of icon
+    }
 }
 
 @end
