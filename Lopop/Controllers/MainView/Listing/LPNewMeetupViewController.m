@@ -26,6 +26,7 @@
 }
 
 - (void)loadMeetupView {
+    NSLog(@"%@", self.offer);
     self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
 
     self.nameLabel.text = self.offer.fromUser[@"name"];
@@ -74,6 +75,8 @@
     self.offer.meetUpLocation = self.meetUpLocation;
     self.offer.meetUpTime = self.meetUpTime;
     [self.offer saveEventually];
+
+    // TODO change the UI of this view once the meetup is saved
 }
 
 - (IBAction)dismiss:(id)sender {

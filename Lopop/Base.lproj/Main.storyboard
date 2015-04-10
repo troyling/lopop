@@ -433,14 +433,23 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can only move forward with one offer. You will not be able to cancel the meet up once it is finalized." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mL-mK-Frw">
-                                            <rect key="frame" x="62" y="74" width="250" height="43"/>
+                                            <rect key="frame" x="62" y="109" width="250" height="43"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_warning_white" translatesAutoresizingMaskIntoConstraints="NO" id="zUK-Z7-nLt">
+                                            <rect key="frame" x="175" y="76" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="glu-rD-qcI"/>
+                                                <constraint firstAttribute="width" constant="25" id="t40-Bc-DQm"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="3mL-mK-Frw" firstAttribute="top" secondItem="Oyy-QX-rJ6" secondAttribute="top" constant="74" id="Agy-5u-BHH"/>
+                                        <constraint firstItem="zUK-Z7-nLt" firstAttribute="top" secondItem="Oyy-QX-rJ6" secondAttribute="top" constant="76" id="3h9-zn-Wy7"/>
+                                        <constraint firstAttribute="centerX" secondItem="zUK-Z7-nLt" secondAttribute="centerX" id="87x-W4-YSh"/>
+                                        <constraint firstItem="3mL-mK-Frw" firstAttribute="top" secondItem="Oyy-QX-rJ6" secondAttribute="top" constant="109" id="Agy-5u-BHH"/>
                                         <constraint firstItem="3mL-mK-Frw" firstAttribute="leading" secondItem="Oyy-QX-rJ6" secondAttribute="leading" constant="45" id="EWk-Ob-7oH"/>
                                         <constraint firstAttribute="trailing" secondItem="3mL-mK-Frw" secondAttribute="trailing" constant="45" id="i3X-QE-OWM"/>
                                         <constraint firstAttribute="centerX" secondItem="3mL-mK-Frw" secondAttribute="centerX" id="wNs-Am-agB"/>
@@ -452,7 +461,15 @@
                                         </mask>
                                     </variation>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="zUK-Z7-nLt" secondAttribute="centerY" id="AsH-59-Y4Q"/>
+                                </constraints>
                                 <blurEffect style="dark"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="AsH-59-Y4Q"/>
+                                    </mask>
+                                </variation>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raz-cj-CPY" customClass="DesignableView" customModule="Lopop" customModuleProvider="target">
                                 <rect key="frame" x="62" y="209" width="250" height="250"/>
@@ -473,7 +490,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UK0-Bw-cE9">
                                         <rect key="frame" x="38" y="152" width="204" height="28"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Time">
+                                        <state key="normal" title="Set time">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -505,6 +522,26 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_clock_gray" translatesAutoresizingMaskIntoConstraints="NO" id="1m6-f9-AnC">
+                                        <rect key="frame" x="15" y="152" width="15" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="1m6-f9-AnC" secondAttribute="height" multiplier="11:14" constant="-7" id="7oy-0m-UtD"/>
+                                            <constraint firstAttribute="width" constant="22" id="9R2-xy-5L3"/>
+                                            <constraint firstAttribute="width" secondItem="1m6-f9-AnC" secondAttribute="height" multiplier="11:14" id="wkR-cc-FNA"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="9R2-xy-5L3"/>
+                                                <exclude reference="wkR-cc-FNA"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_location_gray" translatesAutoresizingMaskIntoConstraints="NO" id="FVt-sN-sq3">
+                                        <rect key="frame" x="15" y="188" width="15" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="FVt-sN-sq3" secondAttribute="height" multiplier="1:1" constant="-15" id="vbe-I2-CNa"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -518,14 +555,20 @@
                                     <constraint firstItem="Das-2S-tZ8" firstAttribute="leading" secondItem="raz-cj-CPY" secondAttribute="leading" constant="52" id="JDh-DV-s3w"/>
                                     <constraint firstAttribute="trailing" secondItem="6N9-3X-09H" secondAttribute="trailing" constant="8" id="NfI-1T-FzI"/>
                                     <constraint firstItem="6N9-3X-09H" firstAttribute="top" secondItem="JzR-NO-ur8" secondAttribute="bottom" constant="8" id="P9D-Wd-sxD"/>
+                                    <constraint firstItem="UK0-Bw-cE9" firstAttribute="leading" secondItem="1m6-f9-AnC" secondAttribute="trailing" constant="8" id="QAs-9W-Kdt"/>
                                     <constraint firstAttribute="centerX" secondItem="6N9-3X-09H" secondAttribute="centerX" id="Rp7-ck-a0U"/>
                                     <constraint firstAttribute="trailing" secondItem="UK0-Bw-cE9" secondAttribute="trailing" constant="8" id="UoH-wO-Unw"/>
+                                    <constraint firstItem="iMN-6a-AAP" firstAttribute="leading" secondItem="FVt-sN-sq3" secondAttribute="trailing" constant="8" id="YSM-gl-cJH"/>
+                                    <constraint firstItem="FVt-sN-sq3" firstAttribute="top" secondItem="1m6-f9-AnC" secondAttribute="bottom" constant="8" id="dub-NZ-8Ry"/>
+                                    <constraint firstItem="FVt-sN-sq3" firstAttribute="leading" secondItem="raz-cj-CPY" secondAttribute="leading" constant="15" id="fS3-nP-lL5"/>
+                                    <constraint firstItem="1m6-f9-AnC" firstAttribute="leading" secondItem="raz-cj-CPY" secondAttribute="leading" constant="15" id="glO-px-TpL"/>
                                     <constraint firstAttribute="trailing" secondItem="iMN-6a-AAP" secondAttribute="trailing" constant="8" id="hnS-Gj-xfd"/>
                                     <constraint firstItem="iMN-6a-AAP" firstAttribute="leading" secondItem="raz-cj-CPY" secondAttribute="leading" constant="38" id="hyI-dy-Zbx"/>
                                     <constraint firstAttribute="centerX" secondItem="JzR-NO-ur8" secondAttribute="centerX" id="j5v-eT-f1r"/>
                                     <constraint firstItem="UK0-Bw-cE9" firstAttribute="leading" secondItem="raz-cj-CPY" secondAttribute="leading" constant="38" id="jiW-eA-Hcj"/>
                                     <constraint firstItem="UK0-Bw-cE9" firstAttribute="top" secondItem="6N9-3X-09H" secondAttribute="bottom" constant="8" id="nyS-Dy-tP2"/>
                                     <constraint firstItem="UK0-Bw-cE9" firstAttribute="top" secondItem="JzR-NO-ur8" secondAttribute="bottom" constant="52" id="oOz-hN-wu3"/>
+                                    <constraint firstItem="1m6-f9-AnC" firstAttribute="top" secondItem="JzR-NO-ur8" secondAttribute="bottom" constant="41" id="qvp-mR-Ds8"/>
                                     <constraint firstItem="Das-2S-tZ8" firstAttribute="top" secondItem="raz-cj-CPY" secondAttribute="top" constant="8" id="vQS-q7-74N"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -564,7 +607,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQf-OL-yLF" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
-                                <rect key="frame" x="-0.5" y="618" width="375" height="49"/>
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="aUv-NQ-mYQ"/>
@@ -3984,11 +4027,14 @@
         <image name="TabBarMarket" width="32" height="32"/>
         <image name="TabBarMessage" width="32" height="32"/>
         <image name="TabBarSettings" width="32" height="32"/>
+        <image name="icon_clock_gray" width="38" height="38"/>
         <image name="icon_close_white" width="28" height="28"/>
         <image name="icon_like.png" width="40" height="42"/>
         <image name="icon_location.png" width="34" height="48"/>
         <image name="icon_location_fill" width="34" height="48"/>
+        <image name="icon_location_gray" width="34" height="48"/>
         <image name="icon_radar_fill" width="48" height="48"/>
+        <image name="icon_warning_white" width="38" height="38"/>
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
