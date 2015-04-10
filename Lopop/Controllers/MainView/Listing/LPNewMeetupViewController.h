@@ -23,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *pickLocationBtn;
 @property (weak, nonatomic) IBOutlet DesignableButton *confirmBtn;
 
+@property (weak, nonatomic) IBOutlet UIImageView *timeIconImgView;
+@property (weak, nonatomic) IBOutlet UIImageView *locationIconImgView;
+
 - (IBAction)confirmMeetup:(id)sender;
 
 - (IBAction)dismiss:(id)sender;

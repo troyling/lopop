@@ -680,10 +680,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="confirmBtn" destination="gQf-OL-yLF" id="3SQ-VO-EWW"/>
+                        <outlet property="locationIconImgView" destination="FVt-sN-sq3" id="KZv-tT-3vQ"/>
                         <outlet property="nameLabel" destination="6N9-3X-09H" id="CFH-dO-giB"/>
                         <outlet property="pickLocationBtn" destination="iMN-6a-AAP" id="l2e-7f-c4V"/>
                         <outlet property="pickTimeBtn" destination="UK0-Bw-cE9" id="YiR-m0-6x8"/>
                         <outlet property="profileImgView" destination="JzR-NO-ur8" id="vRh-KQ-yQk"/>
+                        <outlet property="timeIconImgView" destination="1m6-f9-AnC" id="4bN-KA-xox"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4QB-Op-TdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
