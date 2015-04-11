@@ -49,17 +49,17 @@ DEPENDENCIES:
   - SDWebImage (~> 3.6)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  AMScrollingNavbar: d17101ccb4871c4b9304cc51357ca1b8d2ed7ca8
-  CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
-  DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
-  HMSegmentedControl: 5bb76002ce529ad83855a06cbdb5c6e48732141b
-  IDMPhotoBrowser: 9639f7c57bdf942dc4e214ff9d8108e08ebd3f27
-  JazzHands: 700f8eed9e2b2dec07963fde59153dea3c194f85
-  JSQMessagesViewController: e93a288a9662d4519c95a28a8c0eec10beae1bfc
-  JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
-  M13ProgressSuite: 931cde7e91d474c04edb4b34517d75ca6d88ccf2
-  pop: 2f14a1ea61339767af9e66741b418c831b3844df
-  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  AMScrollingNavbar: ff2eae1e547b3de9f95b832f5da71197869418ee
+  CRToast: 99a28f4387def43b439ad88f957ce31357ff7373
+  DACircularProgress: 0f92b77239d5f3c612fc66185e2998391ac8e054
+  HMSegmentedControl: 23b6155cd3670f73ffc6eb836af1cfc440e81780
+  IDMPhotoBrowser: 87855f598b50406fc2a21b6f17944afabd355d6e
+  JazzHands: aebe88027f1214188e5374a3dc742007a9a99ffb
+  JSQMessagesViewController: 31b79ac9547e060ba96413eb2e1b2ee5260f5189
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  M13ProgressSuite: 03d194af6359da440641ba758aed5a18b0386a86
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
 
 COCOAPODS: 0.35.0

@@ -159,7 +159,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         _autoHide = YES;
         
         _displayDoneButton = YES;
-        _doneButtonImage = [UIImage imageNamed:@"icon_close_white"];
+        _doneButtonImage = nil;
         
         _displayToolbar = YES;
         _displayActionButton = YES;
@@ -582,16 +582,15 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     if(!_doneButtonImage) {
         [_doneButton setTitleColor:[UIColor colorWithWhite:0.9 alpha:0.9] forState:UIControlStateNormal|UIControlStateHighlighted];
         [_doneButton setTitle:IDMPhotoBrowserLocalizedStrings(@"Done") forState:UIControlStateNormal];
-        [_doneButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+        [_doneButton.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
         [_doneButton setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:0.5]];
         _doneButton.layer.cornerRadius = 3.0f;
         _doneButton.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.9].CGColor;
         _doneButton.layer.borderWidth = 1.0f;
     }
     else {
-        [_doneButton setImage:[UIImage imageNamed:@"icon_close_white"] forState:UIControlStateNormal];
-        _doneButton.contentMode = UIViewContentModeCenter;
-        [_doneButton setContentEdgeInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
+        [_doneButton setBackgroundImage:_doneButtonImage forState:UIControlStateNormal];
+        _doneButton.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     UIImage *leftButtonImage = (_leftArrowImage == nil) ?
@@ -1070,7 +1069,12 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 }
 
 - (CGRect)frameForDoneButtonAtOrientation:(UIInterfaceOrientation)orientation {
-    return CGRectMake(0, 20, 49, 49);
+    CGRect screenBound = self.view.bounds;
+    CGFloat screenWidth = screenBound.size.width;
+    
+    // if ([self isLandscape:orientation]) screenWidth = screenBound.size.height;
+    
+    return CGRectMake(screenWidth - 75, 30, 55, 26);
 }
 
 - (CGRect)frameForCaptionView:(IDMCaptionView *)captionView atIndex:(NSUInteger)index {
@@ -1120,7 +1124,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 - (void)updateToolbar {
     // Counter
 	if ([self numberOfPhotos] > 1) {
-		_counterLabel.text = [NSString stringWithFormat:@"%lu %@ %lu", _currentPageIndex+1, IDMPhotoBrowserLocalizedStrings(@"of"), (unsigned long)[self numberOfPhotos]];
+		_counterLabel.text = [NSString stringWithFormat:@"%u %@ %lu", _currentPageIndex+1, IDMPhotoBrowserLocalizedStrings(@"of"), (unsigned long)[self numberOfPhotos]];
 	} else {
 		_counterLabel.text = nil;
 	}
