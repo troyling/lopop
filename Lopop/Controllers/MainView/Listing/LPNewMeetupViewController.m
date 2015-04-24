@@ -22,38 +22,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // wrapping to show all contents on label and buttons
+    self.timeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.pickTimeBtn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.pickLocationBtn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+
     [self loadMeetupView];
 }
 
 - (void)loadMeetupView {
-    self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
-    self.meetUpTime = self.offer.meetUpTime;
-
-    self.nameLabel.text = self.offer.fromUser[@"name"];
-    self.profileImgView.layer.cornerRadius = self.profileImgView.frame.size.height / 2.0f;
-    self.profileImgView.clipsToBounds = YES;
-    [self.profileImgView sd_setImageWithURL:self.offer.fromUser[@"profilePictureUrl"]];
-
-    if (self.offer.meetUpTime) {
-        NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
-        NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
-        [outputDateFormatter setTimeZone:timeZoneLocal];
-        [outputDateFormatter setDateFormat:@"EEE, MMM d, h:mm a"];
-        NSString *outputString = [outputDateFormatter stringFromDate:self.offer.meetUpTime];
-        [self.pickTimeBtn setTitle:outputString forState:UIControlStateNormal];
-    }
-
-    [LPLocationHelper getAddressForGeoPoint:self.meetUpLocation withBlock: ^(NSString *address, NSError *error) {
-        if (!error) {
-            [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
-        }
-    }];
-
-    self.pickTimeBtn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.pickLocationBtn.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-
+    [self loadProfileView];
     [self loadTimeIconImageView];
     [self loadLocaitonIconImageView];
+
+    if (self.offer.status == kOfferMeetUpProposed || self.offer.status == kOfferAccepted) {
+        [self setPreviewMode];
+    }
+    else {
+        [self setProposeMode];
+    }
 }
 
 #pragma mark - Navigation
@@ -92,24 +81,88 @@
         LPLocationPickerViewController *vc = unwindsegue.sourceViewController;
         self.meetUpLocation = [PFGeoPoint geoPointWithLocation:vc.location];
         [self.pickLocationBtn setTitle:vc.addressLabel.text forState:UIControlStateNormal];
-        NSLog(@"hi");
-        //TODO: Change state of icon in the future
+
+        // Change state of icon in the future
         [self loadLocaitonIconImageView];
-    } else if ([unwindsegue.sourceViewController isKindOfClass:[LPTimePickerViewController class]]) {
+    }
+    else if ([unwindsegue.sourceViewController isKindOfClass:[LPTimePickerViewController class]]) {
         LPTimePickerViewController *vc = unwindsegue.sourceViewController;
         [self.pickTimeBtn setTitle:vc.timeLabel.text forState:UIControlStateNormal];
         self.meetUpTime = vc.datePicker.date;
-        //TODO change state of icon
+
+        // change state of icon
         [self loadTimeIconImageView];
     }
 }
 
 #pragma mark UI Helper
 
+- (void)loadProfileView {
+    self.nameLabel.text = self.offer.fromUser[@"name"];
+    self.profileImgView.layer.cornerRadius = self.profileImgView.frame.size.height / 2.0f;
+    self.profileImgView.clipsToBounds = YES;
+    [self.profileImgView sd_setImageWithURL:self.offer.fromUser[@"profilePictureUrl"]];
+}
+
+/**
+ *  Set view for displaying info of the meet up
+ */
+- (void)setPreviewMode {
+    if (self.offer.meetUpTime) {
+        NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
+        NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+        [outputDateFormatter setTimeZone:timeZoneLocal];
+        [outputDateFormatter setDateFormat:@"EEE, MMM d, h:mm a"];
+        NSString *outputString = [outputDateFormatter stringFromDate:self.offer.meetUpTime];
+
+        [self.timeLabel setText:outputString];
+    }
+
+    [LPLocationHelper getAddressForGeoPoint:self.offer.meetUpLocation withBlock: ^(NSString *address, NSError *error) {
+        if (!error) {
+            [self.locationLabel setText:address];
+        }
+    }];
+
+    // show labels
+    self.timeLabel.hidden = NO;
+    self.locationLabel.hidden = NO;
+
+    // hide buttons, icon, and label
+    self.pickTimeBtn.hidden = YES;
+    self.pickLocationBtn.hidden = YES;
+    self.alertImgView.hidden = YES;
+    self.alertMsgLabel.hidden = YES;
+}
+
+/**
+ *  Set view for proposing meeting up
+ */
+- (void)setProposeMode {
+    self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
+    self.meetUpTime = self.offer.meetUpTime;
+
+    if (self.offer.meetUpTime) {
+        NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
+        NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+        [outputDateFormatter setTimeZone:timeZoneLocal];
+        [outputDateFormatter setDateFormat:@"EEE, MMM d, h:mm a"];
+        NSString *outputString = [outputDateFormatter stringFromDate:self.offer.meetUpTime];
+        [self.pickTimeBtn setTitle:outputString forState:UIControlStateNormal];
+    }
+
+    [LPLocationHelper getAddressForGeoPoint:self.meetUpLocation withBlock: ^(NSString *address, NSError *error) {
+        if (!error) {
+            [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
+        }
+    }];
+}
+
 - (void)loadTimeIconImageView {
     if (self.meetUpTime != nil) {
         [self.timeIconImgView setImage:[UIImage imageNamed:@"icon_clock_fill"]];
-    } else {
+    }
+    else {
         [self.timeIconImgView setImage:[UIImage imageNamed:@"icon_clock_gray"]];
     }
 }
@@ -117,7 +170,8 @@
 - (void)loadLocaitonIconImageView {
     if (self.meetUpLocation != nil) {
         [self.locationIconImgView setImage:[UIImage imageNamed:@"icon_location_fill"]];
-    } else {
+    }
+    else {
         [self.locationIconImgView setImage:[UIImage imageNamed:@"icon_location_gray"]];
     }
 }
