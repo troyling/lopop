@@ -33,6 +33,9 @@
 }
 
 - (void)loadMeetupView {
+    self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
+    self.meetUpTime = self.offer.meetUpTime;
+
     [self loadProfileView];
     [self loadTimeIconImageView];
     [self loadLocaitonIconImageView];
@@ -67,7 +70,8 @@
     self.offer.meetUpTime = self.meetUpTime;
     [self.offer saveEventually];
 
-    // TODO change the UI of this view once the meetup is saved
+    // change the UI of this view once the meetup is saved
+    [self setPreviewMode];
 }
 
 - (IBAction)dismiss:(id)sender {
@@ -93,6 +97,8 @@
         // change state of icon
         [self loadTimeIconImageView];
     }
+
+    [self enableConfirmBtnIfNecessary];
 }
 
 #pragma mark UI Helper
@@ -131,6 +137,7 @@
     // hide buttons, icon, and label
     self.pickTimeBtn.hidden = YES;
     self.pickLocationBtn.hidden = YES;
+    self.confirmBtn.hidden = YES;
     self.alertImgView.hidden = YES;
     self.alertMsgLabel.hidden = YES;
 }
@@ -139,9 +146,6 @@
  *  Set view for proposing meeting up
  */
 - (void)setProposeMode {
-    self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
-    self.meetUpTime = self.offer.meetUpTime;
-
     if (self.offer.meetUpTime) {
         NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
         NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
@@ -156,6 +160,10 @@
             [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
         }
     }];
+}
+
+- (void)enableConfirmBtnIfNecessary {
+    self.confirmBtn.enabled = (self.meetUpLocation && self.meetUpTime);
 }
 
 - (void)loadTimeIconImageView {
