@@ -98,7 +98,7 @@
         [self loadTimeIconImageView];
     }
 
-    [self enableConfirmBtnIfNecessary];
+    [self showConfirmBtnIfNecessary];
 }
 
 #pragma mark UI Helper
@@ -160,10 +160,12 @@
             [self.pickLocationBtn setTitle:address forState:UIControlStateNormal];
         }
     }];
+
+    [self showConfirmBtnIfNecessary];
 }
 
-- (void)enableConfirmBtnIfNecessary {
-    self.confirmBtn.enabled = (self.meetUpLocation && self.meetUpTime);
+- (void)showConfirmBtnIfNecessary {
+    self.confirmBtn.hidden = !(self.meetUpLocation && self.meetUpTime);
 }
 
 - (void)loadTimeIconImageView {
