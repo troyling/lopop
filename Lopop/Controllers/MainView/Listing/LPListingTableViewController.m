@@ -26,6 +26,8 @@
 @property (strong, nonatomic) NSMutableDictionary *incomingOffers;
 @property (strong, nonatomic) NSMutableArray *myOffers;
 
+// my offers and offered pops are synced in order
+
 @property (assign) LPDisplayState displayState;
 
 @end
@@ -88,7 +90,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
     PFQuery *offerQuery = [LPOffer query];
     [offerQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
     [offerQuery includeKey:@"pop"];
-    [offerQuery orderByDescending:@"createdAt"];
+    [offerQuery orderByDescending:@"status"];
     [offerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.myOffers = [[NSMutableArray alloc] initWithArray:objects];
@@ -167,6 +169,33 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
         }
     } else {
         pop = [self.offerredPops objectAtIndex:indexPath.row];
+
+        // check the status of the offer
+        LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
+        NSString *statusStr = @"";
+
+        switch (offer.status) {
+            case kOfferPending:
+                statusStr = @"Offer sent";
+                break;
+            case kOfferMeetUpProposed:
+                statusStr = @"Confirm meetup!!!";
+                break;
+            case kOfferAccepted:
+                statusStr = @"Confirm meetup!";
+                break;
+            case kOfferNotAccepted:
+                statusStr = @"Not accepted";
+                break;
+            case kOfferDeclined:
+                statusStr = @"Offer declined";
+                break;
+            case kOfferCompleted:
+                statusStr = @"Completed";
+                break;
+        }
+
+        cell.offerStatusLabel.text = statusStr;
     }
 
     cell.titleLabel.text = pop.title;

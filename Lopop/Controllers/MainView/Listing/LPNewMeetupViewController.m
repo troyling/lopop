@@ -5,12 +5,15 @@
 //  Created by Troy Ling on 3/31/15.
 //  Copyright (c) 2015 Lopop Inc. All rights reserved.
 //
+//  This is the controller that presents shows the meet up info based on the status of the offer.
+//  It will preview the propose mode only if the offer is meetup is proposed or accepted
 
 #import "LPNewMeetupViewController.h"
 #import "LPLocationPickerViewController.h"
 #import "LPTimePickerViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
+#import "LPAlertViewHelper.h"
 
 @interface LPNewMeetupViewController ()
 @property (retain, nonatomic) PFGeoPoint *meetUpLocation;
@@ -68,10 +71,14 @@
     self.offer.status = kOfferMeetUpProposed;
     self.offer.meetUpLocation = self.meetUpLocation;
     self.offer.meetUpTime = self.meetUpTime;
-    [self.offer saveEventually];
-
-    // change the UI of this view once the meetup is saved
-    [self setPreviewMode];
+    [self.offer saveEventually:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // change the UI of this view once the meetup is saved
+            [self setPreviewMode];
+        } else {
+            [LPAlertViewHelper fatalErrorAlert:@"Unable to save the meet up. Please try again later."];
+        }
+    }];
 }
 
 - (IBAction)dismiss:(id)sender {
@@ -140,6 +147,8 @@
     self.confirmBtn.hidden = YES;
     self.alertImgView.hidden = YES;
     self.alertMsgLabel.hidden = YES;
+
+    // TODO change button color to indicate the status
 }
 
 /**
