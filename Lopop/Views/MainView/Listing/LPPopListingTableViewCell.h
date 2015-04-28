@@ -18,4 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numViewLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numLikeLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *indicationImgView;
+
+
 @end

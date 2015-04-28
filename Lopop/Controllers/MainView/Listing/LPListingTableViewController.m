@@ -18,6 +18,7 @@
 #import "LPIncomingOfferTableViewController.h"
 #import "LPMeetUpMapViewController.h"
 #import "UIViewController+ScrollingNavbar.h"
+#import "LPNewMeetupViewController.h"
 
 @interface LPListingTableViewController ()
 
@@ -145,6 +146,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
     LPPop *pop;
 
     if (self.displayState == LPListingDisplay) {
+        // listing view
         pop = [self.listings objectAtIndex:indexPath.row];
         // asynchronously load number of offers, if needed
         id item = [self.incomingOffers objectForKey:pop.objectId];
@@ -168,18 +170,22 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
             }];
         }
     } else {
+        // offer view
         pop = [self.offerredPops objectAtIndex:indexPath.row];
 
         // check the status of the offer
         LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
         NSString *statusStr = @"";
+        cell.indicationImgView.hidden = YES;
 
         switch (offer.status) {
             case kOfferPending:
                 statusStr = @"Offer sent";
                 break;
             case kOfferMeetUpProposed:
-                statusStr = @"Confirm meetup!!!";
+                statusStr = @"";
+                // show action icon
+                cell.indicationImgView.hidden = NO;
                 break;
             case kOfferAccepted:
                 statusStr = @"Confirm meetup!";
@@ -225,6 +231,40 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
         LPPop *pop = [self.listings objectAtIndex:indexPath.row];
         vc.pop = pop;
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        // offer view - go into MeetupView
+        LPPop *pop = [self.offerredPops objectAtIndex:indexPath.row];
+        LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
+
+
+        if (offer.status == kOfferPending) {
+            NSLog(@"offer Sent");
+            // indicate that the offer is sent and waiting for seller's to confirm
+
+        } else if (offer.status == kOfferMeetUpProposed) {
+            NSLog(@"Meetup proposed");
+            LPNewMeetupViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetupView"];
+            vc.pop = pop;
+            vc.offer = offer;
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentViewController:vc animated:YES completion:NULL];
+        } else if (offer.status == kOfferAccepted) {
+            // TODO show preview mode for meetup
+            LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];
+            vc.offer = offer;
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentViewController:vc animated:YES completion:NULL];
+            NSLog(@"preview");
+        } else if (offer.status == kOfferNotAccepted) {
+            // TODO show user that offer is not accepted by seller
+            NSLog(@"Meetup declined :(");
+        } else if (offer.status == kOfferDeclined) {
+            // TODO show user that offer is declined by seller
+            NSLog(@"Offer declined");
+        } else if (offer.status == kOfferCompleted) {
+            // TODO offer is completed by user
+            NSLog(@"Offer completed");
+        }
     }
 }
 
@@ -271,7 +311,6 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
             LPPopListingTableViewCell *cell = sender;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
-            NSLog(@"%@", offer);
             vc.offer = offer;
         }
 

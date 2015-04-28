@@ -30,6 +30,10 @@
     return [UIColor colorWithRed:0.88 green:0.04 blue:0.17 alpha:1];
 }
 
++ (UIColor *)dangerColor {
+    return [UIColor colorWithRed:0.87 green:0.1 blue:0.13 alpha:1];
+}
+
 + (CGFloat)screenWidth {
     CGRect bounds = [[UIScreen mainScreen] bounds];
     return bounds.size.width;

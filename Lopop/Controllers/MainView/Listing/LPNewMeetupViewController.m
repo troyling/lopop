@@ -39,7 +39,20 @@
     self.meetUpLocation = self.offer.meetUpLocation == nil ? self.pop.location : self.offer.meetUpLocation;
     self.meetUpTime = self.offer.meetUpTime;
 
-    [self loadProfileView];
+    if (self.offer.fromUser.isDataAvailable) {
+        [self loadProfileView];
+    }
+    else {
+        [self.offer.fromUser fetchInBackgroundWithBlock: ^(PFObject *object, NSError *error) {
+            if (!error) {
+                [self loadProfileView];
+            } else {
+                // TODO error handling
+                NSLog(@"Unable to get fromUser");
+            }
+        }];
+    }
+
     [self loadTimeIconImageView];
     [self loadLocaitonIconImageView];
 
@@ -71,11 +84,12 @@
     self.offer.status = kOfferMeetUpProposed;
     self.offer.meetUpLocation = self.meetUpLocation;
     self.offer.meetUpTime = self.meetUpTime;
-    [self.offer saveEventually:^(BOOL succeeded, NSError *error) {
+    [self.offer saveEventually: ^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             // change the UI of this view once the meetup is saved
             [self setPreviewMode];
-        } else {
+        }
+        else {
             [LPAlertViewHelper fatalErrorAlert:@"Unable to save the meet up. Please try again later."];
         }
     }];
@@ -112,9 +126,9 @@
 
 - (void)loadProfileView {
     self.nameLabel.text = self.offer.fromUser[@"name"];
+    [self.profileImgView sd_setImageWithURL:self.offer.fromUser[@"profilePictureUrl"]];
     self.profileImgView.layer.cornerRadius = self.profileImgView.frame.size.height / 2.0f;
     self.profileImgView.clipsToBounds = YES;
-    [self.profileImgView sd_setImageWithURL:self.offer.fromUser[@"profilePictureUrl"]];
 }
 
 /**

@@ -189,7 +189,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oj9-us-cIf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SPW-Jr-cPq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="580"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -417,7 +417,7 @@
         <!--New Meetup View Controller-->
         <scene sceneID="PBQ-XH-HvY">
             <objects>
-                <viewController id="bYc-zL-ZNA" customClass="LPNewMeetupViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="meetupView" id="bYc-zL-ZNA" customClass="LPNewMeetupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iEz-eo-fdN"/>
                         <viewControllerLayoutGuide type="bottom" id="vRY-bv-Xmy"/>
@@ -3961,14 +3961,23 @@
                                                 </mask>
                                             </variation>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_warning_fill" translatesAutoresizingMaskIntoConstraints="NO" id="bFp-lY-IXi">
+                                            <rect key="frame" x="334" y="33" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="J8t-Bw-SPB"/>
+                                                <constraint firstAttribute="width" constant="25" id="n2s-kv-bPs"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Hr8-EG-hI0" firstAttribute="top" secondItem="USW-6a-x7O" secondAttribute="topMargin" constant="-8" id="395-sK-Kd9"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bFp-lY-IXi" secondAttribute="trailing" constant="8" id="4KV-Wj-nn7"/>
                                         <constraint firstItem="EjE-MA-FHB" firstAttribute="leading" secondItem="5CW-Hd-zcQ" secondAttribute="trailing" constant="8" id="6QH-XN-gRL"/>
                                         <constraint firstItem="D9s-P7-PLi" firstAttribute="leading" secondItem="EjE-MA-FHB" secondAttribute="trailing" constant="8" id="7Y7-Tl-g8x"/>
                                         <constraint firstItem="D9s-P7-PLi" firstAttribute="leading" secondItem="AA4-J9-a04" secondAttribute="trailing" constant="189" id="EnZ-1J-dIk"/>
                                         <constraint firstItem="AA4-J9-a04" firstAttribute="width" secondItem="AA4-J9-a04" secondAttribute="height" multiplier="1:1" id="Nth-C8-Qd1"/>
                                         <constraint firstItem="5CW-Hd-zcQ" firstAttribute="leading" secondItem="AA4-J9-a04" secondAttribute="trailing" constant="8" id="O6K-3w-yRx"/>
+                                        <constraint firstAttribute="centerY" secondItem="bFp-lY-IXi" secondAttribute="centerY" constant="-0.5" id="OoR-X5-gzO"/>
                                         <constraint firstItem="AA4-J9-a04" firstAttribute="leading" secondItem="USW-6a-x7O" secondAttribute="leadingMargin" constant="-8" id="SsN-FE-Xo2"/>
                                         <constraint firstItem="EjE-MA-FHB" firstAttribute="top" secondItem="Hr8-EG-hI0" secondAttribute="bottom" constant="19" id="U67-Op-Ovq"/>
                                         <constraint firstItem="AA4-J9-a04" firstAttribute="top" secondItem="USW-6a-x7O" secondAttribute="topMargin" constant="-8" id="WEq-uo-U3Q"/>
@@ -3989,9 +3998,10 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imgView" destination="AA4-J9-a04" id="NdP-Aj-9B9"/>
+                                    <outlet property="indicationImgView" destination="bFp-lY-IXi" id="vbC-Dh-2pt"/>
+                                    <outlet property="offerStatusLabel" destination="D9s-P7-PLi" id="Oe0-24-pyh"/>
                                     <outlet property="priceLabel" destination="5CW-Hd-zcQ" id="1bC-h6-PHX"/>
                                     <outlet property="titleLabel" destination="Hr8-EG-hI0" id="qZJ-hn-9iM"/>
-                                    <segue destination="oZp-VE-EyS" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="vaN-Ge-Ij3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -4075,11 +4085,12 @@
         <image name="icon_location_fill" width="34" height="48"/>
         <image name="icon_location_gray" width="34" height="48"/>
         <image name="icon_radar_fill" width="48" height="48"/>
+        <image name="icon_warning_fill" width="38" height="38"/>
         <image name="icon_warning_white" width="38" height="38"/>
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="edX-sg-OfM"/>
+        <segue reference="rPk-Qo-ZRZ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
