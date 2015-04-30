@@ -226,7 +226,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
     NSInteger diff = [self.offer.meetUpTime timeIntervalSinceDate:currentTime];
 
     switch (self.offer.status) {
-        case kOfferAccepted:
+        case kOfferMeetUpAccepted:
             if (diff <= -3600) {
                 // overdue. 1 hour past the meet up time
                 self.displayMode = kMeetUpPreview;

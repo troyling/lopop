@@ -13,7 +13,7 @@
 typedef enum {
     kOfferPending = 0,      // offer is sent by buyer
     kOfferMeetUpProposed,   // meetup is proposed by seller
-    kOfferAccepted,         // meetup is confirmed by buyer
+    kOfferMeetUpAccepted,   // meetup is confirmed by buyer
     kOfferNotAccepted,      // offer is not accepted since seller decides to go with other offer
     kOfferDeclined,         // offer is declined by seller
     kOfferCompleted         // offer is finished

@@ -187,7 +187,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
                 // show action icon
                 cell.indicationImgView.hidden = NO;
                 break;
-            case kOfferAccepted:
+            case kOfferMeetUpAccepted:
                 statusStr = @"Confirm meetup!";
                 break;
             case kOfferNotAccepted:
@@ -248,7 +248,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
             vc.offer = offer;
             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self presentViewController:vc animated:YES completion:NULL];
-        } else if (offer.status == kOfferAccepted) {
+        } else if (offer.status == kOfferMeetUpAccepted) {
             // TODO show preview mode for meetup
             LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];
             vc.offer = offer;

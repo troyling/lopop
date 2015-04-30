@@ -62,7 +62,6 @@
 		D66CC8E81A60E6C5007B9992 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8E71A60E6C5007B9992 /* MobileCoreServices.framework */; };
 		D66CC8EA1A60E6D1007B9992 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8E91A60E6D1007B9992 /* QuartzCore.framework */; };
 		D66CC8EC1A60E6D8007B9992 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8EB1A60E6D8007B9992 /* Security.framework */; };
-		D66CC8EE1A60E6DF007B9992 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8ED1A60E6DF007B9992 /* StoreKit.framework */; };
 		D66CC8F01A60E6E6007B9992 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8EF1A60E6E6007B9992 /* SystemConfiguration.framework */; };
 		D66CC8F21A60E6ED007B9992 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8F11A60E6ED007B9992 /* libz.dylib */; };
 		D66CC8F41A60E6F3007B9992 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8F31A60E6F3007B9992 /* libsqlite3.dylib */; };
@@ -271,7 +270,6 @@
 		D66CC8E71A60E6C5007B9992 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D66CC8E91A60E6D1007B9992 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D66CC8EB1A60E6D8007B9992 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		D66CC8ED1A60E6DF007B9992 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D66CC8EF1A60E6E6007B9992 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D66CC8F11A60E6ED007B9992 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D66CC8F31A60E6F3007B9992 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -444,7 +442,6 @@
 				D66CC8F21A60E6ED007B9992 /* libz.dylib in Frameworks */,
 				D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */,
 				D66CC8F01A60E6E6007B9992 /* SystemConfiguration.framework in Frameworks */,
-				D66CC8EE1A60E6DF007B9992 /* StoreKit.framework in Frameworks */,
 				D66CC8EC1A60E6D8007B9992 /* Security.framework in Frameworks */,
 				D66CC8EA1A60E6D1007B9992 /* QuartzCore.framework in Frameworks */,
 				D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */,
@@ -731,7 +728,6 @@
 				D66CC8F31A60E6F3007B9992 /* libsqlite3.dylib */,
 				D66CC8F11A60E6ED007B9992 /* libz.dylib */,
 				D66CC8EF1A60E6E6007B9992 /* SystemConfiguration.framework */,
-				D66CC8ED1A60E6DF007B9992 /* StoreKit.framework */,
 				D66CC8EB1A60E6D8007B9992 /* Security.framework */,
 				D66CC8E91A60E6D1007B9992 /* QuartzCore.framework */,
 				D66CC8E71A60E6C5007B9992 /* MobileCoreServices.framework */,
@@ -1138,6 +1134,11 @@
 					D66CC8AC1A60DD8C007B9992 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = YXU7589MR8;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					D66CC8C51A60DD8C007B9992 = {
 						CreatedOnToolsVersion = 6.1.1;
