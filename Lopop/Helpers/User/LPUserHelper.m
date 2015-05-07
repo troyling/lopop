@@ -10,6 +10,8 @@
 #import "LPCache.h"
 #import "LPUserRelationship.h"
 #import "LPAlertViewHelper.h"
+#import "LPPushHelper.h"
+#import "LPPushHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
@@ -39,6 +41,7 @@
                 
                 if (name) {
                     currentUser[@"name"] = name;
+                    [LPPushHelper setPushChannelForCurrentUser];
                 }
 
                 // image urls
@@ -133,6 +136,9 @@
         if (!error) {
             // update cache
             [[LPCache getInstance] followUser:targetUser];
+
+            // send notification
+            [LPPushHelper sendPushWithFollowing:targetUser];
 
             if (completionBlock) {
                 completionBlock(YES, nil);

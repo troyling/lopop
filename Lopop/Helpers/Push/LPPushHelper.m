@@ -44,7 +44,20 @@ static NSString *const KEY_CHANNEL = @"channels";
 + (void)sendPushWithMeetup:(LPPop *)pop {
 }
 
-+ (void)sendPushFollowing:(PFUser *)followed {
++ (void)sendPushWithFollowing:(PFUser *)followed {
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser != nil) {
+        NSString *msg = [NSString stringWithFormat:@"%@ started following you", currentUser[@"name"]];
+        NSDictionary *data = @{
+                               @"alert" : msg,
+                               @"badge" : @"Increment"
+                               };
+        PFPush *push = [[PFPush alloc] init];
+        NSLog(@"followed objectID: %@", followed.objectId);
+        [push setChannel:[self channelKeyForUser:followed]];
+        [push setData:data];
+        [push sendPushInBackground];
+    }
 }
 
 + (NSString *)channelKeyForPop:(LPPop *)pop {

@@ -10,6 +10,7 @@
 #import "LPSignUpTableViewController.h"
 #import "LPUserProfileViewController.h"
 #import "LPUIHelper.h"
+#import "LPPushHelper.h"
 #import "LPUserHelper.h"
 #import "LPAlertViewHelper.h"
 #import <Parse/Parse.h>
@@ -48,6 +49,9 @@
             if (!error) {
                 // init user info
                 [LPUserHelper initUserInfoWithGender:nil Locale:nil];
+
+                // set up channel for follower notification
+                [LPPushHelper setPushChannelForCurrentUser];
 
                 LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
                 [self presentViewController:vc animated:YES completion:nil];

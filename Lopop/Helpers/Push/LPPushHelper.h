@@ -12,11 +12,10 @@
 @interface LPPushHelper : NSObject
 
 + (void)setPushChannelForPop:(LPPop *)pop;
-
-
++ (void)setPushChannelForCurrentUser;
 
 + (void)sendPushWithOffer:(LPPop *)pop;
 + (void)sendPushWithMeetup:(LPPop *)pop;
-+ (void)sendPushFollowing:(PFUser *)followed;
++ (void)sendPushWithFollowing:(PFUser *)followed;
 
 @end
