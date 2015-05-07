@@ -12,6 +12,7 @@
 #import "LPAlertViewHelper.h"
 #import "LPLocationHelper.h"
 #import "LPUIHelper.h"
+#import "LPPushHelper.h"
 #import "CRToast.h"
 #import "LPPop.h"
 
@@ -168,6 +169,9 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
                         if (!error) {
                             // done
                             [self showCreatePopSuccess];
+
+                            // add create channel to listen to notification
+                            [LPPushHelper setPushChannelForPop:newPop];
                         }
                         else {
                             // error. Unable to save

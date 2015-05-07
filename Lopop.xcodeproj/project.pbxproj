@@ -115,6 +115,7 @@
 		D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB775A1A95770000629985 /* LPFollowerTableViewCell.m */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
+		D6DA15381AF973620058A003 /* LPPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA15371AF973620058A003 /* LPPushHelper.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
 		D6E4A1C11A9E98AE00892E44 /* smiley1.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B61A9E98AE00892E44 /* smiley1.png */; };
 		D6E4A1C21A9E98AE00892E44 /* smiley2.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B71A9E98AE00892E44 /* smiley2.png */; };
@@ -345,6 +346,8 @@
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
 		D6D973B31A8AFECA00A30539 /* LPShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPShareViewController.m; path = Controllers/Common/LPShareViewController.m; sourceTree = "<group>"; };
+		D6DA15361AF973620058A003 /* LPPushHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPushHelper.h; path = Helpers/Push/LPPushHelper.h; sourceTree = "<group>"; };
+		D6DA15371AF973620058A003 /* LPPushHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPushHelper.m; path = Helpers/Push/LPPushHelper.m; sourceTree = "<group>"; };
 		D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopFeedTableViewCell.h; path = Views/MainView/Feed/LPPopFeedTableViewCell.h; sourceTree = "<group>"; };
 		D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopFeedTableViewCell.m; path = Views/MainView/Feed/LPPopFeedTableViewCell.m; sourceTree = "<group>"; };
 		D6E4A1B61A9E98AE00892E44 /* smiley1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley1.png; path = Resources/Images/icons/smilies/smiley1.png; sourceTree = "<group>"; };
@@ -960,6 +963,15 @@
 			name = Listing;
 			sourceTree = "<group>";
 		};
+		D6DA15351AF973110058A003 /* Push */ = {
+			isa = PBXGroup;
+			children = (
+				D6DA15361AF973620058A003 /* LPPushHelper.h */,
+				D6DA15371AF973620058A003 /* LPPushHelper.m */,
+			);
+			name = Push;
+			sourceTree = "<group>";
+		};
 		D6DBD6F41A7418FF009F6FFE /* MainView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1013,7 @@
 		D6E6EB0E1A6470A6008085F7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D6DA15351AF973110058A003 /* Push */,
 				D654D0BA1A9E2EC800154F85 /* Common */,
 				D6CB771E1A92A48200629985 /* Pop */,
 				D609A5451A8E5B5E00800F3E /* Social */,
@@ -1310,6 +1323,7 @@
 				D683F2A51A6F459100117D36 /* LPPopCategoryTableViewController.m in Sources */,
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6F5F8411A8514680005758B /* TransitionManager.swift in Sources */,
+				D6DA15381AF973620058A003 /* LPPushHelper.m in Sources */,
 				D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */,
 				D6CB770B1A926AC000629985 /* LPPopListingTableViewCell.m in Sources */,
 				33BD0A821A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld in Sources */,

@@ -8,6 +8,7 @@
 
 #import "LPMakeOfferViewController.h"
 #import "LPPopDetailViewController.h"
+#import "LPPushHelper.h"
 #import "LPUIHelper.h"
 #import "LPOffer.h"
 
@@ -48,6 +49,8 @@
             [self performSegueWithIdentifier:@"offerSent" sender:self];
         }
     }];
+
+    [LPPushHelper sendPushWithOffer:self.pop];
 }
 
 #pragma mark Segue
