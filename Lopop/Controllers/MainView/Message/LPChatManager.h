@@ -16,7 +16,7 @@
 - (NSMutableArray *) getVisibleChatArray;
 - (LPChatModel*) startChatWithContactId:(NSString*) contactId;
 //- (void) deleteChatWithContactId:(NSString *) contactId;
-- (NSArray*) getChatMessagesWith: (NSString *) contactId;
+- (NSArray*) getChatMessagesWithUser: (NSString *) contactId;
 - (void) sendMessage:(NSString *) content to:(LPChatModel*) chatModel;
 - (LPChatModel*) getChatModel: (NSString *) contactId;
 

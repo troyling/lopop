@@ -7,8 +7,14 @@
 //
 
 #import "LPChatModel.h"
+#import "LPMessageModel.h"
 
 @implementation LPChatModel
+NSString* userId;
+
+
+
+
 /*
 - (NSDictionary *)toDict{
     return @{@"contactId":self.contactId, @"chatId":self.chatId};

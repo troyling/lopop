@@ -15,13 +15,15 @@
 
 - (NSDictionary *)toDict{
     return @{@"content":self.content,
-             @"senderId":self.senderId};
+             @"fromUserId":self.fromUserId,
+             @"toUserId":self.toUserId};
 }
 
 + (LPMessageModel *)fromDict: (NSDictionary *) dict{
     LPMessageModel * msg = [[LPMessageModel alloc] init];
     msg.content = [dict objectForKey:@"content"];
-    msg.senderId = [dict objectForKey:@"senderId"];
+    msg.toUserId = [dict objectForKey:@"toUserId"];
+    msg.fromUserId = [dict objectForKey:@"fromUserId"];
     return msg;
 }
 

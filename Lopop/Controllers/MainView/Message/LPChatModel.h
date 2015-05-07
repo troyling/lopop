@@ -11,13 +11,8 @@
 @interface LPChatModel : NSObject
 
 @property NSString *contactId;
-@property NSNumber *contactStatus;
-@property bool visible;
 
-@property Firebase *receiveRef;
 @property Firebase *sendRef;
-@property NSNumber *userStatus;
-@property Firebase *chatInfoRef;
 @property NSMutableArray *messageArray;
 
 //@property NSTimeInterval timeStamp;

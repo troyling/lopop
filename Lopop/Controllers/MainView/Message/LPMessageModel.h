@@ -12,7 +12,8 @@
 
 @property NSString *content;
 @property NSString *messageId;
-@property NSString *senderId;
+@property NSString *fromUserId;
+@property NSString *toUserId;
 
 - (NSDictionary *) toDict;
 + (LPMessageModel *) fromDict:(NSDictionary *) dict;
