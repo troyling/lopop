@@ -61,6 +61,36 @@
     }];
 }
 
++ (void)getRegionForGeoPoint:(PFGeoPoint *)geoPoint withBlock:(void (^)(NSString *region, NSError *error))completionBlock {
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:geoPoint.latitude longitude:geoPoint.longitude];
+    [self getRegionForLocation:location withBlock:completionBlock];
+}
+
++ (void)getRegionForLocation:(CLLocation *)location withBlock:(void (^)(NSString *region, NSError *error))completionBlock {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error) {
+            if(placemarks && placemarks.count > 0) {
+                CLPlacemark *placemark= [placemarks objectAtIndex:0];
+
+                NSString *address = [placemark locality] == nil ? @"" : [placemark locality];
+
+                if ([placemark administrativeArea]) {
+                    address = address.length > 0 ? [address stringByAppendingString:[NSString stringWithFormat:@", %@", [placemark administrativeArea]]] : [address stringByAppendingString:[NSString stringWithFormat:@"%@", [placemark administrativeArea]]];;
+                }
+
+                if (completionBlock) {
+                    completionBlock(address, error);
+                }
+            }
+        } else {
+            if (completionBlock) {
+                completionBlock(nil, error);
+            }
+        }
+    }];
+}
+
 + (NSString *)stringOfDistanceInMilesBetweenLocations:(CLLocation *)fromLocaiton and:(CLLocation *)toLocation withFormat:(NSString *)format {
     PFGeoPoint *fromPoint = [PFGeoPoint geoPointWithLocation:fromLocaiton];
     PFGeoPoint *toPoint = [PFGeoPoint geoPointWithLocation:toLocation];

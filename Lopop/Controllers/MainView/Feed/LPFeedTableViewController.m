@@ -14,6 +14,7 @@
 #import "LPPop.h"
 #import "LPPopLike.h"
 #import "LPUIHelper.h"
+#import "LPUserHelper.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
 #import "UIViewController+ScrollingNavbar.h"
@@ -51,8 +52,13 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     [self followScrollView:self.tableView withDelay:3.0f];
 
     // delegate
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [self.locationManager startUpdatingLocation];
+    }
+
     self.feedTableView.delegate = self;
     self.feedTableView.dataSource = self;
 
@@ -69,8 +75,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.displayType = kFeed;
     [self queryPopsForLoadMore:NO];
 
-    // get user lcoation
-    [self getUserCurrentLocation];
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicatorView.center = self.tableView.tableFooterView.center;
+    [self.tableView.tableFooterView addSubview:self.activityIndicatorView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -104,14 +111,6 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
-- (void)getUserCurrentLocation {
-    [self.locationManager startUpdatingLocation];
-    if (self.locationManager.location) {
-        self.userLocation = self.locationManager.location;
-    }
-    [self.locationManager stopUpdatingLocation];
-}
-
 #pragma mark Backend
 
 - (void)queryPopsForLoadMore:(BOOL)loadMore {
@@ -119,9 +118,9 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
     PFQuery *popQuery = [LPPop query];
 
     // FIXME prompt lcoation service request when the app first started
-    if (!self.userLocation) {
-        [self getUserCurrentLocation];
-    }
+//    if (!self.userLocation) {
+//        [self getUserCurrentLocation];
+//    }
 
     // TODO: Fix this to sort based on location
     //    if (self.userLocation) {
@@ -527,6 +526,15 @@ CGFloat const IMAGE_WIDTH_TO_HEIGHT_RATIO = 0.6f;
         vc.priceText = cell.priceLabel.text;
         vc.distanceText = cell.distanceLabel.text;
     }
+}
+
+#pragma mark Location
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.userLocation = self.locationManager.location;
+    // udpate user's location
+    [LPUserHelper updateUserInfoWithLocationEventually:self.userLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 #pragma mark searchBar

@@ -75,12 +75,7 @@ const NSInteger CONTACTDELETED = 3;
     
     //Retrieve from db
     NSMutableArray* storedChatArray = [self loadChatsFromDB];
-    for(LPChatModel* chatModel in storedChatArray){
-        [self setUpChatModel:chatModel];
-        if(chatModel.visible){
-            [visibleChatArray addObject:chatModel];
-        }
-    }
+
     [allChatArray addObjectsFromArray:storedChatArray];
     
     //Retrieve from firebase
@@ -93,7 +88,7 @@ const NSInteger CONTACTDELETED = 3;
         messageInstance.messageId = snapshot.key;
         
         [pendingMessageArray addObject:messageInstance];
-        [self messageViewUpdateNotifyWithMessage];
+        [self messageViewUpdateNotifyWithMessage]; //TODO
     }];
 }
 
@@ -141,6 +136,7 @@ const NSInteger CONTACTDELETED = 3;
     return chatArray;
 }
 
+/*
 - (void) updateChatFromDB: (LPChatModel*) chatModel{
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
@@ -165,7 +161,7 @@ const NSInteger CONTACTDELETED = 3;
         [obj setValue:[NSNumber numberWithBool:chatModel.visible] forKey:@"visible"];
     }
     [context save:&error];
-}
+}*/
 
 
 
@@ -239,6 +235,10 @@ const NSInteger CONTACTDELETED = 3;
     messageArray = [self getMessagesWithUserId:contactId];
 
     return [messageArray sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (NSMutableArray *) getChatArray{
+    return allChatArray;
 }
 
 -(LPChatModel*) getChatModel: (NSString *) contactId{

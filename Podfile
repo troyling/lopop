@@ -10,6 +10,7 @@ pod 'M13ProgressSuite'
 pod 'JSQMessagesViewController'
 pod 'IDMPhotoBrowser'
 pod 'JazzHands'
+pod 'HMSegmentedControl'
 
 end
 

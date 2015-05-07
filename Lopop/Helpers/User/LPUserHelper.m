@@ -70,6 +70,29 @@
     return count != 0 ? YES : NO;
 }
 
++ (void)isCurrentUserFollowingUserInBackground:(PFUser *)user withBlock:(void (^)(BOOL isFollowing, NSError *error))completionBlock {
+    if ([user.objectId isEqualToString:[[PFUser currentUser] objectId]]) {
+        completionBlock(NO, nil);
+        return;
+    }
+
+    PFQuery *query = [LPUserRelationship query];
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [query whereKey:@"follower" equalTo:[PFUser currentUser]];
+    [query whereKey:@"followedUser" equalTo:user];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            if (number != 0) {
+                completionBlock(YES, nil);
+            } else {
+                completionBlock(NO, nil);
+            }
+        } else {
+            completionBlock(NO, error);
+        }
+    }];
+}
+
 + (void)initUserInfoWithGender:(NSString *)gender Locale:(NSString *)locale {
     LPUserInfo *userInfo = [LPUserInfo object];
     userInfo.user = [PFUser currentUser];
@@ -78,6 +101,19 @@
     userInfo.numRating = 0;
     userInfo.totalRating = 0;
     [userInfo saveEventually];
+}
+
++ (void)updateUserInfoWithLocationEventually:(CLLocation *)location {
+    PFQuery *query = [LPUserInfo query];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count == 1) {
+            LPUserInfo *info = objects.firstObject;
+            info.location = [PFGeoPoint geoPointWithLocation:location];
+            [info saveEventually];
+        }
+    }];
 }
 
 + (void)followUserInBackground:(PFUser *)targetUser withBlock:(void (^)(BOOL succeeded, NSError *error))completionBlock {

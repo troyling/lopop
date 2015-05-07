@@ -30,7 +30,7 @@ NSString * troyId = @"qXHdNj9Skh";
     userRef = [[Firebase alloc] initWithUrl:
                 [FirebaseUrl1 stringByAppendingString: [@"users/" stringByAppendingString: userId]]];
     
-    self.chatArray = [[LPChatManager getInstance] getVisibleChatArray];
+    self.chatArray = [[LPChatManager getInstance] getChatArray];
     [self observeChatManagerNotification];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -157,7 +157,11 @@ NSString * troyId = @"qXHdNj9Skh";
 
 
 - (IBAction)newChat:(id)sender {
-    [[LPChatManager getInstance] startChatWithContactId:@"pSxj8YdXrp"];
+    LPChatModel* chatModel = [[LPChatModel alloc] init];
+    chatModel.contactId = @"pSxj8YdXrp";
+    [self.chatArray addObject:chatModel];
+    [self.tableView reloadData];
+    //[[LPChatManager getInstance] startChatWithContactId:@"pSxj8YdXrp"];
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
