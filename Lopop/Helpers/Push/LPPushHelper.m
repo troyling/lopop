@@ -26,10 +26,19 @@ static NSString *const KEY_CHANNEL = @"channels";
     }
 }
 
-+ (void)sendPushWithOffer:(LPPop *)pop {
++ (void)setPushChannelForOffer:(LPOffer *)offer {
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser != nil) {
-        NSString *msg = [NSString stringWithFormat:@"%@ sent you an offer", currentUser[@"name"]];
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation addUniqueObject:[self channelKeyForOffer:offer] forKey:KEY_CHANNEL];
+        [currentInstallation saveInBackground];
+    }
+}
+
++ (void)sendPushWithPop:(LPPop *)pop withMsg:(NSString *)msg {
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser != nil) {
+//        NSString *msg = [NSString stringWithFormat:@"%@ sent you an offer", currentUser[@"name"]];
         NSDictionary *data = @{
                                @"alert" : msg,
                                @"badge" : @"Increment"
@@ -41,7 +50,19 @@ static NSString *const KEY_CHANNEL = @"channels";
     }
 }
 
-+ (void)sendPushWithMeetup:(LPPop *)pop {
++ (void)sendPushWithOffer:(LPOffer *)offer {
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser != nil) {
+        NSString *msg = [NSString stringWithFormat:@"%@ propose a meet up", currentUser[@"name"]];
+        NSDictionary *data = @{
+                               @"alert" : msg,
+                               @"badge" : @"Increment"
+                               };
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:[self channelKeyForOffer:offer]];
+        [push setData:data];
+        [push sendPushInBackground];
+    }
 }
 
 + (void)sendPushWithFollowing:(PFUser *)followed {
@@ -53,7 +74,6 @@ static NSString *const KEY_CHANNEL = @"channels";
                                @"badge" : @"Increment"
                                };
         PFPush *push = [[PFPush alloc] init];
-        NSLog(@"followed objectID: %@", followed.objectId);
         [push setChannel:[self channelKeyForUser:followed]];
         [push setData:data];
         [push sendPushInBackground];
@@ -66,6 +86,10 @@ static NSString *const KEY_CHANNEL = @"channels";
 
 + (NSString *)channelKeyForUser:(PFUser *)user {
     return [NSString stringWithFormat:@"user_%@", user.objectId];
+}
+
++ (NSString *)channelKeyForOffer:(LPOffer *)offer {
+    return [NSString stringWithFormat:@"offer_%@", offer.objectId];
 }
 
 @end

@@ -23,6 +23,7 @@
 #import "LPLocationPickerViewController.h"
 #import "LPTimePickerViewController.h"
 #import "UIImageView+WebCache.h"
+#import "LPPushHelper.h"
 #import "LPLocationHelper.h"
 #import "LPAlertViewHelper.h"
 #import "LPUIHelper.h"
@@ -154,8 +155,14 @@ NSString *const MSG_MEETUP_CONFIRMED = @"You will be going to the following meet
             // change the UI of this view once the meetup is saved
             if (self.offer.status == kOfferMeetUpProposed) {
                 [self setPreviewMode];
+                [LPPushHelper sendPushWithOffer:self.offer];
             } if (self.offer.status == kOfferMeetUpAccepted) {
                 [self setPreviewMode];
+                PFUser *currentUser = [PFUser currentUser];
+                if (currentUser != nil) {
+                    NSString *msg = [NSString stringWithFormat:@"%@ confirmed your meet up", currentUser[@"name"]];
+                    [LPPushHelper sendPushWithPop:self.pop withMsg:msg];
+                }
             }
         }
         else {

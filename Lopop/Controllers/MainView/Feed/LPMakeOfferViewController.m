@@ -45,12 +45,17 @@
     // FIXME send the comment to the seller as a chat message
     [offer saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
+            PFUser *currentUser = [PFUser currentUser];
+            if (currentUser != nil) {
+                NSString *msg = [NSString stringWithFormat:@"%@ sent you an offer", currentUser[@"name"]];
+                [LPPushHelper sendPushWithPop:self.pop withMsg:msg];
+                [LPPushHelper setPushChannelForOffer:offer];
+            }
+
             [self dismissViewControllerAnimated:YES completion:NULL];
             [self performSegueWithIdentifier:@"offerSent" sender:self];
         }
     }];
-
-    [LPPushHelper sendPushWithOffer:self.pop];
 }
 
 #pragma mark Segue

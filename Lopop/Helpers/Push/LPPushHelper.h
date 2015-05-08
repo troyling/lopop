@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "LPPop.h"
+#import "LPOffer.h"
 
 @interface LPPushHelper : NSObject
 
 + (void)setPushChannelForPop:(LPPop *)pop;
 + (void)setPushChannelForCurrentUser;
++ (void)setPushChannelForOffer:(LPOffer *)offer;
 
-+ (void)sendPushWithOffer:(LPPop *)pop;
-+ (void)sendPushWithMeetup:(LPPop *)pop;
++ (void)sendPushWithPop:(LPPop *)pop withMsg:(NSString *)msg;
++ (void)sendPushWithOffer:(LPOffer *)offer;
+
 + (void)sendPushWithFollowing:(PFUser *)followed;
 
 @end
