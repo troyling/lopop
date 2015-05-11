@@ -193,7 +193,7 @@
             LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
             vc.pop = self.pop;
             vc.offerUser = offer.fromUser;
-            vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:offer.fromUser.objectId];
+           // vc.chatModel = [[LPChatManager getInstance] startChatWithContactId:offer.fromUser.objectId];
         }
     } else if ([segue.identifier isEqualToString:@"scheduleMeetupSegue"]) {
         LPNewMeetupViewController *vc = segue.destinationViewController;

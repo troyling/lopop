@@ -645,7 +645,7 @@ typedef NS_ENUM (NSInteger, LPMeetUpMapViewMode) {
     else if ([segue.destinationViewController isKindOfClass:[LPMessageViewController class]]) {
         if (self.meetUpUser.objectId) {
             self.messageViewController = segue.destinationViewController;
-            self.messageViewController.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.meetUpUser.objectId];
+            //self.messageViewController.chatModel = [[LPChatManager getInstance] startChatWithContactId:self.meetUpUser.objectId];
         }
     }
 }

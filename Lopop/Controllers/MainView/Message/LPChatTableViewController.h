@@ -12,6 +12,7 @@
 @interface LPChatTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray* chatArray;
+
 @property Firebase * firebase;
 
 - (IBAction)newChat:(id)sender;

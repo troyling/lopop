@@ -8,23 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <Firebase/Firebase.h>
+#import "LPMessageModel.h"
+
 @interface LPChatModel : NSObject
 
 @property NSString *contactId;
-@property NSNumber *contactStatus;
-@property bool visible;
 
-@property Firebase *receiveRef;
-@property Firebase *sendRef;
-@property NSNumber *userStatus;
-@property Firebase *chatInfoRef;
-@property NSMutableArray *messageArray;
+@property BOOL stored;
 
-//@property NSTimeInterval timeStamp;
+//Use initWithContactId instead of init.
+- (id) initWithContactId:(NSString *) contactId;
 
-//- (NSDictionary *) toDict;
-//+ (LPChatModel *) fromDict:(NSDictionary *) dict;
-
+//Send the message to the contact, and save it to DB.
+- (void) sendMessage:(LPMessageModel *) message;
 
 
 @end

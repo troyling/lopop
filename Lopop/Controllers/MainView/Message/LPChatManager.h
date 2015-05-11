@@ -9,18 +9,31 @@
 #import <Foundation/Foundation.h>
 #import <Firebase/Firebase.h>
 #import "LPChatModel.h"
+#import "LPMessageModel.h"
+
+
+static NSString* const ChatManagerChatViewUpdateNotification = @"ChatManagerChatViewUpdateNotification";
+static NSString* const ChatManagerMessageViewUpdateNotification = @"ChatManagerMessageViewUpdateNotification";
+static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";
+
+
 
 @interface LPChatManager : NSObject
 + (LPChatManager *) getInstance;
-//- (NSMutableArray *) getActiveChatArray;
-- (NSMutableArray *) getVisibleChatArray;
-- (LPChatModel*) startChatWithContactId:(NSString*) contactId;
-//- (void) deleteChatWithContactId:(NSString *) contactId;
-- (NSArray*) getChatMessagesWith: (NSString *) contactId;
-- (void) sendMessage:(NSString *) content to:(LPChatModel*) chatModel;
+
+- (NSMutableArray *) getChatArray;
+
+- (void) saveChatToDB: (LPChatModel*) chatModel;
+
+- (NSArray*) getChatMessagesWithUser: (NSString *) contactId;
+
 - (LPChatModel*) getChatModel: (NSString *) contactId;
 
+- (void) removePendingMessage: (LPMessageModel *) message;
 
+- (void) saveMessage: (LPMessageModel*) messageModel;
+
+- (void) deleteChat: (LPChatModel*) chatModel;
 
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 
@@ -35,6 +48,3 @@
 
 @end
 
-static NSString* const ChatManagerChatViewUpdateNotification = @"ChatManagerChatViewUpdateNotification";
-static NSString* const ChatManagerMessageViewUpdateNotification = @"ChatManagerMessageViewUpdateNotification";
-static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";
