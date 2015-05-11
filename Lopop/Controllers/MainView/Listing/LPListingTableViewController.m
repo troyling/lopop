@@ -36,7 +36,6 @@
 @implementation LPListingTableViewController
 
 CGFloat const LISTING_CELL_HEIGHT = 275.0f;
-CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,7 +54,10 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self loadData];
+
+    if (self.displayState == LPListingDisplay) {
+        [self loadData];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -135,7 +137,8 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellIdentifier = self.displayState == LPListingDisplay? @"listingCell" : @"offerCell";
+//    NSString *cellIdentifier = self.displayState == LPListingDisplay? @"listingCell" : @"offerCell";
+    NSString *cellIdentifier = @"listingCell";
 
     LPPopListingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 
@@ -151,6 +154,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
         // asynchronously load number of offers, if needed
         id item = [self.incomingOffers objectForKey:pop.objectId];
 
+        // count offers
         if (item != nil) {
             int count = 0;
 
@@ -169,6 +173,24 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
                 }
             }];
         }
+
+        // count number of views for the pop
+        PFQuery *query = [LPPopInfo query];
+        [query whereKey:@"pop" equalTo:pop];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects.count == 1) {
+                LPPopInfo *popInfo = objects.firstObject;
+                cell.numViewLabel.text = [NSString stringWithFormat:@"%@ views", popInfo.numViews];
+            } else {
+                cell.numViewLabel.text = @"0 view";
+            }
+        }];
+
+        cell.offerStatusLabel.hidden = YES;
+        cell.numViewLabel.hidden = NO;
+        cell.numOfferLabel.hidden = NO;
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+
     } else {
         // offer view
         pop = [self.offerredPops objectAtIndex:indexPath.row];
@@ -176,16 +198,13 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
         // check the status of the offer
         LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
         NSString *statusStr = @"";
-        cell.indicationImgView.hidden = YES;
 
         switch (offer.status) {
             case kOfferPending:
                 statusStr = @"Offer sent";
                 break;
             case kOfferMeetUpProposed:
-                statusStr = @"";
-                // show action icon
-                cell.indicationImgView.hidden = NO;
+                statusStr = @"Confirmation needed";
                 break;
             case kOfferMeetUpAccepted:
                 statusStr = @"Confirm meetup!";
@@ -198,27 +217,19 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
                 break;
             case kOfferCompleted:
                 statusStr = @"Completed";
+            default:
                 break;
         }
 
         cell.offerStatusLabel.text = statusStr;
+        cell.offerStatusLabel.hidden = NO;
+        cell.numViewLabel.hidden = YES;
+        cell.numOfferLabel.hidden = YES;
     }
 
     cell.titleLabel.text = pop.title;
-    cell.priceLabel.text = [pop publicPriceStr];
 
-    // query number of views
-    PFQuery *query = [LPPopInfo query];
-    [query whereKey:@"pop" equalTo:pop];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (objects.count == 1) {
-            LPPopInfo *popInfo = objects.firstObject;
-            cell.numViewLabel.text = [NSString stringWithFormat:@"%@ views", popInfo.numViews];
-        } else {
-            cell.numViewLabel.text = @"0 view";
-        }
-    }];
-
+    // load image
     PFFile *file = pop.images.firstObject;
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:file.url]];
     
@@ -269,7 +280,7 @@ CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.displayState == LPListingDisplay ? LISTING_CELL_HEIGHT : OFFER_CELL_HEIGHT;
+    return LISTING_CELL_HEIGHT;
 }
 
 #pragma mark SegmentedControl

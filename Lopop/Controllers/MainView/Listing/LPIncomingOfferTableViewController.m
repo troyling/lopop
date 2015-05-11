@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSMutableArray *incomingOffers;
 @property (strong, nonatomic) NSMutableArray *expandedCellIndexPaths;
 @property (retain, nonatomic) LPOffer *transitOffer;
+@property (assign) BOOL isSingleOfferView; // true when status of one of the offer is kMeetUpProposed or kMeetUpAccepted
 
 @end
 
@@ -41,6 +42,8 @@
             }
         }];
     }
+
+    self.isSingleOfferView = NO;
     [self loadData];
 
     self.expandedCellIndexPaths = [NSMutableArray array];
@@ -84,6 +87,14 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 self.incomingOffers = [[NSMutableArray alloc] initWithArray:objects];
+
+                // TODO run through the offers to check if meet up has been proposed or confirmed
+                for (LPOffer *offer in self.incomingOffers) {
+                    if (offer.status == kOfferMeetUpProposed || offer.status == kOfferMeetUpAccepted) {
+                        self.isSingleOfferView = YES;
+                        break;
+                    }
+                }
                 [self.tableView reloadData];
             }
         }];
@@ -97,7 +108,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (self.incomingOffers) ? self.incomingOffers.count : 0;
+    if (self.isSingleOfferView)
+        return 1;
+    else
+        return (self.incomingOffers) ? self.incomingOffers.count : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -120,10 +134,6 @@
             }];
         }
     }
-
-//    UIView *mask = [[UIView alloc] initWithFrame:cell.bounds];
-//    [mask setBackgroundColor:[UIColor colorWithWhite:0.5 alpha:0.5]];
-//    [cell addSubview:mask];
 
     return cell;
 }
