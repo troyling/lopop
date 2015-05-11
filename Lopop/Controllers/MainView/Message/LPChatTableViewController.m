@@ -158,7 +158,7 @@ NSString * troyId = @"qXHdNj9Skh";
 
 
 - (IBAction)newChat:(id)sender {
-    LPChatModel* chatModel = [[LPChatModel alloc] initWithContactId:@"4N9TIBOwYE"];
+    LPChatModel* chatModel = [[LPChatManager getInstance] getChatModel: @"4N9TIBOwYE"];
     [self.chatArray addObject:chatModel];
     [self.tableView reloadData];
     //[[LPChatManager getInstance] startChatWithContactId:@"pSxj8YdXrp"];
@@ -167,7 +167,8 @@ NSString * troyId = @"qXHdNj9Skh";
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(editingStyle == UITableViewCellEditingStyleDelete){
         LPChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
-        //[[LPChatManager getInstance] deleteChatWithContactId:a_chat.contactId];
+        [[LPChatManager getInstance] deleteChat: a_chat];
+        [self.tableView reloadData];
     }
 }
 

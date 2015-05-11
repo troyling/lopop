@@ -18,6 +18,7 @@ Firebase *sendRef;
 - (id) initWithContactId:(NSString *) contactId{
     userId = [[PFUser currentUser] objectId];
     self.contactId = contactId;
+    self.stored = YES;
     sendRef = [[Firebase alloc] initWithUrl:
                     [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactId, @"/pendingMessages"]];
     return self;
@@ -27,7 +28,13 @@ Firebase *sendRef;
     Firebase* path = [sendRef childByAutoId];
     [path setValue: message.toDict];
     message.messageId = path.key;
-    [[LPChatManager getInstance] saveMessage:message];
+    LPChatManager * LPCM = [LPChatManager getInstance];
+    [LPCM saveMessage:message];
+    
+    if(!self.stored){
+        [LPCM saveChatToDB:self];
+        self.stored = YES;
+    }
 }
 
 

@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     if(self.offerUser != nil){
-        self.chatModel = [[LPChatModel alloc] initWithContactId:self.offerUser.objectId];
+        self.chatModel = [[LPChatManager getInstance] getChatModel:self.offerUser.objectId];
     }
     
     [self loadContactData];

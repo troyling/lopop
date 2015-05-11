@@ -14,6 +14,7 @@
 
 @property NSString *contactId;
 
+@property BOOL stored;
 
 //Use initWithContactId instead of init.
 - (id) initWithContactId:(NSString *) contactId;

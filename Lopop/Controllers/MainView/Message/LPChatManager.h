@@ -23,6 +23,8 @@ static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";
 
 - (NSMutableArray *) getChatArray;
 
+- (void) saveChatToDB: (LPChatModel*) chatModel;
+
 - (NSArray*) getChatMessagesWithUser: (NSString *) contactId;
 
 - (LPChatModel*) getChatModel: (NSString *) contactId;
@@ -31,7 +33,7 @@ static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";
 
 - (void) saveMessage: (LPMessageModel*) messageModel;
 
-
+- (void) deleteChat: (LPChatModel*) chatModel;
 
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 

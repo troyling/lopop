@@ -91,7 +91,7 @@ const NSInteger CONTACTDELETED = 3;
         
         BOOL chatModelExist = NO;
         for(LPChatModel* chatModel in allChatArray){
-            if(messageInstance.fromUserId){
+            if([messageInstance.fromUserId isEqualToString:chatModel.contactId]){
                 chatModelExist = YES;
                 break;
             }
@@ -113,6 +113,8 @@ const NSInteger CONTACTDELETED = 3;
 
 - (void) saveChatToDB: (LPChatModel*) chatModel{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [self chatViewUpdateNotify];
     
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     NSManagedObject *newContact;
@@ -160,6 +162,59 @@ const NSInteger CONTACTDELETED = 3;
     [[userMessageRef childByAppendingPath:message.messageId] removeValue];
     
     [pendingMessageArray removeObject:message];
+}
+
+- (void) deleteChat: (LPChatModel*) chatModel{
+    [self deleteChatFromDB: chatModel];
+    [self deleteConversationFromDB:chatModel];
+    [allChatArray removeObject:chatModel];
+}
+
+- (void) deleteChatFromDB: (LPChatModel*) chatModel{
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Chat" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(contactId == %@)", chatModel.contactId];
+    [request setPredicate:pred];
+    
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request
+                                              error:&error];
+    if ([objects count] != 1)
+    {
+        NSLog(@"Error in updateChatFromDB in chatManager");
+    }
+    else
+    {
+        NSManagedObject* obj = [objects objectAtIndex:0];
+        [context deleteObject:obj];
+    }
+    [context save:&error];
+}
+
+- (void) deleteConversationFromDB: (LPChatModel*) chatModel{
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(fromUserId == %@) OR (toUserId == %@)", chatModel.contactId, chatModel.contactId];
+    [request setPredicate:pred];
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request
+                                              error:&error];
+    
+    for(NSManagedObject* obj in objects){
+        [context deleteObject:obj];
+    }
+    NSLog(@"%lu messages got removed!", (unsigned long)objects.count);
+    [context save:&error];
 }
 
 /*
@@ -284,7 +339,11 @@ const NSInteger CONTACTDELETED = 3;
             return chat;
         }
     }
-    return nil;
+    
+    LPChatModel* newChat = [[LPChatModel alloc] initWithContactId:contactId];
+    newChat.stored = NO;
+    [allChatArray addObject:newChat];
+    return newChat;
 }
 
 @end
