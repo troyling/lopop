@@ -14,6 +14,7 @@
 + (UIColor *)lopopColor;
 + (UIColor *)lopopColorWithAlpha:(double)alpha;
 + (UIColor *)infoColor;
++ (UIColor *)dangerColor;
 + (UIColor *)alertColor;
 + (UIColor *)ratingStarColor;
 + (UIImage *)convertViewToImage:(UIView *)view;

@@ -13,4 +13,10 @@
 
 @property (retain, nonatomic) LPPop *pop;
 
+// header view
+@property (weak, nonatomic) IBOutlet UIImageView *popImgView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numViewLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numOfferLabel;
+
 @end

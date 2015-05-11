@@ -10,6 +10,7 @@
 #import "LPPopCategoryTableViewController.h"
 #import "LPPermissionValidator.h"
 #import "LPAlertViewHelper.h"
+#import "LPLocationHelper.h"
 #import "LPUIHelper.h"
 #import "CRToast.h"
 #import "LPPop.h"
@@ -23,6 +24,7 @@
 @property UIButton *clearImageBtn;
 @property PFGeoPoint *popLocation;
 @property NSInteger savedImages;
+@property BOOL shouldUpdateLocaiton;
 
 @end
 
@@ -61,8 +63,10 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(mapDrag:)];
     pan.delegate = self;
     [self.mapview addGestureRecognizer:pan];
+    self.shouldUpdateLocaiton = NO;
 
     // delegate
+    self.mapview.delegate = self;
     self.titleTextField.delegate = self;
     self.priceTextField.delegate = self;
     self.descriptionTextView.delegate = self;
@@ -294,7 +298,7 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 
 - (IBAction)mapDrag:(UIPanGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
-        self.mapBlurView.hidden = YES;
+        self.shouldUpdateLocaiton = YES;
     }
 }
 
@@ -409,6 +413,17 @@ NSString *const UITEXTVIEW_DESCRIPTION_PLACEHOLDER = @"Description...";
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
+}
+
+#pragma mark - MapView Delegate
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:self.mapview.centerCoordinate.latitude longitude:self.mapview.centerCoordinate.longitude];
+    [LPLocationHelper getAddressForLocation:loc withBlock:^(NSString *address, NSError *error) {
+        if (!error && self.shouldUpdateLocaiton) {
+            self.addressLabel.text = address;
+        }
+    }];
 }
 
 @end

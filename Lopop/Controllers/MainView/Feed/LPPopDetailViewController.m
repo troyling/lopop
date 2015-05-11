@@ -21,6 +21,7 @@
 #import "LPUserProfileTableViewController.h"
 #import "LPUserHelper.h"
 #import "IDMPhotoBrowser.h"
+#import "LPPopHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LPPopDetailViewController ()
@@ -81,6 +82,9 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
 
     // check for offer state
     [self checkForOffer];
+
+    // User viewed the pop
+    [LPPopHelper incrementNumViewsInBackgroundForPop:self.pop];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -6,23 +6,11 @@
     <entity name="Message" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fromUserId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="messageId" optional="YES" syncable="YES"/>
+        <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toUserId" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="MessageReceived" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fromUser" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="MessageSent" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="toUser" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Chat" positionX="-45" positionY="36" width="128" height="60"/>
-        <element name="Message" positionX="-45" positionY="36" width="128" height="103"/>
-        <element name="MessageReceived" positionX="-54" positionY="-18" width="128" height="114"/>
-        <element name="MessageSent" positionX="-36" positionY="18" width="128" height="114"/>
+        <element name="Message" positionX="-45" positionY="36" width="128" height="105"/>
     </elements>
 </model>

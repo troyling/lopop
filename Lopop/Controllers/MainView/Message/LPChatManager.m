@@ -56,10 +56,10 @@ const NSInteger CONTACTDELETED = 3;
      object:nil];
 }
 
-- (void) messageViewUpdateNotifyWithMessage{
+- (void) messageViewUpdateNotifyWithMessage:(LPMessageModel*) message{
     [[NSNotificationCenter defaultCenter]
      postNotificationName: ChatManagerMessageViewUpdateNotification
-     object:nil];
+     object:message];
 }
 
 - (void) initalChatArray{
@@ -67,28 +67,46 @@ const NSInteger CONTACTDELETED = 3;
         NSLog(@"get user fails");
         return;
     }
-    userId =[[PFUser currentUser] objectId];
+    userId = [[PFUser currentUser] objectId];
         
     allChatArray = [[NSMutableArray alloc] init];
     visibleChatArray = [[NSMutableArray alloc] init];
     pendingMessageArray = [[NSMutableArray alloc] init];
     
     //Retrieve from db
-    NSMutableArray* storedChatArray = [self loadChatsFromDB];
-
-    [allChatArray addObjectsFromArray:storedChatArray];
+    [allChatArray addObjectsFromArray:[self loadChatsFromDB]];
     
-    //Retrieve from firebase
+    //Receiver for firebase
     userMessageRef = [[Firebase alloc] initWithUrl:
                [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", userId, @"/pendingMessages"]];
     
+    //Set up message listener
     [userMessageRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary* messageDict = snapshot.value;
         LPMessageModel* messageInstance = [LPMessageModel fromDict:messageDict];
         messageInstance.messageId = snapshot.key;
         
         [pendingMessageArray addObject:messageInstance];
-        [self messageViewUpdateNotifyWithMessage]; //TODO
+        
+        
+        BOOL chatModelExist = NO;
+        for(LPChatModel* chatModel in allChatArray){
+            if(messageInstance.fromUserId){
+                chatModelExist = YES;
+                break;
+            }
+        }
+        
+        if(chatModelExist){
+            [self messageViewUpdateNotifyWithMessage: messageInstance]; //TODO
+        }else{
+            LPChatModel* newChat = [[LPChatModel alloc] initWithContactId:messageInstance.fromUserId];
+
+            
+            [allChatArray addObject:newChat];
+            [self saveChatToDB:newChat];
+            [self chatViewUpdateNotify];
+        }
     }];
 }
 
@@ -128,12 +146,20 @@ const NSInteger CONTACTDELETED = 3;
          LPChatModel* chatModel;
          for (int i = 0; i < [objects count]; i++)
          {
-             chatModel = [[LPChatModel alloc] init];
-             chatModel.contactId = [objects[i] valueForKey:@"contactId"];
+             
+             NSString *contactId = [objects[i] valueForKey:@"contactId"];
+             chatModel = [[LPChatModel alloc] initWithContactId: contactId];
              [chatArray addObject:chatModel];
          }
      }
     return chatArray;
+}
+
+- (void) removePendingMessage: (LPMessageModel*) message{
+    [self saveMessage:message];
+    [[userMessageRef childByAppendingPath:message.messageId] removeValue];
+    
+    [pendingMessageArray removeObject:message];
 }
 
 /*
@@ -218,22 +244,33 @@ const NSInteger CONTACTDELETED = 3;
     }
 }
 
-- (void) sendMessage:(NSString *) content to:(LPChatModel*) chatModel{
-    LPMessageModel* messageInstance = [[LPMessageModel alloc]init];
-    messageInstance.content = content;
-    messageInstance.toUserId = userId;
-    messageInstance.fromUserId = chatModel.contactId;
-    
-    Firebase* messageRef = [chatModel.sendRef childByAutoId];
-    [messageRef setValue:[messageInstance toDict]];
-    messageInstance.messageId = messageRef.key;
-    [self saveMessage:messageInstance];
-}
 
 - (NSArray*) getChatMessagesWithUser: (NSString *) contactId{
     NSMutableArray * messageArray;
+    
+    //get messages from DB
     messageArray = [self getMessagesWithUserId:contactId];
 
+    //get pending messages that have not been saved to DB
+    [messageArray addObjectsFromArray:[self getPendingMessagesWithUser:contactId]];
+    
+    return [messageArray sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (NSArray*) getPendingMessagesWithUser: (NSString *) contactId{
+    NSMutableArray * messageArray = [[NSMutableArray alloc] init];
+    for(LPMessageModel* message in pendingMessageArray){
+        if([message.fromUserId isEqualToString:contactId]){
+            [messageArray addObject:message];
+            [self saveMessage:message];
+            [[userMessageRef childByAppendingPath:message.messageId] removeValue];
+        }
+    }
+    
+    for(LPMessageModel * message in messageArray){
+        [pendingMessageArray removeObject:message];
+    }
+    
     return [messageArray sortedArrayUsingSelector:@selector(compare:)];
 }
 

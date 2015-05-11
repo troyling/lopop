@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E8699D6B7B99CCAB2A28E24F"
+               BlueprintIdentifier = "6F96A82E2E0C3CD1141A4D3C"
                BuildableName = "libPods-Lopop-HMSegmentedControl.a"
                BlueprintName = "Pods-Lopop-HMSegmentedControl"
                ReferencedContainer = "container:Pods.xcodeproj">

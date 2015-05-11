@@ -11,12 +11,14 @@
 #import "LPMainViewTabBarController.h"
 #import "LPPop.h"
 #import "LPOffer.h"
+#import "LPPopInfo.h"
 #import "LPUIHelper.h"
 #import "LPPopHelper.h"
 #import "UIImageView+WebCache.h"
-#import "LPListingDetailViewController.h"
+#import "LPIncomingOfferTableViewController.h"
 #import "LPMeetUpMapViewController.h"
 #import "UIViewController+ScrollingNavbar.h"
+#import "LPNewMeetupViewController.h"
 
 @interface LPListingTableViewController ()
 
@@ -25,11 +27,16 @@
 @property (strong, nonatomic) NSMutableDictionary *incomingOffers;
 @property (strong, nonatomic) NSMutableArray *myOffers;
 
+// my offers and offered pops are synced in order
+
 @property (assign) LPDisplayState displayState;
 
 @end
 
 @implementation LPListingTableViewController
+
+CGFloat const LISTING_CELL_HEIGHT = 275.0f;
+CGFloat const OFFER_CELL_HEIGHT = 90.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,12 +44,13 @@
 
     // configure table view
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.rowHeight = 90.0f;
+    self.displayState = LPListingDisplay;
 
     // cache the offer
     self.incomingOffers = [[NSMutableDictionary alloc] init];
 
-    self.displayState = LPListingDisplay;
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,7 +91,7 @@
     PFQuery *offerQuery = [LPOffer query];
     [offerQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
     [offerQuery includeKey:@"pop"];
-    [offerQuery orderByDescending:@"createdAt"];
+    [offerQuery orderByDescending:@"status"];
     [offerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.myOffers = [[NSMutableArray alloc] initWithArray:objects];
@@ -126,7 +134,6 @@
     return rows;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *cellIdentifier = self.displayState == LPListingDisplay? @"listingCell" : @"offerCell";
 
@@ -139,11 +146,8 @@
     LPPop *pop;
 
     if (self.displayState == LPListingDisplay) {
+        // listing view
         pop = [self.listings objectAtIndex:indexPath.row];
-
-        cell.numOfferLabel.layer.cornerRadius = cell.numOfferLabel.bounds.size.width / 2.0f; // make label circle
-        cell.numOfferLabel.layer.masksToBounds = YES;
-
         // asynchronously load number of offers, if needed
         id item = [self.incomingOffers objectForKey:pop.objectId];
 
@@ -154,23 +158,66 @@
                 count = [(NSNumber *)item intValue];
             }
 
-            cell.numOfferLabel.text = count == 0 ? @"No yet" : [NSString stringWithFormat:@"%d", count];
+            cell.numOfferLabel.text = [NSString stringWithFormat:@"%d offers", count];
             cell.numOfferLabel.hidden = NO;
         } else {
             [LPPopHelper countOffersToPop:pop inBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
                     [self.incomingOffers setObject:[NSNumber numberWithInt:count] forKey:pop.objectId];
-                    cell.numOfferLabel.text = count == 0 ? @"No yet" : [NSString stringWithFormat:@"%d", count];
+                    cell.numOfferLabel.text = [NSString stringWithFormat:@"%d offers", count];
                     cell.numOfferLabel.hidden = NO;
                 }
             }];
         }
     } else {
+        // offer view
         pop = [self.offerredPops objectAtIndex:indexPath.row];
+
+        // check the status of the offer
+        LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
+        NSString *statusStr = @"";
+        cell.indicationImgView.hidden = YES;
+
+        switch (offer.status) {
+            case kOfferPending:
+                statusStr = @"Offer sent";
+                break;
+            case kOfferMeetUpProposed:
+                statusStr = @"";
+                // show action icon
+                cell.indicationImgView.hidden = NO;
+                break;
+            case kOfferMeetUpAccepted:
+                statusStr = @"Confirm meetup!";
+                break;
+            case kOfferNotAccepted:
+                statusStr = @"Not accepted";
+                break;
+            case kOfferDeclined:
+                statusStr = @"Offer declined";
+                break;
+            case kOfferCompleted:
+                statusStr = @"Completed";
+                break;
+        }
+
+        cell.offerStatusLabel.text = statusStr;
     }
 
     cell.titleLabel.text = pop.title;
     cell.priceLabel.text = [pop publicPriceStr];
+
+    // query number of views
+    PFQuery *query = [LPPopInfo query];
+    [query whereKey:@"pop" equalTo:pop];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count == 1) {
+            LPPopInfo *popInfo = objects.firstObject;
+            cell.numViewLabel.text = [NSString stringWithFormat:@"%@ views", popInfo.numViews];
+        } else {
+            cell.numViewLabel.text = @"0 view";
+        }
+    }];
 
     PFFile *file = pop.images.firstObject;
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:file.url]];
@@ -178,43 +225,52 @@
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.displayState == LPListingDisplay) {
-        LPListingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"listingDetailViewController"];
+        LPIncomingOfferTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"incomingOfferTableView"];
         LPPop *pop = [self.listings objectAtIndex:indexPath.row];
         vc.pop = pop;
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        // offer view - go into MeetupView
+        LPPop *pop = [self.offerredPops objectAtIndex:indexPath.row];
+        LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
+
+
+        if (offer.status == kOfferPending) {
+            NSLog(@"offer Sent");
+            // indicate that the offer is sent and waiting for seller's to confirm
+
+        } else if (offer.status == kOfferMeetUpProposed) {
+            NSLog(@"Meetup proposed");
+            LPNewMeetupViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetupView"];
+            vc.pop = pop;
+            vc.offer = offer;
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentViewController:vc animated:YES completion:NULL];
+        } else if (offer.status == kOfferMeetUpAccepted) {
+            // TODO show preview mode for meetup
+            LPMeetUpMapViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"meetUpMapViewController"];
+            vc.offer = offer;
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentViewController:vc animated:YES completion:NULL];
+            NSLog(@"preview");
+        } else if (offer.status == kOfferNotAccepted) {
+            // TODO show user that offer is not accepted by seller
+            NSLog(@"Meetup declined :(");
+        } else if (offer.status == kOfferDeclined) {
+            // TODO show user that offer is declined by seller
+            NSLog(@"Offer declined");
+        } else if (offer.status == kOfferCompleted) {
+            // TODO offer is completed by user
+            NSLog(@"Offer completed");
+        }
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.displayState == LPListingDisplay ? LISTING_CELL_HEIGHT : OFFER_CELL_HEIGHT;
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark SegmentedControl
 
@@ -255,7 +311,6 @@
             LPPopListingTableViewCell *cell = sender;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             LPOffer *offer = [self.myOffers objectAtIndex:indexPath.row];
-            NSLog(@"%@", offer);
             vc.offer = offer;
         }
 

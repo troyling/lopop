@@ -8,11 +8,27 @@
 
 #import "LPChatModel.h"
 #import "LPMessageModel.h"
+#import "LPChatManager.h"
+#import <Parse/Parse.h>
 
 @implementation LPChatModel
 NSString* userId;
+Firebase *sendRef;
 
+- (id) initWithContactId:(NSString *) contactId{
+    userId = [[PFUser currentUser] objectId];
+    self.contactId = contactId;
+    sendRef = [[Firebase alloc] initWithUrl:
+                    [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactId, @"/pendingMessages"]];
+    return self;
+}
 
+- (void) sendMessage:(LPMessageModel *) message{
+    Firebase* path = [sendRef childByAutoId];
+    [path setValue: message.toDict];
+    message.messageId = path.key;
+    [[LPChatManager getInstance] saveMessage:message];
+}
 
 
 /*

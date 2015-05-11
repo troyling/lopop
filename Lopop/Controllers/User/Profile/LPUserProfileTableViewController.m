@@ -21,6 +21,7 @@
 #import "LPLocationHelper.h"
 #import "LPUserHelper.h"
 #import "LPUIHelper.h"
+#import "LPCache.h"
 #import "LPPop.h"
 
 #define QUERY_LIMIT 40
@@ -47,8 +48,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [[LPCache getInstance] synchronizeFollowingForCurrentUserInBackgroundIfNecessary];
     [self loadSegmentedControl];
     [self queryForPops:NO];
     [self loadUserInfo];
@@ -111,16 +112,12 @@
     // follow button
     if (![self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         // other user
-        [LPUserHelper isCurrentUserFollowingUserInBackground:self.user withBlock:^(BOOL isFollowing, NSError *error) {
-            if (!error) {
-                if (isFollowing) {
-                    [self setUnfollowLayoutForButton:self.followBtn];
-                } else {
-                    [self setFollowLayoutForButton:self.followBtn];
-                }
-                self.followBtn.hidden = NO;
-            }
-        }];
+        if ([[LPCache getInstance] isCurrentUserFollowingUser:self.user]) {
+            [self setUnfollowLayoutForButton:self.followBtn];
+        } else {
+            [self setFollowLayoutForButton:self.followBtn];
+        }
+        self.followBtn.hidden = NO;
     }
 }
 
@@ -451,16 +448,12 @@
         // configure follow button
         if (![user.objectId isEqualToString:[PFUser currentUser].objectId]) {
             // other user
-            [LPUserHelper isCurrentUserFollowingUserInBackground:user withBlock:^(BOOL isFollowing, NSError *error) {
-                if (!error) {
-                    if (isFollowing) {
-                        [self setUnfollowLayoutForButton:cell.followBtn];
-                    } else {
-                        [self setFollowLayoutForButton:cell.followBtn];
-                    }
-                    cell.followBtn.hidden = NO;
-                }
-            }];
+            if ([[LPCache getInstance] isCurrentUserFollowingUser:user]) {
+                [self setUnfollowLayoutForButton:cell.followBtn];
+            } else {
+                [self setFollowLayoutForButton:cell.followBtn];
+            }
+            cell.followBtn.hidden = NO;
         }
         return cell;
     } else {

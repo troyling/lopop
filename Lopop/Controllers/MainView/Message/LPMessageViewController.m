@@ -18,11 +18,17 @@
 - (void)viewDidLoad {
     //TODO: add time to message
     [super viewDidLoad];
+    
+    if(self.offerUser != nil){
+        self.chatModel = [[LPChatModel alloc] initWithContactId:self.offerUser.objectId];
+    }
+    
     [self loadContactData];
     [self initMessageController];
 
     self.messageArray = [[NSMutableArray alloc] init];
-    [self.messageArray addObjectsFromArray:[[LPChatManager getInstance] getChatMessagesWith:self.chatModel.contactId]];
+    [self.messageArray addObjectsFromArray: [[LPChatManager getInstance] getChatMessagesWithUser:self.chatModel.contactId]];
+
     [self observeMessageChangeNotification];
 }
 
@@ -75,15 +81,20 @@
 
 - (void)reloadTableData:(NSNotification *)notification {
     if ([notification.object isKindOfClass:[LPMessageModel class]]) {
-        [self.messageArray addObject:notification.object];
+        LPMessageModel* message = notification.object;
+        if([message.fromUserId isEqualToString: self.chatModel.contactId]){
+            [self.messageArray addObject:notification.object];
+        
+            // update table
+            [self.collectionView reloadData];
+            [self scrollToBottomAnimated:YES];
+            [[LPChatManager getInstance] removePendingMessage:message];
+        }
     }
     else {
         NSLog(@"Error in observer in messageViewController");
     }
 
-    // update table
-    [self.collectionView reloadData];
-    [self scrollToBottomAnimated:YES];
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
@@ -179,7 +190,16 @@
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     //TODO: check for msg length, empty
-    [[LPChatManager getInstance] sendMessage:text to:self.chatModel];
+
+    LPMessageModel* message = [[LPMessageModel alloc] init];
+    message.content = text;
+    message.toUserId = self.chatModel.contactId;
+    message.fromUserId = [PFUser currentUser].objectId;
+    
+    [self.chatModel sendMessage: message];
+    [self.messageArray addObject:message];
+    
+    
     [self finishSendingMessageAnimated:YES];
 }
 
@@ -206,7 +226,7 @@
 
 - (JSQMessage *)adaptMessage:(LPMessageModel *)msg {
     //TODO: add method to look up name
-    return [JSQMessage messageWithSenderId:msg.senderId displayName:@"Change my name" text:msg.content];
+    return [JSQMessage messageWithSenderId:msg.fromUserId displayName:@"Change my name" text:msg.content];
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {
