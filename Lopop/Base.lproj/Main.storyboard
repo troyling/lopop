@@ -4176,6 +4176,7 @@
                                     <outlet property="imgView" destination="R5U-tr-iDp" id="F5V-m4-umb"/>
                                     <outlet property="offerStatusLabel" destination="YXr-Ky-dSA" id="Gjd-ET-Ps1"/>
                                     <outlet property="titleLabel" destination="Xia-UW-4wg" id="czM-gn-tHE"/>
+                                    <segue destination="bYc-zL-ZNA" kind="presentation" identifier="confirmMeetupSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="3bI-cV-5S0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -4226,6 +4227,7 @@
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="3bI-cV-5S0"/>
         <segue reference="rPk-Qo-ZRZ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

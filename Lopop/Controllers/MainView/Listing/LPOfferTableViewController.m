@@ -7,7 +7,10 @@
 //
 
 #import "LPOfferTableViewController.h"
+#import "UIViewController+ScrollingNavbar.h"
+#import "LPMainViewTabBarController.h"
 #import "LPPopListingTableViewCell.h"
+#import "LPMeetUpMapViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPOffer.h"
 
@@ -31,6 +34,7 @@ CGFloat const CELL_HEIGHT = 275.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self followScrollView:self.tableView];
 
     // configure table view
     self.tableView.rowHeight = CELL_HEIGHT;
@@ -40,6 +44,19 @@ CGFloat const CELL_HEIGHT = 275.0f;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
     [self loadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+        [(LPMainViewTabBarController *)self.tabBarController setTabBarVisible:YES animated:YES];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self showNavBarAnimated:NO];
 }
 
 - (void)loadData {
@@ -112,7 +129,7 @@ CGFloat const CELL_HEIGHT = 275.0f;
             offer = [self.meetupProposedOffers objectAtIndex:indexPath.row];
             break;
         default:
-            // TODO All pending offers
+            // All pending offers
             pop = [self.pendingOfferredPops objectAtIndex:indexPath.row];
             offer = [self.myPendingOffers objectAtIndex:indexPath.row];
             break;
@@ -120,7 +137,6 @@ CGFloat const CELL_HEIGHT = 275.0f;
 
     // check the status of the offer
     NSString *statusStr = @"";
-
     switch (offer.status) {
         case kOfferPending:
             statusStr = @"Offer sent";
@@ -157,6 +173,37 @@ CGFloat const CELL_HEIGHT = 275.0f;
 
 - (IBAction)viewSelected:(id)sender {
     [self.tableView reloadData];
+}
+
+#pragma mark Segue
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"confirmMeetupSegue"]) {
+        return self.segmentedControl.selectedSegmentIndex == 1; // allows user to confirm meetup
+    }
+    return NO;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"confirmMeetupSegue"]) {
+        LPMeetUpMapViewController *vc = segue.destinationViewController;
+
+        if (self.segmentedControl.selectedSegmentIndex == 1) {
+            if ([sender isKindOfClass:[LPPopListingTableViewCell class]]) {
+                LPPopListingTableViewCell *cell = sender;
+                NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+                // proposed meet up
+                vc.offer = [self.meetupProposedOffers objectAtIndex:indexPath.row];
+            }
+
+            // engage user by hiding tabbar
+            if ([self.tabBarController isKindOfClass:[LPMainViewTabBarController class]]) {
+                LPMainViewTabBarController *tb = (LPMainViewTabBarController *) self.tabBarController;
+                [tb setTabBarVisible:NO animated:YES];
+            }
+        }
+    }
 }
 
 @end
