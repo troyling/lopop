@@ -30,14 +30,12 @@
 
 @implementation LPOfferTableViewController
 
-CGFloat const CELL_HEIGHT = 275.0f;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self followScrollView:self.tableView];
 
     // configure table view
-    self.tableView.rowHeight = CELL_HEIGHT;
+    self.tableView.rowHeight = 275.0f;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     self.tableView.backgroundView = nil;
