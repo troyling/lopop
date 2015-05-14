@@ -117,6 +117,7 @@
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DA15381AF973620058A003 /* LPPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA15371AF973620058A003 /* LPPushHelper.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
+		D6E37C771B02F3F800041C08 /* LPOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E37C761B02F3F800041C08 /* LPOfferTableViewController.m */; };
 		D6E4A1C11A9E98AE00892E44 /* smiley1.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B61A9E98AE00892E44 /* smiley1.png */; };
 		D6E4A1C21A9E98AE00892E44 /* smiley2.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B71A9E98AE00892E44 /* smiley2.png */; };
 		D6E4A1C31A9E98AE00892E44 /* smiley3.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B81A9E98AE00892E44 /* smiley3.png */; };
@@ -350,6 +351,8 @@
 		D6DA15371AF973620058A003 /* LPPushHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPushHelper.m; path = Helpers/Push/LPPushHelper.m; sourceTree = "<group>"; };
 		D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopFeedTableViewCell.h; path = Views/MainView/Feed/LPPopFeedTableViewCell.h; sourceTree = "<group>"; };
 		D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopFeedTableViewCell.m; path = Views/MainView/Feed/LPPopFeedTableViewCell.m; sourceTree = "<group>"; };
+		D6E37C751B02F3F800041C08 /* LPOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPOfferTableViewController.h; path = Controllers/MainView/Listing/LPOfferTableViewController.h; sourceTree = "<group>"; };
+		D6E37C761B02F3F800041C08 /* LPOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPOfferTableViewController.m; path = Controllers/MainView/Listing/LPOfferTableViewController.m; sourceTree = "<group>"; };
 		D6E4A1B61A9E98AE00892E44 /* smiley1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley1.png; path = Resources/Images/icons/smilies/smiley1.png; sourceTree = "<group>"; };
 		D6E4A1B71A9E98AE00892E44 /* smiley2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley2.png; path = Resources/Images/icons/smilies/smiley2.png; sourceTree = "<group>"; };
 		D6E4A1B81A9E98AE00892E44 /* smiley3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley3.png; path = Resources/Images/icons/smilies/smiley3.png; sourceTree = "<group>"; };
@@ -959,6 +962,8 @@
 				D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */,
 				D64EC10E1ACB294A0010271C /* LPNewMeetupViewController.h */,
 				D64EC10F1ACB294A0010271C /* LPNewMeetupViewController.m */,
+				D6E37C751B02F3F800041C08 /* LPOfferTableViewController.h */,
+				D6E37C761B02F3F800041C08 /* LPOfferTableViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1306,6 +1311,7 @@
 				D6F5F82B1A8514680005758B /* BlurView.swift in Sources */,
 				D6F5F8431A8514680005758B /* UnwindSegue.swift in Sources */,
 				D6F5F8331A8514680005758B /* ImageLoader.swift in Sources */,
+				D6E37C771B02F3F800041C08 /* LPOfferTableViewController.m in Sources */,
 				D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */,
 				D64859EF1AA8C669007003F9 /* LPIntroViewController.m in Sources */,
 				D68CD1B31AA3EBE20023E311 /* LPUserInfo.m in Sources */,
