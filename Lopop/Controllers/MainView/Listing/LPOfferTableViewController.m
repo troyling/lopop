@@ -10,7 +10,7 @@
 #import "UIViewController+ScrollingNavbar.h"
 #import "LPMainViewTabBarController.h"
 #import "LPPopListingTableViewCell.h"
-#import "LPMeetUpMapViewController.h"
+#import "LPNewMeetupViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LPOffer.h"
 
@@ -184,7 +184,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"confirmMeetupSegue"]) {
-        LPMeetUpMapViewController *vc = segue.destinationViewController;
+        LPNewMeetupViewController *vc = segue.destinationViewController;
 
         if (self.segmentedControl.selectedSegmentIndex == 1) {
             if ([sender isKindOfClass:[LPPopListingTableViewCell class]]) {
@@ -193,6 +193,7 @@
 
                 // proposed meet up
                 vc.offer = [self.meetupProposedOffers objectAtIndex:indexPath.row];
+                vc.pop = [self.meetupProposedPops objectAtIndex:indexPath.row];
             }
 
             // engage user by hiding tabbar
