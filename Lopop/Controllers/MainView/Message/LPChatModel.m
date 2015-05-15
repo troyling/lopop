@@ -29,21 +29,18 @@
     self.contactId = contactId;
     self.numberOfUnread = 0;
     PFQuery *query = [PFUser query];
-    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
     [query whereKey:@"objectId" equalTo: contactId];
-    [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
-        if (!error && objects.count == 1) {
-            self.contactName = objects.firstObject[@"name"];
-            self.contactFirebaseId = objects.firstObject[@"firebaseId"];
+    NSArray *objects = [query findObjects];
+    if (objects.count == 1) {
+        self.contactName = objects.firstObject[@"name"];
+        self.contactFirebaseId = objects.firstObject[@"firebaseId"];
 
-            
-            NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
-            
-            self.sendRef = [[Firebase alloc] initWithUrl:
-                       [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactFirebaseId, @"/pendingMessages"]];
-        }
-    }];
-    
+
+        NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
+
+        self.sendRef = [[Firebase alloc] initWithUrl:
+                        [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactFirebaseId, @"/pendingMessages"]];
+    }
     self.stored = YES;
 
     return self;
