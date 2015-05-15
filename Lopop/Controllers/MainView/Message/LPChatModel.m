@@ -11,21 +11,47 @@
 #import "LPChatManager.h"
 #import <Parse/Parse.h>
 
+@interface LPChatModel()
+
+@property NSString* contactFirebaseId;
+
+@property Firebase *sendRef;
+
+@end
+
 @implementation LPChatModel
-NSString* userId;
-Firebase *sendRef;
+
+
+
+
 
 - (id) initWithContactId:(NSString *) contactId{
-    userId = [[PFUser currentUser] objectId];
     self.contactId = contactId;
+    self.numberOfUnread = 0;
+    PFQuery *query = [PFUser query];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    [query whereKey:@"objectId" equalTo: contactId];
+    [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
+        if (!error && objects.count == 1) {
+            self.contactName = objects.firstObject[@"name"];
+            self.contactFirebaseId = objects.firstObject[@"firebaseId"];
+
+            
+            NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
+            
+            self.sendRef = [[Firebase alloc] initWithUrl:
+                       [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactFirebaseId, @"/pendingMessages"]];
+        }
+    }];
+    
     self.stored = YES;
-    sendRef = [[Firebase alloc] initWithUrl:
-                    [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactId, @"/pendingMessages"]];
+
     return self;
 }
 
 - (void) sendMessage:(LPMessageModel *) message{
-    Firebase* path = [sendRef childByAutoId];
+    NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
+    Firebase* path = [self.sendRef childByAutoId];
     [path setValue: message.toDict];
     message.messageId = path.key;
     LPChatManager * LPCM = [LPChatManager getInstance];

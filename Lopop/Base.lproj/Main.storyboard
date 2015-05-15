@@ -268,7 +268,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uc1-WY-rtR">
-                                                <rect key="frame" x="163" y="5" width="49.5" height="19.5"/>
+                                                <rect key="frame" x="163" y="5" width="50" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="8Z1-na-tI2"/>
                                                     <constraint firstAttribute="height" constant="20" id="LAW-eQ-6wf"/>
@@ -1780,7 +1780,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                 </mapView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_location_fill" translatesAutoresizingMaskIntoConstraints="NO" id="LKo-mr-gCL">
-                                                    <rect key="frame" x="175" y="57" width="25.5" height="36"/>
+                                                    <rect key="frame" x="175" y="57" width="26" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="apE-Yl-Nt6"/>
                                                         <constraint firstAttribute="width" secondItem="LKo-mr-gCL" secondAttribute="height" multiplier="17:24" id="jve-DQ-qgz"/>
@@ -1799,7 +1799,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move to set location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljx-Zm-yBJ">
-                                                                <rect key="frame" x="121.5" y="9" width="131.5" height="17"/>
+                                                                <rect key="frame" x="122" y="9" width="132" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -3005,8 +3005,8 @@
                                                         <constraint firstAttribute="height" constant="50" id="eIV-Br-5KI"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="         " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLM-uj-8NJ" userLabel="name">
-                                                    <rect key="frame" x="66" y="8" width="301" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="         " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLM-uj-8NJ" userLabel="name">
+                                                    <rect key="frame" x="66" y="8" width="301" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="v72-gB-W7G"/>
                                                     </constraints>
@@ -3014,7 +3014,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUA-hp-m7j" userLabel="date">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="        " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUA-hp-m7j" userLabel="date">
                                                     <rect key="frame" x="149" y="35" width="218" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="38.5" id="BCa-cc-4cq"/>
@@ -3029,7 +3029,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DoP-Tn-1dc" userLabel="rating">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DoP-Tn-1dc" userLabel="rating">
                                                     <rect key="frame" x="66" y="36" width="75" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -3037,8 +3037,8 @@
                                                         <constraint firstAttribute="width" constant="75" id="tx4-yZ-wzt"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD1-mS-7vF" userLabel="comment">
-                                                    <rect key="frame" x="8" y="66" width="359" height="17.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD1-mS-7vF" userLabel="comment">
+                                                    <rect key="frame" x="8" y="66" width="359" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3165,7 +3165,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnJ-Nb-JZM" userLabel="name">
-                                    <rect key="frame" x="0.0" y="116" width="375" height="21.5"/>
+                                    <rect key="frame" x="0.0" y="116" width="375" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21.5" id="bf2-wW-4kb"/>
                                     </constraints>
@@ -3180,7 +3180,7 @@
                                         <constraint firstAttribute="height" constant="60" id="2hj-Oy-LAF"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjM-XW-2Pf" userLabel="locaiton">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjM-XW-2Pf" userLabel="locaiton">
                                     <rect key="frame" x="0.0" y="145" width="375" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="109" id="UfS-qB-ybS"/>
@@ -3197,7 +3197,7 @@
                                         </mask>
                                     </variation>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQK-U8-Mjj" userLabel="rating">
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CQK-U8-Mjj" userLabel="rating">
                                     <rect key="frame" x="112" y="175" width="150" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="EcE-pl-tQ5"/>
@@ -3210,7 +3210,7 @@
                                         </mask>
                                     </variation>
                                 </view>
-                                <button hidden="YES" opaque="NO" tag="999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWB-zP-LTJ" userLabel="followBtn" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
+                                <button hidden="YES" opaque="NO" tag="999" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWB-zP-LTJ" userLabel="followBtn" customClass="DesignableButton" customModule="Lopop" customModuleProvider="target">
                                     <rect key="frame" x="277" y="165" width="80" height="30"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -3300,7 +3300,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVC-eC-iYa">
-                                            <rect key="frame" x="134" y="8" width="217.5" height="20"/>
+                                            <rect key="frame" x="134" y="8" width="218" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="GZl-do-f5x"/>
                                                 <constraint firstAttribute="height" constant="20" id="pgx-fZ-suq"/>
@@ -3314,8 +3314,8 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-8F-1TC">
-                                            <rect key="frame" x="0.0" y="0.0" width="119" height="89.5"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-8F-1TC">
+                                            <rect key="frame" x="0.0" y="0.0" width="119" height="90"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="EZm-8F-1TC" secondAttribute="height" multiplier="4:3" id="eN0-6j-ZRT"/>
                                                 <constraint firstAttribute="width" secondItem="EZm-8F-1TC" secondAttribute="height" multiplier="1:1" id="frx-PR-MSQ"/>

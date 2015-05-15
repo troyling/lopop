@@ -18,17 +18,10 @@
 @end
 
 @implementation LPChatTableViewController
-Firebase * userRef;
-NSString * FirebaseUrl1 = @"https://vivid-heat-6123.firebaseio.com/";
-NSString * userId;
-NSString * troyId = @"qXHdNj9Skh";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    userId = [[PFUser currentUser] objectId];
-    
-    userRef = [[Firebase alloc] initWithUrl:
-                [FirebaseUrl1 stringByAppendingString: [@"users/" stringByAppendingString: userId]]];
     
     self.chatArray = [[LPChatManager getInstance] getChatArray];
     
@@ -86,19 +79,11 @@ NSString * troyId = @"qXHdNj9Skh";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell"];
-    
+
     LPChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"objectId" equalTo:a_chat.contactId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if(! error){
-            if([[objects firstObject] isKindOfClass:[PFUser class]]){
-                cell.textLabel.text = [objects firstObject] [@"name"];
-            }
-        }else{
-            NSLog(@"fix me in ChatTableViewController: no user found");
-        }
-    }];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ unread:%d", a_chat.contactName, a_chat.numberOfUnread];
+    //cell.textLabel.text = a_chat.contactName stringByAppendingString:<#(NSString *)#>;
     
     return cell;
 }

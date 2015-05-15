@@ -12,7 +12,13 @@
 
 @interface LPChatModel : NSObject
 
-@property NSString *contactId;
+@property NSString* contactId;
+
+@property NSString* contactName;
+
+@property int numberOfUnread;
+
+
 
 @property BOOL stored;
 

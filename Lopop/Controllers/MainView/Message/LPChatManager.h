@@ -14,7 +14,8 @@
 
 static NSString* const ChatManagerChatViewUpdateNotification = @"ChatManagerChatViewUpdateNotification";
 static NSString* const ChatManagerMessageViewUpdateNotification = @"ChatManagerMessageViewUpdateNotification";
-static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";
+static NSString* const firebaseUrl = @"https://lopop.firebaseio.com/";
+NSString* userId;
 
 
 
@@ -34,6 +35,8 @@ static NSString* firebaseUrl = @"https://lopop.firebaseio.com/";
 - (void) saveMessage: (LPMessageModel*) messageModel;
 
 - (void) deleteChat: (LPChatModel*) chatModel;
+
+- (void) chatViewUpdateNotify;
 
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 

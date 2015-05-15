@@ -23,7 +23,11 @@
         self.chatModel = [[LPChatManager getInstance] getChatModel:self.offerUser.objectId];
     }
     
-    [self loadContactData];
+    self.chatModel.numberOfUnread = 0;
+    
+    self.navigationItem.title = self.chatModel.contactName;
+    
+    //[self loadContactData];
     [self initMessageController];
 
     self.messageArray = [[NSMutableArray alloc] init];
@@ -75,8 +79,13 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    //Remove the observer
     [[NSNotificationCenter defaultCenter]
      removeObserver:self name:ChatManagerMessageViewUpdateNotification object:nil];
+    
+    //Notify the chatTable to reload view
+    [[LPChatManager getInstance] chatViewUpdateNotify];
+    
 }
 
 - (void)reloadTableData:(NSNotification *)notification {
@@ -85,10 +94,12 @@
         if([message.fromUserId isEqualToString: self.chatModel.contactId]){
             [self.messageArray addObject:notification.object];
         
+            self.chatModel.numberOfUnread -= 1;
             // update table
             [self.collectionView reloadData];
             [self scrollToBottomAnimated:YES];
             [[LPChatManager getInstance] removePendingMessage:message];
+
         }
     }
     else {
