@@ -23,7 +23,8 @@
 @interface LPListingTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *listings;
-@property (strong, nonatomic) NSMutableDictionary *incomingOffers; // TODO refactor this to use caching
+@property (strong, nonatomic) NSMutableArray *offerReceivedListings;
+@property (strong, nonatomic) NSMutableDictionary *incomingOffers;
 
 @end
 
@@ -36,8 +37,6 @@
     // configure table view
     self.tableView.rowHeight = 275.0f;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    // cache the offer
-    self.incomingOffers = [[NSMutableDictionary alloc] init];
 
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -59,6 +58,9 @@
 }
 
 - (void)loadData {
+    self.incomingOffers = [[NSMutableDictionary alloc] init];
+    self.offerReceivedListings = [[NSMutableArray alloc] init];
+    
     // populate data for user
     PFQuery *listingQuery = [LPPop query];
     [listingQuery whereKey:@"seller" equalTo:[PFUser currentUser]];
@@ -69,6 +71,7 @@
 
             PFQuery *incommingOfferQuery = [LPOffer query];
             [incommingOfferQuery whereKey:@"pop" matchesQuery:listingQuery];
+            [incommingOfferQuery includeKey:@"pop"];
             [incommingOfferQuery findObjectsInBackgroundWithBlock:^(NSArray *offers, NSError *error) {
                 if (!error) {
                     for (LPOffer *o in offers) {
@@ -79,6 +82,9 @@
                             [self.incomingOffers setObject:newVal forKey:key];
                         } else {
                             [self.incomingOffers setObject:[NSNumber numberWithInt:1] forKey:key];
+
+                            // add to array for offer received (avoid duplicate)
+                            [self.offerReceivedListings addObject:o.pop];
                         }
                     }
                     [self.tableView reloadData];
@@ -86,8 +92,6 @@
             }];
         }
     }];
-
-
 }
 
 #pragma mark - Table view data source
@@ -97,8 +101,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // TODO change this to toggle
-    return self.listings == nil ? 0 : self.listings.count;
+    NSInteger row;
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        row = self.listings == nil ? 0 : self.listings.count;
+    } else {
+        row = self.offerReceivedListings == nil ? 0 : self.offerReceivedListings.count;
+    }
+    return row;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -112,7 +121,7 @@
     LPPop *pop;
 
     // listing view
-    pop = [self.listings objectAtIndex:indexPath.row];
+    pop = self.segmentedControl.selectedSegmentIndex == 0 ? [self.listings objectAtIndex:indexPath.row] : [self.offerReceivedListings objectAtIndex:indexPath.row];
     NSNumber *count = [self.incomingOffers objectForKey:pop.objectId];
     cell.numOfferLabel.text = [NSString stringWithFormat:@"%d offers", count.intValue];
     cell.numOfferLabel.hidden = NO;
@@ -145,7 +154,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LPIncomingOfferTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"incomingOfferTableView"];
-    LPPop *pop = [self.listings objectAtIndex:indexPath.row];
+    LPPop *pop;
+
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        pop = [self.listings objectAtIndex:indexPath.row];
+    } else {
+        pop = [self.offerReceivedListings objectAtIndex:indexPath.row];
+    }
+
     vc.pop = pop;
     [self.navigationController pushViewController:vc animated:YES];
 }
