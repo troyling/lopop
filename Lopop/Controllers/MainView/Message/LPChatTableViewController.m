@@ -12,6 +12,8 @@
 #import "LPChatModel.h"
 #import "LPChatManager.h"
 #import "LPMainViewTabBarController.h"
+#import "UIImageView+WebCache.h"
+#import "LPChatTableViewCell.h"
 
 @interface LPChatTableViewController ()
 
@@ -22,15 +24,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     self.chatArray = [[LPChatManager getInstance] getChatArray];
     
     [self observeChatManagerNotification];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,11 +59,6 @@
     [self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -78,13 +73,44 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell"];
+    NSString *identifier = @"chatCell";
 
-    LPChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ unread:%d", a_chat.contactName, a_chat.numberOfUnread];
-    //cell.textLabel.text = a_chat.contactName stringByAppendingString:<#(NSString *)#>;
-    
+    LPChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
+    if (!cell) {
+        cell = [[LPChatTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+
+    LPChatModel * chatModel = [self.chatArray objectAtIndex:indexPath.row];
+
+    if (chatModel.contactId) {
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"objectId" equalTo:chatModel.contactId];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error && objects.count == 1) {
+                PFUser *u = objects.firstObject;
+                [cell.profileImgView sd_setImageWithURL:[NSURL URLWithString:u[@"profilePictureUrl"]]];
+            }
+        }];
+    }
+
+    if (chatModel.contactName) {
+        cell.nameLabel.text = chatModel.contactName;
+    }
+
+    if (chatModel.getLastMessage) {
+        cell.lastMsgLabel.text = [chatModel getLastMessage];
+    }
+
+    if (chatModel.numberOfUnread != 0) {
+        cell.lastMsgLabel.textColor = [UIColor blackColor];
+        cell.numUnreadMsgLabel.text = [NSString stringWithFormat:@"%d", chatModel.numberOfUnread];
+        cell.numUnreadMsgLabel.hidden = NO;
+    } else {
+        cell.lastMsgLabel.textColor = [UIColor lightGrayColor];
+        cell.numUnreadMsgLabel.hidden = YES;
+    }
+
     return cell;
 }
 

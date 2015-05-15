@@ -30,6 +30,6 @@
 - (void) sendMessage:(LPMessageModel *) message;
 
 
-- (LPMessageModel *) getLastMessage;
+- (NSString *) getLastMessage;
 
 @end

@@ -64,7 +64,7 @@
     }
 }
 
-- (LPMessageModel *) getLastMessage{
+- (NSString *) getLastMessage{
     return @"last message!";
     /*
     if(self.lastUnreadMessage != nil){
