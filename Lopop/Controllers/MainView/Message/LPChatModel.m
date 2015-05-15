@@ -17,6 +17,8 @@
 
 @property Firebase *sendRef;
 
+@property LPMessageModel* lastUnreadMessage;
+
 @end
 
 @implementation LPChatModel
@@ -28,6 +30,8 @@
 - (id) initWithContactId:(NSString *) contactId{
     self.contactId = contactId;
     self.numberOfUnread = 0;
+    self.lastUnreadMessage = nil;
+    
     PFQuery *query = [PFUser query];
     [query whereKey:@"objectId" equalTo: contactId];
     NSArray *objects = [query findObjects];
@@ -58,6 +62,14 @@
         [LPCM saveChatToDB:self];
         self.stored = YES;
     }
+}
+
+- (LPMessageModel *) getLastMessage{
+    return @"last message!";
+    /*
+    if(self.lastUnreadMessage != nil){
+        return self.lastUnreadMessage;
+    }*/
 }
 
 

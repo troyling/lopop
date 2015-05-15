@@ -20,6 +20,7 @@
 
 
 
+
 @property BOOL stored;
 
 //Use initWithContactId instead of init.
@@ -28,5 +29,7 @@
 //Send the message to the contact, and save it to DB.
 - (void) sendMessage:(LPMessageModel *) message;
 
+
+- (LPMessageModel *) getLastMessage;
 
 @end
