@@ -90,7 +90,6 @@ Firebase* userMessageRef;
 }
 
 - (void) loginFirebase{
-    NSLog(@"Here");
     //Receiver for firebase
     Firebase* ref = [[Firebase alloc] initWithUrl:firebaseUrl];
 
@@ -156,10 +155,6 @@ Firebase* userMessageRef;
         
         NSLog(@"%@", error);
     
-    }];
-    
-    [userMessageRef observeEventType: FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        NSLog(@"%@", snapshot.value);
     }];
 }
 

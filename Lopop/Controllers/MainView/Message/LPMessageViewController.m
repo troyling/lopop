@@ -45,7 +45,7 @@
         NSDate* d2 = ((LPMessageModel*)[self.messageArray objectAtIndex:i]).timestamp;
             
             
-        if([d2 timeIntervalSinceDate: d1] > 120){
+        if([d2 timeIntervalSinceDate: d1] > 180){
             add_time = YES;
         }
         
@@ -100,11 +100,12 @@
             [self.messageArray addObject:notification.object];
         
             self.chatModel.numberOfUnread -= 1;
+            [self checkAddTime];
             // update table
             [self.collectionView reloadData];
             [self scrollToBottomAnimated:YES];
             [[LPChatManager getInstance] removePendingMessage:message];
-            [self checkAddTime];
+
 
         }
     }
