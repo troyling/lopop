@@ -16,7 +16,6 @@
 @implementation LPMessageViewController
 
 - (void)viewDidLoad {
-    //TODO: add time to message
     [super viewDidLoad];
     
     if(self.offerUser != nil){
@@ -32,21 +31,27 @@
 
     self.messageArray = [[NSMutableArray alloc] init];
     [self.messageArray addObjectsFromArray: [[LPChatManager getInstance] getChatMessagesWithUser:self.chatModel.contactId]];
+    [self checkAddTime];
 
     [self observeMessageChangeNotification];
 }
 
-- (void)loadContactData {
-    PFQuery *query = [PFUser query];
-    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
-    [query whereKey:@"objectId" equalTo:self.chatModel.contactId];
-    [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
-        if (!error && objects.count == 1) {
-            self.navigationItem.title = objects.firstObject[@"name"];
-        }
-    }];
-}
+- (void) checkAddTime{
+    BOOL add_time;
+    for(int i = 1; i < self.messageArray.count; i++){
+        add_time = NO;
 
+        NSDate* d1 = ((LPMessageModel*)[self.messageArray objectAtIndex:i - 1]).timestamp;
+        NSDate* d2 = ((LPMessageModel*)[self.messageArray objectAtIndex:i]).timestamp;
+            
+            
+        if([d2 timeIntervalSinceDate: d1] > 120){
+            add_time = YES;
+        }
+        
+        ((LPMessageModel*)self.messageArray[i]).add_time = add_time;
+    }
+}
 
 - (void)initMessageController {
     self.inputToolbar.contentView.leftBarButtonItem = nil; // disable accessory item
@@ -99,6 +104,7 @@
             [self.collectionView reloadData];
             [self scrollToBottomAnimated:YES];
             [[LPChatManager getInstance] removePendingMessage:message];
+            [self checkAddTime];
 
         }
     }
@@ -129,8 +135,10 @@
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
     // This logic should be consistent with what you return from `heightForCellTopLabelAtIndexPath:
-    if (indexPath.item % 10 == 0) {
-        JSQMessage *message = [self adaptMessage:[self.messageArray objectAtIndex:indexPath.item]];
+    
+    LPMessageModel* messageModel = [self.messageArray objectAtIndex:indexPath.item];
+    if(messageModel.add_time || indexPath.item % 10 == 0){
+        JSQMessage *message = [self adaptMessage:messageModel];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
 
@@ -166,7 +174,10 @@
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
     // This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
-    if (indexPath.item % 10 == 0) {
+    
+    LPMessageModel* messageModel = [self.messageArray objectAtIndex:indexPath.item];
+    
+    if(messageModel.add_time || indexPath.item % 10 == 0){
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
 
@@ -236,8 +247,17 @@
 #pragma mark helper
 
 - (JSQMessage *)adaptMessage:(LPMessageModel *)msg {
-    //TODO: add method to look up name
-    return [JSQMessage messageWithSenderId:msg.fromUserId displayName:@"Change my name" text:msg.content];
+    NSString* name;
+    if(msg.fromUserId == self.chatModel.contactId){
+        name = self.chatModel.contactName;
+    }else{
+        name = @"Me";
+    }
+    
+    return [[JSQMessage alloc ]initWithSenderId:msg.fromUserId
+                      senderDisplayName:name
+                                   date:msg.timestamp
+                                           text:msg.content];
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {

@@ -38,6 +38,8 @@ NSString* userId;
 
 - (void) chatViewUpdateNotify;
 
+- (double) getTime;
+
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 
 /*

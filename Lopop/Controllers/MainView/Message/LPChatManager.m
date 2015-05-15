@@ -24,6 +24,7 @@
 @property NSMutableArray* pendingMessageArray;
 @property NSString* firebaseId;
 @property Firebase* userMessageRef;
+@property double serverTimeOffset;
 
 @end
 
@@ -44,17 +45,33 @@ Firebase* userMessageRef;
     return instance;
 }
 
+- (double) getTime{
+    return [[NSDate date] timeIntervalSince1970] * 1000.0 + self.serverTimeOffset;
+}
+
 - (id)init {
     if(instance != nil){
+        
         NSLog(@"init for Chat Manager should only be called once.");
+        
     }else{
+        
+        //Get server time offset.
+        Firebase *offsetRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/serverTimeOffset"];
+        [offsetRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            self.serverTimeOffset = [(NSNumber *)snapshot.value doubleValue];
+        }];
+        
+        //Get current user Id (objectId) and firebase id.
         if (![PFUser currentUser]) {
             NSLog(@"get user fails");
         }
-        NSLog(@"%@", [[PFUser currentUser] objectId]);
         userId = [[PFUser currentUser] objectId];
         firebaseId = [PFUser currentUser][@"firebaseId"];
+        
+        //Authenticate current user for firebase.
         [self loginFirebase];
+        
         [self initalChatArray];
     }
     return self;
@@ -282,7 +299,7 @@ Firebase* userMessageRef;
 
 
 
-- (NSMutableArray*) getMessagesWithUserId: (NSString *)contactId{
+- (NSMutableArray*) getMessagesFromDBWithUserId: (NSString *)contactId{
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:context];
@@ -312,6 +329,7 @@ Firebase* userMessageRef;
             messageModel.toUserId = [objects[i] valueForKey:@"toUserId"];
             messageModel.fromUserId = [objects[i] valueForKey:@"fromUserId"];
             messageModel.messageId = [objects[i] valueForKey:@"messageId"];
+            messageModel.timestamp = [objects[i] valueForKey:@"timestamp"];
             [messageArray addObject:messageModel];
         }
     }
@@ -328,6 +346,7 @@ Firebase* userMessageRef;
     [newContact setValue: messageModel.toUserId forKey:@"toUserId"];
     [newContact setValue: messageModel.fromUserId forKey:@"fromUserId"];
     [newContact setValue: messageModel.messageId forKey:@"messageId"];
+    [newContact setValue: messageModel.timestamp forKey:@"timestamp"];
     NSError *error;
     [context save:&error];
     if(error){
@@ -340,7 +359,7 @@ Firebase* userMessageRef;
     NSMutableArray * messageArray;
     
     //get messages from DB
-    messageArray = [self getMessagesWithUserId:contactId];
+    messageArray = [self getMessagesFromDBWithUserId:contactId];
 
     //get pending messages that have not been saved to DB
     [messageArray addObjectsFromArray:[self getPendingMessagesWithUser:contactId]];

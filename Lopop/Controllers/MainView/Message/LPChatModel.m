@@ -51,12 +51,13 @@
 }
 
 - (void) sendMessage:(LPMessageModel *) message{
-    NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
     Firebase* path = [self.sendRef childByAutoId];
     [path setValue: message.toDict];
     message.messageId = path.key;
+    message.timestamp = [[NSDate alloc ]initWithTimeIntervalSince1970:[[LPChatManager getInstance] getTime]/1000];
     LPChatManager * LPCM = [LPChatManager getInstance];
     [LPCM saveMessage:message];
+    
     
     if(!self.stored){
         [LPCM saveChatToDB:self];
@@ -66,10 +67,10 @@
 
 - (LPMessageModel *) getLastMessage{
     return @"last message!";
-    /*
+    
     if(self.lastUnreadMessage != nil){
         return self.lastUnreadMessage;
-    }*/
+    }
 }
 
 
