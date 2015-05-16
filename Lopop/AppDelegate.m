@@ -15,7 +15,6 @@
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
-#import "LPChatManager.h"
 #import "LPCache.h"
 #import <CoreData/CoreData.h>
 

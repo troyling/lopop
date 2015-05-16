@@ -7,6 +7,7 @@
 //
 
 #import "LPMessageModel.h"
+#import "Firebase/Firebase.h"
 
 @implementation LPMessageModel
 
@@ -16,7 +17,8 @@
 - (NSDictionary *)toDict{
     return @{@"content":self.content,
              @"fromUserId":self.fromUserId,
-             @"toUserId":self.toUserId};
+             @"toUserId":self.toUserId,
+             @"timestamp": kFirebaseServerValueTimestamp};
 }
 
 + (LPMessageModel *)fromDict: (NSDictionary *) dict{
@@ -24,11 +26,14 @@
     msg.content = [dict objectForKey:@"content"];
     msg.toUserId = [dict objectForKey:@"toUserId"];
     msg.fromUserId = [dict objectForKey:@"fromUserId"];
+    msg.timestamp = [[NSDate alloc] initWithTimeIntervalSince1970:[[dict objectForKey:@"timestamp"] doubleValue] /1000];
+    
+    NSLog(@"time: %@", msg.timestamp);
     return msg;
 }
 
 - (NSComparisonResult)compare:(LPMessageModel *)other {
-    return [self.messageId compare:other.messageId];
+    return [self.timestamp compare:other.timestamp];
 }
 
 @end

@@ -14,6 +14,8 @@
 @property NSString *messageId;
 @property NSString *fromUserId;
 @property NSString *toUserId;
+@property NSDate *timestamp;
+@property BOOL add_time;
 
 - (NSDictionary *) toDict;
 + (LPMessageModel *) fromDict:(NSDictionary *) dict;

@@ -13,6 +13,7 @@
 #import "LPPushHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <Firebase/Firebase.h>
 
 @implementation LPUserHelper
 
@@ -48,6 +49,22 @@
 
                 // init user info for current user
                 [self initUserInfoWithGender:userData[@"gender"] Locale:userData[@"locale"]];
+                
+                //Register firebase
+                Firebase *ref = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com"];
+                [ref createUser:[currentUser.objectId stringByAppendingString:@"@lopop.com"]
+                       password:currentUser.objectId
+                        withValueCompletionBlock:^(NSError *error, NSDictionary *result) {
+                            if (error) {
+                                NSLog(@"%@", error);
+                            } else {
+                                NSString *uid = [result objectForKey:@"uid"];
+                                NSLog(@"Successfully created user account with uid: %@", uid);
+                                currentUser[@"firebaseId"] = uid;
+                                [currentUser saveEventually];
+                            }
+                        }
+                 ];
 
                 [currentUser saveEventually];
             } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"OAuthException"]) {

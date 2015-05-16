@@ -18,22 +18,28 @@
 #import <CoreData/CoreData.h>
 
 
+@interface LPChatManager()
+
+@property NSMutableArray* allChatArray;
+@property NSMutableArray* pendingMessageArray;
+@property NSString* firebaseId;
+@property Firebase* userMessageRef;
+@property double serverTimeOffset;
+
+@end
+
 
 @implementation LPChatManager
 static LPChatManager * instance = nil;
-NSMutableArray* allChatArray = nil;
-NSMutableArray* visibleChatArray = nil;
-NSMutableArray* pendingMessageArray = nil;
 
-NSString* userId;
+
+NSString* firebaseId;
 Firebase* userMessageRef;
-NSString* AUTH_TOKEN = @"pVNcW9P2yNe90ycNe2DN8sNysdaR12Q2TS8Jm9fn";
 
-const NSInteger  PASSIVE = 0;
-const NSInteger ACTIVE = 1;
-const NSInteger DELETED = 2;
-const NSInteger CONTACTDELETED = 3;
 
++ (void) init{
+    
+}
 + (LPChatManager *)getInstance{
     if(instance == nil){
         instance = [[LPChatManager alloc] init];
@@ -41,44 +47,68 @@ const NSInteger CONTACTDELETED = 3;
     return instance;
 }
 
-- (id)init {
-    if(instance != nil){
-        NSLog(@"init for Chat Manager should only be called once.");
-    }else{
-        [self initalChatArray];
-    }
-    return self;
+- (double) getTime{
+    return [[NSDate date] timeIntervalSince1970] * 1000.0 + self.serverTimeOffset;
 }
 
-- (void) chatViewUpdateNotify{
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName: ChatManagerChatViewUpdateNotification
-     object:nil];
+- (unsigned long) getTotalUnreadMsg{
+    return self.pendingMessageArray.count;
 }
 
-- (void) messageViewUpdateNotifyWithMessage:(LPMessageModel*) message{
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName: ChatManagerMessageViewUpdateNotification
-     object:message];
-}
-
-- (void) initalChatArray{
++ (void) initChatManager{
+    instance = [LPChatManager alloc];
+    Firebase *connectedRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/connected"];
+    [connectedRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if([snapshot.value boolValue]) {
+            NSLog(@"connected");
+            
+            //Get server time offset.
+            Firebase *offsetRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/serverTimeOffset"];
+            [offsetRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                instance.serverTimeOffset = [(NSNumber *)snapshot.value doubleValue];
+            }];
+            
+            
+            //Authenticate current user for firebase.
+            [instance loginFirebase];
+            
+        } else {
+            NSLog(@"not connected");
+        }
+    }];
+    
+    //Get current user Id (objectId) and firebase id.
     if (![PFUser currentUser]) {
         NSLog(@"get user fails");
-        return;
     }
     userId = [[PFUser currentUser] objectId];
-        
-    allChatArray = [[NSMutableArray alloc] init];
-    visibleChatArray = [[NSMutableArray alloc] init];
-    pendingMessageArray = [[NSMutableArray alloc] init];
+    firebaseId = [PFUser currentUser][@"firebaseId"];
     
-    //Retrieve from db
-    [allChatArray addObjectsFromArray:[self loadChatsFromDB]];
     
+    [instance initalArray];
+}
+
+- (void) loginFirebase{
     //Receiver for firebase
+    Firebase* ref = [[Firebase alloc] initWithUrl:firebaseUrl];
+
+    [ref authUser:[userId stringByAppendingString:@"@lopop.com"] password:userId
+         withCompletionBlock:^(NSError *error, FAuthData *authData) {
+             if (error) {
+                 // an error occurred while attempting login
+                 NSLog(@"%@", error);
+             } else {
+                 // user is logged in, check authData for data
+                 NSLog(@"%@", authData);
+                 [instance setUpMessageListener];
+             }
+         }
+     ];
+}
+
+- (void) setUpMessageListener{
     userMessageRef = [[Firebase alloc] initWithUrl:
-               [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", userId, @"/pendingMessages"]];
+                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", firebaseId, @"/pendingMessages"]];
     
     //Set up message listener
     [userMessageRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
@@ -86,28 +116,46 @@ const NSInteger CONTACTDELETED = 3;
         LPMessageModel* messageInstance = [LPMessageModel fromDict:messageDict];
         messageInstance.messageId = snapshot.key;
         
-        [pendingMessageArray addObject:messageInstance];
+        [self.pendingMessageArray addObject:messageInstance];
         
         
-        BOOL chatModelExist = NO;
-        for(LPChatModel* chatModel in allChatArray){
-            if([messageInstance.fromUserId isEqualToString:chatModel.contactId]){
-                chatModelExist = YES;
+        LPChatModel* chatModel = nil;
+        for(LPChatModel* a_chat in self.allChatArray){
+            if([messageInstance.fromUserId isEqualToString:a_chat.contactId]){
+                chatModel = a_chat;
                 break;
             }
         }
         
-        if(chatModelExist){
+        if(chatModel != nil){
+            
             [self messageViewUpdateNotifyWithMessage: messageInstance]; //TODO
+            chatModel.numberOfUnread += 1;
+            
         }else{
             LPChatModel* newChat = [[LPChatModel alloc] initWithContactId:messageInstance.fromUserId];
-
+            newChat.numberOfUnread += 1;
             
-            [allChatArray addObject:newChat];
+            [self.allChatArray addObject:newChat];
             [self saveChatToDB:newChat];
             [self chatViewUpdateNotify];
         }
+        [self chatViewUpdateNotify];
+        
+    }withCancelBlock:^(NSError* error){
+        
+        NSLog(@"%@", error);
+        
     }];
+
+}
+
+- (void) initalArray{
+    self.allChatArray = [[NSMutableArray alloc] init];
+    self.pendingMessageArray = [[NSMutableArray alloc] init];
+    
+    //Retrieve from db
+    [self.allChatArray addObjectsFromArray:[self loadChatsFromDB]];
 }
 
 
@@ -161,13 +209,13 @@ const NSInteger CONTACTDELETED = 3;
     [self saveMessage:message];
     [[userMessageRef childByAppendingPath:message.messageId] removeValue];
     
-    [pendingMessageArray removeObject:message];
+    [self.pendingMessageArray removeObject:message];
 }
 
 - (void) deleteChat: (LPChatModel*) chatModel{
     [self deleteChatFromDB: chatModel];
     [self deleteConversationFromDB:chatModel];
-    [allChatArray removeObject:chatModel];
+    [self.allChatArray removeObject:chatModel];
 }
 
 - (void) deleteChatFromDB: (LPChatModel*) chatModel{
@@ -246,14 +294,14 @@ const NSInteger CONTACTDELETED = 3;
 
 
 
-- (NSMutableArray*) getMessagesWithUserId: (NSString *)contactId{
+- (NSMutableArray*) getMessagesFromDBWithUserId: (NSString *)contactId{
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:context];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDesc];
     
-    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(fromUserId == %@) OR (toUserId == %@)", contactId, contactId];
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"((fromUserId == %@) AND (toUserId == %@)) or ((fromUserId == %@) AND (toUserId == %@)) ", contactId, userId, userId, contactId];
    [request setPredicate:pred];
     
     NSError *error;
@@ -276,6 +324,7 @@ const NSInteger CONTACTDELETED = 3;
             messageModel.toUserId = [objects[i] valueForKey:@"toUserId"];
             messageModel.fromUserId = [objects[i] valueForKey:@"fromUserId"];
             messageModel.messageId = [objects[i] valueForKey:@"messageId"];
+            messageModel.timestamp = [objects[i] valueForKey:@"timestamp"];
             [messageArray addObject:messageModel];
         }
     }
@@ -292,6 +341,7 @@ const NSInteger CONTACTDELETED = 3;
     [newContact setValue: messageModel.toUserId forKey:@"toUserId"];
     [newContact setValue: messageModel.fromUserId forKey:@"fromUserId"];
     [newContact setValue: messageModel.messageId forKey:@"messageId"];
+    [newContact setValue: messageModel.timestamp forKey:@"timestamp"];
     NSError *error;
     [context save:&error];
     if(error){
@@ -304,7 +354,7 @@ const NSInteger CONTACTDELETED = 3;
     NSMutableArray * messageArray;
     
     //get messages from DB
-    messageArray = [self getMessagesWithUserId:contactId];
+    messageArray = [self getMessagesFromDBWithUserId:contactId];
 
     //get pending messages that have not been saved to DB
     [messageArray addObjectsFromArray:[self getPendingMessagesWithUser:contactId]];
@@ -314,7 +364,7 @@ const NSInteger CONTACTDELETED = 3;
 
 - (NSArray*) getPendingMessagesWithUser: (NSString *) contactId{
     NSMutableArray * messageArray = [[NSMutableArray alloc] init];
-    for(LPMessageModel* message in pendingMessageArray){
+    for(LPMessageModel* message in self.pendingMessageArray){
         if([message.fromUserId isEqualToString:contactId]){
             [messageArray addObject:message];
             [self saveMessage:message];
@@ -323,18 +373,18 @@ const NSInteger CONTACTDELETED = 3;
     }
     
     for(LPMessageModel * message in messageArray){
-        [pendingMessageArray removeObject:message];
+        [self.pendingMessageArray removeObject:message];
     }
     
     return [messageArray sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (NSMutableArray *) getChatArray{
-    return allChatArray;
+    return self.allChatArray;
 }
 
--(LPChatModel*) getChatModel: (NSString *) contactId{
-    for(LPChatModel* chat in allChatArray){
+- (LPChatModel *) getChatModel: (NSString *) contactId{
+    for(LPChatModel* chat in self.allChatArray){
         if([chat.contactId isEqualToString:contactId]){
             return chat;
         }
@@ -342,8 +392,21 @@ const NSInteger CONTACTDELETED = 3;
     
     LPChatModel* newChat = [[LPChatModel alloc] initWithContactId:contactId];
     newChat.stored = NO;
-    [allChatArray addObject:newChat];
+    [self.allChatArray addObject:newChat];
     return newChat;
+}
+
+
+- (void) chatViewUpdateNotify{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName: ChatManagerChatViewUpdateNotification
+     object:nil];
+}
+
+- (void) messageViewUpdateNotifyWithMessage:(LPMessageModel*) message{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName: ChatManagerMessageViewUpdateNotification
+     object:message];
 }
 
 @end

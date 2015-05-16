@@ -132,6 +132,7 @@
 		D6E4A1CF1A9EA4C900892E44 /* LPRateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4A1CE1A9EA4C900892E44 /* LPRateUserViewController.m */; };
 		D6E4A1D21A9EB22F00892E44 /* LPUserRating.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */; };
 		D6E661631B05993D00DC8BC3 /* LPMeetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E661621B05993D00DC8BC3 /* LPMeetUpTableViewController.m */; };
+		D6E661661B06702300DC8BC3 /* LPChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E661651B06702300DC8BC3 /* LPChatTableViewCell.m */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
 		D6E6EB141A64D6B2008085F7 /* LPFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB131A64D6B2008085F7 /* LPFormValidator.m */; };
@@ -371,6 +372,8 @@
 		D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRating.m; path = Models/LPUserRating.m; sourceTree = "<group>"; };
 		D6E661611B05993D00DC8BC3 /* LPMeetUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMeetUpTableViewController.h; path = Controllers/MainView/Listing/LPMeetUpTableViewController.h; sourceTree = "<group>"; };
 		D6E661621B05993D00DC8BC3 /* LPMeetUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMeetUpTableViewController.m; path = Controllers/MainView/Listing/LPMeetUpTableViewController.m; sourceTree = "<group>"; };
+		D6E661641B06702300DC8BC3 /* LPChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPChatTableViewCell.h; path = Views/Common/LPChatTableViewCell.h; sourceTree = "<group>"; };
+		D6E661651B06702300DC8BC3 /* LPChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPChatTableViewCell.m; path = Views/Common/LPChatTableViewCell.m; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
 		D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpTableViewController.m; path = Controllers/User/Login/LPSignUpTableViewController.m; sourceTree = "<group>"; };
 		D6E6EB0F1A647133008085F7 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "Helpers/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -604,6 +607,8 @@
 				D623FDDD1A97A14700D09C53 /* LPUserRatingTableViewCell.m */,
 				D63AB4E71AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.h */,
 				D63AB4E81AB66A4000ACDEC5 /* LPUserRatingDetailTableViewCell.m */,
+				D6E661641B06702300DC8BC3 /* LPChatTableViewCell.h */,
+				D6E661651B06702300DC8BC3 /* LPChatTableViewCell.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1156,7 +1161,6 @@
 				TargetAttributes = {
 					D66CC8AC1A60DD8C007B9992 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = YXU7589MR8;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1378,6 +1382,7 @@
 				D6A5D7BF1A80087700A631CD /* RateView.m in Sources */,
 				D66CC8B31A60DD8C007B9992 /* main.m in Sources */,
 				D6F5F82F1A8514680005758B /* DesignableTabBarController.swift in Sources */,
+				D6E661661B06702300DC8BC3 /* LPChatTableViewCell.m in Sources */,
 				D6CB77211A92A4B000629985 /* LPPopHelper.m in Sources */,
 				D6CAF27F1A7D65A700F48E6E /* LPUserHelper.m in Sources */,
 				D609A5491A8E5B8800800F3E /* LPSocialHelper.m in Sources */,

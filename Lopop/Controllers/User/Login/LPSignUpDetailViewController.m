@@ -14,6 +14,7 @@
 #import "LPUserHelper.h"
 #import "LPAlertViewHelper.h"
 #import <Parse/Parse.h>
+#import <Firebase/firebase.h>
 
 @interface LPSignUpDetailViewController ()
 
@@ -55,6 +56,27 @@
 
                 LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
                 [self presentViewController:vc animated:YES completion:nil];
+                
+                
+                //Register firebase
+                Firebase *ref = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com"];
+                [ref createUser:[newUser.objectId stringByAppendingString:@"@lopop.com"]
+                       password:newUser.objectId
+                        withValueCompletionBlock:^(NSError *error, NSDictionary *result) {
+           
+                            if (error) {
+                                NSLog(@"%@", error);
+                            } else {
+                                NSString *uid = [result objectForKey:@"uid"];
+                                NSLog(@"Successfully created user account with uid: %@", uid);
+                                newUser[@"firebaseId"] = uid;
+                                [newUser saveEventually];
+                            }
+                        }
+                 ];
+                
+
+                
             }
             else {
                 NSString *errorString = [error userInfo][@"error"];
