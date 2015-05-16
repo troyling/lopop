@@ -11,7 +11,6 @@
 #import "LPUserRelationship.h"
 #import "LPAlertViewHelper.h"
 #import "LPPushHelper.h"
-#import "LPPushHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
@@ -41,7 +40,6 @@
                 
                 if (name) {
                     currentUser[@"name"] = name;
-                    [LPPushHelper setPushChannelForCurrentUser];
                 }
 
                 // image urls
