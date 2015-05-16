@@ -221,6 +221,7 @@
     
     [self.chatModel sendMessage: message];
     [self.messageArray addObject:message];
+    [self checkAddTime];
     
     
     [self finishSendingMessageAnimated:YES];

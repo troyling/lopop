@@ -37,7 +37,9 @@ NSString* firebaseId;
 Firebase* userMessageRef;
 
 
-
++ (void) init{
+    
+}
 + (LPChatManager *)getInstance{
     if(instance == nil){
         instance = [[LPChatManager alloc] init];
@@ -49,44 +51,43 @@ Firebase* userMessageRef;
     return [[NSDate date] timeIntervalSince1970] * 1000.0 + self.serverTimeOffset;
 }
 
-- (id)init {
-    if(instance != nil){
-        
-        NSLog(@"init for Chat Manager should only be called once.");
-        
-    }else{
-        
-        //Get server time offset.
-        Firebase *offsetRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/serverTimeOffset"];
-        [offsetRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-            self.serverTimeOffset = [(NSNumber *)snapshot.value doubleValue];
-        }];
-        
-        //Get current user Id (objectId) and firebase id.
-        if (![PFUser currentUser]) {
-            NSLog(@"get user fails");
+- (unsigned long) getTotalUnreadMsg{
+    return self.pendingMessageArray.count;
+}
+
++ (void) initChatManager{
+    instance = [LPChatManager alloc];
+    Firebase *connectedRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/connected"];
+    [connectedRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if([snapshot.value boolValue]) {
+            NSLog(@"connected");
+            
+            //Get server time offset.
+            Firebase *offsetRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/serverTimeOffset"];
+            [offsetRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                instance.serverTimeOffset = [(NSNumber *)snapshot.value doubleValue];
+            }];
+            
+            
+            //Authenticate current user for firebase.
+            [instance loginFirebase];
+            
+        } else {
+            NSLog(@"not connected");
         }
-        userId = [[PFUser currentUser] objectId];
-        firebaseId = [PFUser currentUser][@"firebaseId"];
-        
-        //Authenticate current user for firebase.
-        [self loginFirebase];
-        
-        [self initalChatArray];
+    }];
+    
+    //Get current user Id (objectId) and firebase id.
+    if (![PFUser currentUser]) {
+        NSLog(@"get user fails");
     }
-    return self;
-}
-
-- (void) chatViewUpdateNotify{
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName: ChatManagerChatViewUpdateNotification
-     object:nil];
-}
-
-- (void) messageViewUpdateNotifyWithMessage:(LPMessageModel*) message{
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName: ChatManagerMessageViewUpdateNotification
-     object:message];
+    userId = [[PFUser currentUser] objectId];
+    firebaseId = [PFUser currentUser][@"firebaseId"];
+    
+    
+    [instance initalArray];
+    
+    [instance setUpMessageListener];
 }
 
 - (void) loginFirebase{
@@ -106,16 +107,7 @@ Firebase* userMessageRef;
      ];
 }
 
-- (void) initalChatArray{
-    
-        
-    self.allChatArray = [[NSMutableArray alloc] init];
-    self.pendingMessageArray = [[NSMutableArray alloc] init];
-    
-    //Retrieve from db
-    [self.allChatArray addObjectsFromArray:[self loadChatsFromDB]];
-    
-    
+- (void) setUpMessageListener{
     userMessageRef = [[Firebase alloc] initWithUrl:
                       [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", firebaseId, @"/pendingMessages"]];
     
@@ -154,8 +146,17 @@ Firebase* userMessageRef;
     }withCancelBlock:^(NSError* error){
         
         NSLog(@"%@", error);
-    
+        
     }];
+
+}
+
+- (void) initalArray{
+    self.allChatArray = [[NSMutableArray alloc] init];
+    self.pendingMessageArray = [[NSMutableArray alloc] init];
+    
+    //Retrieve from db
+    [self.allChatArray addObjectsFromArray:[self loadChatsFromDB]];
 }
 
 
@@ -301,7 +302,7 @@ Firebase* userMessageRef;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDesc];
     
-    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(fromUserId == %@) OR (toUserId == %@)", contactId, contactId];
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"((fromUserId == %@) AND (toUserId == %@)) or ((fromUserId == %@) AND (toUserId == %@)) ", contactId, userId, userId, contactId];
    [request setPredicate:pred];
     
     NSError *error;
@@ -394,6 +395,19 @@ Firebase* userMessageRef;
     newChat.stored = NO;
     [self.allChatArray addObject:newChat];
     return newChat;
+}
+
+
+- (void) chatViewUpdateNotify{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName: ChatManagerChatViewUpdateNotification
+     object:nil];
+}
+
+- (void) messageViewUpdateNotifyWithMessage:(LPMessageModel*) message{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName: ChatManagerMessageViewUpdateNotification
+     object:message];
 }
 
 @end

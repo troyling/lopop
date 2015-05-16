@@ -22,6 +22,8 @@ NSString* userId;
 @interface LPChatManager : NSObject
 + (LPChatManager *) getInstance;
 
++ (void) initChatManager;
+
 - (NSMutableArray *) getChatArray;
 
 - (void) saveChatToDB: (LPChatModel*) chatModel;
@@ -39,6 +41,8 @@ NSString* userId;
 - (void) chatViewUpdateNotify;
 
 - (double) getTime;
+
+- (unsigned long) getTotalUnreadMsg;
 
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 

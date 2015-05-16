@@ -39,7 +39,7 @@ float const NUM_TABS = 5.0;
     // fetching data
     [[PFUser currentUser] fetchInBackground];
     [[LPCache getInstance] synchronizeFollowingForCurrentUserInBackground];
-    [LPChatManager getInstance];
+    [LPChatManager initChatManager];
 
 }
 
