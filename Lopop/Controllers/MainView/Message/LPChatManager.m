@@ -101,14 +101,24 @@ Firebase* userMessageRef;
                  // user is logged in, check authData for data
                  NSLog(@"%@", authData);
                  [instance setUpMessageListener];
+                 [self setupPresence];
              }
          }
      ];
 }
 
+- (void) setupPresence{
+    Firebase* presenceRef = [[Firebase alloc] initWithUrl:
+                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", firebaseId, @"/presence"]];
+    
+    [presenceRef setValue: @{@"online": @1}];
+    [presenceRef onDisconnectSetValue: @{@"online": @0, @"lastSeen": kFirebaseServerValueTimestamp}];
+    
+}
+
 - (void) setUpMessageListener{
     userMessageRef = [[Firebase alloc] initWithUrl:
-                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", firebaseId, @"/pendingMessages"]];
+                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"messages/", firebaseId, @"/pendingMessages"]];
     
     //Set up message listener
     [userMessageRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
