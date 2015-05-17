@@ -43,7 +43,7 @@
         NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
 
         self.sendRef = [[Firebase alloc] initWithUrl:
-                        [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.contactFirebaseId, @"/pendingMessages"]];
+                        [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"messages/", self.contactFirebaseId, @"/pendingMessages"]];
     }
     self.stored = YES;
 
