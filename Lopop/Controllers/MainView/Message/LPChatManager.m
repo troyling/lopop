@@ -113,7 +113,7 @@ Firebase* userMessageRef;
                       [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", firebaseId, @"/presence"]];
     
     [presenceRef setValue: @{@"online": @1}];
-    [presenceRef onDisconnectSetValue: @{@"online": @0, @"lastSeen": kFirebaseServerValueTimestamp}];
+    [presenceRef onDisconnectUpdateChildValues: @{@"online": @0, @"lastSeen": kFirebaseServerValueTimestamp}];
     
 }
 
@@ -192,6 +192,9 @@ Firebase* userMessageRef;
      NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Chat" inManagedObjectContext:context];
      NSFetchRequest *request = [[NSFetchRequest alloc] init];
      [request setEntity:entityDesc];
+    
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(userId == %@)", userId];
+    [request setPredicate:pred];
      
      NSError *error;
      NSArray *objects = [context executeFetchRequest:request
@@ -236,7 +239,7 @@ Firebase* userMessageRef;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDesc];
     
-    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(contactId == %@)", chatModel.contactId];
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(contactId == %@) AND (userId == %@)", chatModel.contactId, userId];
     [request setPredicate:pred];
     
     

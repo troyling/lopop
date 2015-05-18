@@ -53,8 +53,8 @@
                 [self initUserInfoWithGender:userData[@"gender"] Locale:userData[@"locale"]];
                 
                 //Register firebase
-                Firebase *ref = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com"];
-                [ref createUser:[currentUser.objectId stringByAppendingString:@"@lopop.com"]
+                Firebase *rootRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com"];
+                [rootRef createUser:[currentUser.objectId stringByAppendingString:@"@lopop.com"]
                        password:currentUser.objectId
                         withValueCompletionBlock:^(NSError *error, NSDictionary *result) {
                             if (error) {
@@ -64,6 +64,9 @@
                                 NSLog(@"Successfully created user account with uid: %@", uid);
                                 currentUser[@"firebaseId"] = uid;
                                 [currentUser saveEventually];
+                                [[[rootRef childByAppendingPath:@"users"] childByAppendingPath:uid] setValue:
+                                 @{@"objectId": currentUser.objectId,
+                                   @"name": currentUser[@"name"]}];
                             }
                         }
                  ];
