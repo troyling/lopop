@@ -24,6 +24,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.tableView.rowHeight = 245.0f;
+
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+
     [self loadData];
 }
 
@@ -33,7 +39,6 @@
 
     // two types of meetups here
     // my selling meetup
-    // my buying meetup
     LPOfferStatus status = kOfferMeetUpAccepted;
 
     PFQuery *myListingQuery = [LPPop query];
@@ -44,14 +49,29 @@
     [incomingOfferQuery includeKey:@"fromUser"];
     [incomingOfferQuery includeKey:@"pop"];
     [incomingOfferQuery whereKey:@"pop" matchesQuery:myListingQuery];
-    [incomingOfferQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [incomingOfferQuery findObjectsInBackgroundWithBlock:^(NSArray *offers, NSError *error) {
         if (!error) {
-            [self.incomingOffers addObjectsFromArray:objects];
+            [self.incomingOffers addObjectsFromArray:offers];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error);
         }
     }];
+
+    // my buying meetup
+    PFQuery *myOfferQuery = [LPOffer query];
+    [myOfferQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
+    [myOfferQuery whereKey:@"status" equalTo:[NSNumber numberWithInt:status]];
+    [myOfferQuery findObjectsInBackgroundWithBlock:^(NSArray *offers, NSError *error) {
+        if (!error) {
+            [self.myOffers addObjectsFromArray:offers];
+            NSLog(@"%d", self.myOffers.count);
+            // Do something
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
+
 }
 
 #pragma mark - Table view data source
