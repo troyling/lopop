@@ -15,8 +15,7 @@
 
 @interface LPMeetUpTableViewController ()
 
-@property (strong, nonatomic) NSMutableArray *incomingOffers;
-@property (strong, nonatomic) NSMutableArray *myOffers;
+@property (strong, nonatomic) NSMutableArray *offers;
 
 @end
 
@@ -34,8 +33,7 @@
 }
 
 - (void)loadData {
-    self.incomingOffers = [[NSMutableArray alloc] init];
-    self.myOffers = [[NSMutableArray alloc] init];
+    self.offers = [[NSMutableArray alloc] init];
 
     // two types of meetups here
     // my selling meetup
@@ -46,32 +44,26 @@
 
     PFQuery *incomingOfferQuery = [LPOffer query];
     [incomingOfferQuery whereKey:@"status" equalTo:[NSNumber numberWithInt:status]];
-    [incomingOfferQuery includeKey:@"fromUser"];
-    [incomingOfferQuery includeKey:@"pop"];
     [incomingOfferQuery whereKey:@"pop" matchesQuery:myListingQuery];
-    [incomingOfferQuery findObjectsInBackgroundWithBlock:^(NSArray *offers, NSError *error) {
-        if (!error) {
-            [self.incomingOffers addObjectsFromArray:offers];
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error);
-        }
-    }];
 
     // my buying meetup
     PFQuery *myOfferQuery = [LPOffer query];
     [myOfferQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
     [myOfferQuery whereKey:@"status" equalTo:[NSNumber numberWithInt:status]];
-    [myOfferQuery findObjectsInBackgroundWithBlock:^(NSArray *offers, NSError *error) {
+
+    // compound query
+    PFQuery *offerQuery = [PFQuery orQueryWithSubqueries:@[incomingOfferQuery, myOfferQuery]];
+    [offerQuery includeKey:@"fromUser"];
+    [offerQuery includeKey:@"pop"];
+    [offerQuery orderByDescending:@"meetUpTime"];
+    [offerQuery findObjectsInBackgroundWithBlock:^(NSArray *offers, NSError *error) {
         if (!error) {
-            [self.myOffers addObjectsFromArray:offers];
-            NSLog(@"%d", self.myOffers.count);
-            // Do something
+            [self.offers addObjectsFromArray:offers];
+            [self.tableView reloadData];
         } else {
             NSLog(@"%@", error);
         }
     }];
-
 }
 
 #pragma mark - Table view data source
@@ -81,7 +73,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.incomingOffers == nil ? 0 : self.incomingOffers.count;
+    return self.offers == nil ? 0 : self.offers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,8 +85,7 @@
         cell = [[LPMeetUpTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
 
-    // TODO show all offers
-    LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
+    LPOffer *offer = [self.offers objectAtIndex:indexPath.row];
 
     // Time
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
@@ -119,6 +110,7 @@
     cell.popTitleLabel.text = offer.pop.title;
 
     // TODO add action listeners for buttons
+
 
     return cell;
 }
