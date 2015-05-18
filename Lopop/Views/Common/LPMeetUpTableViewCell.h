@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
+@property (weak, nonatomic) IBOutlet UIButton *remindButton;
 @property (weak, nonatomic) IBOutlet UILabel *popTitleLabel;
 
 @end

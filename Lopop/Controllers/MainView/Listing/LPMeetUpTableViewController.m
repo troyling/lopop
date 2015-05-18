@@ -118,6 +118,8 @@
     // pop info
     cell.popTitleLabel.text = offer.pop.title;
 
+    // TODO add action listeners for buttons
+
     return cell;
 }
 
