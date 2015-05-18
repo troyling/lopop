@@ -12,6 +12,7 @@
 #import "UIImage+ImageEffects.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "LPUserHelper.h"
+#import "LPPushHelper.h"
 #import "LPAlertViewHelper.h"
 #import "LPUIHelper.h"
 
@@ -53,6 +54,7 @@
             }
             [self presentUserProfileViewControllerAnimated:NO];
         }
+        [LPPushHelper setPushChannelForCurrentUser];
     }];
 
     [self showActivityIndicator];

@@ -86,8 +86,6 @@ Firebase* userMessageRef;
     
     
     [instance initalArray];
-    
-    [instance setUpMessageListener];
 }
 
 - (void) loginFirebase{
@@ -102,6 +100,7 @@ Firebase* userMessageRef;
              } else {
                  // user is logged in, check authData for data
                  NSLog(@"%@", authData);
+                 [instance setUpMessageListener];
                  [self setupPresence];
              }
          }

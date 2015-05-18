@@ -117,6 +117,7 @@
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DA15381AF973620058A003 /* LPPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA15371AF973620058A003 /* LPPushHelper.m */; };
 		D6DBD6F81A743E8F009F6FFE /* LPPopFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */; };
+		D6E37C771B02F3F800041C08 /* LPOfferTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E37C761B02F3F800041C08 /* LPOfferTableViewController.m */; };
 		D6E4A1C11A9E98AE00892E44 /* smiley1.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B61A9E98AE00892E44 /* smiley1.png */; };
 		D6E4A1C21A9E98AE00892E44 /* smiley2.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B71A9E98AE00892E44 /* smiley2.png */; };
 		D6E4A1C31A9E98AE00892E44 /* smiley3.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1B81A9E98AE00892E44 /* smiley3.png */; };
@@ -130,6 +131,7 @@
 		D6E4A1CB1A9E98AE00892E44 /* smiley11.png in Resources */ = {isa = PBXBuildFile; fileRef = D6E4A1C01A9E98AE00892E44 /* smiley11.png */; };
 		D6E4A1CF1A9EA4C900892E44 /* LPRateUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4A1CE1A9EA4C900892E44 /* LPRateUserViewController.m */; };
 		D6E4A1D21A9EB22F00892E44 /* LPUserRating.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */; };
+		D6E661631B05993D00DC8BC3 /* LPMeetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E661621B05993D00DC8BC3 /* LPMeetUpTableViewController.m */; };
 		D6E661661B06702300DC8BC3 /* LPChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E661651B06702300DC8BC3 /* LPChatTableViewCell.m */; };
 		D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB0C1A646019008085F7 /* LPSignUpTableViewController.m */; };
 		D6E6EB111A647133008085F7 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E6EB101A647133008085F7 /* UIImage+ImageEffects.m */; };
@@ -351,6 +353,8 @@
 		D6DA15371AF973620058A003 /* LPPushHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPushHelper.m; path = Helpers/Push/LPPushHelper.m; sourceTree = "<group>"; };
 		D6DBD6F61A743E8F009F6FFE /* LPPopFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPPopFeedTableViewCell.h; path = Views/MainView/Feed/LPPopFeedTableViewCell.h; sourceTree = "<group>"; };
 		D6DBD6F71A743E8F009F6FFE /* LPPopFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPPopFeedTableViewCell.m; path = Views/MainView/Feed/LPPopFeedTableViewCell.m; sourceTree = "<group>"; };
+		D6E37C751B02F3F800041C08 /* LPOfferTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPOfferTableViewController.h; path = Controllers/MainView/Listing/LPOfferTableViewController.h; sourceTree = "<group>"; };
+		D6E37C761B02F3F800041C08 /* LPOfferTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPOfferTableViewController.m; path = Controllers/MainView/Listing/LPOfferTableViewController.m; sourceTree = "<group>"; };
 		D6E4A1B61A9E98AE00892E44 /* smiley1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley1.png; path = Resources/Images/icons/smilies/smiley1.png; sourceTree = "<group>"; };
 		D6E4A1B71A9E98AE00892E44 /* smiley2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley2.png; path = Resources/Images/icons/smilies/smiley2.png; sourceTree = "<group>"; };
 		D6E4A1B81A9E98AE00892E44 /* smiley3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smiley3.png; path = Resources/Images/icons/smilies/smiley3.png; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 		D6E4A1CE1A9EA4C900892E44 /* LPRateUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPRateUserViewController.m; path = Controllers/Common/LPRateUserViewController.m; sourceTree = "<group>"; };
 		D6E4A1D01A9EB22F00892E44 /* LPUserRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserRating.h; path = Models/LPUserRating.h; sourceTree = "<group>"; };
 		D6E4A1D11A9EB22F00892E44 /* LPUserRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRating.m; path = Models/LPUserRating.m; sourceTree = "<group>"; };
+		D6E661611B05993D00DC8BC3 /* LPMeetUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPMeetUpTableViewController.h; path = Controllers/MainView/Listing/LPMeetUpTableViewController.h; sourceTree = "<group>"; };
+		D6E661621B05993D00DC8BC3 /* LPMeetUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPMeetUpTableViewController.m; path = Controllers/MainView/Listing/LPMeetUpTableViewController.m; sourceTree = "<group>"; };
 		D6E661641B06702300DC8BC3 /* LPChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPChatTableViewCell.h; path = Views/Common/LPChatTableViewCell.h; sourceTree = "<group>"; };
 		D6E661651B06702300DC8BC3 /* LPChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPChatTableViewCell.m; path = Views/Common/LPChatTableViewCell.m; sourceTree = "<group>"; };
 		D6E6EB0B1A646019008085F7 /* LPSignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpTableViewController.h; path = Controllers/User/Login/LPSignUpTableViewController.h; sourceTree = "<group>"; };
@@ -964,6 +970,10 @@
 				D6ED53EB1A9938DC00B5155D /* LPLocationPickerViewController.m */,
 				D64EC10E1ACB294A0010271C /* LPNewMeetupViewController.h */,
 				D64EC10F1ACB294A0010271C /* LPNewMeetupViewController.m */,
+				D6E37C751B02F3F800041C08 /* LPOfferTableViewController.h */,
+				D6E37C761B02F3F800041C08 /* LPOfferTableViewController.m */,
+				D6E661611B05993D00DC8BC3 /* LPMeetUpTableViewController.h */,
+				D6E661621B05993D00DC8BC3 /* LPMeetUpTableViewController.m */,
 			);
 			name = Listing;
 			sourceTree = "<group>";
@@ -1310,6 +1320,7 @@
 				D6F5F82B1A8514680005758B /* BlurView.swift in Sources */,
 				D6F5F8431A8514680005758B /* UnwindSegue.swift in Sources */,
 				D6F5F8331A8514680005758B /* ImageLoader.swift in Sources */,
+				D6E37C771B02F3F800041C08 /* LPOfferTableViewController.m in Sources */,
 				D661F71D1A89A2AE00E938F8 /* LPSignInViewController.m in Sources */,
 				D64859EF1AA8C669007003F9 /* LPIntroViewController.m in Sources */,
 				D68CD1B31AA3EBE20023E311 /* LPUserInfo.m in Sources */,
@@ -1346,6 +1357,7 @@
 				D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */,
 				332F4B161A818AFE00B186C9 /* LPChatModel.m in Sources */,
 				D6ED53E31A98352D00B5155D /* LPListingDetailViewController.m in Sources */,
+				D6E661631B05993D00DC8BC3 /* LPMeetUpTableViewController.m in Sources */,
 				D6A5D7DF1A8157CF00A631CD /* LPPopLocationViewController.m in Sources */,
 				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D63AB4E61AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m in Sources */,

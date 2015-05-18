@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    LPListingDisplay = 0,
-    LPOfferDisplay
-} LPDisplayState;
-
 @interface LPListingTableViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
