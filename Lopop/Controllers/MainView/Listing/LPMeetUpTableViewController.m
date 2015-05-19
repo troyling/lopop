@@ -7,6 +7,7 @@
 //
 
 #import "LPMeetUpTableViewController.h"
+#import "LPMessageViewController.h"
 #import "LPMeetUpTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
@@ -76,6 +77,16 @@ static int TWO_HOURS_IN_SEC = 7200;
     }];
 }
 
+- (void)mapScheduledNotificaiton {
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *n in notifications) {
+        NSString *offerObjectId = n.userInfo[@"offerObjectId"];
+        if (offerObjectId != nil) {
+            [self.notifiedOfferIds addObject:offerObjectId];
+        }
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -113,23 +124,40 @@ static int TWO_HOURS_IN_SEC = 7200;
     }];
 
     // user
-    // FIXME profile image should display the other user, which is not always the fromUser
-    [cell.profileImgView sd_setImageWithURL:offer.fromUser[@"profilePictureUrl"]];
-    cell.nameLabel.text = offer.fromUser[@"name"];
-
-    // TODO add banner for indication
-    // add fading effect for expired meetups
-    cell.contentView.alpha = [offer.meetUpTime timeIntervalSinceNow] > 0 ? 1.0f : 0.4f;
-
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser != nil && [offer.fromUser.objectId isEqualToString:currentUser.objectId]) {
+        // display the seller's profile picture
+        PFUser *seller = offer.pop.seller;
+        if ([seller isDataAvailable]) {
+            [cell.profileImgView sd_setImageWithURL:seller[@"profilePictureUrl"]];
+            cell.nameLabel.text = seller[@"name"];
+        } else {
+            [seller fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (!error) {
+                    [cell.profileImgView sd_setImageWithURL:seller[@"profilePictureUrl"]];
+                    cell.nameLabel.text = seller[@"name"];
+                }
+            }];
+        }
+    } else {
+        [cell.profileImgView sd_setImageWithURL:offer.fromUser[@"profilePictureUrl"]];
+        cell.nameLabel.text = offer.fromUser[@"name"];
+    }
     // pop info
     cell.popTitleLabel.text = offer.pop.title;
 
     [self setBtnLayoutForCell:cell withOffer:offer];
     [cell.remindButton addTarget:self action:@selector(toggleMeetUpReminder:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contactButton addTarget:self action:@selector(contactUser:) forControlEvents:UIControlEventTouchUpInside];
+
+    // TODO add banner for indication
+    // add fading effect for expired meetups
+    cell.contentView.alpha = [offer.meetUpTime timeIntervalSinceNow] > 0 ? 1.0f : 0.4f;
 
     return cell;
 }
 
+#pragma mark ButtonActions
 
 - (IBAction)toggleMeetUpReminder:(id)sender {
     if ([sender isKindOfClass:[UIButton class]]) {
@@ -182,12 +210,20 @@ static int TWO_HOURS_IN_SEC = 7200;
     }
 }
 
-- (void)mapScheduledNotificaiton {
-    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    for (UILocalNotification *n in notifications) {
-        NSString *offerObjectId = n.userInfo[@"offerObjectId"];
-        if (offerObjectId != nil) {
-            [self.notifiedOfferIds addObject:offerObjectId];
+- (IBAction)contactUser:(id)sender {
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *remindBtn = (UIButton *)sender;
+        if ([[[remindBtn superview] superview] isKindOfClass:[LPMeetUpTableViewCell class]]) {
+            // find offer based on button's position
+            LPMeetUpTableViewCell *cell = (LPMeetUpTableViewCell *)[[remindBtn superview] superview];
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            LPOffer *offer = [self.offers objectAtIndex:indexPath.row];
+
+            PFUser *currentUser = [PFUser currentUser];
+
+            LPMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"chatViewController"];
+            vc.offerUser = (currentUser != nil && [offer.fromUser.objectId isEqualToString:currentUser.objectId]) ? offer.pop.seller : offer.fromUser;
+            [self showViewController:vc sender:self];
         }
     }
 }
@@ -203,10 +239,6 @@ static int TWO_HOURS_IN_SEC = 7200;
         [cell.remindButton setImage:[UIImage imageNamed:@"icon_reminder_add"] forState:UIControlStateNormal];
         cell.reminderLabel.hidden = YES;
     }
-}
-
-- (void)setRemindBtnLayoutForOffer:(LPOffer *)offer {
-
 }
 
 @end
