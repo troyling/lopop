@@ -24,6 +24,8 @@ NSString* userId;
 
 + (void) initChatManager;
 
+- (void) close;
+
 - (NSMutableArray *) getChatArray;
 
 - (void) saveChatToDB: (LPChatModel*) chatModel;
