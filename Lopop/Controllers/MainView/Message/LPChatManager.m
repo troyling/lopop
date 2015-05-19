@@ -178,6 +178,7 @@ static LPChatManager * instance = nil;
     NSManagedObject *newContact;
     newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Chat" inManagedObjectContext:context];
     [newContact setValue: chatModel.contactId forKey:@"contactId"];
+    [newContact setValue: userId forKey:@"userId"];
     NSError *error;
     [context save:&error];
     if(error){
@@ -315,7 +316,8 @@ static LPChatManager * instance = nil;
     [request setEntity:entityDesc];
     
     NSPredicate *pred =[NSPredicate predicateWithFormat:@"((fromUserId == %@) AND (toUserId == %@)) or ((fromUserId == %@) AND (toUserId == %@)) ", contactId, userId, userId, contactId];
-   [request setPredicate:pred];
+    [request setPredicate:pred];
+    
     
     NSError *error;
     NSArray *objects = [context executeFetchRequest:request
@@ -374,6 +376,7 @@ static LPChatManager * instance = nil;
     
     return [messageArray sortedArrayUsingSelector:@selector(compare:)];
 }
+
 
 - (NSArray*) getPendingMessagesWithUser: (NSString *) contactId{
     NSMutableArray * messageArray = [[NSMutableArray alloc] init];
