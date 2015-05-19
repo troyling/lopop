@@ -10,8 +10,9 @@
 #import "LPUserProfileTableViewController.h"
 #import "LPInfoDisplayViewController.h"
 #import "LPMainViewTabBarController.h"
-#import "LPCache.h"
+#import "LPAlertViewHelper.h"
 #import "LPChatManager.h"
+#import "LPCache.h"
 
 @interface LPSettingsTableViewController ()
 
@@ -58,6 +59,23 @@
     if (cell.tag == 999) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [alert show];
+    } else if (cell.tag == 998) {
+        // jump to facebook
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Lopop-LLC/509359395869209"]];
+    } else if (cell.tag == 997 ) {
+        // feedback
+        if ([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+            vc.mailComposeDelegate = self;
+
+            NSString *subject = @"Feedback - Lopop iOS app";
+
+            [vc setSubject:subject];
+            [vc setToRecipients:[NSArray arrayWithObject:@"thelopopapp@gmail.com"]];
+            [self presentViewController:vc animated:YES completion:NULL];
+        } else {
+            [LPAlertViewHelper fatalErrorAlert:@"Unable to send email now. Please try again later."];
+        }
     }
 }
 
@@ -72,6 +90,19 @@
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
         [self presentViewController:vc animated:NO completion:nil];
     }
+}
+
+#pragma mark MailController
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    if (error) {
+        [LPAlertViewHelper fatalErrorAlert:error.description];
+    } else {
+        if (result == MFMailComposeResultSent) {
+            NSLog(@"thanks for your feedback");
+        }
+    }
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
