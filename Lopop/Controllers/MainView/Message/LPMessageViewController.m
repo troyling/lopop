@@ -84,6 +84,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
     //Remove the observer
     [[NSNotificationCenter defaultCenter]
      removeObserver:self name:ChatManagerMessageViewUpdateNotification object:nil];
