@@ -41,6 +41,8 @@ float const NUM_TABS = 5.0;
     [[LPCache getInstance] synchronizeFollowingForCurrentUserInBackground];
     [LPChatManager initChatManager];
 
+    [self updateTotalUnreadMessages:self];
+    [self observeChatManagerNotification];
 }
 
 #pragma mark Custom Button
@@ -114,6 +116,26 @@ float const NUM_TABS = 5.0;
 
 - (BOOL)tabBarIsVisible {
     return self.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame);
+}
+
+#pragma mark update total number of messages
+
+- (void) observeChatManagerNotification {
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(updateTotalUnreadMessages:)
+     name:ChatManagerChatViewUpdateNotification
+     object:nil];
+}
+
+- (IBAction)updateTotalUnreadMessages:(id)sender {
+    NSUInteger numUnreadMsg = [[LPChatManager getInstance] getTotalUnreadMsg];
+    if (numUnreadMsg != 0) {
+        [[self.tabBar.items objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%ld", numUnreadMsg]];
+    } else {
+        [[self.tabBar.items objectAtIndex:3] setBadgeValue:nil];
+    }
+
 }
 
 @end
