@@ -3060,7 +3060,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="0Mp-RE-9x0" id="AiP-Sf-74t">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MDu-Oc-INN">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Leave us feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MDu-Oc-INN">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
@@ -3080,6 +3080,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="wLb-cH-JZi" kind="show" identifier="fbWebSegue" id="ZpC-1V-0mR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -3627,6 +3630,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pj2-fz-izz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3146.5" y="2211.5"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Utj-4Y-Hog">
+            <objects>
+                <viewController id="wLb-cH-JZi" customClass="LPWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fl3-Bl-RUk"/>
+                        <viewControllerLayoutGuide type="bottom" id="aOW-SP-Ls5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BJF-Ne-Fr0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DkB-On-QKO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="DkB-On-QKO" secondAttribute="width" id="8PF-AS-cls"/>
+                            <constraint firstAttribute="centerX" secondItem="DkB-On-QKO" secondAttribute="centerX" id="CWU-78-aRy"/>
+                            <constraint firstAttribute="centerY" secondItem="DkB-On-QKO" secondAttribute="centerY" id="Zvn-AD-beZ"/>
+                            <constraint firstAttribute="height" secondItem="DkB-On-QKO" secondAttribute="height" id="s5s-vU-dol"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="DkB-On-QKO" id="AnC-bQ-LDt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zyn-fC-jEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2692.5" y="3020.5"/>
         </scene>
         <!--Info Display View Controller-->
         <scene sceneID="XJs-5B-ZUS">

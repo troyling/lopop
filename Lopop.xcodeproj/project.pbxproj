@@ -115,6 +115,7 @@
 		D6CB77231A92B18700629985 /* pop_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D6CB77221A92B18700629985 /* pop_white.png */; };
 		D6CB775B1A95770000629985 /* LPFollowerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6CB775A1A95770000629985 /* LPFollowerTableViewCell.m */; };
 		D6D03A681B0BCACD0061E075 /* LPInfoDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D03A671B0BCACD0061E075 /* LPInfoDisplayViewController.m */; };
+		D6D03A6B1B0BF65E0061E075 /* LPWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D03A6A1B0BF65E0061E075 /* LPWebViewController.m */; };
 		D6D973B11A8AA8C600A30539 /* LPListingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */; };
 		D6D973B41A8AFECA00A30539 /* LPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D973B31A8AFECA00A30539 /* LPShareViewController.m */; };
 		D6DA15381AF973620058A003 /* LPPushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DA15371AF973620058A003 /* LPPushHelper.m */; };
@@ -351,6 +352,8 @@
 		D6CB775A1A95770000629985 /* LPFollowerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPFollowerTableViewCell.m; path = Views/User/LPFollowerTableViewCell.m; sourceTree = "<group>"; };
 		D6D03A661B0BCACD0061E075 /* LPInfoDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPInfoDisplayViewController.h; path = Controllers/MainView/Settings/LPInfoDisplayViewController.h; sourceTree = "<group>"; };
 		D6D03A671B0BCACD0061E075 /* LPInfoDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPInfoDisplayViewController.m; path = Controllers/MainView/Settings/LPInfoDisplayViewController.m; sourceTree = "<group>"; };
+		D6D03A691B0BF65E0061E075 /* LPWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPWebViewController.h; path = Controllers/MainView/Settings/LPWebViewController.h; sourceTree = "<group>"; };
+		D6D03A6A1B0BF65E0061E075 /* LPWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPWebViewController.m; path = Controllers/MainView/Settings/LPWebViewController.m; sourceTree = "<group>"; };
 		D6D973AF1A8AA8C600A30539 /* LPListingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPListingTableViewController.h; path = Controllers/MainView/Listing/LPListingTableViewController.h; sourceTree = "<group>"; };
 		D6D973B01A8AA8C600A30539 /* LPListingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPListingTableViewController.m; path = Controllers/MainView/Listing/LPListingTableViewController.m; sourceTree = "<group>"; };
 		D6D973B21A8AFECA00A30539 /* LPShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPShareViewController.h; path = Controllers/Common/LPShareViewController.h; sourceTree = "<group>"; };
@@ -925,6 +928,8 @@
 				D6AB469D1A7B21B8001BCCFC /* LPSettingsTableViewController.m */,
 				D6D03A661B0BCACD0061E075 /* LPInfoDisplayViewController.h */,
 				D6D03A671B0BCACD0061E075 /* LPInfoDisplayViewController.m */,
+				D6D03A691B0BF65E0061E075 /* LPWebViewController.h */,
+				D6D03A6A1B0BF65E0061E075 /* LPWebViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1349,6 +1354,7 @@
 				D6AB468F1A7AA7DB001BCCFC /* LPUIHelper.m in Sources */,
 				D6F5F8411A8514680005758B /* TransitionManager.swift in Sources */,
 				D6DA15381AF973620058A003 /* LPPushHelper.m in Sources */,
+				D6D03A6B1B0BF65E0061E075 /* LPWebViewController.m in Sources */,
 				D661F7211A89ABE000E938F8 /* LPImageShowcaseViewController.m in Sources */,
 				D6CB770B1A926AC000629985 /* LPPopListingTableViewCell.m in Sources */,
 				33BD0A821A9959D900FEC8B3 /* LPMessageCoreData.xcdatamodeld in Sources */,

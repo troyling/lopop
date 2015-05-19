@@ -10,6 +10,7 @@
 #import "LPUserProfileTableViewController.h"
 #import "LPInfoDisplayViewController.h"
 #import "LPMainViewTabBarController.h"
+#import "LPWebViewController.h"
 #import "LPAlertViewHelper.h"
 #import "LPChatManager.h"
 #import "LPCache.h"
@@ -50,6 +51,9 @@
         } else {
             vc.type = kTerms;
         }
+    } else if ([segue.destinationViewController isKindOfClass:[LPWebViewController class]]) {
+        LPWebViewController *vc = segue.destinationViewController;
+        vc.urlStr = @"https://www.facebook.com/pages/Lopop-LLC/509359395869209";
     }
 }
 
@@ -59,9 +63,6 @@
     if (cell.tag == 999) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [alert show];
-    } else if (cell.tag == 998) {
-        // jump to facebook
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Lopop-LLC/509359395869209"]];
     } else if (cell.tag == 997 ) {
         // feedback
         if ([MFMailComposeViewController canSendMail]) {
