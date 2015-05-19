@@ -2327,7 +2327,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4u-f1-gvR">
-                                                <rect key="frame" x="66" y="8" width="246" height="25"/>
+                                                <rect key="frame" x="66" y="8" width="188" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="WBp-uG-zG6"/>
                                                 </constraints>
@@ -2336,25 +2336,52 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="73I-0d-JIq">
-                                                <rect key="frame" x="66" y="36" width="246" height="22"/>
+                                                <rect key="frame" x="66" y="36" width="188" height="22"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="22" id="HPr-lG-XfE"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6V-um-Wl8" userLabel="contactBtn">
+                                                <rect key="frame" x="262" y="8" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="ovw-uq-CWr"/>
+                                                    <constraint firstAttribute="height" constant="25" id="r5s-ah-I75"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="8" minY="13" maxX="8" maxY="13"/>
+                                                <state key="normal" image="icon_chat">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="r5s-ah-I75"/>
+                                                    </mask>
+                                                </variation>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="Jxr-ka-nww" firstAttribute="height" secondItem="F6V-um-Wl8" secondAttribute="height" id="2FU-HG-ZGG"/>
                                             <constraint firstItem="g4u-f1-gvR" firstAttribute="leading" secondItem="Jxr-ka-nww" secondAttribute="trailing" constant="8" id="Bqj-ZO-kEj"/>
                                             <constraint firstAttribute="trailing" secondItem="73I-0d-JIq" secondAttribute="trailing" constant="8" id="DLi-4I-bLq"/>
                                             <constraint firstItem="73I-0d-JIq" firstAttribute="top" secondItem="g4u-f1-gvR" secondAttribute="bottom" constant="3" id="E0b-Mu-Rvm"/>
                                             <constraint firstAttribute="height" constant="66" id="Ib4-KM-5mh"/>
+                                            <constraint firstItem="F6V-um-Wl8" firstAttribute="leading" secondItem="73I-0d-JIq" secondAttribute="trailing" constant="8" id="QVG-Co-O9E"/>
+                                            <constraint firstItem="Jxr-ka-nww" firstAttribute="centerY" secondItem="F6V-um-Wl8" secondAttribute="centerY" id="S5s-yZ-jpP"/>
                                             <constraint firstItem="Jxr-ka-nww" firstAttribute="leading" secondItem="uji-4M-9bF" secondAttribute="leading" constant="8" id="Uut-2g-6YV"/>
                                             <constraint firstItem="g4u-f1-gvR" firstAttribute="top" secondItem="uji-4M-9bF" secondAttribute="top" constant="8" id="VJc-7p-5XB"/>
+                                            <constraint firstAttribute="trailing" secondItem="F6V-um-Wl8" secondAttribute="trailing" constant="8" id="fUV-dm-ybw"/>
                                             <constraint firstItem="73I-0d-JIq" firstAttribute="leading" secondItem="Jxr-ka-nww" secondAttribute="trailing" constant="8" id="iHI-0F-Tew"/>
+                                            <constraint firstItem="F6V-um-Wl8" firstAttribute="leading" secondItem="g4u-f1-gvR" secondAttribute="trailing" constant="8" id="kaj-GU-ARQ"/>
                                             <constraint firstItem="Jxr-ka-nww" firstAttribute="top" secondItem="uji-4M-9bF" secondAttribute="top" constant="8" id="xSl-wA-7k4"/>
                                             <constraint firstAttribute="trailing" secondItem="g4u-f1-gvR" secondAttribute="trailing" constant="8" id="yBo-Bh-82P"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="yBo-Bh-82P"/>
+                                                <exclude reference="DLi-4I-bLq"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="nameLabel" destination="g4u-f1-gvR" id="ioX-5L-Kl7"/>
                                             <outlet property="profileImageView" destination="Jxr-ka-nww" id="P8U-A5-bfZ"/>
@@ -4365,7 +4392,7 @@
                                                 <constraint firstAttribute="height" constant="1" id="gRt-fx-AaD"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LX9-0j-RKs">
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LX9-0j-RKs" userLabel="contactBtn">
                                             <rect key="frame" x="282" y="189" width="35" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="6TK-zr-JB4"/>
@@ -4391,7 +4418,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1of-GW-lqA">
+                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1of-GW-lqA" userLabel="remindBtn">
                                             <rect key="frame" x="327" y="189" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="R2V-1u-BCS"/>
