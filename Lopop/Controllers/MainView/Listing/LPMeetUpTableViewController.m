@@ -126,7 +126,7 @@ static int TWO_HOURS_IN_SEC = 7200;
     // user
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser != nil && [offer.fromUser.objectId isEqualToString:currentUser.objectId]) {
-        // display the seller's profile picture
+        // Buying items - display the seller's profile picture
         PFUser *seller = offer.pop.seller;
         if ([seller isDataAvailable]) {
             [cell.profileImgView sd_setImageWithURL:seller[@"profilePictureUrl"]];
@@ -139,9 +139,17 @@ static int TWO_HOURS_IN_SEC = 7200;
                 }
             }];
         }
+
+        // load buy banner
+        cell.bannerLabel.backgroundColor = [LPUIHelper lopopColor];
+        cell.bannerLabel.text = @"   Buying";
     } else {
         [cell.profileImgView sd_setImageWithURL:offer.fromUser[@"profilePictureUrl"]];
         cell.nameLabel.text = offer.fromUser[@"name"];
+
+        // load sell banner
+        cell.bannerLabel.backgroundColor = [LPUIHelper ratingStarColor];
+        cell.bannerLabel.text = @"   Selling";
     }
     // pop info
     cell.popTitleLabel.text = offer.pop.title;
@@ -150,7 +158,6 @@ static int TWO_HOURS_IN_SEC = 7200;
     [cell.remindButton addTarget:self action:@selector(toggleMeetUpReminder:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contactButton addTarget:self action:@selector(contactUser:) forControlEvents:UIControlEventTouchUpInside];
 
-    // TODO add banner for indication
     // add fading effect for expired meetups
     cell.contentView.alpha = [offer.meetUpTime timeIntervalSinceNow] > 0 ? 1.0f : 0.4f;
 

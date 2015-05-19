@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *remindButton;
 @property (weak, nonatomic) IBOutlet UILabel *popTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reminderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bannerLabel;
 
 @end
