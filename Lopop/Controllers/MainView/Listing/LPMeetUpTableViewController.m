@@ -10,19 +10,29 @@
 #import "LPMeetUpTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "LPLocationHelper.h"
+#import "LPUIHelper.h"
 #import "LPOffer.h"
 #import "LPPop.h"
 
 @interface LPMeetUpTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *offers;
+@property (strong, nonatomic) NSMutableSet *notifiedOfferIds;
 
 @end
 
 @implementation LPMeetUpTableViewController
 
+static int TWO_HOURS_IN_SEC = 7200;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // find all scheduled offer ids
+    self.notifiedOfferIds = [[NSMutableSet alloc] init];
+    [self mapScheduledNotificaiton];
+
+    NSLog(@"Notification %@", self.notifiedOfferIds);
 
     self.tableView.rowHeight = 245.0f;
 
@@ -103,16 +113,100 @@
     }];
 
     // user
+    // FIXME profile image should display the other user, which is not always the fromUser
     [cell.profileImgView sd_setImageWithURL:offer.fromUser[@"profilePictureUrl"]];
     cell.nameLabel.text = offer.fromUser[@"name"];
+
+    // TODO add banner for indication
+    // add fading effect for expired meetups
+    cell.contentView.alpha = [offer.meetUpTime timeIntervalSinceNow] > 0 ? 1.0f : 0.4f;
 
     // pop info
     cell.popTitleLabel.text = offer.pop.title;
 
-    // TODO add action listeners for buttons
-
+    [self setBtnLayoutForCell:cell withOffer:offer];
+    [cell.remindButton addTarget:self action:@selector(toggleMeetUpReminder:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
+}
+
+
+- (IBAction)toggleMeetUpReminder:(id)sender {
+    if ([sender isKindOfClass:[UIButton class]]) {
+        UIButton *remindBtn = (UIButton *)sender;
+        if ([[[remindBtn superview] superview] isKindOfClass:[LPMeetUpTableViewCell class]]) {
+            // find offer based on button's position
+            LPMeetUpTableViewCell *cell = (LPMeetUpTableViewCell *)[[remindBtn superview] superview];
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            LPOffer *offer = [self.offers objectAtIndex:indexPath.row];
+
+
+            if ([self.notifiedOfferIds containsObject:offer.objectId]) {
+                NSArray *ns = [[UIApplication sharedApplication] scheduledLocalNotifications];
+
+                NSLog(@"%@", ns);
+                for (UILocalNotification *n in ns) {
+                    NSString *offerObjectId = n.userInfo[@"offerObjectId"];
+                    if (offerObjectId != nil && [self.notifiedOfferIds containsObject:offerObjectId]) {
+                        [[UIApplication sharedApplication] cancelLocalNotification:n];
+                    }
+                }
+
+                NSLog(@"%@", [[UIApplication sharedApplication] scheduledLocalNotifications]);
+                [self.notifiedOfferIds removeObject:offer.objectId];
+            } else {
+                // schedule local notification
+                NSTimeInterval timeInterval = [offer.meetUpTime timeIntervalSinceNow] - TWO_HOURS_IN_SEC;;
+
+                if (timeInterval > 0) {
+                    NSString *alertMsg = [NSString stringWithFormat:@"You will be meeting with %@ in two hours", offer.fromUser[@"name"]];
+                    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
+
+                    UILocalNotification *notification = [[UILocalNotification alloc] init];
+                    notification.fireDate = fireDate;
+                    notification.alertBody = alertMsg;
+                    notification.userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:offer.objectId, @"offerObjectId", nil];
+
+                    NSMutableArray *notifications = [NSMutableArray arrayWithArray:[[UIApplication sharedApplication] scheduledLocalNotifications]];
+                    [notifications addObject:notification];
+                    [[UIApplication sharedApplication] setScheduledLocalNotifications:notifications];
+
+                    [self.notifiedOfferIds addObject:offer.objectId];
+                } else {
+                    NSLog(@"unable to schedule");
+                }
+            }
+
+            [self setBtnLayoutForCell:cell withOffer:offer];
+        }
+    }
+}
+
+- (void)mapScheduledNotificaiton {
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *n in notifications) {
+        NSString *offerObjectId = n.userInfo[@"offerObjectId"];
+        if (offerObjectId != nil) {
+            [self.notifiedOfferIds addObject:offerObjectId];
+        }
+    }
+}
+
+#pragma mark UI helper
+
+- (void)setBtnLayoutForCell:(LPMeetUpTableViewCell *)cell withOffer:(LPOffer *)offer {
+    if ([self.notifiedOfferIds containsObject:offer.objectId]) {
+        // notification is already scheduled
+        [cell.remindButton setImage:[UIImage imageNamed:@"icon_reminder_added"] forState:UIControlStateNormal];
+        cell.reminderLabel.hidden = NO;
+    } else {
+        [cell.remindButton setImage:[UIImage imageNamed:@"icon_reminder_add"] forState:UIControlStateNormal];
+        cell.reminderLabel.hidden = YES;
+    }
+}
+
+- (void)setRemindBtnLayoutForOffer:(LPOffer *)offer {
+
 }
 
 @end
