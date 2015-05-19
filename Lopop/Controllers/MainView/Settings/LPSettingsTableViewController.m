@@ -10,6 +10,7 @@
 #import "LPUserProfileTableViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPCache.h"
+#import "LPChatManager.h"
 
 @interface LPSettingsTableViewController ()
 
@@ -56,6 +57,7 @@
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if ([title isEqualToString:@"Yes"]) {
         [PFUser logOut];
+        [[LPChatManager getInstance] close];
         [[LPCache getInstance] clear];
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPSignUpViewController"];
         [self presentViewController:vc animated:NO completion:nil];

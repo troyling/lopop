@@ -24,6 +24,8 @@
 @property NSMutableArray* pendingMessageArray;
 @property NSString* firebaseId;
 @property Firebase* userMessageRef;
+@property Firebase* rootRef;
+@property Firebase* connectedRef;
 @property double serverTimeOffset;
 
 @end
@@ -33,13 +35,8 @@
 static LPChatManager * instance = nil;
 
 
-NSString* firebaseId;
-Firebase* userMessageRef;
 
 
-+ (void) init{
-    
-}
 + (LPChatManager *)getInstance{
     if(instance == nil){
         instance = [[LPChatManager alloc] init];
@@ -57,14 +54,17 @@ Firebase* userMessageRef;
 
 + (void) initChatManager{
     instance = [LPChatManager alloc];
-    Firebase *connectedRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/connected"];
-    [connectedRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    
+    [Firebase goOnline];
+    instance.connectedRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/connected"];
+
+    [instance.connectedRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if([snapshot.value boolValue]) {
             NSLog(@"connected");
             
             //Get server time offset.
             Firebase *offsetRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com/.info/serverTimeOffset"];
-            [offsetRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            [offsetRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 instance.serverTimeOffset = [(NSNumber *)snapshot.value doubleValue];
             }];
             
@@ -82,7 +82,7 @@ Firebase* userMessageRef;
         NSLog(@"get user fails");
     }
     userId = [[PFUser currentUser] objectId];
-    firebaseId = [PFUser currentUser][@"firebaseId"];
+    instance.firebaseId = [PFUser currentUser][@"firebaseId"];
     
     
     [instance initalArray];
@@ -90,9 +90,9 @@ Firebase* userMessageRef;
 
 - (void) loginFirebase{
     //Receiver for firebase
-    Firebase* ref = [[Firebase alloc] initWithUrl:firebaseUrl];
+    self.rootRef = [[Firebase alloc] initWithUrl:firebaseUrl];
 
-    [ref authUser:[userId stringByAppendingString:@"@lopop.com"] password:userId
+    [self.rootRef authUser:[userId stringByAppendingString:@"@lopop.com"] password:userId
          withCompletionBlock:^(NSError *error, FAuthData *authData) {
              if (error) {
                  // an error occurred while attempting login
@@ -109,19 +109,19 @@ Firebase* userMessageRef;
 
 - (void) setupPresence{
     Firebase* presenceRef = [[Firebase alloc] initWithUrl:
-                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", firebaseId, @"/presence"]];
+                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"users/", self.firebaseId, @"/presence"]];
     
     [presenceRef setValue: @{@"online": @1}];
-    [presenceRef onDisconnectSetValue: @{@"online": @0, @"lastSeen": kFirebaseServerValueTimestamp}];
+    [presenceRef onDisconnectUpdateChildValues: @{@"online": @0, @"lastSeen": kFirebaseServerValueTimestamp}];
     
 }
 
 - (void) setUpMessageListener{
-    userMessageRef = [[Firebase alloc] initWithUrl:
-                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"messages/", firebaseId, @"/pendingMessages"]];
+    self.userMessageRef = [[Firebase alloc] initWithUrl:
+                      [NSString stringWithFormat:@"%@%@%@%@", firebaseUrl, @"messages/", self.firebaseId, @"/pendingMessages"]];
     
     //Set up message listener
-    [userMessageRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+    [self.userMessageRef observeEventType: FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary* messageDict = snapshot.value;
         LPMessageModel* messageInstance = [LPMessageModel fromDict:messageDict];
         messageInstance.messageId = snapshot.key;
@@ -191,6 +191,9 @@ Firebase* userMessageRef;
      NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Chat" inManagedObjectContext:context];
      NSFetchRequest *request = [[NSFetchRequest alloc] init];
      [request setEntity:entityDesc];
+    
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(userId == %@)", userId];
+    [request setPredicate:pred];
      
      NSError *error;
      NSArray *objects = [context executeFetchRequest:request
@@ -217,7 +220,7 @@ Firebase* userMessageRef;
 
 - (void) removePendingMessage: (LPMessageModel*) message{
     [self saveMessage:message];
-    [[userMessageRef childByAppendingPath:message.messageId] removeValue];
+    [[self.userMessageRef childByAppendingPath:message.messageId] removeValue];
     
     [self.pendingMessageArray removeObject:message];
 }
@@ -235,7 +238,7 @@ Firebase* userMessageRef;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDesc];
     
-    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(contactId == %@)", chatModel.contactId];
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"(contactId == %@) AND (userId == %@)", chatModel.contactId, userId];
     [request setPredicate:pred];
     
     
@@ -378,7 +381,7 @@ Firebase* userMessageRef;
         if([message.fromUserId isEqualToString:contactId]){
             [messageArray addObject:message];
             [self saveMessage:message];
-            [[userMessageRef childByAppendingPath:message.messageId] removeValue];
+            [[self.userMessageRef childByAppendingPath:message.messageId] removeValue];
         }
     }
     
@@ -417,6 +420,16 @@ Firebase* userMessageRef;
     [[NSNotificationCenter defaultCenter]
      postNotificationName: ChatManagerMessageViewUpdateNotification
      object:message];
+}
+
+- (void) close{
+    [self.rootRef unauth];
+    
+    [self.userMessageRef removeAllObservers];
+    [self.connectedRef removeAllObservers];
+    
+    [Firebase goOffline];
+    instance = nil;
 }
 
 @end

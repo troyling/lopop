@@ -59,8 +59,8 @@
                 
                 
                 //Register firebase
-                Firebase *ref = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com"];
-                [ref createUser:[newUser.objectId stringByAppendingString:@"@lopop.com"]
+                Firebase *rootRef = [[Firebase alloc] initWithUrl:@"https://lopop.firebaseio.com"];
+                [rootRef createUser:[newUser.objectId stringByAppendingString:@"@lopop.com"]
                        password:newUser.objectId
                         withValueCompletionBlock:^(NSError *error, NSDictionary *result) {
            
@@ -71,6 +71,9 @@
                                 NSLog(@"Successfully created user account with uid: %@", uid);
                                 newUser[@"firebaseId"] = uid;
                                 [newUser saveEventually];
+                                [[[rootRef childByAppendingPath:@"users"] childByAppendingPath:uid] setValue:
+                                 @{@"objectId": newUser.objectId,
+                                   @"name": newUser[@"name"]}];
                             }
                         }
                  ];

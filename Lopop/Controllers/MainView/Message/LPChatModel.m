@@ -13,6 +13,8 @@
 
 @interface LPChatModel()
 
+@property NSString* userId;
+
 @property NSString* contactFirebaseId;
 
 @property Firebase *sendRef;
@@ -38,6 +40,7 @@
     if (objects.count == 1) {
         self.contactName = objects.firstObject[@"name"];
         self.contactFirebaseId = objects.firstObject[@"firebaseId"];
+        self.userId = userId;
 
 
         NSLog(@"%@, %@", self.contactFirebaseId, self.contactName);
