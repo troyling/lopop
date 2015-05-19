@@ -2383,6 +2383,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
+                                            <outlet property="contactBtn" destination="F6V-um-Wl8" id="OB8-He-Kp1"/>
                                             <outlet property="nameLabel" destination="g4u-f1-gvR" id="ioX-5L-Kl7"/>
                                             <outlet property="profileImageView" destination="Jxr-ka-nww" id="P8U-A5-bfZ"/>
                                             <outlet property="userRateView" destination="73I-0d-JIq" id="is6-3Q-EtN"/>
@@ -4547,8 +4548,8 @@
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xTQ-Ah-nGg"/>
         <segue reference="3bI-cV-5S0"/>
-        <segue reference="edX-sg-OfM"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
