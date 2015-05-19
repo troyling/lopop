@@ -3015,6 +3015,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="lH7-Mq-Foz" kind="show" identifier="termsOfServiceSegue" id="TMA-r1-M5q"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="qkZ-3N-8C8" style="IBUITableViewCellStyleDefault" id="VXv-V4-a0n">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -3028,6 +3031,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="lH7-Mq-Foz" kind="show" identifier="privacySegue" id="gc3-Wf-Flz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -3045,6 +3051,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="lH7-Mq-Foz" kind="show" identifier="faqSegue" id="6qU-bI-zRN"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="MDu-Oc-INN" style="IBUITableViewCellStyleDefault" id="0Mp-RE-9x0">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -3618,6 +3627,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pj2-fz-izz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3146.5" y="2211.5"/>
+        </scene>
+        <!--Info Display View Controller-->
+        <scene sceneID="XJs-5B-ZUS">
+            <objects>
+                <viewController id="lH7-Mq-Foz" customClass="LPInfoDisplayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="31Q-Td-GFn"/>
+                        <viewControllerLayoutGuide type="bottom" id="Joh-OO-FhM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tY1-63-OKy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AKC-2d-Q8I">
+                                <rect key="frame" x="16" y="64" width="359" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AKC-2d-Q8I" firstAttribute="width" secondItem="tY1-63-OKy" secondAttribute="width" constant="-16" id="24m-FF-OGN"/>
+                            <constraint firstItem="AKC-2d-Q8I" firstAttribute="top" secondItem="31Q-Td-GFn" secondAttribute="bottom" id="Jrx-Gg-C8A"/>
+                            <constraint firstItem="Joh-OO-FhM" firstAttribute="top" secondItem="AKC-2d-Q8I" secondAttribute="bottom" constant="-49" id="NcR-W7-Mbz"/>
+                            <constraint firstAttribute="centerX" secondItem="AKC-2d-Q8I" secondAttribute="centerX" constant="-8" id="jpE-ZH-YXR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="AKC-2d-Q8I" id="UVS-RP-sF3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3AD-Gh-0cT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3146.5" y="3020.5"/>
         </scene>
         <!--Sign Up Table View Controller-->
         <scene sceneID="fBy-Gh-zmR">
@@ -4566,8 +4610,9 @@
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xTQ-Ah-nGg"/>
         <segue reference="3bI-cV-5S0"/>
+        <segue reference="xTQ-Ah-nGg"/>
+        <segue reference="6qU-bI-zRN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

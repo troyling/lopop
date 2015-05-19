@@ -8,6 +8,7 @@
 
 #import "LPSettingsTableViewController.h"
 #import "LPUserProfileTableViewController.h"
+#import "LPInfoDisplayViewController.h"
 #import "LPMainViewTabBarController.h"
 #import "LPCache.h"
 #import "LPChatManager.h"
@@ -34,10 +35,19 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"currentUserProfile"]) {
-        if ([segue.destinationViewController isKindOfClass:[LPUserProfileTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[LPUserProfileTableViewController class]]) {
+        if ([segue.identifier isEqualToString:@"currentUserProfile"]) {
             LPUserProfileTableViewController *vc = segue.destinationViewController;
             vc.user = [PFUser currentUser];
+        }
+    } else if ([segue.destinationViewController isKindOfClass:[LPInfoDisplayViewController class]]) {
+        LPInfoDisplayViewController *vc = segue.destinationViewController;
+        if ([segue.identifier isEqualToString:@"privacySegue"]) {
+            vc.type = kPrivacy;
+        } else if ([segue.identifier isEqualToString:@"faqSegue"]) {
+            vc.type = kFaq;
+        } else {
+            vc.type = kTerms;
         }
     }
 }
