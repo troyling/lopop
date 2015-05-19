@@ -4452,11 +4452,11 @@
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="Ejw-k7-O15"/>
+                                            <exclude reference="1sC-0s-oBZ"/>
+                                            <exclude reference="tne-dI-FVO"/>
                                             <exclude reference="Qjr-3q-uwl"/>
                                             <exclude reference="dOO-Pq-aEI"/>
                                             <exclude reference="ok7-LI-vtk"/>
-                                            <exclude reference="1sC-0s-oBZ"/>
-                                            <exclude reference="tne-dI-FVO"/>
                                             <exclude reference="zp4-Ji-v11"/>
                                             <exclude reference="mlI-Ew-qcZ"/>
                                             <exclude reference="8Mv-0k-ngc"/>
