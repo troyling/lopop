@@ -67,13 +67,13 @@
 }
 
 - (NSString *) getLastMessage{
-    return @"last message!";
+    NSString *lastMsg = @"...";
     
-    if(self.lastUnreadMessage != nil){
-        return self.lastUnreadMessage;
+    if (self.lastUnreadMessage != nil) {
+         lastMsg = self.lastUnreadMessage.content;
     }
+    return lastMsg;
 }
-
 
 /*
 - (NSDictionary *)toDict{
