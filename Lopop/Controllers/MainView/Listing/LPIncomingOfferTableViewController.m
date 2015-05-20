@@ -158,6 +158,7 @@
 }
 
 - (void)loadActionsForCell:(LPUserRatingTableViewCell *)cell {
+    // view user profile
     cell.profileImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewOfferUserProfile:)];
     [cell.profileImageView addGestureRecognizer:tap];
@@ -197,8 +198,8 @@
         }
     } else if ([segue.identifier isEqualToString:@"scheduleMeetupSegue"]) {
         LPNewMeetupViewController *vc = segue.destinationViewController;
-
-        if ([sender isKindOfClass:[LPUserRatingTableViewCell class]]) {
+        UIButton *btn = (UIButton *)sender;
+        if ([[[btn superview] superview] isKindOfClass:[LPUserRatingTableViewCell class]]) {
             LPUserRatingTableViewCell *cell = sender;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             LPOffer *offer = [self.incomingOffers objectAtIndex:indexPath.row];
@@ -206,11 +207,6 @@
             vc.pop = self.pop;
         }
     }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // present meet up view
-
 }
 
 @end
