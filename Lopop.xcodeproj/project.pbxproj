@@ -68,7 +68,6 @@
 		D66CC8F41A60E6F3007B9992 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D66CC8F31A60E6F3007B9992 /* libsqlite3.dylib */; };
 		D66CC9011A619A86007B9992 /* LPSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9001A619A86007B9992 /* LPSignUpViewController.m */; };
 		D66CC9041A619A9C007B9992 /* LPSignUpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9031A619A9C007B9992 /* LPSignUpDetailViewController.m */; };
-		D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */; };
 		D66CC9121A619E97007B9992 /* signup_view_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9101A619E97007B9992 /* signup_view_1.jpg */; };
 		D66CC9131A619E97007B9992 /* signup_view.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D66CC9111A619E97007B9992 /* signup_view.jpg */; };
 		D67AD7411AD84BDE00E009AE /* icon_clock_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = D67AD7381AD84BDE00E009AE /* icon_clock_fill.png */; };
@@ -99,7 +98,6 @@
 		D6AB46931A7AAA0B001BCCFC /* LPAlertViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB46921A7AAA0B001BCCFC /* LPAlertViewHelper.m */; };
 		D6AB469A1A7B0004001BCCFC /* LPUserRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB46991A7B0004001BCCFC /* LPUserRelationship.m */; };
 		D6AB469E1A7B21B8001BCCFC /* LPSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB469D1A7B21B8001BCCFC /* LPSettingsTableViewController.m */; };
-		D6AB46A41A7C01A9001BCCFC /* LPFollowerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AB46A31A7C01A9001BCCFC /* LPFollowerTableViewController.m */; };
 		D6AF512E1A635CD600A02C90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512B1A635CD600A02C90 /* Parse.framework */; };
 		D6AF512F1A635CD600A02C90 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */; };
 		D6B9E9661A8948FD00A62D9B /* LPOffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B9E9651A8948FD00A62D9B /* LPOffer.m */; };
@@ -286,8 +284,6 @@
 		D66CC9001A619A86007B9992 /* LPSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpViewController.m; path = Controllers/User/Login/LPSignUpViewController.m; sourceTree = "<group>"; };
 		D66CC9021A619A9C007B9992 /* LPSignUpDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSignUpDetailViewController.h; path = Controllers/User/Login/LPSignUpDetailViewController.h; sourceTree = "<group>"; };
 		D66CC9031A619A9C007B9992 /* LPSignUpDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSignUpDetailViewController.m; path = Controllers/User/Login/LPSignUpDetailViewController.m; sourceTree = "<group>"; };
-		D66CC9051A619AB3007B9992 /* LPUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPUserProfileViewController.h; path = Controllers/User/Profile/LPUserProfileViewController.h; sourceTree = "<group>"; };
-		D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserProfileViewController.m; path = Controllers/User/Profile/LPUserProfileViewController.m; sourceTree = "<group>"; };
 		D66CC9101A619E97007B9992 /* signup_view_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view_1.jpg; path = Resources/Images/signup_view_1.jpg; sourceTree = "<group>"; };
 		D66CC9111A619E97007B9992 /* signup_view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = signup_view.jpg; path = Resources/Images/signup_view.jpg; sourceTree = "<group>"; };
 		D67AD7381AD84BDE00E009AE /* icon_clock_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_clock_fill.png; path = Resources/Images/icons/icon_clock_fill.png; sourceTree = "<group>"; };
@@ -329,8 +325,6 @@
 		D6AB46991A7B0004001BCCFC /* LPUserRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPUserRelationship.m; path = Models/LPUserRelationship.m; sourceTree = "<group>"; };
 		D6AB469C1A7B21B8001BCCFC /* LPSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPSettingsTableViewController.h; path = Controllers/MainView/Settings/LPSettingsTableViewController.h; sourceTree = "<group>"; };
 		D6AB469D1A7B21B8001BCCFC /* LPSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LPSettingsTableViewController.m; path = Controllers/MainView/Settings/LPSettingsTableViewController.m; sourceTree = "<group>"; };
-		D6AB46A21A7C01A9001BCCFC /* LPFollowerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPFollowerTableViewController.h; sourceTree = "<group>"; };
-		D6AB46A31A7C01A9001BCCFC /* LPFollowerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPFollowerTableViewController.m; sourceTree = "<group>"; };
 		D6AF512B1A635CD600A02C90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		D6AF512C1A635CD600A02C90 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D6B9E9641A8948FD00A62D9B /* LPOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LPOffer.h; path = Models/LPOffer.h; sourceTree = "<group>"; };
@@ -833,10 +827,6 @@
 		D66CC8FA1A60E9BB007B9992 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				D66CC9051A619AB3007B9992 /* LPUserProfileViewController.h */,
-				D66CC9061A619AB3007B9992 /* LPUserProfileViewController.m */,
-				D6AB46A21A7C01A9001BCCFC /* LPFollowerTableViewController.h */,
-				D6AB46A31A7C01A9001BCCFC /* LPFollowerTableViewController.m */,
 				D6934F0E1AAC0B6D0080DB7E /* LPUserProfileTableViewController.h */,
 				D6934F0F1AAC0B6D0080DB7E /* LPUserProfileTableViewController.m */,
 			);
@@ -1340,7 +1330,6 @@
 				D64859EF1AA8C669007003F9 /* LPIntroViewController.m in Sources */,
 				D68CD1B31AA3EBE20023E311 /* LPUserInfo.m in Sources */,
 				D6F5F83F1A8514680005758B /* SpringTextView.swift in Sources */,
-				D6AB46A41A7C01A9001BCCFC /* LPFollowerTableViewController.m in Sources */,
 				D6F5F8421A8514680005758B /* TransitionZoom.swift in Sources */,
 				D6E6EB0D1A646019008085F7 /* LPSignUpTableViewController.m in Sources */,
 				D6AB469E1A7B21B8001BCCFC /* LPSettingsTableViewController.m in Sources */,
@@ -1376,7 +1365,6 @@
 				D6E661631B05993D00DC8BC3 /* LPMeetUpTableViewController.m in Sources */,
 				D6D03A681B0BCACD0061E075 /* LPInfoDisplayViewController.m in Sources */,
 				D6A5D7DF1A8157CF00A631CD /* LPPopLocationViewController.m in Sources */,
-				D66CC9071A619AB3007B9992 /* LPUserProfileViewController.m in Sources */,
 				D63AB4E61AB5526E00ACDEC5 /* LPUserRatingDetailViewController.m in Sources */,
 				D6F5F83A1A8514680005758B /* SpringAnimation.swift in Sources */,
 				D64EC1101ACB294A0010271C /* LPNewMeetupViewController.m in Sources */,

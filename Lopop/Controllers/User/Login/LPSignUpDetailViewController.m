@@ -8,7 +8,7 @@
 
 #import "LPSignUpDetailViewController.h"
 #import "LPSignUpTableViewController.h"
-#import "LPUserProfileViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "LPUIHelper.h"
 #import "LPPushHelper.h"
 #import "LPUserHelper.h"
@@ -54,7 +54,7 @@
                 // set up channel for follower notification
                 [LPPushHelper setPushChannelForCurrentUser];
 
-                LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
+                LPMainViewTabBarController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
                 [self presentViewController:vc animated:YES completion:nil];
                 
                 

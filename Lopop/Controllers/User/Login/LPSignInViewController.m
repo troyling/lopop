@@ -7,7 +7,7 @@
 //
 
 #import "LPSignInViewController.h"
-#import "LPUserProfileViewController.h"
+#import "LPMainViewTabBarController.h"
 #import <Parse/Parse.h>
 
 @interface LPSignInViewController ()
@@ -33,11 +33,10 @@
     [PFUser logInWithUsernameInBackground:username password:pwd
         block:^(PFUser *user, NSError *error) {
             if (user) {
-                LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
+                LPMainViewTabBarController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
                 [self presentViewController:vc animated:YES completion:nil];
             } else {
                 NSString *errorString = [error userInfo][@"error"];
-                NSLog(@"%@", errorString);
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to sign in" message:errorString delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                 [alert show];
             }
@@ -47,4 +46,5 @@
 - (IBAction)dismiss:(id)sender {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

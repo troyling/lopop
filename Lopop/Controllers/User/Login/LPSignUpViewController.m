@@ -8,7 +8,7 @@
 
 #import "LPSignUpViewController.h"
 #import "LPSignUpDetailViewController.h"
-#import "LPUserProfileViewController.h"
+#import "LPMainViewTabBarController.h"
 #import "UIImage+ImageEffects.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "LPUserHelper.h"
@@ -73,7 +73,7 @@
 
 #pragma mark - Navigation
 - (void)presentUserProfileViewControllerAnimated:(BOOL)animated {
-    LPUserProfileViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
+    LPMainViewTabBarController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LPMainViewTabBarController"];
     [self presentViewController:vc animated:animated completion:nil];
 }
 

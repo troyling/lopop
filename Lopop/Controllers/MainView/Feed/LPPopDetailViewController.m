@@ -9,7 +9,6 @@
 #import "LPPopDetailViewController.h"
 #import "LPShareViewController.h"
 #import "LPMainViewTabBarController.h"
-#import "LPUserProfileViewController.h"
 #import "LPPopLocationViewController.h"
 #import "LPImageShowcaseViewController.h"
 #import "LPMakeOfferViewController.h"
