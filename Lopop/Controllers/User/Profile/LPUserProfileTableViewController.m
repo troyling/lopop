@@ -586,11 +586,7 @@
 }
 
 - (IBAction)showAllUserRating:(id)sender {
-    LPUserRatingDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"userRatingDetail"];
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    vc.user = self.user;
-    [self presentViewController:vc animated:YES completion:NULL];
+    [self performSegueWithIdentifier:@"userRatingDetailSegue" sender:self];
 }
 
 - (void)setUnfollowLayoutForButton:(UIButton *)button {
@@ -659,6 +655,15 @@
     [titles replaceObjectAtIndex:index withObject:title];
     [self.segmentedControl setSectionTitles:titles];
     [self.segmentedControl setNeedsDisplay];
+}
+
+#pragma mark Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"userRatingDetailSegue"]) {
+        LPUserRatingDetailViewController *vc = segue.destinationViewController;
+        vc.user = self.user;
+    }
 }
 
 @end

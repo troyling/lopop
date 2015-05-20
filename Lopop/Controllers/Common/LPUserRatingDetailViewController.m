@@ -66,7 +66,16 @@
 
     [cell.profileImageView sd_setImageWithURL:rating.rater[@"profilePictureUrl"]];
     cell.nameLabel.text = rating.rater[@"name"];
-    cell.commentLabel.text = rating.comment;
+
+    if ([rating.comment isEqualToString:@""]) {
+        cell.commentLabel.text = @"No comment";
+        cell.commentLabel.font = [UIFont italicSystemFontOfSize:12];
+        cell.commentLabel.textColor = [UIColor lightTextColor];
+    } else {
+        cell.commentLabel.text = rating.comment;
+        cell.commentLabel.font = [UIFont systemFontOfSize:12];
+        cell.commentLabel.textColor = [UIColor whiteColor];
+    }
 
     // time
     NSTimeZone *timeZoneLocal = [NSTimeZone localTimeZone];
