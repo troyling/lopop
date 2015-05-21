@@ -148,9 +148,8 @@ static LPChatManager * instance = nil;
             
             [self.allChatArray addObject:newChat];
             [self saveChatToDB:newChat];
-            [self chatViewUpdateNotify];
         }
-        [self chatViewUpdateNotify];
+        [self chatViewUpdateNotifyWithMessage:messageInstance];
         
     }withCancelBlock:^(NSError* error){
         
@@ -171,8 +170,6 @@ static LPChatManager * instance = nil;
 
 - (void) saveChatToDB: (LPChatModel*) chatModel{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [self chatViewUpdateNotify];
     
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     NSManagedObject *newContact;
@@ -315,6 +312,10 @@ static LPChatManager * instance = nil;
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDesc];
     
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    [request setSortDescriptors:sortDescriptors];
+    
     NSPredicate *pred =[NSPredicate predicateWithFormat:@"((fromUserId == %@) AND (toUserId == %@)) or ((fromUserId == %@) AND (toUserId == %@)) ", contactId, userId, userId, contactId];
     [request setPredicate:pred];
     
@@ -344,6 +345,39 @@ static LPChatManager * instance = nil;
         }
     }
     return messageArray;
+}
+
+- (NSString*) getLastMessageFromDBWithUserId: (NSString *)contactId{
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    [request setSortDescriptors:sortDescriptors];
+    [request setFetchLimit:1];
+    
+    
+    NSPredicate *pred =[NSPredicate predicateWithFormat:@"((fromUserId == %@) AND (toUserId == %@)) or ((fromUserId == %@) AND (toUserId == %@)) ", contactId, userId, userId, contactId];
+    [request setPredicate:pred];
+    
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request
+                                              error:&error];
+    
+    
+    if ([objects count] == 0)
+    {
+        NSLog(@"No matches");
+        return @"";
+    }
+    else
+    {
+        return [[objects lastObject] valueForKey:@"content"];
+    }
 }
 
 - (void) saveMessage: (LPMessageModel*) messageModel{
@@ -413,10 +447,10 @@ static LPChatManager * instance = nil;
 }
 
 
-- (void) chatViewUpdateNotify{
+- (void) chatViewUpdateNotifyWithMessage:(LPMessageModel*) message{
     [[NSNotificationCenter defaultCenter]
      postNotificationName: ChatManagerChatViewUpdateNotification
-     object:nil];
+     object:message];
 }
 
 - (void) messageViewUpdateNotifyWithMessage:(LPMessageModel*) message{
