@@ -19,6 +19,7 @@
 #import "LPOffer.h"
 #import "UIImageView+WebCache.h"
 #import "LPUserProfileTableViewController.h"
+#import "LPMessageViewController.h"
 #import "LPUserHelper.h"
 #import "IDMPhotoBrowser.h"
 #import "LPPopHelper.h"
@@ -163,6 +164,8 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             [self.userRatingView.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.pop.seller[@"profilePictureUrl"]]];
         }
     }];
+
+    [self.userRatingView.contactBtn addTarget:self action:@selector(newChatWithSeller:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setUIForOfferState:(OfferState)state {
@@ -317,6 +320,12 @@ double const MAP_ZOOM_IN_DEGREE = 0.008f;
             vc.pop = self.pop;
         }
     }
+}
+
+- (IBAction)newChatWithSeller:(id)sender {
+    LPMessageViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"chatViewController"];
+    vc.offerUser = self.pop.seller;
+    [self showViewController:vc sender:self];
 }
 
 #pragma mark - Helper

@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet RateView *userRateView;
+@property (weak, nonatomic) IBOutlet UIButton *contactBtn;
 
 @end
