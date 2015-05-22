@@ -52,7 +52,7 @@ float const NUM_TABS = 5.0;
     float tabWidth = self.tabBar.layer.bounds.size.width / NUM_TABS;
     float tabHeight = self.self.tabBar.layer.bounds.size.height;
     
-    UIImage *btnImage = [UIImage imageNamed:@"pop_white.png"];
+    UIImage *btnImage = [UIImage imageNamed:@"icon_app"];
     
     // inset withing the button
     float verticalInset = (tabHeight - btnImage.size.height) / 2;
