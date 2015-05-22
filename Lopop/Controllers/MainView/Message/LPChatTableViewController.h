@@ -15,6 +15,4 @@
 
 @property Firebase * firebase;
 
-- (IBAction)newChat:(id)sender;
-
 @end

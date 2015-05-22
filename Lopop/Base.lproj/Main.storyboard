@@ -201,7 +201,7 @@
             </objects>
             <point key="canvasLocation" x="3378.5" y="1339"/>
         </scene>
-        <!--Chat Table View Controller-->
+        <!--Chat-->
         <scene sceneID="Nny-H8-fJk">
             <objects>
                 <tableViewController id="txi-iT-Mzp" customClass="LPChatTableViewController" sceneMemberID="viewController">
@@ -287,13 +287,7 @@
                             <outlet property="delegate" destination="txi-iT-Mzp" id="hwR-dq-iv7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YT8-Ea-LvG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="z9c-kH-QXU">
-                            <connections>
-                                <action selector="newChat:" destination="txi-iT-Mzp" id="fcH-lo-bXY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Chat" id="YT8-Ea-LvG"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2U-e8-NLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4023,12 +4017,12 @@
             </objects>
             <point key="canvasLocation" x="1128.5" y="4239.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Settings-->
         <scene sceneID="rue-1V-Dnr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wZ1-sA-RZh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="TabBarSettings" id="c25-jG-4qS">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="1" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="TabBarSettings" id="c25-jG-4qS">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gm5-6H-0PR">
@@ -4044,11 +4038,11 @@
             </objects>
             <point key="canvasLocation" x="1694.5" y="2211.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Feed-->
         <scene sceneID="l43-Dl-xhj">
             <objects>
                 <navigationController id="Pnp-Hn-7lV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="TabBarFeed" id="8qe-N2-nmF"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="TabBarFeed" id="8qe-N2-nmF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UoT-fz-mae">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -4063,11 +4057,11 @@
             </objects>
             <point key="canvasLocation" x="1694.5" y="-2450.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Activity-->
         <scene sceneID="r61-F4-b8y">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NRh-57-j6F" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="TabBarMarket" id="beE-hX-old"/>
+                    <tabBarItem key="tabBarItem" title="Activity" image="TabBarMarket" id="beE-hX-old"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Rs-lo-iA2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -4281,11 +4275,11 @@
             </objects>
             <point key="canvasLocation" x="2692.5" y="535.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--chat-->
         <scene sceneID="BiM-G8-rFd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KjU-cQ-vAO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="TabBarMessage" id="g9h-89-OiX"/>
+                    <tabBarItem key="tabBarItem" title="chat" image="TabBarMessage" id="g9h-89-OiX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iCk-or-BoF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -4705,9 +4699,9 @@
         <image name="signup_view.jpg" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yMx-aS-ccN"/>
-        <segue reference="edX-sg-OfM"/>
+        <segue reference="xTQ-Ah-nGg"/>
         <segue reference="6qU-bI-zRN"/>
+        <segue reference="yMx-aS-ccN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.3411764706" green="0.8862745098" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

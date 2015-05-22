@@ -166,15 +166,6 @@
     }
 }
 
-
-
-- (IBAction)newChat:(id)sender {
-    LPChatModel* chatModel = [[LPChatManager getInstance] getChatModel: @"4N9TIBOwYE"];
-    [self.chatArray addObject:chatModel];
-    [self.tableView reloadData];
-    //[[LPChatManager getInstance] startChatWithContactId:@"pSxj8YdXrp"];
-}
-
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(editingStyle == UITableViewCellEditingStyleDelete){
         LPChatModel * a_chat = [self.chatArray objectAtIndex:indexPath.row];
