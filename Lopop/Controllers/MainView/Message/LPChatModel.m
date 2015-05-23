@@ -48,6 +48,8 @@
     }
     self.stored = YES;
 
+    self.lastMessage = [[LPChatManager getInstance]getLastMessageFromDBWithUserId:contactId];
+    
     return self;
 }
 
@@ -69,8 +71,8 @@
 - (NSString *) getLastMessage{
     NSString *lastMsg = @"...";
     
-    if (self.lastUnreadMessage != nil) {
-         lastMsg = self.lastUnreadMessage.content;
+    if (self.lastMessage != nil) {
+        lastMsg = self.lastMessage;
     }
     return lastMsg;
 }

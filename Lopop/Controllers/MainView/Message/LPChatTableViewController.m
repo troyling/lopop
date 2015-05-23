@@ -56,6 +56,16 @@
 }
 
 - (void)reloadTableData:(NSNotification*)notification {
+    if(notification.object != nil && [notification.object isKindOfClass:[LPMessageModel class]]){
+        LPMessageModel* message = notification.object;
+        for(LPChatModel* chatModel in self.chatArray){
+            if([message.fromUserId isEqualToString:chatModel.contactId] ||
+               [message.toUserId isEqualToString:chatModel.contactId]){
+                chatModel.lastMessage = message.content;
+                break;
+            }
+        }
+    }
     [self.tableView reloadData];
 }
 

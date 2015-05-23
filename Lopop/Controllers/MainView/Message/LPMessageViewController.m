@@ -91,7 +91,7 @@
      removeObserver:self name:ChatManagerMessageViewUpdateNotification object:nil];
     
     //Notify the chatTable to reload view
-    [[LPChatManager getInstance] chatViewUpdateNotify];
+    [[LPChatManager getInstance] chatViewUpdateNotifyWithMessage:nil];
     
 }
 
@@ -107,7 +107,7 @@
             [self.collectionView reloadData];
             [self scrollToBottomAnimated:YES];
             [[LPChatManager getInstance] removePendingMessage:message];
-
+            self.chatModel.lastMessage = message.content;
 
         }
     }
@@ -225,7 +225,7 @@
     [self.messageArray addObject:message];
     [self checkAddTime];
     
-    
+    self.chatModel.lastMessage = text;
     [self finishSendingMessageAnimated:YES];
 }
 

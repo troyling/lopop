@@ -18,7 +18,7 @@
 
 @property int numberOfUnread;
 
-
+@property NSString* lastMessage;
 
 
 @property BOOL stored;

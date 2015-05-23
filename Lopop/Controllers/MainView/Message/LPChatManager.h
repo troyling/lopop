@@ -40,11 +40,13 @@ NSString* userId;
 
 - (void) deleteChat: (LPChatModel*) chatModel;
 
-- (void) chatViewUpdateNotify;
+- (void) chatViewUpdateNotifyWithMessage:(LPMessageModel*) message;
 
 - (double) getTime;
 
 - (unsigned long) getTotalUnreadMsg;
+
+- (NSString*) getLastMessageFromDBWithUserId: (NSString *)contactId;
 
 //- (void) sendMessageWithContent:(NSString*) content withChatModel: (LPChatModel *) chatInstance;
 
