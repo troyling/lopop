@@ -23,7 +23,7 @@ PODS:
   - AMScrollingNavbar (1.3.2)
   - CRToast (0.0.7)
   - DACircularProgress (2.2.0)
-  - HMSegmentedControl (1.5)
+  - HMSegmentedControl (1.5.2)
   - IDMPhotoBrowser (1.5.2):
     - AFNetworking
     - DACircularProgress
@@ -53,7 +53,7 @@ SPEC CHECKSUMS:
   AMScrollingNavbar: ff2eae1e547b3de9f95b832f5da71197869418ee
   CRToast: 99a28f4387def43b439ad88f957ce31357ff7373
   DACircularProgress: 0f92b77239d5f3c612fc66185e2998391ac8e054
-  HMSegmentedControl: 23b6155cd3670f73ffc6eb836af1cfc440e81780
+  HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
   IDMPhotoBrowser: 87855f598b50406fc2a21b6f17944afabd355d6e
   JazzHands: aebe88027f1214188e5374a3dc742007a9a99ffb
   JSQMessagesViewController: 31b79ac9547e060ba96413eb2e1b2ee5260f5189
